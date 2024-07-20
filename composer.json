@@ -1,0 +1,31 @@
+{
+    "name": "daniel-jorg-schuppelius/lexoffice-php-sdk",
+    "description": "Lexoffice SDK for PHP",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Joerg Schuppelius",
+            "email": "info@schuppelius.org"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4 || ^8.3",
+        "guzzlehttp/guzzle": "^7.4.5",
+        "psr/log": "^3.0@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lexoffice\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lexoffice\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.3@dev"
+    }
+}
