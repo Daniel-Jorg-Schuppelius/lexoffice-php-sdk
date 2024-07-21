@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Lexoffice\Contracts\Abstracts;
 
 abstract class NamedValueList extends NamedValue {
-    protected string $className;
+    protected string $className = string::class;
     protected $data = [];
 
     public function __construct($data = null) {
-        $this->name = static::class;
-        $this->readOnly = false;
-        $this->data = $this->validateData($data);
+        parent::__construct($data);
     }
 
     protected function validateData($data) {
