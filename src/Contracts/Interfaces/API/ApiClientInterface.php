@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Contracts\API;
+namespace Lexoffice\Contracts\Interfaces\API;
 
 use Psr\Http\Message\ResponseInterface;
 
