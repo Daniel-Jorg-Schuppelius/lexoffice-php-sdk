@@ -6,7 +6,6 @@ namespace Lexoffice\Entities\DownPaymentInvoices;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedDocument;
-use Lexoffice\Entities\ClosingInvoiceID;
 use Lexoffice\Entities\Document\ExtendedLineItems;
 use Lexoffice\Entities\Document\PaymentConditions;
 use Lexoffice\Entities\Document\ShippingConditions;

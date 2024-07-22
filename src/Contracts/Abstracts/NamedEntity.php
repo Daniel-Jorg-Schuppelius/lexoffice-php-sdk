@@ -30,7 +30,7 @@ abstract class NamedEntity implements NamedEntityInterface {
         if (is_array($data)) {
             $reflectionClass = new ReflectionClass($this);
             foreach ($data as $key => $val) {
-                if (!$reflectionClass->hasProperty($key)) {
+                if (is_numeric($key) || !$reflectionClass->hasProperty($key)) {
                     error_log('The property ' . $key . ' does not exist in ' . static::class);
                     continue;
                 }

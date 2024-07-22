@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Contracts\Abstracts;
 
+use DateTime;
 use Lexoffice\Entities\ID;
 use Lexoffice\Entities\OrganizationID;
 use Lexoffice\Entities\Version;
 use Lexoffice\Entities\Document\Address;
-use Lexoffice\Entities\Document\LineItems;
 use Lexoffice\Entities\Document\TotalPrice;
 use Lexoffice\Entities\Document\TaxConditions;
 use Lexoffice\Entities\Document\PrintLayoutID;
@@ -21,14 +21,14 @@ use Lexoffice\Enums\VoucherStatus;
 abstract class NamedDocument extends NamedEntity {
     protected ID $id;
     protected OrganizationID $organizationId;
-    protected \DateTime $createdDate;
-    protected \DateTime $updatedDate;
+    protected DateTime $createdDate;
+    protected DateTime $updatedDate;
     protected Version $version;
     public Language $language;
     protected bool $archived;
     public VoucherStatus $voucherStatus;
     public string $voucherNumber;
-    public \DateTime $voucherDate;
+    public DateTime $voucherDate;
     public Address $address;
     public TotalPrice $totalPrice;
     public TaxAmounts $taxAmounts;

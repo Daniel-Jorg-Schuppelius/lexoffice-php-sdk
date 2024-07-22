@@ -16,7 +16,6 @@ abstract class NamedValue implements NamedValueInterface {
     public function __construct($data = null) {
         if (empty($this->name))
             $this->name = static::class;
-        $this->readOnly = false;
         $this->data = $this->validateData($data);
     }
 
