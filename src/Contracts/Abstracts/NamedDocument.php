@@ -27,19 +27,18 @@ abstract class NamedDocument extends NamedEntity {
     public Language $language;
     protected bool $archived;
     public VoucherStatus $voucherStatus;
-    protected string $voucherNumber;
+    public string $voucherNumber;
     public \DateTime $voucherDate;
     public Address $address;
-    public LineItems $lineItems;
     public TotalPrice $totalPrice;
-    protected TaxAmounts $taxAmounts;
-    protected TaxConditions $taxConditions;
-    protected RelatedVouchers $relatedVouchers;
-    protected PrintLayoutID $printLayoutId;
-    protected string $title;
-    protected string $introduction;
-    protected string $remark;
-    protected Files $files;
+    public TaxAmounts $taxAmounts;
+    public TaxConditions $taxConditions;
+    public RelatedVouchers $relatedVouchers;
+    public PrintLayoutID $printLayoutId;
+    public string $title;
+    public string $introduction;
+    public string $remark;
+    public Files $files;
 
     public function __construct($data = null) {
         parent::__construct($data);
