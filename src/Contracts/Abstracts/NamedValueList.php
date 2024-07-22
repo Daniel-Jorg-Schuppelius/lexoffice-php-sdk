@@ -16,7 +16,7 @@ abstract class NamedValueList extends NamedValue {
         $result = [];
         if (is_array($data)) {
             foreach ($data as $item) {
-                if (!is_scalar($item) && !is_array($item)) {
+                if (!is_scalar($item) && !is_array($item) && !is_null($item)) {
                     throw new \InvalidArgumentException("Value must be an array of scalars, or a nested array.");
                 }
                 $result[] =  new $this->className($item);

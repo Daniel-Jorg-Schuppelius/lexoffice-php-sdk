@@ -48,8 +48,8 @@ abstract class NamedValue implements NamedValueInterface {
                 }
                 return $val;
             }
-        } else if (!is_scalar($data)) {
-            throw new \InvalidArgumentException("Value must be a scalar.");
+        } else if (!is_scalar($data) && !is_null($data)) {
+            throw new \InvalidArgumentException("Value must be a scalar or null.");
         }
         return $data;
     }
