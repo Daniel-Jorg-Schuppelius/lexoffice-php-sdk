@@ -9,7 +9,7 @@ use Lexoffice\Entities\ContactID;
 use Lexoffice\Enums\CountryCode;
 
 class Address extends NamedEntity {
-    protected ContactID $contactId;
+    protected ?ContactID $contactId;
     protected string $name;
     protected string $supplement;
     public string $street;

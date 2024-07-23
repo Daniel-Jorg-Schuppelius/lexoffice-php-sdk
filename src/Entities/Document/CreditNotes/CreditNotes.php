@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Entities\CreditNotes;
+namespace Lexoffice\Entities\Document\CreditNotes;
 
 use Lexoffice\Contracts\Abstracts\NamedDocument;
 use Lexoffice\Entities\Document\LineItems;

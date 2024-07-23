@@ -45,7 +45,11 @@ abstract class NamedEntity implements NamedEntityInterface {
                         $this->{$key} = $className::from($val);
                     } else {
                         try {
-                            $this->{$key} = new $className($val);
+                            if (is_null($val)) {
+                                $this->{$key} = null;
+                            } else {
+                                $this->{$key} = new $className($val);
+                            }
                         } catch (\Throwable $e) {
                             throw new \UnexpectedValueException("Failed to instantiate $className: " . $e->getMessage());
                         }

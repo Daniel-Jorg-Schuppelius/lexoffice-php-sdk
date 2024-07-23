@@ -9,10 +9,10 @@ use Lexoffice\Entities\ID;
 use Lexoffice\Enums\ItemType;
 
 class LineItem extends NamedEntity {
-    protected ID $id;
+    protected ?ID $id;
     public ItemType $type;
     public string $name;
-    public string $description;
+    public ?string $description;
     public float $quantity;
     public string $unitName;
     public UnitPrice $unitPrice;

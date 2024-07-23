@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\DeliveryNotes\DeliveryNotes;
+use Lexoffice\Entities\Document\DeliveryNotes\DeliveryNotes;
 use PHPUnit\Framework\TestCase;
 
 class DeliveryNotesTest extends TestCase {

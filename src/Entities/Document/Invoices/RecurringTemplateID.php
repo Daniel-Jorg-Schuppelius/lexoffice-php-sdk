@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Entities\DownPaymentInvoices;
+namespace Lexoffice\Entities\Document\Invoices;
 
 use Lexoffice\Entities\ID;
 
-class ClosingInvoiceID extends ID {
+class RecurringTemplateID extends ID {
     public function __construct($data = null) {
         parent::__construct($data);
-        $this->name = 'closingInvoiceId';
+        $this->name = 'recurringTemplateId';
     }
 }

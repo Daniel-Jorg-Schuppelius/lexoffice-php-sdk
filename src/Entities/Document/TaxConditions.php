@@ -11,7 +11,7 @@ use Lexoffice\Enums\TaxType;
 class TaxConditions extends NamedEntity {
     public TaxType $taxType;
     protected TaxSubType $taxSubType;
-    protected string $taxTypeNote;
+    protected ?string $taxTypeNote;
 
     public function __construct($data = null) {
         parent::__construct($data);

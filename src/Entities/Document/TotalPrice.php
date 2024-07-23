@@ -12,8 +12,8 @@ class TotalPrice extends NamedEntity {
     protected float $totalNetAmount;
     protected float $totalGrossAmount;
     protected float $totalTaxAmount;
-    protected float $totalDiscountAbsolute;
-    protected float $totalDiscountPercentage;
+    protected ?float $totalDiscountAbsolute;
+    protected ?float $totalDiscountPercentage;
 
     public function __construct($data = null) {
         parent::__construct($data);

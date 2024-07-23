@@ -35,8 +35,8 @@ abstract class NamedDocument extends NamedEntity {
     public TaxConditions $taxConditions;
     public RelatedVouchers $relatedVouchers;
     public PrintLayoutID $printLayoutId;
-    public string $title;
-    public string $introduction;
+    public ?string $title;
+    public ?string $introduction;
     public string $remark;
     public Files $files;
 

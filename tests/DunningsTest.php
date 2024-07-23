@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Dunnings\Dunnings;
+use Lexoffice\Entities\Document\Dunnings\Dunnings;
 use PHPUnit\Framework\TestCase;
 
 class DunningsTest extends TestCase {

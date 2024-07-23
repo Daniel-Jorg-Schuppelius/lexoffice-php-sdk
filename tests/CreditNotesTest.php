@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\CreditNotes\CreditNotes;
+use Lexoffice\Entities\Document\CreditNotes\CreditNotes;
 use PHPUnit\Framework\TestCase;
 
 class CreditNotesTest extends TestCase {

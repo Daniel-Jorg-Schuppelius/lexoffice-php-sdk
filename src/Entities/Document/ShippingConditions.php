@@ -10,7 +10,7 @@ use Lexoffice\Enums\ShippingType;
 
 class ShippingConditions extends NamedEntity {
     public DateTime $shippingDate;
-    public DateTime $shippingEndDate;
+    public ?DateTime $shippingEndDate;
     public ShippingType $shippingType;
 
     public function __construct($data = null) {
