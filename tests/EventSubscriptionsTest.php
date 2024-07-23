@@ -30,9 +30,5 @@ class EventSubscriptionsTest extends TestCase {
 
         $eventSubscriptions = new EventSubscriptions($data);
         $this->assertInstanceOf(EventSubscriptions::class, $eventSubscriptions);
-        //$this->assertEquals('Lexware buchhaltung Premium 2024', $contact->title);
-        //$this->assertTrue($article->archived);
-        //$this->assertIsArray($company->contactPersons);
-        //$this->assertInstanceOf(ContactPerson::class, $company->contactPersons[0]);
     }
 }

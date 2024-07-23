@@ -30,9 +30,5 @@ class PaymentConditionsTest extends TestCase {
 
         $paymentConditions = new PaymentConditions($data);
         $this->assertInstanceOf(PaymentConditions::class, $paymentConditions);
-        //$this->assertEquals('Lexware buchhaltung Premium 2024', $payments->title);
-        //$this->assertTrue($article->archived);
-        //$this->assertIsArray($company->contactPersons);
-        //$this->assertInstanceOf(ContactPerson::class, $company->contactPersons[0]);
     }
 }

@@ -11,6 +11,7 @@ use BackedEnum;
 
 abstract class NamedEntity implements NamedEntityInterface {
     protected string $entityName;
+    protected string $className;
 
     public function __construct($data = null) {
         $this->entityName = static::class;
@@ -31,7 +32,7 @@ abstract class NamedEntity implements NamedEntityInterface {
             $reflectionClass = new ReflectionClass($this);
             foreach ($data as $key => $val) {
                 if (is_numeric($key) || !$reflectionClass->hasProperty($key)) {
-                    error_log('The property ' . $key . ' does not exist in ' . static::class);
+                    error_log("The property $key does not exist in " . static::class);
                     continue;
                 }
 
@@ -43,6 +44,8 @@ abstract class NamedEntity implements NamedEntityInterface {
 
                     if (is_subclass_of($className, BackedEnum::class)) {
                         $this->{$key} = $className::from($val);
+                    } else if ($key == "content" && !empty($this->className) && is_subclass_of($className, NamedEntityInterface::class)) {
+                        $this->{$key} = new $this->className($val);
                     } else {
                         try {
                             if (is_null($val)) {

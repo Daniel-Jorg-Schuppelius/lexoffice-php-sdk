@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Document\Dunnings\Dunnings;
+use Lexoffice\Entities\Documents\Dunnings\Dunnings;
 use PHPUnit\Framework\TestCase;
 
 class DunningsTest extends TestCase {
@@ -85,9 +85,5 @@ class DunningsTest extends TestCase {
 
         $dunnings = new Dunnings($data);
         $this->assertInstanceOf(Dunnings::class, $dunnings);
-        //$this->assertEquals('Lexware buchhaltung Premium 2024', $creditNotes->title);
-        //$this->assertTrue($article->archived);
-        //$this->assertIsArray($company->contactPersons);
-        //$this->assertInstanceOf(ContactPerson::class, $company->contactPersons[0]);
     }
 }

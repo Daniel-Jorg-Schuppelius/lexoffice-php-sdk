@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Document\DeliveryNotes\DeliveryNotes;
+use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNotes;
 use PHPUnit\Framework\TestCase;
 
 class DeliveryNotesTest extends TestCase {
@@ -70,9 +70,5 @@ class DeliveryNotesTest extends TestCase {
 
         $deliveryNotes = new DeliveryNotes($data);
         $this->assertInstanceOf(DeliveryNotes::class, $deliveryNotes);
-        //$this->assertEquals('Lexware buchhaltung Premium 2024', $creditNotes->title);
-        //$this->assertTrue($article->archived);
-        //$this->assertIsArray($company->contactPersons);
-        //$this->assertInstanceOf(ContactPerson::class, $company->contactPersons[0]);
     }
 }

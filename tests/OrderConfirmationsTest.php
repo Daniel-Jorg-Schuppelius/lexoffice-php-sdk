@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Document\OrderConfirmations\OrderConfirmations;
+use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmations;
 use PHPUnit\Framework\TestCase;
 
 class OrderConfirmationsTest extends TestCase {
@@ -137,9 +137,5 @@ class OrderConfirmationsTest extends TestCase {
 
         $orderConfirmations = new OrderConfirmations($data);
         $this->assertInstanceOf(OrderConfirmations::class, $orderConfirmations);
-        //$this->assertEquals('Lexware buchhaltung Premium 2024', $creditNotes->title);
-        //$this->assertTrue($article->archived);
-        //$this->assertIsArray($company->contactPersons);
-        //$this->assertInstanceOf(ContactPerson::class, $company->contactPersons[0]);
     }
 }

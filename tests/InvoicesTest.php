@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Document\Invoices\Invoices;
+use Lexoffice\Entities\Documents\Invoices\Invoices;
 use PHPUnit\Framework\TestCase;
 
 class InvoicesTest extends TestCase {
@@ -145,9 +145,5 @@ class InvoicesTest extends TestCase {
 
         $invoices = new Invoices($data);
         $this->assertInstanceOf(Invoices::class, $invoices);
-        //$this->assertEquals('Lexware buchhaltung Premium 2024', $creditNotes->title);
-        //$this->assertTrue($article->archived);
-        //$this->assertIsArray($company->contactPersons);
-        //$this->assertInstanceOf(ContactPerson::class, $company->contactPersons[0]);
     }
 }

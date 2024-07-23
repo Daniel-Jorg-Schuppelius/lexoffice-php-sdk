@@ -46,9 +46,5 @@ class PostingCategoriesTest extends TestCase {
 
         $postingCategories = new PostingCategories($data);
         $this->assertInstanceOf(PostingCategories::class, $postingCategories);
-        //$this->assertEquals('Lexware buchhaltung Premium 2024', $postingCategories->name);
-        //$this->assertTrue($article->archived);
-        //$this->assertIsArray($company->contactPersons);
-        //$this->assertInstanceOf(ContactPerson::class, $company->contactPersons[0]);
     }
 }

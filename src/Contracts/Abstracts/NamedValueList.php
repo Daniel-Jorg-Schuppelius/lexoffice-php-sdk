@@ -4,12 +4,22 @@ declare(strict_types=1);
 
 namespace Lexoffice\Contracts\Abstracts;
 
+use Lexoffice\Contracts\Interfaces\NamedValueInterface;
+
 abstract class NamedValueList extends NamedValue {
     protected string $className = string::class;
     protected $data = [];
 
     public function __construct($data = null) {
-        parent::__construct($data);
+        if (!empty($data) && isset($this->entityName) && $this->entityName == "content" && array_key_exists($this->entityName, $data)) {
+            parent::__construct($data[$this->entityName]);
+        } else {
+            parent::__construct($data);
+        }
+    }
+
+    public function getData() {
+        return $this->data;
     }
 
     protected function validateData($data) {

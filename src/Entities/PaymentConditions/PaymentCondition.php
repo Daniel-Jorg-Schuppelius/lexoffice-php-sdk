@@ -6,7 +6,6 @@ namespace Lexoffice\Entities\PaymentConditions;
 
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Entities\ID;
-use Lexoffice\Entities\PaymentDiscountConditions;
 
 class PaymentCondition extends NamedEntity {
     protected ID $id;

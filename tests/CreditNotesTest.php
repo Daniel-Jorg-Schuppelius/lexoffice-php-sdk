@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Document\CreditNotes\CreditNotes;
+use Lexoffice\Entities\Documents\CreditNotes\CreditNotes;
 use PHPUnit\Framework\TestCase;
 
 class CreditNotesTest extends TestCase {
@@ -90,9 +90,5 @@ class CreditNotesTest extends TestCase {
 
         $creditNotes = new CreditNotes($data);
         $this->assertInstanceOf(CreditNotes::class, $creditNotes);
-        //$this->assertEquals('Lexware buchhaltung Premium 2024', $creditNotes->title);
-        //$this->assertTrue($article->archived);
-        //$this->assertIsArray($company->contactPersons);
-        //$this->assertInstanceOf(ContactPerson::class, $company->contactPersons[0]);
     }
 }

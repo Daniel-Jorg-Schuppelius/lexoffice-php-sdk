@@ -87,9 +87,5 @@ class PaymentsTest extends TestCase {
         $this->assertInstanceOf(Payments::class, $payments3);
         $payments4 = new Payments($data4);
         $this->assertInstanceOf(Payments::class, $payments4);
-        //$this->assertEquals('Lexware buchhaltung Premium 2024', $payments->title);
-        //$this->assertTrue($article->archived);
-        //$this->assertIsArray($company->contactPersons);
-        //$this->assertInstanceOf(ContactPerson::class, $company->contactPersons[0]);
     }
 }

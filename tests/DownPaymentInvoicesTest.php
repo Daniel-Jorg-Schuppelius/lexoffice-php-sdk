@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Document\DownPaymentInvoices\DownPaymentInvoices;
+use Lexoffice\Entities\Documents\DownPaymentInvoices\DownPaymentInvoices;
 use PHPUnit\Framework\TestCase;
 
 class DownPaymentInvoicesTest extends TestCase {
@@ -84,9 +84,5 @@ class DownPaymentInvoicesTest extends TestCase {
 
         $downPaymentInvoices = new DownPaymentInvoices($data);
         $this->assertInstanceOf(DownPaymentInvoices::class, $downPaymentInvoices);
-        //$this->assertEquals('Lexware buchhaltung Premium 2024', $creditNotes->title);
-        //$this->assertTrue($article->archived);
-        //$this->assertIsArray($company->contactPersons);
-        //$this->assertInstanceOf(ContactPerson::class, $company->contactPersons[0]);
     }
 }
