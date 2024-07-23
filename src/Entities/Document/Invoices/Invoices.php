@@ -6,7 +6,7 @@ namespace Lexoffice\Entities\Document\Invoices;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedDocument;
-use Lexoffice\Entities\Contact\XRechnung;
+use Lexoffice\Entities\XRechnung;
 use Lexoffice\Entities\Document\ExtendedLineItems;
 use Lexoffice\Entities\Document\PaymentConditions;
 use Lexoffice\Entities\Document\ShippingConditions;

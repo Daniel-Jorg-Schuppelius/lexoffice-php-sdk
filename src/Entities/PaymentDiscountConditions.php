@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Entities\Document;
+namespace Lexoffice\Entities;
 
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 

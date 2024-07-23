@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Document;
 
 use Lexoffice\Contracts\Abstracts\NamedEntity;
+use Lexoffice\Entities\PaymentDiscountConditions;
 
 class PaymentConditions extends NamedEntity {
     public string $paymentTermLabel;
