@@ -9,6 +9,6 @@ use Lexoffice\Entities\ID;
 class DocumentFileID extends ID {
     public function __construct($data = null) {
         parent::__construct($data);
-        $this->name = 'documentFileId';
+        $this->entityName = 'documentFileId';
     }
 }

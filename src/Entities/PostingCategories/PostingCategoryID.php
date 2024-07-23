@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Entities;
+namespace Lexoffice\Entities\PostingCategories;
 
-use Lexoffice\Contracts\Abstracts\NamedValue;
+use Lexoffice\Entities\ID;
 
-class ID extends NamedValue {
+class PostingCategoryID extends ID {
     public function __construct($data = null) {
         parent::__construct($data);
         $this->entityName = 'id';
-        $this->readOnly = true;
     }
 }

@@ -9,6 +9,6 @@ use Lexoffice\Entities\ID;
 class ClosingInvoiceID extends ID {
     public function __construct($data = null) {
         parent::__construct($data);
-        $this->name = 'closingInvoiceId';
+        $this->entityName = 'closingInvoiceId';
     }
 }

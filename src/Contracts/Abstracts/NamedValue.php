@@ -8,19 +8,19 @@ use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Contracts\Interfaces\NamedValueInterface;
 
 abstract class NamedValue implements NamedValueInterface {
-    protected string $name;
+    protected string $entityName;
     protected $data;
 
     protected bool $readOnly = false;
 
     public function __construct($data = null) {
-        if (empty($this->name))
-            $this->name = static::class;
+        if (empty($this->entityName))
+            $this->entityName = static::class;
         $this->data = $this->validateData($data);
     }
 
-    public function getName(): string {
-        return $this->name;
+    public function getEntityName(): string {
+        return $this->entityName;
     }
 
     public function getData() {
@@ -42,7 +42,7 @@ abstract class NamedValue implements NamedValueInterface {
     protected function validateData($data) {
         if (is_array($data) && count($data) == 1) {
             foreach ($data as $key => $val) {
-                if ($key != $this->name) {
+                if ($key != $this->entityName) {
                     throw new \InvalidArgumentException("Name $key does not exist.");
                 }
                 return $val;

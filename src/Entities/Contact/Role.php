@@ -8,7 +8,7 @@ use Lexoffice\Contracts\Abstracts\NamedValue;
 
 class Role extends NamedValue {
     public function __construct($data = null) {
-        $this->name = 'number';
+        $this->entityName = 'number';
         parent::__construct($data);
     }
 }

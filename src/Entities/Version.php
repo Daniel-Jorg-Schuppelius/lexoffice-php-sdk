@@ -10,6 +10,6 @@ class Version extends NamedValue {
     public function __construct($data = null) {
         parent::__construct($data);
         $this->readOnly = true;
-        $this->name = 'version';
+        $this->entityName = 'version';
     }
 }

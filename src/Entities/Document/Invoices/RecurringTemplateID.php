@@ -9,6 +9,6 @@ use Lexoffice\Entities\ID;
 class RecurringTemplateID extends ID {
     public function __construct($data = null) {
         parent::__construct($data);
-        $this->name = 'recurringTemplateId';
+        $this->entityName = 'recurringTemplateId';
     }
 }

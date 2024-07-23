@@ -7,6 +7,6 @@ namespace Lexoffice\Contracts\Interfaces;
 interface NamedEntityInterface {
     public function __construct($data = null);
 
-    public function getName(): string;
+    public function getEntityName(): string;
     public function setData($data): self;
 }

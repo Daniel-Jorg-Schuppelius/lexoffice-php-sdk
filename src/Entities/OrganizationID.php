@@ -7,6 +7,6 @@ namespace Lexoffice\Entities;
 class OrganizationID extends ID {
     public function __construct($data = null) {
         parent::__construct($data);
-        $this->name = 'organizationId';
+        $this->entityName = 'organizationId';
     }
 }

@@ -10,10 +10,10 @@ use ReflectionNamedType;
 use BackedEnum;
 
 abstract class NamedEntity implements NamedEntityInterface {
-    protected string $name;
+    protected string $entityName;
 
     public function __construct($data = null) {
-        $this->name = static::class;
+        $this->entityName = static::class;
 
         if (!is_null($data)) {
             $this->setData($data);
@@ -22,8 +22,8 @@ abstract class NamedEntity implements NamedEntityInterface {
         }
     }
 
-    public function getName(): string {
-        return $this->name;
+    public function getEntityName(): string {
+        return $this->entityName;
     }
 
     public function setData($data): NamedEntityInterface {
