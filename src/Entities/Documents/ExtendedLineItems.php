@@ -6,7 +6,9 @@ namespace Lexoffice\Entities\Documents;
 
 class ExtendedLineItems extends LineItems {
     public function __construct($data = null) {
-        $this->className = ExtendedLineItem::class;
+        if (!is_subclass_of($this->className, ExtendedLineItem::class)) {
+            $this->className = ExtendedLineItem::class;
+        }
         parent::__construct($data);
     }
 }
