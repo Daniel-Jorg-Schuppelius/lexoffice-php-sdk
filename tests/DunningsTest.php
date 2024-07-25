@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Documents\Dunnings\Dunnings;
+use Lexoffice\Entities\Documents\Dunnings\Dunning;
 use PHPUnit\Framework\TestCase;
 
 class DunningsTest extends TestCase {
@@ -83,7 +83,7 @@ class DunningsTest extends TestCase {
             "title" => "Mahnung"
         ];
 
-        $dunnings = new Dunnings($data);
-        $this->assertInstanceOf(Dunnings::class, $dunnings);
+        $dunnings = new Dunning($data);
+        $this->assertInstanceOf(Dunning::class, $dunnings);
     }
 }

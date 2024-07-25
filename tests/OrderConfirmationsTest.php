@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmations;
+use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmation;
 use PHPUnit\Framework\TestCase;
 
 class OrderConfirmationsTest extends TestCase {
@@ -135,7 +135,7 @@ class OrderConfirmationsTest extends TestCase {
             "deliveryTerms" => "Lieferung an die angegebene Lieferadresse"
         ];
 
-        $orderConfirmations = new OrderConfirmations($data);
-        $this->assertInstanceOf(OrderConfirmations::class, $orderConfirmations);
+        $orderConfirmations = new OrderConfirmation($data);
+        $this->assertInstanceOf(OrderConfirmation::class, $orderConfirmations);
     }
 }

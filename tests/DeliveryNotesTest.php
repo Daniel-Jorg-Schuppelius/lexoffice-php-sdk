@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNotes;
+use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
 use PHPUnit\Framework\TestCase;
 
 class DeliveryNotesTest extends TestCase {
@@ -68,7 +68,7 @@ class DeliveryNotesTest extends TestCase {
             ]
         ];
 
-        $deliveryNotes = new DeliveryNotes($data);
-        $this->assertInstanceOf(DeliveryNotes::class, $deliveryNotes);
+        $deliveryNotes = new DeliveryNote($data);
+        $this->assertInstanceOf(DeliveryNote::class, $deliveryNotes);
     }
 }

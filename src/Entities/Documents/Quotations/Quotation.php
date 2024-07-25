@@ -8,7 +8,7 @@ use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedDocument;
 use Lexoffice\Entities\Documents\PaymentConditions;
 
-class Quotations extends NamedDocument {
+class Quotation extends NamedDocument {
     public DateTime $expirationDate;
     public QuotationLineItems $lineItems;
     public PaymentConditions $paymentConditions;

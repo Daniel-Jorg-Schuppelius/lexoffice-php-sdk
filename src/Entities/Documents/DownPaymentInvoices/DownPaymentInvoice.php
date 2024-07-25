@@ -10,7 +10,7 @@ use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Lexoffice\Entities\Documents\PaymentConditions;
 use Lexoffice\Entities\Documents\ShippingConditions;
 
-class DownPaymentInvoices extends NamedDocument {
+class DownPaymentInvoice extends NamedDocument {
     public DateTime $dueDate;
     public ExtendedLineItems $lineItems;
     public PaymentConditions $paymentConditions;

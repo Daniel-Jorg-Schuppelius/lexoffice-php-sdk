@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Entities\Documents\DeliveryNotes;
+namespace Lexoffice\Entities\Documents\Dunnings;
 
 use Lexoffice\Contracts\Abstracts\NamedDocument;
 use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Lexoffice\Entities\Documents\ShippingConditions;
 
-class DeliveryNotes extends NamedDocument {
+class Dunning extends NamedDocument {
     public ExtendedLineItems $lineItems;
     public ShippingConditions $shippingConditions;
 

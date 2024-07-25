@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Documents\CreditNotes\CreditNotes;
+use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
 use PHPUnit\Framework\TestCase;
 
 class CreditNotesTest extends TestCase {
@@ -88,7 +88,7 @@ class CreditNotesTest extends TestCase {
             ]
         ];
 
-        $creditNotes = new CreditNotes($data);
-        $this->assertInstanceOf(CreditNotes::class, $creditNotes);
+        $creditNotes = new CreditNote($data);
+        $this->assertInstanceOf(CreditNote::class, $creditNotes);
     }
 }

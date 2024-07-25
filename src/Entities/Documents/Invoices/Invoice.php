@@ -11,7 +11,7 @@ use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Lexoffice\Entities\Documents\PaymentConditions;
 use Lexoffice\Entities\Documents\ShippingConditions;
 
-class Invoices extends NamedDocument {
+class Invoice extends NamedDocument {
     public ?DateTime $dueDate;
     public ?XRechnung $xRechnung;
     public ExtendedLineItems $lineItems;

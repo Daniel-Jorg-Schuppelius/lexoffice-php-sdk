@@ -6,7 +6,7 @@ namespace Lexoffice\Entities\Documents;
 
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 
-class Files extends NamedEntity {
+class DocumentFile extends NamedEntity {
     protected DocumentFileID $documentFileId;
 
     public function __construct($data = null) {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Documents\Quotations\Quotations;
+use Lexoffice\Entities\Documents\Quotations\Quotation;
 use PHPUnit\Framework\TestCase;
 
 class QuotationsTest extends TestCase {
@@ -122,7 +122,7 @@ class QuotationsTest extends TestCase {
             "title" => "Angebot"
         ];
 
-        $quotations = new Quotations($data);
-        $this->assertInstanceOf(Quotations::class, $quotations);
+        $quotations = new Quotation($data);
+        $this->assertInstanceOf(Quotation::class, $quotations);
     }
 }

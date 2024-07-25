@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Documents\DownPaymentInvoices\DownPaymentInvoices;
+use Lexoffice\Entities\Documents\DownPaymentInvoices\DownPaymentInvoice;
 use PHPUnit\Framework\TestCase;
 
 class DownPaymentInvoicesTest extends TestCase {
@@ -82,7 +82,7 @@ class DownPaymentInvoicesTest extends TestCase {
             "title" => "1. Abschlagsrechnung"
         ];
 
-        $downPaymentInvoices = new DownPaymentInvoices($data);
-        $this->assertInstanceOf(DownPaymentInvoices::class, $downPaymentInvoices);
+        $downPaymentInvoices = new DownPaymentInvoice($data);
+        $this->assertInstanceOf(DownPaymentInvoice::class, $downPaymentInvoices);
     }
 }

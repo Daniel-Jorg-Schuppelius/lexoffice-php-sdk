@@ -12,7 +12,7 @@ use Lexoffice\Entities\Documents\Address;
 use Lexoffice\Entities\Documents\TotalPrice;
 use Lexoffice\Entities\Documents\TaxConditions;
 use Lexoffice\Entities\Documents\PrintLayoutID;
-use Lexoffice\Entities\Documents\Files;
+use Lexoffice\Entities\Documents\DocumentFile;
 use Lexoffice\Entities\Documents\RelatedVouchers;
 use Lexoffice\Entities\Documents\TaxAmounts;
 use Lexoffice\Enums\Language;
@@ -38,7 +38,7 @@ abstract class NamedDocument extends NamedEntity {
     public ?string $title;
     public ?string $introduction;
     public string $remark;
-    public Files $files;
+    public DocumentFile $files;
 
     public function __construct($data = null) {
         parent::__construct($data);

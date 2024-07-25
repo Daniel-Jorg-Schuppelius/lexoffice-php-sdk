@@ -7,7 +7,7 @@ namespace Lexoffice\Entities\Documents\CreditNotes;
 use Lexoffice\Contracts\Abstracts\NamedDocument;
 use Lexoffice\Entities\Documents\LineItems;
 
-class CreditNotes extends NamedDocument {
+class CreditNote extends NamedDocument {
     public LineItems $lineItems;
 
     public function __construct($data = null) {

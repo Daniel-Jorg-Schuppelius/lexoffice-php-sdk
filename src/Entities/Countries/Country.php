@@ -8,7 +8,7 @@ use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\CountryCode;
 use Lexoffice\Enums\TaxClassification;
 
-class Countries extends NamedEntity {
+class Country extends NamedEntity {
     public CountryCode $countryCode;
     public string $countryNameEN;
     public string $countryNameDE;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Lexoffice\Entities;
 
-use Lexoffice\Entities\Documents\Invoices\Invoices;
+use Lexoffice\Entities\Documents\Invoices\Invoice;
 use PHPUnit\Framework\TestCase;
 
 class InvoicesTest extends TestCase {
@@ -143,7 +143,7 @@ class InvoicesTest extends TestCase {
             ]
         ];
 
-        $invoices = new Invoices($data);
-        $this->assertInstanceOf(Invoices::class, $invoices);
+        $invoices = new Invoice($data);
+        $this->assertInstanceOf(Invoice::class, $invoices);
     }
 }
