@@ -8,7 +8,7 @@ use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
 use PHPUnit\Framework\TestCase;
 
 class DeliveryNotesTest extends TestCase {
-    public function testCreateDeliveryNotes() {
+    public function testCreateDeliveryNote() {
         $data = [
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",

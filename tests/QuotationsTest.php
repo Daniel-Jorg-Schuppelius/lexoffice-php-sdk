@@ -8,7 +8,7 @@ use Lexoffice\Entities\Documents\Quotations\Quotation;
 use PHPUnit\Framework\TestCase;
 
 class QuotationsTest extends TestCase {
-    public function testCreateQuotations() {
+    public function testCreateQuotation() {
         $data = [
             "id" => "424f784e-1f4e-439e-8f71-19673e6d6583",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",

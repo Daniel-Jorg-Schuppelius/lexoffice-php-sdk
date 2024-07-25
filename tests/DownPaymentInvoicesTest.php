@@ -8,7 +8,7 @@ use Lexoffice\Entities\Documents\DownPaymentInvoices\DownPaymentInvoice;
 use PHPUnit\Framework\TestCase;
 
 class DownPaymentInvoicesTest extends TestCase {
-    public function testCreateDownPaymentInvoices() {
+    public function testCreateDownPaymentInvoice() {
         $data = [
             "id" => "0333f0c7-2b89-4889-b64e-68b3ca3f167a",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",

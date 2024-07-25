@@ -12,4 +12,8 @@ enum VoucherStatus: string {
     case VOIDED = 'voided';
     case TRANSFERRED = 'transferred';
     case SEPADEBIT = 'sepadebit';
+    case OVERDUE = 'overdue';
+    case ACCREPTED = 'accepted';
+    case REJECTED = 'rejected';
+    case UNCHECKED = 'unchecked';
 }
