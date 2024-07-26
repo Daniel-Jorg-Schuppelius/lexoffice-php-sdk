@@ -52,4 +52,20 @@ abstract class NamedValue implements NamedValueInterface {
         }
         return $data;
     }
+
+    public function toArray(): array {
+        $result = [];
+        foreach (get_object_vars($this) as $key => $value) {
+            if ($value instanceof NamedEntityInterface) {
+                $result[$key] = $value->toArray();
+            } else {
+                $result[$key] = $value;
+            }
+        }
+        return $result;
+    }
+
+    public static function fromArray(array $data): self {
+        return new self($data);
+    }
 }

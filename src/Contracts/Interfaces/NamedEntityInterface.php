@@ -9,4 +9,7 @@ interface NamedEntityInterface {
 
     public function getEntityName(): string;
     public function setData($data): self;
+
+    public function toArray(): array;
+    public static function fromArray(array $data): self;
 }
