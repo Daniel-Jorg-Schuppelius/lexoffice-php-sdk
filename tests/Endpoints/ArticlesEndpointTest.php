@@ -5,20 +5,24 @@ namespace Tests\Endpoints;
 use PHPUnit\Framework\TestCase;
 use Lexoffice\Api\Endpoints\ArticlesEndpoint;
 use Lexoffice\API\Client;
+use Lexoffice\Contracts\Interfaces\API\EndpointInterface;
 use Lexoffice\Entities\Articles\ArticleResource;
+use Lexoffice\Logger\ConsoleLogger;
 use Tests\Config\PostmanConfig;
 
 class ArticlesEndpointTest extends TestCase {
-    private $client;
-    private $articlesEndpoint;
-    private PostmanConfig $config;
+    private ?Client $client;
+    private ?EndpointInterface $articlesEndpoint;
+    private ?PostmanConfig $config;
+    private ?ConsoleLogger $logger = null;
 
     private bool $apiDisabled = false;
 
     protected function setUp(): void {
         if (!$this->apiDisabled) {
             $this->config = new PostmanConfig();
-            $this->client = new Client($this->config->accessToken, $this->config->resourceUrl . '/v1/');
+            //$this->logger = new ConsoleLogger();
+            $this->client = new Client($this->config->accessToken, $this->config->resourceUrl . '/v1/', $this->logger);
             $this->articlesEndpoint = new ArticlesEndpoint($this->client);
 
             try {
