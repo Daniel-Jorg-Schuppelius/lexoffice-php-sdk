@@ -49,7 +49,6 @@ class Client implements ApiClientInterface {
 
     private function request(string $method, string $uri, array $options = []): ResponseInterface {
         $timeSinceLastRequest = microtime(true) - $this->lastRequestTime;
-        $minInterval = 0.75; // max. 2 requests per second -> min. 0.5 seconds between requests
 
         if ($timeSinceLastRequest < Client::MIN_INTERVAL) {
             $microsecondsToSleep = (int)((Client::MIN_INTERVAL - $timeSinceLastRequest) * 1e6);
