@@ -7,12 +7,11 @@ namespace Lexoffice\Entities\Articles;
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\ArticleType;
-use Lexoffice\Entities\ID;
-use Lexoffice\Entities\OrganizationID;
+use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Entities\Version;
 
 class Article extends NamedEntity {
-    protected ID $id;
+    protected ArticleID $id;
     protected OrganizationID $organizationId;
     protected DateTime $createdDate;
     protected DateTime $updatedDate;

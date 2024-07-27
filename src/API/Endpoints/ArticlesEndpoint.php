@@ -3,21 +3,21 @@
 namespace Lexoffice\Api\Endpoints;
 
 use Lexoffice\Contracts\Abstracts\API\SearchableEndpointAbstract;
-use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Articles\Article;
+use Lexoffice\Entities\Articles\ArticleResource;
 use Lexoffice\Entities\Articles\ArticlesPage;
 
 class ArticlesEndpoint extends SearchableEndpointAbstract {
-    protected string $endpoint = '/articles';
+    protected string $endpoint = 'articles';
 
-    public function create(array $data): Article {
+    public function create(array $data): ArticleResource {
         $response = $this->client->post($this->endpoint, [
             'json' => $data,
         ]);
         $body = $this->handleResponse($response, 201);
 
-        return Article::fromArray($body);
+        return ArticleResource::fromArray($body);
     }
 
     public function get(string $id): Article {

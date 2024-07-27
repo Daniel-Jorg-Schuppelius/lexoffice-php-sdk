@@ -6,7 +6,6 @@ namespace Lexoffice\Contracts\Abstracts;
 
 use DateTime;
 use Lexoffice\Entities\ID;
-use Lexoffice\Entities\OrganizationID;
 use Lexoffice\Entities\Version;
 use Lexoffice\Entities\Documents\Address;
 use Lexoffice\Entities\Documents\TotalPrice;
@@ -15,6 +14,7 @@ use Lexoffice\Entities\Documents\PrintLayoutID;
 use Lexoffice\Entities\Documents\DocumentFile;
 use Lexoffice\Entities\Documents\RelatedVouchers;
 use Lexoffice\Entities\Documents\TaxAmounts;
+use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\Language;
 use Lexoffice\Enums\VoucherStatus;
 

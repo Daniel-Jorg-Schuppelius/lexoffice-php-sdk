@@ -2,27 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Tests\Lexoffice\Entities;
+namespace Tests\Entities;
 
-use Lexoffice\Entities\Documents\Invoices\Invoice;
+use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
 use PHPUnit\Framework\TestCase;
 
-class InvoicesTest extends TestCase {
-    public function testCreateInvoice() {
+class RecurringTemplateTest extends TestCase {
+    public function testCreateRecurringTemplate() {
         $data = [
-            "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
+            "id" => "ac1d66a8-6d59-408b-9413-d56b1db7946f",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
-            "createdDate" => "2023-04-24T08:20:22.528+02:00",
-            "updatedDate" => "2023-04-24T08:20:22.528+02:00",
+            "createdDate" => "2023-02-10T09:00:00.000+01:00",
+            "updatedDate" => "2023-02-10T09:00:00.000+01:00",
             "version" => 0,
             "language" => "de",
             "archived" => false,
-            "voucherStatus" => "draft",
-            "voucherNumber" => "RE1019",
-            "voucherDate" => "2023-02-22T00:00:00.000+01:00",
-            "dueDate" => null,
             "address" => [
-                "contactId" => null,
+                "contactId" => "464f4881-7a8c-4dc4-87de-7c6fd9a506b8",
                 "name" => "Bike & Ride GmbH & Co. KG",
                 "supplement" => "Gebäude 10",
                 "street" => "Musterstraße 42",
@@ -30,7 +26,6 @@ class InvoicesTest extends TestCase {
                 "zip" => "79112",
                 "countryCode" => "DE"
             ],
-            "xRechnung" => null,
             "lineItems" => [
                 [
                     "id" => "97b98491-e953-4dc9-97a9-ae437a8052b4",
@@ -124,26 +119,23 @@ class InvoicesTest extends TestCase {
                     "discountRange" => 10
                 ]
             ],
-            "shippingConditions" => [
-                "shippingDate" => "2023-04-22T00:00:00.000+02:00",
-                "shippingEndDate" => null,
-                "shippingType" => "delivery"
-            ],
-            "closingInvoice" => false,
-            "claimedGrossAmount" => null,
-            "downPaymentDeductions" => null,
-            "recurringTemplateId" => null,
-            "relatedVouchers" => [],
-            "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
             "title" => "Rechnung",
             "introduction" => "Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung",
             "remark" => "Vielen Dank für Ihren Einkauf",
-            "files" => [
-                "documentFileId" => "75295db7-7e69-4630-befd-a7f4ddfdaa83"
+            "recurringTemplateSettings" => [
+                "id" => "9c5b8bde-7d36-49e8-af5c-4fbe7dc9fa01",
+                "startDate" => "2023-03-01",
+                "endDate" => "2023-06-30",
+                "finalize" => true,
+                "shippingType" => "service",
+                "executionInterval" => "MONTHLY",
+                "nextExecutionDate" => "2023-03-01",
+                "lastExecutionFailed" => false,
+                "lastExecutionErrorMessage" => null,
+                "executionStatus" => "ACTIVE"
             ]
         ];
-
-        $invoices = new Invoice($data);
-        $this->assertInstanceOf(Invoice::class, $invoices);
+        $recurringTemplate = new RecurringTemplate($data);
+        $this->assertInstanceOf(RecurringTemplate::class, $recurringTemplate);
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Lexoffice\Entities;
+namespace Tests\Entities;
 
 use Lexoffice\Entities\Articles\Articles;
 use Lexoffice\Entities\Articles\Article;

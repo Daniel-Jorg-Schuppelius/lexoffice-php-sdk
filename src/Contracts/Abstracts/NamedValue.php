@@ -65,6 +65,10 @@ abstract class NamedValue implements NamedValueInterface {
         return $result;
     }
 
+    public function toString(): string {
+        return (string) $this->data;
+    }
+
     public static function fromArray(array $data): self {
         return new self($data);
     }

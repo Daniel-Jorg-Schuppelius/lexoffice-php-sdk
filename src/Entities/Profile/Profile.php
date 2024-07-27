@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Profile;
 
 use Lexoffice\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Entities\OrganizationID;
 use Lexoffice\Enums\DistanceSalesPrinciple;
 use Lexoffice\Enums\TaxType;
 

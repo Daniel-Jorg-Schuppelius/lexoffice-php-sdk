@@ -101,6 +101,7 @@ abstract class NamedEntity implements NamedEntityInterface {
     }
 
     public static function fromArray(array $data): self {
-        return new self($data);
+        $className = get_called_class();
+        return new $className($data);
     }
 }

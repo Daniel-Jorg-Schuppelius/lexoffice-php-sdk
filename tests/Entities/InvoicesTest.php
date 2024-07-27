@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Lexoffice\Entities;
+namespace Tests\Entities;
 
-use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmation;
+use Lexoffice\Entities\Documents\Invoices\Invoice;
 use PHPUnit\Framework\TestCase;
 
-class OrderConfirmationsTest extends TestCase {
-    public function testCreateOrderConfirmation() {
+class InvoicesTest extends TestCase {
+    public function testCreateInvoice() {
         $data = [
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -18,8 +18,9 @@ class OrderConfirmationsTest extends TestCase {
             "language" => "de",
             "archived" => false,
             "voucherStatus" => "draft",
-            "voucherNumber" => "AB1019",
+            "voucherNumber" => "RE1019",
             "voucherDate" => "2023-02-22T00:00:00.000+01:00",
+            "dueDate" => null,
             "address" => [
                 "contactId" => null,
                 "name" => "Bike & Ride GmbH & Co. KG",
@@ -29,6 +30,7 @@ class OrderConfirmationsTest extends TestCase {
                 "zip" => "79112",
                 "countryCode" => "DE"
             ],
+            "xRechnung" => null,
             "lineItems" => [
                 [
                     "id" => "97b98491-e953-4dc9-97a9-ae437a8052b4",
@@ -127,15 +129,21 @@ class OrderConfirmationsTest extends TestCase {
                 "shippingEndDate" => null,
                 "shippingType" => "delivery"
             ],
+            "closingInvoice" => false,
+            "claimedGrossAmount" => null,
+            "downPaymentDeductions" => null,
+            "recurringTemplateId" => null,
             "relatedVouchers" => [],
             "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
-            "title" => "Auftragsbestätigung",
+            "title" => "Rechnung",
             "introduction" => "Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung",
             "remark" => "Vielen Dank für Ihren Einkauf",
-            "deliveryTerms" => "Lieferung an die angegebene Lieferadresse"
+            "files" => [
+                "documentFileId" => "75295db7-7e69-4630-befd-a7f4ddfdaa83"
+            ]
         ];
 
-        $orderConfirmations = new OrderConfirmation($data);
-        $this->assertInstanceOf(OrderConfirmation::class, $orderConfirmations);
+        $invoices = new Invoice($data);
+        $this->assertInstanceOf(Invoice::class, $invoices);
     }
 }

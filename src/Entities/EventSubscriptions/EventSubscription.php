@@ -6,7 +6,7 @@ namespace Lexoffice\Entities\EventSubscriptions;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Entities\OrganizationID;
+use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\EventType;
 
 class EventSubscription extends NamedEntity {

@@ -8,7 +8,7 @@ use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Entities\Contacts\ContactID;
 use Lexoffice\Entities\Files\Files;
-use Lexoffice\Entities\OrganizationID;
+use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\TaxType;
 use Lexoffice\Enums\VoucherStatus;
 use Lexoffice\Enums\VoucherType;

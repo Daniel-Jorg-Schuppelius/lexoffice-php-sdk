@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Entities;
+namespace Lexoffice\Entities\Profile;
+
+use Lexoffice\Entities\ID;
 
 class OrganizationID extends ID {
     public function __construct($data = null) {

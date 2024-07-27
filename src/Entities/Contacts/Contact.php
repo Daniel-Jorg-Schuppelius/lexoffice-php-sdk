@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Contacts;
 
 use Lexoffice\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Entities\OrganizationID;
+use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Entities\Version;
 use Lexoffice\Entities\XRechnung;
 
