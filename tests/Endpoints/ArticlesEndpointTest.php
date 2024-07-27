@@ -13,7 +13,7 @@ class ArticlesEndpointTest extends TestCase {
     private $articlesEndpoint;
     private PostmanConfig $config;
 
-    private bool $apiDisabled = true;
+    private bool $apiDisabled = false;
 
     protected function setUp(): void {
         if (!$this->apiDisabled) {
@@ -43,12 +43,40 @@ class ArticlesEndpointTest extends TestCase {
             "price" => [
                 "netPrice" => 61.90,
                 "leadingPrice" => "NET",
-                "taxRate" => 19
+                "taxRate" => 19.0
             ]
         ];
 
         $articleResource = $this->articlesEndpoint->create($data);
         $this->assertInstanceOf(ArticleResource::class, $articleResource);
+        $this->articlesEndpoint->delete($articleResource->getId()->toString());
+    }
+
+    public function testCreateUpdateAndDeleteArticleAPI() {
+        if ($this->apiDisabled) {
+            $this->markTestSkipped('API is disabled');
+        }
+
+        $data = [
+            "title" => "Lexware buchhaltung Premium 2022",
+            "type" => "PRODUCT",
+            "unitName" => "Download-Code",
+            "articleNumber" => "LXW-BUHA-2024-002",
+            "price" => [
+                "netPrice" => 61.90,
+                "leadingPrice" => "NET",
+                "taxRate" => 19.0
+            ]
+        ];
+
+        $articleResource = $this->articlesEndpoint->create($data);
+        $this->assertInstanceOf(ArticleResource::class, $articleResource);
+        $article = $this->articlesEndpoint->get($articleResource->getId()->toString());
+
+        $article->title = "Lexware buchhaltung Premium 2022 Updated";
+        $articleResourceUpdated = $this->articlesEndpoint->update($articleResource->getId()->toString(), $article->toArray());
+        $this->assertInstanceOf(ArticleResource::class, $articleResourceUpdated);
+
         $this->articlesEndpoint->delete($articleResource->getId()->toString());
     }
 }

@@ -17,11 +17,11 @@ class Article extends NamedEntity {
     protected DateTime $updatedDate;
     protected bool $archived;
     public string $title;
-    public string $description;
+    public ?string $description;
     public ArticleType $type;
-    public string $articleNumber;
-    public string $gtin;
-    public string $note;
+    public ?string $articleNumber;
+    public ?string $gtin;
+    public ?string $note;
     public string $unitName;
     public Price $price;
     protected Version $version;

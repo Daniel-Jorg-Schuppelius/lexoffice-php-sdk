@@ -11,8 +11,11 @@ use GuzzleHttp\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
 class Client implements ApiClientInterface {
+    const MIN_INTERVAL = 0.65;
+
     private HttpClient $client;
     private ?LoggerInterface $logger;
+    private float $lastRequestTime = 0.0;
 
     public function __construct(string $apiKey, string $baseUrl = 'https://api.lexoffice.io/v1/', ?LoggerInterface $logger = null) {
         $this->client = new HttpClient([
@@ -45,6 +48,17 @@ class Client implements ApiClientInterface {
     }
 
     private function request(string $method, string $uri, array $options = []): ResponseInterface {
+        $timeSinceLastRequest = microtime(true) - $this->lastRequestTime;
+        $minInterval = 0.75; // max. 2 requests per second -> min. 0.5 seconds between requests
+
+        if ($timeSinceLastRequest < Client::MIN_INTERVAL) {
+            $microsecondsToSleep = (int)((Client::MIN_INTERVAL - $timeSinceLastRequest) * 1e6);
+            error_log("Sleeping for {$microsecondsToSleep} microseconds");
+            usleep($microsecondsToSleep);
+        }
+
+        $this->lastRequestTime = microtime(true);
+
         if ($this->logger) {
             $this->logger->info("Sending {$method} request to {$uri}", $options);
         }

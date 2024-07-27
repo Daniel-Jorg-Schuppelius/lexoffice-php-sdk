@@ -28,7 +28,7 @@ class ArticlesTest extends TestCase {
                 "netPrice" => 61.90,
                 "grossPrice" => 73.66,
                 "leadingPrice" => "NET",
-                "taxRate" => 19
+                "taxRate" => 19.0
             ],
             "version" => 2
         ];
@@ -36,6 +36,8 @@ class ArticlesTest extends TestCase {
         $article = new Article($data);
         $this->assertInstanceOf(Article::class, $article);
         $this->assertEquals('Lexware buchhaltung Premium 2024', $article->title);
+        $testData = $article->toArray();
+        $this->assertEquals($data, $article->toArray());
     }
     public function testCreateArticles() {
         $data = [
@@ -53,7 +55,7 @@ class ArticlesTest extends TestCase {
                         "netPrice" => 61.90,
                         "grossPrice" => 73.66,
                         "leadingPrice" => "NET",
-                        "taxRate" => 19
+                        "taxRate" => 19.0
                     ],
                     "version" => 1
                 ],
@@ -70,7 +72,7 @@ class ArticlesTest extends TestCase {
                         "netPrice" => 61.90,
                         "grossPrice" => 73.66,
                         "leadingPrice" => "NET",
-                        "taxRate" => 19
+                        "taxRate" => 19.0
                     ],
                     "version" => 3
                 ],
@@ -102,7 +104,7 @@ class ArticlesTest extends TestCase {
                         "netPrice" => 61.90,
                         "grossPrice" => 73.66,
                         "leadingPrice" => "NET",
-                        "taxRate" => 19
+                        "taxRate" => 19.0
                     ],
                     "version" => 1
                 ],
@@ -119,7 +121,7 @@ class ArticlesTest extends TestCase {
                         "netPrice" => 61.90,
                         "grossPrice" => 73.66,
                         "leadingPrice" => "NET",
-                        "taxRate" => 19
+                        "taxRate" => 19.0
                     ],
                     "version" => 3
                 ],

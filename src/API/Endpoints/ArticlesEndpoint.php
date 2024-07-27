@@ -27,13 +27,13 @@ class ArticlesEndpoint extends SearchableEndpointAbstract {
         return Article::fromArray($body);
     }
 
-    public function update(string $id, array $data): Article {
+    public function update(string $id, array $data): ArticleResource {
         $response = $this->client->put("{$this->endpoint}/{$id}", [
             'json' => $data,
         ]);
         $body = $this->handleResponse($response, 200);
 
-        return Article::fromArray($body);
+        return ArticleResource::fromArray($body);
     }
 
     public function delete(string $id): bool {
