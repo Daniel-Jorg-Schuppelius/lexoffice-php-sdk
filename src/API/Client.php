@@ -49,6 +49,7 @@ class Client implements ApiClientInterface {
 
     private function request(string $method, string $uri, array $options = []): ResponseInterface {
         $timeSinceLastRequest = microtime(true) - $this->lastRequestTime;
+        $microsecondsToSleep = 0;
 
         if ($timeSinceLastRequest < Client::MIN_INTERVAL) {
             $microsecondsToSleep = (int)((Client::MIN_INTERVAL - $timeSinceLastRequest) * 1e6);
@@ -58,7 +59,7 @@ class Client implements ApiClientInterface {
         $this->lastRequestTime = microtime(true);
 
         if ($this->logger) {
-            $this->logger->info("Sending {$method} request to {$uri}", $options);
+            $this->logger->info("Sending {$method} request to {$uri} (sleeped for {$microsecondsToSleep} microseconds)", $options);
         }
 
         $response = $this->client->request($method, $uri, $options);
