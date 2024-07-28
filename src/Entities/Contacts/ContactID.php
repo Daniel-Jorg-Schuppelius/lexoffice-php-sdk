@@ -9,6 +9,6 @@ use Lexoffice\Entities\ID;
 class ContactID extends ID {
     public function __construct($data = null) {
         parent::__construct($data);
-        $this->entityName = 'contactId';
+        $this->entityName = 'id';
     }
 }

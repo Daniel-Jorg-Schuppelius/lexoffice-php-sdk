@@ -92,23 +92,24 @@ abstract class NamedEntity implements NamedEntityInterface {
     public function toArray(): array {
         $result = [];
         $excluded = get_class_vars(get_parent_class($this));
+
         foreach (get_object_vars($this) as $key => $value) {
-            if (!array_key_exists($key, $excluded)) {
-                if ($value instanceof NamedEntityInterface) {
-                    if ($value instanceof NamedValue) {
-                        $result[$key] = $value->toArray()[$key];
-                    } else {
-                        $result[$key] = $value->toArray();
-                    }
-                } else if ($value instanceof BackedEnum) {
-                    $result[$key] = $value->value;
-                } else if ($value instanceof DateTime) {
-                    $result[$key] = $value->format(DateTime::RFC3339_EXTENDED);
-                } else {
-                    $result[$key] = $value;
-                }
+            if (array_key_exists($key, $excluded)) {
+                continue;
+            }
+
+            if ($value instanceof NamedEntityInterface) {
+                $valueArray = $value->toArray();
+                $result[$key] = $value instanceof NamedValue && isset($valueArray[$key]) ? $valueArray[$key] : $valueArray;
+            } elseif ($value instanceof BackedEnum) {
+                $result[$key] = $value->value;
+            } elseif ($value instanceof DateTime) {
+                $result[$key] = $value->format(DateTime::RFC3339_EXTENDED);
+            } else {
+                $result[$key] = $value;
             }
         }
+
         return $result;
     }
 

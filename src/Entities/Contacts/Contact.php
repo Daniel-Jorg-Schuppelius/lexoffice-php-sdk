@@ -26,4 +26,8 @@ class Contact extends NamedEntity {
     public function __construct($data = null) {
         parent::__construct($data);
     }
+
+    public function getPerson(): Person {
+        return $this->person;
+    }
 }

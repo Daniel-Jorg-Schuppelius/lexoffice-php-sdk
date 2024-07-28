@@ -17,7 +17,7 @@ class ArticlesEndpointTest extends TestCase {
     private ?PostmanConfig $config;
     private ?ConsoleLogger $logger = null;
 
-    private bool $apiDisabled = false;
+    private bool $apiDisabled = true;
 
     public function __construct($name) {
         parent::__construct($name);

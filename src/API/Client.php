@@ -66,16 +66,19 @@ class Client implements ApiClientInterface {
         $microsecondsToSleep = 0;
 
         if ($timeSinceLastRequest < $this->requestInterval) {
-            $microsecondsToSleep = (int)(($this->requestInterval - $timeSinceLastRequest) * 1e6);
-            usleep($microsecondsToSleep);
+            usleep((int)(($this->requestInterval - $timeSinceLastRequest) * 1e6));
+        }
+
+        if ($this->logger) {
+            $this->logger->info("Sending {$method} request to {$uri} (waiting {$microsecondsToSleep} microseconds to execute)", $options);
+        }
+
+        if (isset($options['json'])) {
+            $options['body'] = json_encode($options['json'], JSON_FORCE_OBJECT);
+            unset($options['json']);
         }
 
         $this->lastRequestTime = microtime(true);
-
-        if ($this->logger) {
-            $this->logger->info("Sending {$method} request to {$uri} (sleeped for {$microsecondsToSleep} microseconds)", $options);
-        }
-
         $response = $this->client->request($method, $uri, $options);
         if ($this->sleepAfterRequest) {
             // Sleep for 0.5 seconds after each request to avoid rate limiting
