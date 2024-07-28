@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Lexoffice\Contracts\Abstracts\API;
 
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 
 abstract class SearchableEndpointAbstract extends EndpointAbstract implements SearchableEndpointInterface {
     protected function getEntities(string $entityClass, array $queryParams = []) {

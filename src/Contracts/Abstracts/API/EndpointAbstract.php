@@ -8,7 +8,6 @@ use Lexoffice\Contracts\Interfaces\API\ApiClientInterface;
 use Lexoffice\Contracts\Interfaces\API\EndpointInterface;
 use Lexoffice\Contracts\Interfaces\API\ResourceInterface;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
-use Lexoffice\Entities\ID;
 use Lexoffice\Exceptions\ApiException;
 use Lexoffice\Exceptions\NotFoundException;
 use Lexoffice\Exceptions\UnauthorizedException;

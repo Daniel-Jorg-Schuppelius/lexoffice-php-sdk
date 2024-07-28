@@ -413,4 +413,4 @@ npm-debug.log
 yarn-error.log
 
 # Schuppe
-/.samples/
+/.samples/postman_config.json

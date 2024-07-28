@@ -5,14 +5,15 @@ namespace Tests\Endpoints;
 use PHPUnit\Framework\TestCase;
 use Lexoffice\Api\Endpoints\ArticlesEndpoint;
 use Lexoffice\API\Client;
-use Lexoffice\Contracts\Interfaces\API\EndpointInterface;
+use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Articles\ArticleResource;
+use Lexoffice\Entities\Articles\ArticlesPage;
 use Lexoffice\Logger\ConsoleLogger;
 use Tests\Config\PostmanConfig;
 
 class ArticlesEndpointTest extends TestCase {
     private ?Client $client;
-    private ?EndpointInterface $articlesEndpoint;
+    private ?SearchableEndpointInterface $endpoint;
     private ?PostmanConfig $config;
     private ?ConsoleLogger $logger = null;
 
@@ -23,17 +24,19 @@ class ArticlesEndpointTest extends TestCase {
         $this->config = new PostmanConfig();
         //$this->logger = new ConsoleLogger();
         $this->client = new Client($this->config->accessToken, $this->config->resourceUrl . '/v1/', $this->logger, true);
-        $this->articlesEndpoint = new ArticlesEndpoint($this->client);
+        $this->endpoint = new ArticlesEndpoint($this->client);
     }
 
     protected function setUp(): void {
-        if (!$this->apiDisabled) {
+        if (!$this->apiDisabled && $this->config->isConfigured()) {
             try {
                 $response = $this->client->get("ping");
                 $this->apiDisabled = $response->getStatusCode() != 200;
             } catch (\Exception $e) {
                 $this->apiDisabled = true;
             }
+        } else {
+            $this->apiDisabled = true;
         }
     }
 
@@ -54,12 +57,12 @@ class ArticlesEndpointTest extends TestCase {
             ]
         ];
 
-        $articleResource = $this->articlesEndpoint->create($data);
+        $articleResource = $this->endpoint->create($data);
         $this->assertInstanceOf(ArticleResource::class, $articleResource);
-        $this->articlesEndpoint->delete($articleResource->getId()->toString());
+        $this->endpoint->delete($articleResource->getId()->toString());
     }
 
-    public function testCreateUpdateAndDeleteArticleAPI() {
+    public function testCreateGetUpdateAndDeleteArticleAPI() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -76,14 +79,44 @@ class ArticlesEndpointTest extends TestCase {
             ]
         ];
 
-        $articleResource = $this->articlesEndpoint->create($data);
+        $articleResource = $this->endpoint->create($data);
         $this->assertInstanceOf(ArticleResource::class, $articleResource);
-        $article = $this->articlesEndpoint->get($articleResource->getId()->toString());
+        $article = $this->endpoint->get($articleResource->getId()->toString());
 
         $article->title = "Lexware buchhaltung Premium 2022 Updated";
-        $articleResourceUpdated = $this->articlesEndpoint->update($articleResource->getId()->toString(), $article->toArray());
+        $articleResourceUpdated = $this->endpoint->update($articleResource->getId()->toString(), $article->toArray());
         $this->assertInstanceOf(ArticleResource::class, $articleResourceUpdated);
 
-        $this->articlesEndpoint->delete($articleResource->getId()->toString());
+        $this->endpoint->delete($articleResource->getId()->toString());
+    }
+
+    public function testCreateSearchAndDeleteArticleAPI() {
+        if ($this->apiDisabled) {
+            $this->markTestSkipped('API is disabled');
+        }
+
+        $data = [
+            "title" => "Lexware buchhaltung Premium 2022",
+            "type" => "PRODUCT",
+            "unitName" => "Download-Code",
+            "articleNumber" => "LXW-BUHA-2024-002",
+            "price" => [
+                "netPrice" => 61.90,
+                "leadingPrice" => "NET",
+                "taxRate" => 19.0
+            ]
+        ];
+
+        $articlesPage = $this->endpoint->search();
+        $this->assertInstanceOf(ArticlesPage::class, $articlesPage);
+
+        $articleResource = $this->endpoint->create($data);
+        $this->assertInstanceOf(ArticleResource::class, $articleResource);
+
+        $articlesPageUpdated = $this->endpoint->search();
+        $this->assertInstanceOf(ArticlesPage::class, $articlesPageUpdated);
+        $this->assertGreaterThan($articlesPage->getTotalElements(), $articlesPageUpdated->getTotalElements());
+
+        $this->endpoint->delete($articleResource->getId()->toString());
     }
 }

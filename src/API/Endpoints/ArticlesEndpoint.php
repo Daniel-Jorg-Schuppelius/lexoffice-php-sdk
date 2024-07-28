@@ -3,7 +3,6 @@
 namespace Lexoffice\Api\Endpoints;
 
 use Lexoffice\Contracts\Abstracts\API\SearchableEndpointAbstract;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticleResource;
 use Lexoffice\Entities\Articles\ArticlesPage;
@@ -43,7 +42,7 @@ class ArticlesEndpoint extends SearchableEndpointAbstract {
         return true;
     }
 
-    public function search(array $queryParams = []): NamedEntityInterface {
+    public function search(array $queryParams = []): ArticlesPage {
         $response = $this->client->get($this->endpoint, $queryParams);
         $body = $this->handleResponse($response, 200);
 
