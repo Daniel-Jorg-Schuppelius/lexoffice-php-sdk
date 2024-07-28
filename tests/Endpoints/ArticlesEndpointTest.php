@@ -18,13 +18,16 @@ class ArticlesEndpointTest extends TestCase {
 
     private bool $apiDisabled = false;
 
+    public function __construct($name) {
+        parent::__construct($name);
+        $this->config = new PostmanConfig();
+        //$this->logger = new ConsoleLogger();
+        $this->client = new Client($this->config->accessToken, $this->config->resourceUrl . '/v1/', $this->logger, true);
+        $this->articlesEndpoint = new ArticlesEndpoint($this->client);
+    }
+
     protected function setUp(): void {
         if (!$this->apiDisabled) {
-            $this->config = new PostmanConfig();
-            //$this->logger = new ConsoleLogger();
-            $this->client = new Client($this->config->accessToken, $this->config->resourceUrl . '/v1/', $this->logger);
-            $this->articlesEndpoint = new ArticlesEndpoint($this->client);
-
             try {
                 $response = $this->client->get("ping");
                 $this->apiDisabled = $response->getStatusCode() != 200;

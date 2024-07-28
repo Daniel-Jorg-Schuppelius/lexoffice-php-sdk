@@ -11,13 +11,15 @@ use GuzzleHttp\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
 class Client implements ApiClientInterface {
-    public const MIN_INTERVAL = 0.65;
+    public const MIN_INTERVAL = 0.5;
+    private bool $sleepAfterRequest;
     private float $lastRequestTime = 0.0;
+    private float $requestInterval = 0.65;
 
     private HttpClient $client;
     private ?LoggerInterface $logger;
 
-    public function __construct(string $apiKey, string $baseUrl = 'https://api.lexoffice.io/v1/', ?LoggerInterface $logger = null) {
+    public function __construct(string $apiKey, string $baseUrl = 'https://api.lexoffice.io/v1/', ?LoggerInterface $logger = null, bool $sleepAfterRequest = false) {
         $this->client = new HttpClient([
             'base_uri' => $baseUrl,
             'timeout' => 2.0,
@@ -28,7 +30,19 @@ class Client implements ApiClientInterface {
             ],
         ]);
 
+        $this->sleepAfterRequest = $sleepAfterRequest;
         $this->logger = $logger;
+    }
+
+    public function setRequestInterval(float $requestInterval): void {
+        if ($requestInterval < Client::MIN_INTERVAL) {
+            throw new \InvalidArgumentException('Request interval must be at least ' . Client::MIN_INTERVAL . ' seconds');
+        }
+        $this->requestInterval = $requestInterval;
+    }
+
+    public function getRequestInterval(): float {
+        return $this->requestInterval;
     }
 
     public function get(string $uri, array $options = []): ResponseInterface {
@@ -51,8 +65,8 @@ class Client implements ApiClientInterface {
         $timeSinceLastRequest = microtime(true) - $this->lastRequestTime;
         $microsecondsToSleep = 0;
 
-        if ($timeSinceLastRequest < Client::MIN_INTERVAL) {
-            $microsecondsToSleep = (int)((Client::MIN_INTERVAL - $timeSinceLastRequest) * 1e6);
+        if ($timeSinceLastRequest < $this->requestInterval) {
+            $microsecondsToSleep = (int)(($this->requestInterval - $timeSinceLastRequest) * 1e6);
             usleep($microsecondsToSleep);
         }
 
@@ -63,6 +77,10 @@ class Client implements ApiClientInterface {
         }
 
         $response = $this->client->request($method, $uri, $options);
+        if ($this->sleepAfterRequest) {
+            // Sleep for 0.5 seconds after each request to avoid rate limiting
+            usleep((int)(Client::MIN_INTERVAL * 1e6));
+        }
 
         if ($response->getStatusCode() >= 400) {
             throw new ApiException('Error: ' . $response->getReasonPhrase(), $response->getStatusCode());
