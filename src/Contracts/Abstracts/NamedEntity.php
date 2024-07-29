@@ -121,4 +121,8 @@ abstract class NamedEntity implements NamedEntityInterface {
         $className = get_called_class();
         return new $className($data);
     }
+
+    public static function fromJson(string $data): self {
+        return self::fromArray(json_decode($data, true));
+    }
 }

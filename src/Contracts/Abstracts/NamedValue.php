@@ -82,4 +82,8 @@ abstract class NamedValue implements NamedValueInterface {
     public static function fromArray(array $data): self {
         return new self($data);
     }
+
+    public static function fromJson(string $data): self {
+        return self::fromArray(json_decode($data, true));
+    }
 }

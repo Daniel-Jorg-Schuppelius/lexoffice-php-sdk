@@ -41,6 +41,46 @@ class ContactsEndpointTest extends TestCase {
         }
     }
 
+    public function testJsonSerialize() {
+        $data = [
+            "version" => 0,
+            "roles" => [
+                "customer" => []
+            ],
+            "person" => [
+                "salutation" => "Frau",
+                "firstName" => "Inge",
+                "lastName" => "Musterfrau"
+            ],
+            "note" => "Notizen"
+        ];
+
+        $data1 = [
+            "version" => 0,
+            "roles" => [
+                "customer" => [
+                    "number" => 10001
+                ]
+            ],
+            "person" => [
+                "salutation" => "Frau",
+                "firstName" => "Inge",
+                "lastName" => "Musterfrau"
+            ],
+            "note" => "Notizen"
+        ];
+        $contact = new Contact($data);
+        $contact1 = new Contact($data1);
+        $this->assertInstanceOf(Contact::class, $contact);
+        $this->assertInstanceOf(Contact::class, $contact1);
+
+        $jsonOriginal = '{"version":0,"roles":{"customer":{}},"person":{"salutation":"Frau","firstName":"Inge","lastName":"Musterfrau"},"note":"Notizen"}';
+        $jsonOriginal1 = '{"version":0,"roles":{"customer":{"number":10001}},"person":{"salutation":"Frau","firstName":"Inge","lastName":"Musterfrau"},"note":"Notizen"}';
+
+        $this->assertEquals($jsonOriginal, $contact->toJson());
+        $this->assertEquals($jsonOriginal1, $contact1->toJson());
+    }
+
     public function testCreateContactAPI() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
@@ -49,9 +89,7 @@ class ContactsEndpointTest extends TestCase {
         $data = [
             "version" => 0,
             "roles" => [
-                "customer" => [
-                    // Weitere Details hier, falls vorhanden
-                ]
+                "customer" => []
             ],
             "person" => [
                 "salutation" => "Frau",
@@ -74,9 +112,7 @@ class ContactsEndpointTest extends TestCase {
         $data = [
             "version" => 0,
             "roles" => [
-                "customer" => [
-                    // Weitere Details hier, falls vorhanden
-                ]
+                "customer" => []
             ],
             "person" => [
                 "salutation" => "Herr",
@@ -104,9 +140,7 @@ class ContactsEndpointTest extends TestCase {
         $data = [
             "version" => 0,
             "roles" => [
-                "customer" => [
-                    // Weitere Details hier, falls vorhanden
-                ]
+                "customer" => []
             ],
             "person" => [
                 "salutation" => "Frau",

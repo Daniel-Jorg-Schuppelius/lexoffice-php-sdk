@@ -19,14 +19,14 @@ class ContactsEndpoint extends SearchableEndpointAbstract {
         ]);
         $body = $this->handleResponse($response, 200);
 
-        return ContactResource::fromArray($body);
+        return ContactResource::fromJson($body);
     }
 
     public function get(ID $id): Contact {
         $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
         $body = $this->handleResponse($response, 200);
 
-        return Contact::fromArray($body);
+        return Contact::fromJson($body);
     }
 
     public function update(ID $id, NamedEntityInterface $data): ContactResource {
@@ -35,7 +35,7 @@ class ContactsEndpoint extends SearchableEndpointAbstract {
         ]);
         $body = $this->handleResponse($response, 200);
 
-        return ContactResource::fromArray($body);
+        return ContactResource::fromJson($body);
     }
 
     public function delete(ID $id): bool {
@@ -46,6 +46,6 @@ class ContactsEndpoint extends SearchableEndpointAbstract {
         $response = $this->client->get($this->endpoint, $queryParams);
         $body = $this->handleResponse($response, 200);
 
-        return ContactsPage::fromArray($body);
+        return ContactsPage::fromJson($body);
     }
 }

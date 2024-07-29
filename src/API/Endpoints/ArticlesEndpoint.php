@@ -18,14 +18,14 @@ class ArticlesEndpoint extends SearchableEndpointAbstract {
         ]);
         $body = $this->handleResponse($response, 201);
 
-        return ArticleResource::fromArray($body);
+        return ArticleResource::fromJson($body);
     }
 
     public function get(ID $id): Article {
         $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
         $body = $this->handleResponse($response, 200);
 
-        return Article::fromArray($body);
+        return Article::fromJson($body);
     }
 
     public function update(ID $id, NamedEntityInterface $data): ArticleResource {
@@ -34,7 +34,7 @@ class ArticlesEndpoint extends SearchableEndpointAbstract {
         ]);
         $body = $this->handleResponse($response, 200);
 
-        return ArticleResource::fromArray($body);
+        return ArticleResource::fromJson($body);
     }
 
     public function delete(ID $id): bool {
@@ -48,6 +48,6 @@ class ArticlesEndpoint extends SearchableEndpointAbstract {
         $response = $this->client->get($this->endpoint, $queryParams);
         $body = $this->handleResponse($response, 200);
 
-        return ArticlesPage::fromArray($body);
+        return ArticlesPage::fromJson($body);
     }
 }
