@@ -6,11 +6,13 @@ namespace Lexoffice\Entities\Articles;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
+use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
+use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
 use Lexoffice\Enums\ArticleType;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Entities\Version;
 
-class Article extends NamedEntity {
+class Article extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface {
     protected ArticleID $id;
     protected OrganizationID $organizationId;
     protected DateTime $createdDate;
@@ -28,5 +30,13 @@ class Article extends NamedEntity {
 
     public function __construct($data = null) {
         parent::__construct($data);
+    }
+
+    public function getID(): ArticleID {
+        return $this->id;
+    }
+
+    public function getOrganizationID(): OrganizationID {
+        return $this->organizationId;
     }
 }

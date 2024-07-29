@@ -41,6 +41,27 @@ class ArticlesEndpointTest extends TestCase {
         }
     }
 
+    public function testJsonSerialize() {
+        $data = [
+            "id" => "eb46d328-e1dc-11ee-8444-2fadfc15a567",
+            "title" => "Lexware buchhaltung Premium 2024",
+            "type" => "PRODUCT",
+            "articleNumber" => "LXW-BUHA-2024-001",
+            "unitName" => "Download-Code",
+            "price" => [
+                "netPrice" => 61.90,
+                "leadingPrice" => "NET",
+                "taxRate" => 19.0
+            ]
+        ];
+
+        $article = new Article($data);
+        $this->assertEquals($data, $article->toArray());
+        $this->assertEquals(json_encode($data), $article->toJson());
+        $this->assertStringContainsString(substr($article->getID()->toJson(), 2, -2), json_encode($data));
+        $this->assertEquals(json_encode($data["price"]), $article->price->toJson());
+    }
+
     public function testCreateAndDeleteArticleAPI() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');

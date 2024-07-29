@@ -6,13 +6,14 @@ namespace Lexoffice\Entities\VoucherList;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
+use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Entities\Contacts\ContactID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 use Lexoffice\Enums\Currency;
 use Lexoffice\Enums\VoucherStatus;
 use Lexoffice\Enums\VoucherType;
 
-class Voucher extends NamedEntity {
+class Voucher extends NamedEntity implements IdentifiableInterface {
     protected VoucherID $id;
     protected VoucherType $voucherType;
     protected VoucherStatus $voucherStatus;
@@ -30,5 +31,9 @@ class Voucher extends NamedEntity {
 
     public function __construct($data = null) {
         parent::__construct($data);
+    }
+
+    public function getID(): VoucherID {
+        return $this->id;
     }
 }

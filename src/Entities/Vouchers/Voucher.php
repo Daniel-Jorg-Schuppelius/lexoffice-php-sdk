@@ -6,6 +6,8 @@ namespace Lexoffice\Entities\Vouchers;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
+use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
+use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
 use Lexoffice\Entities\Contacts\ContactID;
 use Lexoffice\Entities\Files\Files;
 use Lexoffice\Entities\Profile\OrganizationID;
@@ -13,7 +15,7 @@ use Lexoffice\Enums\TaxType;
 use Lexoffice\Enums\VoucherStatus;
 use Lexoffice\Enums\VoucherType;
 
-class Voucher extends NamedEntity {
+class Voucher extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface {
     public VoucherID $id;
     public OrganizationID $organizationId;
     public VoucherType $type;
@@ -35,8 +37,15 @@ class Voucher extends NamedEntity {
     protected DateTime $updatedDate;
     protected int $version;
 
-
     public function __construct($data = null) {
         parent::__construct($data);
+    }
+
+    public function getID(): VoucherID {
+        return $this->id;
+    }
+
+    public function getOrganizationID(): OrganizationID {
+        return $this->organizationId;
     }
 }

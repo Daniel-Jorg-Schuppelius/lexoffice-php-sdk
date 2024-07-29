@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\PostingCategories;
 
 use Lexoffice\Contracts\Abstracts\NamedEntity;
+use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Enums\PostingCategoryType;
 
-class PostingCategory extends NamedEntity {
+class PostingCategory extends NamedEntity implements IdentifiableInterface {
     public PostingCategoryID $id;
     public string $name;
     public PostingCategoryType $type;
@@ -17,5 +18,9 @@ class PostingCategory extends NamedEntity {
 
     public function __construct($data = null) {
         parent::__construct($data);
+    }
+
+    public function getID(): PostingCategoryID {
+        return $this->id;
     }
 }
