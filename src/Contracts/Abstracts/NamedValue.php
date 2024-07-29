@@ -47,6 +47,8 @@ abstract class NamedValue implements NamedValueInterface {
                 }
                 return $val;
             }
+        } else if (is_array($data) && empty($data)) {
+            return null;
         } else if (!is_scalar($data) && !is_null($data)) {
             throw new \InvalidArgumentException("Value must be a scalar or null.");
         }
@@ -67,6 +69,10 @@ abstract class NamedValue implements NamedValueInterface {
             $result[$this->entityName] = $this->data;
         }
         return $result;
+    }
+
+    public function toJson(): string {
+        return json_encode($this->toArray(), JSON_FORCE_OBJECT);
     }
 
     public function toString(): string {

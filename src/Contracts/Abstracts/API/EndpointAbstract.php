@@ -8,6 +8,7 @@ use Lexoffice\Contracts\Interfaces\API\ApiClientInterface;
 use Lexoffice\Contracts\Interfaces\API\EndpointInterface;
 use Lexoffice\Contracts\Interfaces\API\ResourceInterface;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
+use Lexoffice\Entities\ID;
 use Lexoffice\Exceptions\ApiException;
 use Lexoffice\Exceptions\NotFoundException;
 use Lexoffice\Exceptions\UnauthorizedException;
@@ -39,8 +40,8 @@ abstract class EndpointAbstract implements EndpointInterface {
         return json_decode($response->getBody()->getContents(), true);
     }
 
-    abstract public function create(array $data): ResourceInterface;
-    abstract public function get(string $id): NamedEntityInterface;
-    abstract public function update(string $id, array $data): NamedEntityInterface;
-    abstract public function delete(string $id): bool;
+    abstract public function create(NamedEntityInterface $data): ResourceInterface;
+    abstract public function get(ID $id): NamedEntityInterface;
+    abstract public function update(ID $id, NamedEntityInterface $data): NamedEntityInterface;
+    abstract public function delete(ID $id): bool;
 }

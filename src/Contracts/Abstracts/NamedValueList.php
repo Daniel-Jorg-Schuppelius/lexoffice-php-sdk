@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Lexoffice\Contracts\Abstracts;
 
+use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
+
 abstract class NamedValueList extends NamedValue {
     protected string $className = string::class;
     protected $data = [];

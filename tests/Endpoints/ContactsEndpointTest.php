@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Lexoffice\Api\Endpoints\ContactsEndpoint;
 use Lexoffice\API\Client;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
+use Lexoffice\Entities\Contacts\Contact;
 use Lexoffice\Entities\Contacts\ContactResource;
 use Lexoffice\Entities\Contacts\ContactsPage;
 use Lexoffice\Logger\ConsoleLogger;
@@ -17,7 +18,7 @@ class ContactsEndpointTest extends TestCase {
     private ?PostmanConfig $config;
     private ?ConsoleLogger $logger = null;
 
-    private bool $apiDisabled = false;
+    private bool $apiDisabled = true;
 
     public function __construct($name) {
         parent::__construct($name);
@@ -57,11 +58,11 @@ class ContactsEndpointTest extends TestCase {
                 "firstName" => "Inge",
                 "lastName" => "Musterfrau"
             ],
-            "countryCode" => "DE",
             "note" => "Notizen"
         ];
+        $contact = new Contact($data);
 
-        $contactResource = $this->endpoint->create($data);
+        $contactResource = $this->endpoint->create($contact);
         $this->assertInstanceOf(ContactResource::class, $contactResource);
     }
 
@@ -78,20 +79,20 @@ class ContactsEndpointTest extends TestCase {
                 ]
             ],
             "person" => [
-                "salutation" => "Frau",
-                "firstName" => "Inge",
-                "lastName" => "Musterfrau"
+                "salutation" => "Herr",
+                "firstName" => "Max",
+                "lastName" => "Mustermann"
             ],
             "note" => "Notizen"
         ];
 
-        $contactResource = $this->endpoint->create($data);
+        $contactResource = $this->endpoint->create(new Contact($data));
         $this->assertInstanceOf(ContactResource::class, $contactResource);
-        $contact = $this->endpoint->get($contactResource->getId()->toString());
+        $contact = $this->endpoint->get($contactResource->getId());
 
         $person = $contact->person;
-        $person->firstName = "Ingeborg";
-        $contactResourceUpdated = $this->endpoint->update($contactResource->getId()->toString(), $contact->toArray());
+        $person->firstName = "Maximilian";
+        $contactResourceUpdated = $this->endpoint->update($contactResource->getId(), $contact);
         $this->assertInstanceOf(ContactResource::class, $contactResourceUpdated);
     }
 
@@ -118,7 +119,7 @@ class ContactsEndpointTest extends TestCase {
         $contactsPage = $this->endpoint->search();
         $this->assertInstanceOf(ContactsPage::class, $contactsPage);
 
-        $contactResource = $this->endpoint->create($data);
+        $contactResource = $this->endpoint->create(new Contact($data));
         $this->assertInstanceOf(ContactResource::class, $contactResource);
 
         $contactsPageUpdated = $this->endpoint->search();

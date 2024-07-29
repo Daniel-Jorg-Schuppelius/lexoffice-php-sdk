@@ -11,6 +11,26 @@ use Lexoffice\Entities\Contacts\ContactsPage;
 use PHPUnit\Framework\TestCase;
 
 class ContactsTest extends TestCase {
+    public function testNamedEntity() {
+        $data = [
+            "version" => 0,
+            "roles" => [
+                "customer" => []
+            ],
+            "person" => [
+                "salutation" => "Frau",
+                "firstName" => "Inge",
+                "lastName" => "Musterfrau"
+            ],
+            "note" => "Notizen"
+        ];
+        $contact = new Contact($data);
+        $this->assertInstanceOf(Contact::class, $contact);
+
+        $jsonOriginal = '{"version":0,"roles":{"customer":{}},"person":{"salutation":"Frau","firstName":"Inge","lastName":"Musterfrau"},"note":"Notizen"}';
+        $jsonEncoded = $contact->toJson();
+        $this->assertEquals($jsonOriginal, $jsonEncoded);
+    }
     public function testCreateContact() {
         $data = [
             "id" => "be9475f4-ef80-442b-8ab9-3ab8b1a2aeb9",

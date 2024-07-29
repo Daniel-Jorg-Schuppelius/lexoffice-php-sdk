@@ -11,5 +11,7 @@ interface NamedEntityInterface {
     public function setData($data): self;
 
     public function toArray(): array;
+    public function toJson(): string;
+
     public static function fromArray(array $data): self;
 }

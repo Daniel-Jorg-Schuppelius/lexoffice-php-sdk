@@ -11,4 +11,13 @@ class Role extends NamedValue {
         $this->entityName = 'number';
         parent::__construct($data);
     }
+
+    public function toArray(): array {
+        if (is_null($this->data)) {
+            return [];
+        }
+        return [
+            $this->entityName => $this->data
+        ];
+    }
 }

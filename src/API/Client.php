@@ -73,11 +73,6 @@ class Client implements ApiClientInterface {
             $this->logger->info("Sending {$method} request to {$uri} (waiting {$microsecondsToSleep} microseconds to execute)", $options);
         }
 
-        if (isset($options['json'])) {
-            $options['body'] = json_encode($options['json'], JSON_FORCE_OBJECT);
-            unset($options['json']);
-        }
-
         $this->lastRequestTime = microtime(true);
         $response = $this->client->request($method, $uri, $options);
         if ($this->sleepAfterRequest) {

@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Lexoffice\Api\Endpoints\ArticlesEndpoint;
 use Lexoffice\API\Client;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
+use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticleResource;
 use Lexoffice\Entities\Articles\ArticlesPage;
 use Lexoffice\Logger\ConsoleLogger;
@@ -57,9 +58,10 @@ class ArticlesEndpointTest extends TestCase {
             ]
         ];
 
-        $articleResource = $this->endpoint->create($data);
+        $article = new Article($data);
+        $articleResource = $this->endpoint->create($article);
         $this->assertInstanceOf(ArticleResource::class, $articleResource);
-        $this->endpoint->delete($articleResource->getId()->toString());
+        $this->endpoint->delete($articleResource->getId());
     }
 
     public function testCreateGetUpdateAndDeleteArticleAPI() {
@@ -79,15 +81,15 @@ class ArticlesEndpointTest extends TestCase {
             ]
         ];
 
-        $articleResource = $this->endpoint->create($data);
+        $articleResource = $this->endpoint->create(new Article($data));
         $this->assertInstanceOf(ArticleResource::class, $articleResource);
-        $article = $this->endpoint->get($articleResource->getId()->toString());
+        $article = $this->endpoint->get($articleResource->getId());
 
         $article->title = "Lexware buchhaltung Premium 2022 Updated";
-        $articleResourceUpdated = $this->endpoint->update($articleResource->getId()->toString(), $article->toArray());
+        $articleResourceUpdated = $this->endpoint->update($articleResource->getId(), $article);
         $this->assertInstanceOf(ArticleResource::class, $articleResourceUpdated);
 
-        $this->endpoint->delete($articleResource->getId()->toString());
+        $this->endpoint->delete($articleResource->getId());
     }
 
     public function testCreateSearchAndDeleteArticleAPI() {
@@ -110,13 +112,13 @@ class ArticlesEndpointTest extends TestCase {
         $articlesPage = $this->endpoint->search();
         $this->assertInstanceOf(ArticlesPage::class, $articlesPage);
 
-        $articleResource = $this->endpoint->create($data);
+        $articleResource = $this->endpoint->create(new Article($data));
         $this->assertInstanceOf(ArticleResource::class, $articleResource);
 
         $articlesPageUpdated = $this->endpoint->search();
         $this->assertInstanceOf(ArticlesPage::class, $articlesPageUpdated);
         $this->assertGreaterThan($articlesPage->getTotalElements(), $articlesPageUpdated->getTotalElements());
 
-        $this->endpoint->delete($articleResource->getId()->toString());
+        $this->endpoint->delete($articleResource->getId());
     }
 }

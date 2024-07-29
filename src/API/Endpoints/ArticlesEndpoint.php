@@ -3,40 +3,42 @@
 namespace Lexoffice\Api\Endpoints;
 
 use Lexoffice\Contracts\Abstracts\API\SearchableEndpointAbstract;
+use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticleResource;
 use Lexoffice\Entities\Articles\ArticlesPage;
+use Lexoffice\Entities\ID;
 
 class ArticlesEndpoint extends SearchableEndpointAbstract {
     protected string $endpoint = 'articles';
 
-    public function create(array $data): ArticleResource {
+    public function create(NamedEntityInterface $data): ArticleResource {
         $response = $this->client->post($this->endpoint, [
-            'json' => $data,
+            'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 201);
 
         return ArticleResource::fromArray($body);
     }
 
-    public function get(string $id): Article {
-        $response = $this->client->get("{$this->endpoint}/{$id}");
+    public function get(ID $id): Article {
+        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
         $body = $this->handleResponse($response, 200);
 
         return Article::fromArray($body);
     }
 
-    public function update(string $id, array $data): ArticleResource {
-        $response = $this->client->put("{$this->endpoint}/{$id}", [
-            'json' => $data,
+    public function update(ID $id, NamedEntityInterface $data): ArticleResource {
+        $response = $this->client->put("{$this->endpoint}/{$id->toString()}", [
+            'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 200);
 
         return ArticleResource::fromArray($body);
     }
 
-    public function delete(string $id): bool {
-        $response = $this->client->delete("{$this->endpoint}/{$id}");
+    public function delete(ID $id): bool {
+        $response = $this->client->delete("{$this->endpoint}/{$id->toString()}");
         $this->handleResponse($response, 204);
 
         return true;
