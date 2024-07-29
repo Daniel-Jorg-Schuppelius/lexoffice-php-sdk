@@ -18,6 +18,7 @@ enum CountryCode: string {
     case Argentina = 'AR';
     case Armenia = 'AM';
     case Aruba = 'AW';
+    case AscensionIsland = 'AC';
     case Australia = 'AU';
     case Austria = 'AT';
     case Azerbaijan = 'AZ';
@@ -66,6 +67,7 @@ enum CountryCode: string {
     case Cyprus = 'CY';
     case Czechia = 'CZ';
     case Denmark = 'DK';
+    case DiegoGarcia = 'DG';
     case Djibouti = 'DJ';
     case Dominica = 'DM';
     case DominicanRepublic = 'DO';
@@ -125,6 +127,7 @@ enum CountryCode: string {
     case Kiribati = 'KI';
     case KoreaDemocraticPeoplesRepublicOf = 'KP';
     case KoreaRepublicOf = 'KR';
+    case Kosovo = 'XK';
     case Kuwait = 'KW';
     case Kyrgyzstan = 'KG';
     case LaoPeoplesDemocraticRepublic = 'LA';
@@ -162,6 +165,7 @@ enum CountryCode: string {
     case Nauru = 'NR';
     case Nepal = 'NP';
     case Netherlands = 'NL';
+    case NetherlandsAntilles = 'AN';
     case NewCaledonia = 'NC';
     case NewZealand = 'NZ';
     case Nicaragua = 'NI';
@@ -170,6 +174,7 @@ enum CountryCode: string {
     case Niue = 'NU';
     case NorfolkIsland = 'NF';
     case NorthMacedonia = 'MK';
+    case NorthernIreland = "XI";
     case NorthernMarianaIslands = 'MP';
     case Norway = 'NO';
     case Oman = 'OM';
@@ -231,6 +236,7 @@ enum CountryCode: string {
     case Tokelau = 'TK';
     case Tonga = 'TO';
     case TrinidadAndTobago = 'TT';
+    case TristanDaCunha = 'TA';
     case Tunisia = 'TN';
     case Turkey = 'TR';
     case Turkmenistan = 'TM';
@@ -254,4 +260,9 @@ enum CountryCode: string {
     case Yemen = 'YE';
     case Zambia = 'ZM';
     case Zimbabwe = 'ZW';
+        // Custom values from lexoffice
+    case CanaryIslands = "ES_CN";
+    case Ceuta = "ES_CE";
+    case Melilla = "ES_ML";
+    case MountAthos = "GR_69";
 }

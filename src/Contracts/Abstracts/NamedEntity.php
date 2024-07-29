@@ -44,7 +44,11 @@ abstract class NamedEntity implements NamedEntityInterface {
                     $className = $type->getName();
 
                     if (is_subclass_of($className, BackedEnum::class)) {
-                        $this->{$key} = $className::from($val);
+                        try {
+                            $this->{$key} = $className::from($val);
+                        } catch (\Throwable $e) {
+                            error_log("Failed to instantiate $className: " . $e->getMessage() . ". If this data is coming from the lexoffice API, update the Enum.");
+                        }
                     } else if ($key == "content" && !empty($this->className) && is_subclass_of($className, NamedEntityInterface::class)) {
                         $this->{$key} = new $this->className($val);
                     } else {

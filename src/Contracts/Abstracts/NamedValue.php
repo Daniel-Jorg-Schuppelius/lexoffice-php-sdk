@@ -80,7 +80,8 @@ abstract class NamedValue implements NamedValueInterface {
     }
 
     public static function fromArray(array $data): self {
-        return new self($data);
+        $className = get_called_class();
+        return new $className($data);
     }
 
     public static function fromJson(string $data): self {

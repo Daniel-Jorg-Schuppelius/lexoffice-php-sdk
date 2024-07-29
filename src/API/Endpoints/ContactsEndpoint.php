@@ -8,7 +8,7 @@ use Lexoffice\Entities\Contacts\Contact;
 use Lexoffice\Entities\Contacts\ContactResource;
 use Lexoffice\Entities\Contacts\ContactsPage;
 use Lexoffice\Entities\ID;
-use Lexoffice\Exceptions\ApiException;
+use Lexoffice\Exceptions\NotAllowedException;
 
 class ContactsEndpoint extends SearchableEndpointAbstract {
     protected string $endpoint = 'contacts';
@@ -39,7 +39,7 @@ class ContactsEndpoint extends SearchableEndpointAbstract {
     }
 
     public function delete(ID $id): bool {
-        throw new ApiException('Not Allowed', 405);
+        throw new NotAllowedException('Not Allowed', 405);
     }
 
     public function search(array $queryParams = []): ContactsPage {
