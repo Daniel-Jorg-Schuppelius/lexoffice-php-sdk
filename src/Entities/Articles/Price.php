@@ -8,10 +8,10 @@ use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\LeadingPrice;
 
 class Price extends NamedEntity {
-    protected float $netPrice;
-    protected float $grossPrice;
+    protected ?float $netPrice;
+    protected ?float $grossPrice;
     protected LeadingPrice $leadingPrice;
-    protected float $taxRate;
+    protected float $taxRate = 0;
 
     public function __construct($data = null) {
         parent::__construct($data);

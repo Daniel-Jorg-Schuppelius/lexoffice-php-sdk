@@ -120,11 +120,13 @@ class ContactsTest extends TestCase {
         ];
 
         $contact = new Contact($data);
+        $contactArray = $contact->toArray();
+        $this->assertEquals($data, $contactArray);
         $this->assertInstanceOf(Contact::class, $contact);
         $this->assertInstanceOf(Company::class, $contact->company);
         $this->assertTrue($contact->company->allowTaxFreeInvoices);
-        $this->assertEquals('Max', $contact->company->contactPersons->getData()[0]->firstName);
-        $this->assertEquals('Mustermann', $contact->company->contactPersons->getData()[1]->lastName);
+        $this->assertEquals('Max', $contact->company->contactPersons->getValues()[0]->firstName);
+        $this->assertEquals('Mustermann', $contact->company->contactPersons->getValues()[1]->lastName);
     }
     public function testCreateContacts() {
         $data = [
@@ -167,11 +169,11 @@ class ContactsTest extends TestCase {
 
         $contacts = new Contacts($data);
         $this->assertInstanceOf(Contacts::class, $contacts);
-        $this->assertIsArray($contacts->getData());
-        $this->assertInstanceOf(Contact::class, $contacts->getData()[0]);
-        $this->assertInstanceOf(Contact::class, $contacts->getData()[1]);
-        $this->assertEquals('Inge', $contacts->getData()[0]->person->firstName);
-        $this->assertEquals('Mustermann', $contacts->getData()[1]->person->lastName);
+        $this->assertIsArray($contacts->getValues());
+        $this->assertInstanceOf(Contact::class, $contacts->getValues()[0]);
+        $this->assertInstanceOf(Contact::class, $contacts->getValues()[1]);
+        $this->assertEquals('Inge', $contacts->getValues()[0]->person->firstName);
+        $this->assertEquals('Mustermann', $contacts->getValues()[1]->person->lastName);
     }
 
     public function testCreateContactsPage() {
@@ -232,6 +234,6 @@ class ContactsTest extends TestCase {
         $contactsPage = new ContactsPage($data);
         $this->assertInstanceOf(ContactsPage::class, $contactsPage);
         $this->assertInstanceOf(Contacts::class, $contactsPage->getContent());
-        $this->assertInstanceOf(Contact::class, $contactsPage->getData()[0]);
+        $this->assertInstanceOf(Contact::class, $contactsPage->getValues()[0]);
     }
 }

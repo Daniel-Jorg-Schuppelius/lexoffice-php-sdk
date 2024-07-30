@@ -9,29 +9,29 @@ use Lexoffice\Contracts\Interfaces\NamedValueInterface;
 
 abstract class NamedValue implements NamedValueInterface {
     protected string $entityName;
-    protected $data;
+    protected $value;
 
     protected bool $readOnly = false;
 
     public function __construct($data = null) {
         if (empty($this->entityName))
             $this->entityName = static::class;
-        $this->data = $this->validateData($data);
+        $this->value = $this->validateData($data);
     }
 
     public function getEntityName(): string {
         return $this->entityName;
     }
 
-    public function getData() {
-        return $this->data;
+    public function getValue() {
+        return $this->value;
     }
 
     public function setData($data): NamedEntityInterface {
         if ($this->readOnly) {
             throw new \RuntimeException("Cannot modify read-only value.");
         }
-        $this->data = $this->validateData($data);
+        $this->value = $this->validateData($data);
         return $this;
     }
 
@@ -57,8 +57,8 @@ abstract class NamedValue implements NamedValueInterface {
 
     public function toArray(): array {
         $result = [];
-        if (is_array($this->data)) {
-            foreach ($this->data as $key => $value) {
+        if (is_array($this->value)) {
+            foreach ($this->value as $key => $value) {
                 if ($value instanceof NamedEntityInterface) {
                     $result[] = $value->toArray();
                 } else {
@@ -66,7 +66,7 @@ abstract class NamedValue implements NamedValueInterface {
                 }
             }
         } else {
-            $result[$this->entityName] = $this->data;
+            $result[$this->entityName] = $this->value;
         }
         return $result;
     }
@@ -76,7 +76,7 @@ abstract class NamedValue implements NamedValueInterface {
     }
 
     public function toString(): string {
-        return (string) $this->data;
+        return (string) $this->value;
     }
 
     public static function fromArray(array $data): self {

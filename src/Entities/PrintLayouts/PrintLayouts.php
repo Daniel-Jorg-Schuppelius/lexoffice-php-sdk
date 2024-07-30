@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\PrintLayouts;
 
-use Lexoffice\Contracts\Abstracts\NamedValueList;
+use Lexoffice\Contracts\Abstracts\NamedValues;
 
-class PrintLayouts extends NamedValueList {
+class PrintLayouts extends NamedValues {
     public function __construct($data = null) {
-        $this->className = PrintLayout::class;
+        $this->valueClassName = PrintLayout::class;
         parent::__construct($data);
     }
 }

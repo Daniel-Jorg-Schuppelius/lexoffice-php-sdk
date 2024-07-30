@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Countries;
 
-use Lexoffice\Contracts\Abstracts\NamedValueList;
+use Lexoffice\Contracts\Abstracts\NamedValues;
 
-class Countries extends NamedValueList {
+class Countries extends NamedValues {
     public function __construct($data = null) {
-        $this->className = Country::class;
+        $this->valueClassName = Country::class;
         parent::__construct($data);
     }
 }

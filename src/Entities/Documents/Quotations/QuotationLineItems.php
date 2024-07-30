@@ -8,7 +8,7 @@ use Lexoffice\Entities\Documents\ExtendedLineItems;
 
 class QuotationLineItems extends ExtendedLineItems {
     public function __construct($data = null) {
-        $this->className = QuotationLineItem::class;
+        $this->valueClassName = QuotationLineItem::class;
         parent::__construct($data);
     }
 }

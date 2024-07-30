@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Documents;
 
-use Lexoffice\Contracts\Abstracts\NamedValueList;
+use Lexoffice\Contracts\Abstracts\NamedValues;
 
-class TaxAmounts extends NamedValueList {
+class TaxAmounts extends NamedValues {
     public function __construct($data = null) {
-        $this->className = TaxAmount::class;
+        $this->valueClassName = TaxAmount::class;
         parent::__construct($data);
     }
 }

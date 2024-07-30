@@ -7,6 +7,7 @@ namespace Tests\Entities;
 use Lexoffice\Entities\Articles\Articles;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticlesPage;
+use Lexoffice\Entities\Articles\Price;
 use PHPUnit\Framework\TestCase;
 
 class ArticlesTest extends TestCase {
@@ -34,6 +35,7 @@ class ArticlesTest extends TestCase {
         ];
 
         $article = new Article($data);
+        $this->assertInstanceOf(Article::class, new Article());
         $this->assertInstanceOf(Article::class, $article);
         $this->assertEquals('Lexware buchhaltung Premium 2024', $article->title);
         $this->assertEquals($data, $article->toArray());
@@ -80,11 +82,11 @@ class ArticlesTest extends TestCase {
 
         $articles = new Articles($data);
         $this->assertInstanceOf(Articles::class, $articles);
-        $this->assertInstanceOf(Article::class, $articles->getData()[0]);
-        $this->assertInstanceOf(Article::class, $articles->getData()[1]);
-        $this->assertEquals('Lexware buchhaltung Premium 2024', $articles->getData()[0]->title);
-        $this->assertEquals('Lexware warenwirtschaft Premium 2024', $articles->getData()[1]->title);
-        $this->assertIsArray($articles->getData());
+        $this->assertInstanceOf(Article::class, $articles->getValues()[0]);
+        $this->assertInstanceOf(Article::class, $articles->getValues()[1]);
+        $this->assertEquals('Lexware buchhaltung Premium 2024', $articles->getValues()[0]->title);
+        $this->assertEquals('Lexware warenwirtschaft Premium 2024', $articles->getValues()[1]->title);
+        $this->assertIsArray($articles->getValues());
     }
 
     public function testCreateArticlesPage() {
@@ -146,6 +148,6 @@ class ArticlesTest extends TestCase {
         $articlesPage = new ArticlesPage($data);
         $this->assertInstanceOf(ArticlesPage::class, $articlesPage);
         $this->assertInstanceOf(Articles::class, $articlesPage->getContent());
-        $this->assertIsArray($articlesPage->getData());
+        $this->assertIsArray($articlesPage->getValues());
     }
 }

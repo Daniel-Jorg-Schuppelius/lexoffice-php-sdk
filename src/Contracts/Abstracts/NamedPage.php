@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Lexoffice\Contracts\Abstracts;
 
 use Lexoffice\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Contracts\Interfaces\NamedValueInterface;
+use Lexoffice\Contracts\Interfaces\NamedValuesInterface;
 use Lexoffice\Entities\Collations;
 
 abstract class NamedPage extends NamedEntity {
-    protected NamedValueInterface $content;
+    protected NamedValuesInterface $content;
     protected bool $first;
     protected bool $last;
     protected int $totalPages;
@@ -55,11 +55,11 @@ abstract class NamedPage extends NamedEntity {
         return $this->sort;
     }
 
-    public function getContent(): NamedValueInterface {
+    public function getContent(): NamedValuesInterface {
         return $this->content;
     }
 
-    public function getData() {
-        return $this->content->getData();
+    public function getValues() {
+        return $this->content->getValues();
     }
 }

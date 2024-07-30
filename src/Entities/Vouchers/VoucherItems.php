@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Vouchers;
 
-use Lexoffice\Contracts\Abstracts\NamedValueList;
+use Lexoffice\Contracts\Abstracts\NamedValues;
 
-class VoucherItems extends NamedValueList {
+class VoucherItems extends NamedValues {
     public function __construct($data = null) {
-        $this->className = VoucherItem::class;
+        $this->valueClassName = VoucherItem::class;
         parent::__construct($data);
     }
 }

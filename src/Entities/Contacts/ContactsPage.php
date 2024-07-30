@@ -8,7 +8,7 @@ use Lexoffice\Contracts\Abstracts\NamedPage;
 
 class ContactsPage extends NamedPage {
     public function __construct($data = null) {
-        $this->className = Contacts::class;
+        $this->valueClassName = Contacts::class;
         parent::__construct($data);
     }
 }

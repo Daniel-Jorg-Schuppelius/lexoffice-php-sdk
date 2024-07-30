@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Contacts;
 
-use Lexoffice\Contracts\Abstracts\NamedValueList;
+use Lexoffice\Contracts\Abstracts\NamedValues;
 use Lexoffice\Entities\Address;
 
-class AddressList extends NamedValueList {
+class AddressList extends NamedValues {
     public function __construct($data = null) {
-        $this->className = Address::class;
+        $this->valueClassName = Address::class;
         parent::__construct($data);
     }
 }

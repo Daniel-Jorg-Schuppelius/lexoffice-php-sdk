@@ -9,7 +9,7 @@ use Lexoffice\Entities\VoucherList\Vouchers;
 
 class VouchersPage extends NamedPage {
     public function __construct($data = null) {
-        $this->className = Vouchers::class;
+        $this->valueClassName = Vouchers::class;
         parent::__construct($data);
     }
 }

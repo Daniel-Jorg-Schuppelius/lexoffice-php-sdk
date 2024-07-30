@@ -13,11 +13,11 @@ class Role extends NamedValue {
     }
 
     public function toArray(): array {
-        if (is_null($this->data)) {
+        if (is_null($this->value)) {
             return [];
         }
         return [
-            $this->entityName => $this->data
+            $this->entityName => $this->value
         ];
     }
 }

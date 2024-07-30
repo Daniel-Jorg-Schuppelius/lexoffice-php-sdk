@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Contacts;
 
-use Lexoffice\Contracts\Abstracts\NamedValueList;
+use Lexoffice\Contracts\Abstracts\NamedValues;
 
-class ContactPersons extends NamedValueList {
+class ContactPersons extends NamedValues {
     public function __construct($data = null) {
-        $this->className = ContactPerson::class;
+        $this->valueClassName = ContactPerson::class;
         parent::__construct($data);
     }
 }

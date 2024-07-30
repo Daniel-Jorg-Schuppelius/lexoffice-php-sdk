@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\PaymentConditions;
 
-use Lexoffice\Contracts\Abstracts\NamedValueList;
+use Lexoffice\Contracts\Abstracts\NamedValues;
 
-class PaymentConditions extends NamedValueList {
+class PaymentConditions extends NamedValues {
     public function __construct($data = null) {
-        $this->className = PaymentCondition::class;
+        $this->valueClassName = PaymentCondition::class;
         parent::__construct($data);
     }
 }

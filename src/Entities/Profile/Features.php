@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Profile;
 
-use Lexoffice\Contracts\Abstracts\NamedValueList;
+use Lexoffice\Contracts\Abstracts\NamedValues;
 
-class Features extends NamedValueList {
+class Features extends NamedValues {
     public function __construct($data = null) {
-        $this->className = Feature::class;
+        $this->valueClassName = Feature::class;
         parent::__construct($data);
     }
 }

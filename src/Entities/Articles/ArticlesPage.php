@@ -8,7 +8,7 @@ use Lexoffice\Contracts\Abstracts\NamedPage;
 
 class ArticlesPage extends NamedPage {
     public function __construct($data = null) {
-        $this->className = Articles::class;
+        $this->valueClassName = Articles::class;
         parent::__construct($data);
     }
 }

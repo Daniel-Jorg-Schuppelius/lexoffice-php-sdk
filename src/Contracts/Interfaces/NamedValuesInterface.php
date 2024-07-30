@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Lexoffice\Contracts\Interfaces;
 
-interface NamedValueInterface extends NamedEntityInterface {
+interface NamedValuesInterface extends NamedEntityInterface {
     public function isReadOnly(): bool;
 
-    public function getValue();
+    public function getValues(): array;
 }
