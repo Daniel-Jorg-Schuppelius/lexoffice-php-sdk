@@ -57,7 +57,7 @@ class ArticlesEndpointTest extends TestCase {
 
         $article = new Article($data);
         $this->assertEquals($data, $article->toArray());
-        $this->assertEquals(json_encode($data), $article->toJson());
+        $this->assertEquals(json_encode($data), $article->toJson());  // the order of the $data array is important for this test.
         $this->assertStringContainsString(substr($article->getID()->toJson(), 2, -2), json_encode($data));
         $this->assertEquals(json_encode($data["price"]), $article->price->toJson());
     }

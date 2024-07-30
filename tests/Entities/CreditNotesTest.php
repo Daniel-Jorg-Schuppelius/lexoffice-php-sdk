@@ -90,5 +90,6 @@ class CreditNotesTest extends TestCase {
 
         $creditNotes = new CreditNote($data);
         $this->assertInstanceOf(CreditNote::class, $creditNotes);
+        $this->assertEquals($data, $creditNotes->toArray());
     }
 }

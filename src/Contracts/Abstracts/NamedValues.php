@@ -59,6 +59,19 @@ abstract class NamedValues implements NamedValuesInterface {
         return $result;
     }
 
+    protected function isArrayFullyNumeric($array) {
+        // Extrahiere alle Schlüssel des Arrays
+        $keys = array_keys($array);
+
+        // Filtere die Schlüssel, die keine Integers sind
+        $nonNumericKeys = array_filter($keys, function ($key) {
+            return !is_int($key);
+        });
+
+        // Wenn das Array $nonNumericKeys leer ist, sind alle Schlüssel numerisch
+        return count($nonNumericKeys) === 0;
+    }
+
     public function toArray(): array {
         $result = [];
         foreach ($this->values as $key => $value) {

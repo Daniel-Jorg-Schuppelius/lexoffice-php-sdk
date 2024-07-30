@@ -10,6 +10,7 @@ use ReflectionNamedType;
 use BackedEnum;
 use DateTime;
 use Reflection;
+use stdClass;
 
 abstract class NamedEntity implements NamedEntityInterface {
     protected string $entityName;
@@ -50,7 +51,7 @@ abstract class NamedEntity implements NamedEntityInterface {
                         } catch (\Throwable $e) {
                             error_log("Failed to instantiate $className: " . $e->getMessage() . ". If this data is coming from the lexoffice API, update the Enum.");
                         }
-                    } else if ($key == "content" && !empty($this->valueClassName) && is_subclass_of($className, NamedEntityInterface::class)) {
+                    } elseif ($key == "content" && !empty($this->valueClassName) && is_subclass_of($className, NamedEntityInterface::class)) {
                         $this->{$key} = new $this->valueClassName($val);
                     } else {
                         try {
@@ -124,6 +125,8 @@ abstract class NamedEntity implements NamedEntityInterface {
                 $valueArray = $property["value"]->toArray();
                 if ($property["value"] instanceof NamedValue && isset($valueArray[$key])) {
                     $result[$key] =  $valueArray[$key];
+                } elseif ($property["value"] instanceof NamedValue && empty($valueArray)) {
+                    $result[$key] = new stdClass();
                 } else {
                     $result[$key] = $valueArray;
                 }
@@ -140,7 +143,7 @@ abstract class NamedEntity implements NamedEntityInterface {
     }
 
     public function toJson(): string {
-        return json_encode($this->toArray(), JSON_FORCE_OBJECT);
+        return json_encode($this->toArray());
     }
 
     public static function fromArray(array $data): self {

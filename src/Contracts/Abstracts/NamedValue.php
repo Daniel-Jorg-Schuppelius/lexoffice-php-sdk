@@ -47,9 +47,9 @@ abstract class NamedValue implements NamedValueInterface {
                 }
                 return $val;
             }
-        } else if (is_array($data) && empty($data)) {
+        } elseif (is_array($data) && empty($data)) {
             return null;
-        } else if (!is_scalar($data) && !is_null($data)) {
+        } elseif (!is_scalar($data) && !is_null($data)) {
             throw new \InvalidArgumentException("Value must be a scalar or null.");
         }
         return $data;

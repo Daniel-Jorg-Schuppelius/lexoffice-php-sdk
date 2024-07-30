@@ -17,6 +17,7 @@ class LineItem extends NamedEntity {
     public string $unitName;
     public UnitPrice $unitPrice;
     protected float $lineItemAmount;
+    protected int $lineItemTemplateVersion;
 
     public function __construct($data = null) {
         parent::__construct($data);
