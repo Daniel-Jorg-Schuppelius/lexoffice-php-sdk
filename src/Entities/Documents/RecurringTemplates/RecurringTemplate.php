@@ -10,6 +10,7 @@ use Lexoffice\Entities\XRechnung;
 use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Lexoffice\Entities\Documents\PaymentConditions;
 use Lexoffice\Entities\Documents\ShippingConditions;
+use Psr\Log\LoggerInterface;
 
 class RecurringTemplate extends NamedDocument {
     public ?DateTime $dueDate;
@@ -19,7 +20,7 @@ class RecurringTemplate extends NamedDocument {
     public ShippingConditions $shippingConditions;
     protected RecurringTemplateSettings $recurringTemplateSettings;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

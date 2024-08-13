@@ -7,6 +7,7 @@ namespace Lexoffice\Entities\PostingCategories;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Enums\PostingCategoryType;
+use Psr\Log\LoggerInterface;
 
 class PostingCategory extends NamedEntity implements IdentifiableInterface {
     public PostingCategoryID $id;
@@ -16,8 +17,8 @@ class PostingCategory extends NamedEntity implements IdentifiableInterface {
     public bool $splitAllowed;
     public string $groupName;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 
     public function getID(): PostingCategoryID {

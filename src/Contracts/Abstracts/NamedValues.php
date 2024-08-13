@@ -7,15 +7,20 @@ namespace Lexoffice\Contracts\Abstracts;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Contracts\Interfaces\NamedValueInterface;
 use Lexoffice\Contracts\Interfaces\NamedValuesInterface;
+use Psr\Log\LoggerInterface;
 
 abstract class NamedValues implements NamedValuesInterface {
+    protected ?LoggerInterface $logger;
+
     protected string $valueClassName = string::class;
     protected string $entityName;
     protected array $values = [];
 
     protected bool $readOnly = false;
 
-    public function __construct($data = null) {
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        $this->logger = $logger;
+
         if (!empty($data) && isset($this->entityName) && $this->entityName == "content" && array_key_exists($this->entityName, $data)) {
             $this->values = $this->validateData($data[$this->entityName]);
         } else {
@@ -33,6 +38,10 @@ abstract class NamedValues implements NamedValuesInterface {
 
     public function isReadOnly(): bool {
         return $this->readOnly;
+    }
+
+    public function isValid(): bool {
+        return true;
     }
 
     public function setData($data): NamedEntityInterface {

@@ -7,6 +7,7 @@ namespace Lexoffice\Entities\Countries;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\CountryCode;
 use Lexoffice\Enums\TaxClassification;
+use Psr\Log\LoggerInterface;
 
 class Country extends NamedEntity {
     public CountryCode $countryCode;
@@ -14,7 +15,7 @@ class Country extends NamedEntity {
     public string $countryNameDE;
     public TaxClassification $taxClassification;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

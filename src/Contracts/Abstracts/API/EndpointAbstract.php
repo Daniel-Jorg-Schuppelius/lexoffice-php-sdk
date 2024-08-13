@@ -11,13 +11,17 @@ use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\ID;
 use Lexoffice\Exceptions\ApiException;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 abstract class EndpointAbstract implements EndpointInterface {
+    protected ?LoggerInterface $logger;
+
     protected ApiClientInterface $client;
     protected string $endpoint;
 
-    public function __construct(ApiClientInterface $client) {
+    public function __construct(ApiClientInterface $client, ?LoggerInterface $logger = null) {
         $this->client = $client;
+        $this->logger = $logger;
     }
 
     protected function handleResponse(ResponseInterface $response, int $expectedStatusCode): string {

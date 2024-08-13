@@ -9,6 +9,7 @@ use Lexoffice\Contracts\Abstracts\NamedDocument;
 use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Lexoffice\Entities\Documents\PaymentConditions;
 use Lexoffice\Entities\Documents\ShippingConditions;
+use Psr\Log\LoggerInterface;
 
 class DownPaymentInvoice extends NamedDocument {
     public DateTime $dueDate;
@@ -17,7 +18,7 @@ class DownPaymentInvoice extends NamedDocument {
     public ShippingConditions $shippingConditions;
     public ?ClosingInvoiceID $closingInvoiceId;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

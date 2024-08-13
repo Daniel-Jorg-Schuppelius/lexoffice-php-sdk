@@ -19,31 +19,32 @@ use Lexoffice\Entities\Documents\TaxAmounts;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\Language;
 use Lexoffice\Enums\VoucherStatus;
+use Psr\Log\LoggerInterface;
 
 abstract class NamedDocument extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface {
-    protected ID $id;
-    protected OrganizationID $organizationId;
-    protected DateTime $createdDate;
-    protected DateTime $updatedDate;
-    protected Version $version;
-    public Language $language;
-    protected bool $archived;
-    public VoucherStatus $voucherStatus;
-    public string $voucherNumber;
+    protected ?ID $id;
+    protected ?OrganizationID $organizationId;
+    protected ?DateTime $createdDate;
+    protected ?DateTime $updatedDate;
+    protected ?Version $version;
+    public ?Language $language;
+    protected ?bool $archived;
+    protected ?VoucherStatus $voucherStatus;
+    protected ?string $voucherNumber;
     public DateTime $voucherDate;
     public Address $address;
     public TotalPrice $totalPrice;
-    public TaxAmounts $taxAmounts;
+    protected ?TaxAmounts $taxAmounts;
     public TaxConditions $taxConditions;
-    public RelatedVouchers $relatedVouchers;
-    public PrintLayoutID $printLayoutId;
+    protected ?RelatedVouchers $relatedVouchers;
+    public ?PrintLayoutID $printLayoutId;
     public ?string $title;
     public ?string $introduction;
-    public string $remark;
-    public DocumentFile $files;
+    public ?string $remark;
+    protected ?DocumentFile $files;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 
     public function getID(): ID {

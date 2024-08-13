@@ -11,6 +11,7 @@ use Lexoffice\Enums\Currency;
 use Lexoffice\Enums\PaymentStatus;
 use Lexoffice\Enums\VoucherStatus;
 use Lexoffice\Enums\VoucherType;
+use Psr\Log\LoggerInterface;
 
 class Payments extends NamedEntity {
     public float $openAmount;
@@ -21,7 +22,7 @@ class Payments extends NamedEntity {
     public DateTime $paidDate;
     public PaymentItems $paymentItems;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

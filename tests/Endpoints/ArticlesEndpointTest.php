@@ -9,27 +9,28 @@ use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticleResource;
 use Lexoffice\Entities\Articles\ArticlesPage;
-use Lexoffice\Logger\ConsoleLogger;
+use Lexoffice\Logger\ConsoleLoggerFactory;
+use Psr\Log\LoggerInterface;
 use Tests\Config\PostmanConfig;
+use Tests\TestAPIClientFactory;
 
 class ArticlesEndpointTest extends TestCase {
     private ?Client $client;
     private ?SearchableEndpointInterface $endpoint;
     private ?PostmanConfig $config;
-    private ?ConsoleLogger $logger = null;
+    private ?LoggerInterface $logger = null;
 
     private bool $apiDisabled = true;
 
     public function __construct($name) {
         parent::__construct($name);
-        $this->config = new PostmanConfig();
-        //$this->logger = new ConsoleLogger();
-        $this->client = new Client($this->config->accessToken, $this->config->resourceUrl . '/v1/', $this->logger, true);
+        $this->logger = ConsoleLoggerFactory::getLogger();
+        $this->client = TestAPIClientFactory::getClient();
         $this->endpoint = new ArticlesEndpoint($this->client);
     }
 
     protected function setUp(): void {
-        if (!$this->apiDisabled && $this->config->isConfigured()) {
+        if (!$this->apiDisabled && !is_null($this->client)) {
             try {
                 $response = $this->client->get("ping");
                 $this->apiDisabled = $response->getStatusCode() != 200;
@@ -40,6 +41,7 @@ class ArticlesEndpointTest extends TestCase {
             $this->apiDisabled = true;
         }
     }
+
 
     public function testJsonSerialize() {
         $data = [

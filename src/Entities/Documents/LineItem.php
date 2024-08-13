@@ -7,6 +7,7 @@ namespace Lexoffice\Entities\Documents;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Entities\ID;
 use Lexoffice\Enums\ItemType;
+use Psr\Log\LoggerInterface;
 
 class LineItem extends NamedEntity {
     protected ?ID $id;
@@ -15,11 +16,11 @@ class LineItem extends NamedEntity {
     public ?string $description;
     public float $quantity;
     public string $unitName;
-    public UnitPrice $unitPrice;
+    public ?UnitPrice $unitPrice;
     protected float $lineItemAmount;
     protected int $lineItemTemplateVersion;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

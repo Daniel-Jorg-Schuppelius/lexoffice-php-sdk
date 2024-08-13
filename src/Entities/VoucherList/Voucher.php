@@ -12,6 +12,7 @@ use Lexoffice\Entities\Vouchers\VoucherID;
 use Lexoffice\Enums\Currency;
 use Lexoffice\Enums\VoucherStatus;
 use Lexoffice\Enums\VoucherType;
+use Psr\Log\LoggerInterface;
 
 class Voucher extends NamedEntity implements IdentifiableInterface {
     protected VoucherID $id;
@@ -29,8 +30,8 @@ class Voucher extends NamedEntity implements IdentifiableInterface {
     protected Currency $currency;
     public bool $archived;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 
     public function getID(): VoucherID {

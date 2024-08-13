@@ -7,6 +7,7 @@ namespace Lexoffice\Entities\PaymentConditions;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Entities\ID;
+use Psr\Log\LoggerInterface;
 
 class PaymentCondition extends NamedEntity implements IdentifiableInterface {
     protected ID $id;
@@ -15,8 +16,8 @@ class PaymentCondition extends NamedEntity implements IdentifiableInterface {
     public int $paymentTermDuration;
     public ?PaymentDiscountConditions $paymentDiscountConditions;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 
     public function getID(): ID {

@@ -7,6 +7,7 @@ namespace Lexoffice\Entities\Documents\Invoices;
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Entities\ID;
+use Psr\Log\LoggerInterface;
 
 class DownPaymentDeduction extends NamedEntity {
     protected ID $id;
@@ -19,7 +20,7 @@ class DownPaymentDeduction extends NamedEntity {
     public float $receivedTaxAmount;
     public float $taxRatePercentage;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

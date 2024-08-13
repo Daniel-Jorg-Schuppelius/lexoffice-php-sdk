@@ -6,6 +6,7 @@ namespace Lexoffice\Entities\Documents;
 
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\Currency;
+use Psr\Log\LoggerInterface;
 
 class TotalPrice extends NamedEntity {
     public Currency $currency;
@@ -15,7 +16,7 @@ class TotalPrice extends NamedEntity {
     protected ?float $totalDiscountAbsolute;
     protected ?float $totalDiscountPercentage;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

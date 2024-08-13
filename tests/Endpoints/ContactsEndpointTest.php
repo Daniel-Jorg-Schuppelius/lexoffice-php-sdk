@@ -9,27 +9,26 @@ use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Contacts\Contact;
 use Lexoffice\Entities\Contacts\ContactResource;
 use Lexoffice\Entities\Contacts\ContactsPage;
-use Lexoffice\Logger\ConsoleLogger;
-use Tests\Config\PostmanConfig;
+use Lexoffice\Logger\ConsoleLoggerFactory;
+use Psr\Log\LoggerInterface;
+use Tests\TestAPIClientFactory;
 
 class ContactsEndpointTest extends TestCase {
     private ?Client $client;
     private ?SearchableEndpointInterface $endpoint;
-    private ?PostmanConfig $config;
-    private ?ConsoleLogger $logger = null;
+    private ?LoggerInterface $logger = null;
 
     private bool $apiDisabled = true;
 
     public function __construct($name) {
         parent::__construct($name);
-        $this->config = new PostmanConfig();
-        //$this->logger = new ConsoleLogger();
-        $this->client = new Client($this->config->accessToken, $this->config->resourceUrl . '/v1/', $this->logger, true);
+        $this->logger = ConsoleLoggerFactory::getLogger();
+        $this->client = TestAPIClientFactory::getClient();
         $this->endpoint = new ContactsEndpoint($this->client);
     }
 
     protected function setUp(): void {
-        if (!$this->apiDisabled && $this->config->isConfigured()) {
+        if (!$this->apiDisabled && !is_null($this->client)) {
             try {
                 $response = $this->client->get("ping");
                 $this->apiDisabled = $response->getStatusCode() != 200;
@@ -40,6 +39,7 @@ class ContactsEndpointTest extends TestCase {
             $this->apiDisabled = true;
         }
     }
+
 
     public function testJsonSerialize() {
         $data = [
@@ -69,8 +69,8 @@ class ContactsEndpointTest extends TestCase {
             ],
             "note" => "Notizen"
         ];
-        $contact = new Contact($data);
-        $contact1 = new Contact($data1);
+        $contact = new Contact($data, $this->logger);
+        $contact1 = new Contact($data1, $this->logger);
         $this->assertInstanceOf(Contact::class, $contact);
         $this->assertInstanceOf(Contact::class, $contact1);
 
@@ -98,7 +98,7 @@ class ContactsEndpointTest extends TestCase {
             ],
             "note" => "Notizen"
         ];
-        $contact = new Contact($data);
+        $contact = new Contact($data, $this->logger);
 
         $contactResource = $this->endpoint->create($contact);
         $this->assertInstanceOf(ContactResource::class, $contactResource);
@@ -122,7 +122,7 @@ class ContactsEndpointTest extends TestCase {
             "note" => "Notizen"
         ];
 
-        $contactResource = $this->endpoint->create(new Contact($data));
+        $contactResource = $this->endpoint->create(new Contact($data, $this->logger));
         $this->assertInstanceOf(ContactResource::class, $contactResource);
         $contact = $this->endpoint->get($contactResource->getId());
 
@@ -153,7 +153,7 @@ class ContactsEndpointTest extends TestCase {
         $contactsPage = $this->endpoint->search();
         $this->assertInstanceOf(ContactsPage::class, $contactsPage);
 
-        $contactResource = $this->endpoint->create(new Contact($data));
+        $contactResource = $this->endpoint->create(new Contact($data, $this->logger));
         $this->assertInstanceOf(ContactResource::class, $contactResource);
 
         $contactsPageUpdated = $this->endpoint->search();

@@ -14,6 +14,7 @@ use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\TaxType;
 use Lexoffice\Enums\VoucherStatus;
 use Lexoffice\Enums\VoucherType;
+use Psr\Log\LoggerInterface;
 
 class Voucher extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface {
     public VoucherID $id;
@@ -37,8 +38,8 @@ class Voucher extends NamedEntity implements IdentifiableInterface, Organization
     protected DateTime $updatedDate;
     protected int $version;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 
     public function getID(): VoucherID {

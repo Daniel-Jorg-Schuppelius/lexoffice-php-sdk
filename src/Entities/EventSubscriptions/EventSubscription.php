@@ -10,6 +10,7 @@ use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\EventType;
+use Psr\Log\LoggerInterface;
 
 class EventSubscription extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface {
     protected SubscriptionID $subscriptionId;
@@ -18,8 +19,8 @@ class EventSubscription extends NamedEntity implements IdentifiableInterface, Or
     public EventType $eventType;
     public string $callbackUrl;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 
     public function getID(): SubscriptionID {

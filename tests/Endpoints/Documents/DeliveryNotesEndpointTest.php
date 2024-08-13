@@ -4,15 +4,15 @@ namespace Tests\Endpoints\Documents;
 
 use PHPUnit\Framework\TestCase;
 use Lexoffice\API\Client;
-use Lexoffice\Api\Endpoints\Documents\CreditNotesEndpoint;
+use Lexoffice\Api\Endpoints\Documents\DeliveryNotesEndpoint;
 use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
-use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
-use Lexoffice\Entities\Documents\CreditNotes\CreditNoteResource;
+use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
+use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNoteResource;
 use Lexoffice\Logger\ConsoleLoggerFactory;
 use Psr\Log\LoggerInterface;
 use Tests\TestAPIClientFactory;
 
-class CreditNotesEndpointTest extends TestCase {
+class DeliveryNotesEndpointTest extends TestCase {
     private ?Client $client;
     private ?DocumentEndpointInterface $endpoint;
     private ?LoggerInterface $logger = null;
@@ -23,7 +23,7 @@ class CreditNotesEndpointTest extends TestCase {
         parent::__construct($name);
         $this->logger = ConsoleLoggerFactory::getLogger();
         $this->client = TestAPIClientFactory::getClient();
-        $this->endpoint = new CreditNotesEndpoint($this->client);
+        $this->endpoint = new DeliveryNotesEndpoint($this->client);
     }
 
     protected function setUp(): void {
@@ -39,18 +39,20 @@ class CreditNotesEndpointTest extends TestCase {
         }
     }
 
+
     public function testJsonSerialize() {
         $data = [
             "lineItems" => [
                 [
                     "type" => "custom",
-                    "name" => "Abus Kabelschloss Primo 590",
+                    "name" => "Abus Kabelschloss Primo 590 ",
                     "description" => "· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm",
                     "quantity" => 2,
                     "unitName" => "Stück",
                     "unitPrice" => [
                         "currency" => "EUR",
                         "netAmount" => 13.4,
+                        "grossAmount" => 15.946,
                         "taxRatePercentage" => 19
                     ]
                 ],
@@ -62,17 +64,21 @@ class CreditNotesEndpointTest extends TestCase {
                     "unitPrice" => [
                         "currency" => "EUR",
                         "netAmount" => 5,
+                        "grossAmount" => 5,
                         "taxRatePercentage" => 0
                     ]
-                ],
-                [
-                    "type" => "text",
-                    "name" => "Strukturieren Sie Ihre Belege durch Text-Elemente.",
-                    "description" => "Das hilft beim Verständnis"
                 ]
             ],
+            "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
+            "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
+            "createdDate" => "2023-06-17T18:32:07.480+02:00",
+            "updatedDate" => "2023-06-17T18:32:07.551+02:00",
+            "version" => 1,
+            "language" => "de",
             "archived" => false,
-            "voucherDate" => "2024-02-22T00:00:00.000+01:00",
+            "voucherStatus" => "draft",
+            "voucherNumber" => "LS0007",
+            "voucherDate" => "2023-02-22T00:00:00.000+01:00",
             "address" => [
                 "name" => "Bike & Ride GmbH & Co. KG",
                 "supplement" => "Gebäude 10",
@@ -81,32 +87,35 @@ class CreditNotesEndpointTest extends TestCase {
                 "city" => "Freiburg",
                 "countryCode" => "DE"
             ],
-            "totalPrice" => [
-                "currency" => "EUR"
-            ],
             "taxConditions" => [
                 "taxType" => "net"
             ],
-            "title" => "Rechnungskorrektur",
-            "introduction" => "Rechnungskorrektur zur Rechnung RE-00020",
-            "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."
+            "relatedVouchers" => [],
+            "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
+            "title" => "Lieferschein",
+            "introduction" => "Lieferschein zur Rechnung RE-00020",
+            "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.",
+            "files" => [
+                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3"
+            ]
         ];
 
-        $creditNote = new CreditNote($data, $this->logger);
-        $this->assertEquals($data, $creditNote->toArray());
-        $this->assertEquals(json_encode($data), $creditNote->toJson());
-        $this->assertStringNotContainsString('lineItems":{"0":', $creditNote->toJson());
-        $this->assertStringContainsString(substr($creditNote->title, 2, -2), $creditNote->toJson());
+        $deliveryNote = new DeliveryNote($data, $this->logger);
+        $this->assertNotTrue($deliveryNote->isValid());
+        $this->assertEquals($data, $deliveryNote->toArray());
+        $this->assertEquals(json_encode($data), $deliveryNote->toJson());
+        $this->assertStringNotContainsString('lineItems":{"0":', $deliveryNote->toJson());
+        $this->assertStringContainsString(substr($deliveryNote->title, 2, -2), $deliveryNote->toJson());
     }
 
-    public function testCreateAndGetCreditNoteAPI() {
+    public function testCreateAndGetDeliveryNoteAPI() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
 
         $data = [
             "archived" => false,
-            "voucherDate" => "2024-02-22T00:00:00.000+01:00",
+            "voucherDate" => "2023-02-22T00:00:00.000+01:00",
             "address" => [
                 "name" => "Bike & Ride GmbH & Co. KG",
                 "supplement" => "Gebäude 10",
@@ -118,26 +127,18 @@ class CreditNotesEndpointTest extends TestCase {
             "lineItems" => [
                 [
                     "type" => "custom",
-                    "name" => "Abus Kabelschloss Primo 590",
+                    "name" => "Abus Kabelschloss Primo 590 ",
                     "description" => "· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm",
                     "quantity" => 2,
                     "unitName" => "Stück",
-                    "unitPrice" => [
-                        "currency" => "EUR",
-                        "netAmount" => 13.4,
-                        "taxRatePercentage" => 19
-                    ]
+                    "unitPrice" => null
                 ],
                 [
                     "type" => "custom",
                     "name" => "Energieriegel Testpaket",
                     "quantity" => 1,
                     "unitName" => "Stück",
-                    "unitPrice" => [
-                        "currency" => "EUR",
-                        "netAmount" => 5,
-                        "taxRatePercentage" => 0
-                    ]
+                    "unitPrice" => null
                 ],
                 [
                     "type" => "text",
@@ -145,22 +146,24 @@ class CreditNotesEndpointTest extends TestCase {
                     "description" => "Das hilft beim Verständnis"
                 ]
             ],
-            "totalPrice" => [
-                "currency" => "EUR"
-            ],
             "taxConditions" => [
                 "taxType" => "net"
             ],
-            "title" => "Rechnungskorrektur",
-            "introduction" => "Rechnungskorrektur zur Rechnung RE-00020",
+            "shippingConditions" => [
+                "shippingDate" => "2023-02-22T00:00:00.000+01:00",
+                "shippingType" => "delivery"
+            ],
+            "title" => "Lieferschein",
+            "introduction" => "Lieferschein zur Rechnung RE-00020",
+            "deliveryTerms" => "Lieferung frei Haus.",
             "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."
         ];
 
-        $creditNote = new CreditNote($data);
-        $creditNoteResource = $this->endpoint->create($creditNote);
-        $this->assertInstanceOf(CreditNoteResource::class, $creditNoteResource);
-        $loadedCreditNote = $this->endpoint->get($creditNoteResource->getId());
-        $this->assertInstanceOf(CreditNote::class, $loadedCreditNote);
-        $this->assertEquals($creditNote->address, $loadedCreditNote->address);
+        $deliveryNote = new DeliveryNote($data);
+        $deliveryNoteResource = $this->endpoint->create($deliveryNote);
+        $this->assertInstanceOf(DeliveryNoteResource::class, $deliveryNoteResource);
+        $loadedDeliveryNote = $this->endpoint->get($deliveryNoteResource->getId());
+        $this->assertInstanceOf(DeliveryNote::class, $loadedDeliveryNote);
+        $this->assertEquals($deliveryNote->address, $loadedDeliveryNote->address);
     }
 }

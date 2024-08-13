@@ -8,9 +8,18 @@ use Lexoffice\Entities\Articles\Articles;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticlesPage;
 use Lexoffice\Entities\Articles\Price;
+use Lexoffice\Logger\ConsoleLogger;
+use Lexoffice\Logger\ConsoleLoggerFactory;
 use PHPUnit\Framework\TestCase;
 
 class ArticlesTest extends TestCase {
+    private ?ConsoleLogger $logger = null;
+
+    public function __construct($name) {
+        parent::__construct($name);
+        $this->logger = ConsoleLoggerFactory::getLogger();
+    }
+
     public function testCreateArticle() {
         $data = [
             "id" => "eb46d328-e1dc-11ee-8444-2fadfc15a567",
@@ -34,11 +43,14 @@ class ArticlesTest extends TestCase {
             "version" => 2
         ];
 
-        $article = new Article($data);
+        $article = new Article($data, $this->logger);
+        $price = new Price($data['price'], $this->logger);
+        $this->assertTrue($article->isValid());
         $this->assertInstanceOf(Article::class, new Article());
         $this->assertInstanceOf(Article::class, $article);
         $this->assertEquals('Lexware buchhaltung Premium 2024', $article->title);
         $this->assertEquals($data, $article->toArray());
+        $this->assertEquals($price, $article->price);
     }
     public function testCreateArticles() {
         $data = [
@@ -80,7 +92,7 @@ class ArticlesTest extends TestCase {
             ],
         ];
 
-        $articles = new Articles($data);
+        $articles = new Articles($data, $this->logger);
         $this->assertInstanceOf(Articles::class, $articles);
         $this->assertInstanceOf(Article::class, $articles->getValues()[0]);
         $this->assertInstanceOf(Article::class, $articles->getValues()[1]);
@@ -145,7 +157,7 @@ class ArticlesTest extends TestCase {
             "numberOfElements" => 2
         ];
 
-        $articlesPage = new ArticlesPage($data);
+        $articlesPage = new ArticlesPage($data, $this->logger);
         $this->assertInstanceOf(ArticlesPage::class, $articlesPage);
         $this->assertInstanceOf(Articles::class, $articlesPage->getContent());
         $this->assertIsArray($articlesPage->getValues());

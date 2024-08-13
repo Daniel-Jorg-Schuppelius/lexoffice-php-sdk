@@ -8,6 +8,7 @@ use Lexoffice\Contracts\Abstracts\NamedDocument;
 use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Lexoffice\Entities\Documents\PaymentConditions;
 use Lexoffice\Entities\Documents\ShippingConditions;
+use Psr\Log\LoggerInterface;
 
 class OrderConfirmation extends NamedDocument {
     public ExtendedLineItems $lineItems;
@@ -15,7 +16,7 @@ class OrderConfirmation extends NamedDocument {
     public ShippingConditions $shippingConditions;
     public string $deliveryTerms;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

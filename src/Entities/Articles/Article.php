@@ -11,13 +11,14 @@ use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
 use Lexoffice\Enums\ArticleType;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Entities\Version;
+use Psr\Log\LoggerInterface;
 
 class Article extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface {
-    protected ArticleID $id;
-    protected OrganizationID $organizationId;
-    protected DateTime $createdDate;
-    protected DateTime $updatedDate;
-    protected bool $archived;
+    protected ?ArticleID $id;
+    protected ?OrganizationID $organizationId;
+    protected ?DateTime $createdDate;
+    protected ?DateTime $updatedDate;
+    protected ?bool $archived;
     public string $title;
     public ?string $description;
     public ArticleType $type;
@@ -26,10 +27,10 @@ class Article extends NamedEntity implements IdentifiableInterface, Organization
     public ?string $note;
     public string $unitName;
     public Price $price;
-    protected Version $version;
+    protected ?Version $version;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 
     public function getID(): ArticleID {

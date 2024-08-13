@@ -9,6 +9,7 @@ use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\ExecutionInterval;
 use Lexoffice\Enums\ExecutionStatus;
 use Lexoffice\Enums\ShippingType;
+use Psr\Log\LoggerInterface;
 
 class RecurringTemplateSettings extends NamedEntity {
     protected RecurringTemplateSettingsID $id;
@@ -22,7 +23,7 @@ class RecurringTemplateSettings extends NamedEntity {
     protected ?string $lastExecutionErrorMessage;
     protected ExecutionStatus $executionStatus;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

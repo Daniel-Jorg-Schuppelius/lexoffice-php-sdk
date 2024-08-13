@@ -6,6 +6,7 @@ namespace Lexoffice\Entities\Articles;
 
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\LeadingPrice;
+use Psr\Log\LoggerInterface;
 
 class Price extends NamedEntity {
     protected ?float $netPrice;
@@ -13,7 +14,7 @@ class Price extends NamedEntity {
     protected LeadingPrice $leadingPrice;
     protected float $taxRate = 0;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

@@ -8,6 +8,7 @@ use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
 use Lexoffice\Enums\DistanceSalesPrinciple;
 use Lexoffice\Enums\TaxType;
+use Psr\Log\LoggerInterface;
 
 class Profile extends NamedEntity implements OrganizationIdentifiableInterface {
     public OrganizationID $organizationId;
@@ -21,8 +22,8 @@ class Profile extends NamedEntity implements OrganizationIdentifiableInterface {
     public bool $smallBusiness;
     public SubscriptionStatus $subscriptionStatus;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 
     public function getOrganizationID(): OrganizationID {

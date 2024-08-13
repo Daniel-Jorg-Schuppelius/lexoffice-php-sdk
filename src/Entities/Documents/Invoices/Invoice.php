@@ -10,6 +10,7 @@ use Lexoffice\Entities\XRechnung;
 use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Lexoffice\Entities\Documents\PaymentConditions;
 use Lexoffice\Entities\Documents\ShippingConditions;
+use Psr\Log\LoggerInterface;
 
 class Invoice extends NamedDocument {
     public ?DateTime $dueDate;
@@ -22,7 +23,7 @@ class Invoice extends NamedDocument {
     protected ?DownPaymentDeductions $downPaymentDeductions;
     public ?RecurringTemplateID $recurringTemplateId;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

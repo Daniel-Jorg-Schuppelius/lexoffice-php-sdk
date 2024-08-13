@@ -7,6 +7,7 @@ namespace Lexoffice\Contracts\Abstracts;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\NamedValuesInterface;
 use Lexoffice\Entities\Collations;
+use Psr\Log\LoggerInterface;
 
 abstract class NamedPage extends NamedEntity {
     protected NamedValuesInterface $content;
@@ -19,8 +20,8 @@ abstract class NamedPage extends NamedEntity {
     protected int $numberOfElements;
     protected Collations $sort;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 
     public function isFirst(): bool {

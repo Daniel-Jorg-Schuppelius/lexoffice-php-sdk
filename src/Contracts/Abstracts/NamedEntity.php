@@ -9,15 +9,21 @@ use ReflectionClass;
 use ReflectionNamedType;
 use BackedEnum;
 use DateTime;
+use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 use Reflection;
 use stdClass;
+use UnexpectedValueException;
 
 abstract class NamedEntity implements NamedEntityInterface {
+    protected ?LoggerInterface $logger;
+
     protected string $entityName;
     protected string $valueClassName;
 
-    public function __construct($data = null) {
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->entityName = static::class;
+        $this->logger = $logger;
 
         if (!is_null($data)) {
             $this->setData($data);
@@ -52,16 +58,20 @@ abstract class NamedEntity implements NamedEntityInterface {
                             error_log("Failed to instantiate $className: " . $e->getMessage() . ". If this data is coming from the lexoffice API, update the Enum.");
                         }
                     } elseif ($key == "content" && !empty($this->valueClassName) && is_subclass_of($className, NamedEntityInterface::class)) {
-                        $this->{$key} = new $this->valueClassName($val);
+                        $this->{$key} = new $this->valueClassName($val, $this->logger);
                     } else {
                         try {
-                            if (is_null($val)) {
+                            if (is_null($val) && !$type->allowsNull()) {
+                                throw new UnexpectedValueException("Property $key cannot be null.");
+                            } elseif (is_null($val)) {
                                 $this->{$key} = null;
+                            } elseif (is_subclass_of($className, NamedEntityInterface::class)) {
+                                $this->{$key} = new $className($val, $this->logger);
                             } else {
                                 $this->{$key} = new $className($val);
                             }
                         } catch (\Throwable $e) {
-                            throw new \UnexpectedValueException("Failed to instantiate $className: " . $e->getMessage());
+                            throw new UnexpectedValueException("Failed to instantiate $className: " . $e->getMessage());
                         }
                     }
                 } else {
@@ -69,19 +79,20 @@ abstract class NamedEntity implements NamedEntityInterface {
                 }
             }
         } else {
-            throw new \InvalidArgumentException("Data must be an array.");
+            throw new InvalidArgumentException("Data must be an array.");
         }
 
         return $this;
     }
 
     protected function initialize() {
-        $test = $this->getEntityProperties();
         foreach ($this->getEntityProperties() as $name => $property) {
             if ($property['type'] instanceof ReflectionNamedType && !$property['type']->isBuiltin()) {
 
                 if (is_subclass_of($property['valueClass'], BackedEnum::class)) {
                     $this->{$name} = $property['valueClass']::from(current($property['valueClass']::cases())->value);
+                } elseif (is_subclass_of($property['valueClass'], NamedEntityInterface::class)) {
+                    $this->{$name} = new $property['valueClass'](null, $this->logger);
                 } else {
                     try {
                         $this->{$name} = new $property['valueClass']();
@@ -109,13 +120,30 @@ abstract class NamedEntity implements NamedEntityInterface {
                     'type' => $property->getType(),
                     'value' => $propertyValue,
                     'valueClass' => $property->getType()->getName(),
-                    'visibility' => Reflection::getModifierNames($property->getModifiers())
+                    'visibility' => Reflection::getModifierNames($property->getModifiers()),
+                    'allowsNull' => $property->getType()->allowsNull(),
+                    'isInitialized' => $property->isInitialized($this)
                 ];
             }
         }
 
         return $result;
     }
+
+    public function isValid(): bool {
+        foreach ($this->getEntityProperties() as $name => $property) {
+            if ($property['type'] instanceof ReflectionNamedType && !$property['allowsNull']) {
+                if (!$property['isInitialized']) {
+                    if ($this->logger) {
+                        $this->logger->info("property {$name} is not valid", $property);
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     public function toArray(): array {
         $result = [];

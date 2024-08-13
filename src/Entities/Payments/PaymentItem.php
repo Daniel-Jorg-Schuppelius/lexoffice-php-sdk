@@ -8,6 +8,7 @@ use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\Currency;
 use Lexoffice\Enums\PaymentItemType;
+use Psr\Log\LoggerInterface;
 
 class PaymentItem extends NamedEntity {
     public PaymentItemType $paymentItemType;
@@ -15,7 +16,7 @@ class PaymentItem extends NamedEntity {
     public float $amount;
     public Currency $currency;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }

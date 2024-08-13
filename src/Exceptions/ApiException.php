@@ -12,6 +12,7 @@ class ApiException extends Exception {
     public function __construct($message = '', int $code = 0, $response = null, Exception $previous = null) {
         parent::__construct($message, $code, $previous);
         $this->response = $response;
+        error_log($response->getBody()->getContents());
     }
 
     public function getResponse() {

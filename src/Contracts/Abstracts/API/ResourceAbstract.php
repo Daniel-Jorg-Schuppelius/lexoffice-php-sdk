@@ -10,6 +10,7 @@ use Lexoffice\Contracts\Interfaces\API\ResourceInterface;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\ID;
 use Lexoffice\Entities\Version;
+use Psr\Log\LoggerInterface;
 
 abstract class ResourceAbstract extends NamedEntity implements ResourceInterface {
     protected ID $id;
@@ -18,8 +19,8 @@ abstract class ResourceAbstract extends NamedEntity implements ResourceInterface
     protected DateTime $updatedDate;
     protected Version $version;
 
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 
     public function getId(): ID {

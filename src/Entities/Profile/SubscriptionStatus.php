@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Profile;
 
 use Lexoffice\Contracts\Abstracts\NamedValue;
+use Psr\Log\LoggerInterface;
 
 class SubscriptionStatus extends NamedValue {
-    public function __construct($data = null) {
-        parent::__construct($data);
+    public function __construct($data = null, ?LoggerInterface $logger = null) {
+        parent::__construct($data, $logger);
     }
 }
