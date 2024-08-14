@@ -398,7 +398,6 @@ FodyWeavers.xsd
 *.sln.iml
 
 # phpunit/phpunit
-phpunit.xml
 /.phpunit.cache
 /.phpunit.result.cache
 
