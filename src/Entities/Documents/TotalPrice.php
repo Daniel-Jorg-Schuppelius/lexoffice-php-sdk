@@ -10,9 +10,9 @@ use Psr\Log\LoggerInterface;
 
 class TotalPrice extends NamedEntity {
     public Currency $currency;
-    protected float $totalNetAmount;
-    protected float $totalGrossAmount;
-    protected float $totalTaxAmount;
+    protected ?float $totalNetAmount;
+    protected ?float $totalGrossAmount;
+    protected ?float $totalTaxAmount;
     protected ?float $totalDiscountAbsolute;
     protected ?float $totalDiscountPercentage;
 

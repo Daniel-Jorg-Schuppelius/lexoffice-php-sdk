@@ -2,41 +2,18 @@
 
 namespace Tests\Endpoints\Documents;
 
-use PHPUnit\Framework\TestCase;
-use Lexoffice\API\Client;
 use Lexoffice\Api\Endpoints\Documents\CreditNotesEndpoint;
 use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNoteResource;
-use Lexoffice\Logger\ConsoleLoggerFactory;
-use Psr\Log\LoggerInterface;
-use Tests\TestAPIClientFactory;
+use Tests\Contracts\EndpointTest;
 
-class CreditNotesEndpointTest extends TestCase {
-    private ?Client $client;
-    private ?DocumentEndpointInterface $endpoint;
-    private ?LoggerInterface $logger = null;
-
-    private bool $apiDisabled = true;
+class CreditNotesEndpointTest extends EndpointTest {
+    protected ?DocumentEndpointInterface $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
-        $this->logger = ConsoleLoggerFactory::getLogger();
-        $this->client = TestAPIClientFactory::getClient();
         $this->endpoint = new CreditNotesEndpoint($this->client);
-    }
-
-    protected function setUp(): void {
-        if (!$this->apiDisabled && !is_null($this->client)) {
-            try {
-                $response = $this->client->get("ping");
-                $this->apiDisabled = $response->getStatusCode() != 200;
-            } catch (\Exception $e) {
-                $this->apiDisabled = true;
-            }
-        } else {
-            $this->apiDisabled = true;
-        }
     }
 
     public function testJsonSerialize() {

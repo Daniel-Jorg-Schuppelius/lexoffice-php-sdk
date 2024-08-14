@@ -16,5 +16,9 @@ class DeliveryNote extends NamedDocument {
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
+
+        if (!isset($this->shippingConditions)) {
+            $this->shippingConditions = new ShippingConditions();
+        }
     }
 }

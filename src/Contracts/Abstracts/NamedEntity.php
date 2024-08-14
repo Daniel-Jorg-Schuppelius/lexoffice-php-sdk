@@ -93,6 +93,8 @@ abstract class NamedEntity implements NamedEntityInterface {
                     $this->{$name} = $property['valueClass']::from(current($property['valueClass']::cases())->value);
                 } elseif (is_subclass_of($property['valueClass'], NamedEntityInterface::class)) {
                     $this->{$name} = new $property['valueClass'](null, $this->logger);
+                } elseif ($property['allowsNull']) {
+                    $this->{$name} = null;
                 } else {
                     try {
                         $this->{$name} = new $property['valueClass']();

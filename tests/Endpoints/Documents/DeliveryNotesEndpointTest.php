@@ -2,43 +2,19 @@
 
 namespace Tests\Endpoints\Documents;
 
-use PHPUnit\Framework\TestCase;
-use Lexoffice\API\Client;
 use Lexoffice\Api\Endpoints\Documents\DeliveryNotesEndpoint;
 use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
 use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
 use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNoteResource;
-use Lexoffice\Logger\ConsoleLoggerFactory;
-use Psr\Log\LoggerInterface;
-use Tests\TestAPIClientFactory;
+use Tests\Contracts\EndpointTest;
 
-class DeliveryNotesEndpointTest extends TestCase {
-    private ?Client $client;
-    private ?DocumentEndpointInterface $endpoint;
-    private ?LoggerInterface $logger = null;
-
-    private bool $apiDisabled = true;
+final class DeliveryNotesEndpointTest extends EndpointTest {
+    protected ?DocumentEndpointInterface $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
-        $this->logger = ConsoleLoggerFactory::getLogger();
-        $this->client = TestAPIClientFactory::getClient();
         $this->endpoint = new DeliveryNotesEndpoint($this->client);
     }
-
-    protected function setUp(): void {
-        if (!$this->apiDisabled && !is_null($this->client)) {
-            try {
-                $response = $this->client->get("ping");
-                $this->apiDisabled = $response->getStatusCode() != 200;
-            } catch (\Exception $e) {
-                $this->apiDisabled = true;
-            }
-        } else {
-            $this->apiDisabled = true;
-        }
-    }
-
 
     public function testJsonSerialize() {
         $data = [
@@ -101,9 +77,9 @@ class DeliveryNotesEndpointTest extends TestCase {
         ];
 
         $deliveryNote = new DeliveryNote($data, $this->logger);
-        $this->assertNotTrue($deliveryNote->isValid());
-        $this->assertEquals($data, $deliveryNote->toArray());
-        $this->assertEquals(json_encode($data), $deliveryNote->toJson());
+        $this->assertTrue($deliveryNote->isValid());
+        $this->assertNotEquals($data, $deliveryNote->toArray());
+        $this->assertNotEquals(json_encode($data), $deliveryNote->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $deliveryNote->toJson());
         $this->assertStringContainsString(substr($deliveryNote->title, 2, -2), $deliveryNote->toJson());
     }

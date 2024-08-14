@@ -33,7 +33,7 @@ abstract class NamedDocument extends NamedEntity implements IdentifiableInterfac
     protected ?string $voucherNumber;
     public DateTime $voucherDate;
     public Address $address;
-    public TotalPrice $totalPrice;
+    public ?TotalPrice $totalPrice;
     protected ?TaxAmounts $taxAmounts;
     public TaxConditions $taxConditions;
     protected ?RelatedVouchers $relatedVouchers;

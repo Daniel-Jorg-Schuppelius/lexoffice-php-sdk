@@ -2,46 +2,20 @@
 
 namespace Tests\Endpoints;
 
-use PHPUnit\Framework\TestCase;
 use Lexoffice\Api\Endpoints\ArticlesEndpoint;
-use Lexoffice\API\Client;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticleResource;
 use Lexoffice\Entities\Articles\ArticlesPage;
-use Lexoffice\Logger\ConsoleLoggerFactory;
-use Psr\Log\LoggerInterface;
-use Tests\Config\PostmanConfig;
-use Tests\TestAPIClientFactory;
+use Tests\Contracts\EndpointTest;
 
-class ArticlesEndpointTest extends TestCase {
-    private ?Client $client;
-    private ?SearchableEndpointInterface $endpoint;
-    private ?PostmanConfig $config;
-    private ?LoggerInterface $logger = null;
-
-    private bool $apiDisabled = true;
+class ArticlesEndpointTest extends EndpointTest {
+    protected ?SearchableEndpointInterface $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
-        $this->logger = ConsoleLoggerFactory::getLogger();
-        $this->client = TestAPIClientFactory::getClient();
         $this->endpoint = new ArticlesEndpoint($this->client);
     }
-
-    protected function setUp(): void {
-        if (!$this->apiDisabled && !is_null($this->client)) {
-            try {
-                $response = $this->client->get("ping");
-                $this->apiDisabled = $response->getStatusCode() != 200;
-            } catch (\Exception $e) {
-                $this->apiDisabled = true;
-            }
-        } else {
-            $this->apiDisabled = true;
-        }
-    }
-
 
     public function testJsonSerialize() {
         $data = [
