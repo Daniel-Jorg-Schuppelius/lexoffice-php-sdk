@@ -10,11 +10,10 @@ use Tests\Contracts\EndpointTest;
 class CountriesEndpointTest extends EndpointTest {
     private ?ListableEndpointInterface $endpoint;
 
-    private bool $apiDisabled = true;
-
     public function __construct($name) {
         parent::__construct($name);
         $this->endpoint = new CountriesEndpoint($this->client);
+        $this->apiDisabled = true; // API is disabled
     }
 
     public function testGetCountriesAPI() {

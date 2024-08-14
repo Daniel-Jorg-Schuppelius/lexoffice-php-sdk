@@ -14,6 +14,7 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
     public function __construct($name) {
         parent::__construct($name);
         $this->endpoint = new DeliveryNotesEndpoint($this->client);
+        $this->apiDisabled = true; // API is disabled
     }
 
     public function testJsonSerialize() {

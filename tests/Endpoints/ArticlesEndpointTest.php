@@ -15,6 +15,7 @@ class ArticlesEndpointTest extends EndpointTest {
     public function __construct($name) {
         parent::__construct($name);
         $this->endpoint = new ArticlesEndpoint($this->client);
+        $this->apiDisabled = true; // API is disabled
     }
 
     public function testJsonSerialize() {
