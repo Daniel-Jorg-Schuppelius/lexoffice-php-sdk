@@ -11,7 +11,7 @@ This SDK is currently not finished
 ### Install the SDK into your Project
 
 
-The SDK requires a PHP version of 7.4 or higher. The recommended way to install the SDK is through [Composer](http://getcomposer.org).
+The SDK requires a PHP version of 8.1 or higher. The recommended way to install the SDK is through [Composer](http://getcomposer.org).
 
 ```bash
 composer require daniel-jorg-schuppelius/lexoffice-php-sdk
