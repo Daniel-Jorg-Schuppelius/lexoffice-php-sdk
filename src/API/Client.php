@@ -29,7 +29,7 @@ class Client implements ApiClientInterface {
     private HttpClient $client;
     private ?LoggerInterface $logger;
 
-    public function __construct(string $apiKey, string $baseUrl = 'https://api.lexoffice.io/v1/', ?LoggerInterface $logger = null, bool $sleepAfterRequest = false) {
+    public function __construct(?string $apiKey, string $baseUrl = 'https://api.lexoffice.io/v1/', ?LoggerInterface $logger = null, bool $sleepAfterRequest = false) {
         $this->client = new HttpClient([
             'base_uri' => $baseUrl,
             'timeout' => 2.0,

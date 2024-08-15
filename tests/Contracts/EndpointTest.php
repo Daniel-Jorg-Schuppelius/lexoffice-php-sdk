@@ -6,7 +6,6 @@ namespace Tests\Contracts;
 
 use PHPUnit\Framework\TestCase;
 use Lexoffice\API\Client;
-use Lexoffice\Contracts\Interfaces\API\EndpointInterface;
 use Lexoffice\Logger\ConsoleLoggerFactory;
 use Psr\Log\LoggerInterface;
 use Tests\TestAPIClientFactory;
@@ -25,15 +24,14 @@ abstract class EndpointTest extends TestCase {
     }
 
     final protected function setUp(): void {
-        if (!$this->apiDisabled && !is_null($this->client)) {
+        if (!$this->apiDisabled) {
             try {
                 $response = $this->client->get("ping");
                 $this->apiDisabled = $response->getStatusCode() != 200;
             } catch (\Exception $e) {
+                error_log("API disabled -> " . $e->getMessage());
                 $this->apiDisabled = true;
             }
-        } else {
-            $this->apiDisabled = true;
         }
     }
 }

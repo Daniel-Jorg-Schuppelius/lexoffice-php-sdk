@@ -29,7 +29,7 @@ class PostmanConfig {
                 }
             }
         } else {
-            error_log('Postman config file not found');
+            error_log('Postman config file not found, please create one at ../../.samples/postman_config.json');
         }
     }
 }

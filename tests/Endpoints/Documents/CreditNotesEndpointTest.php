@@ -14,7 +14,7 @@ class CreditNotesEndpointTest extends EndpointTest {
     public function __construct($name) {
         parent::__construct($name);
         $this->endpoint = new CreditNotesEndpoint($this->client);
-        $this->apiDisabled = true; // API is disabled
+        $this->apiDisabled = false; // API is disabled
     }
 
     public function testJsonSerialize() {
