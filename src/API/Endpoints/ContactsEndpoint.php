@@ -13,7 +13,7 @@ use Lexoffice\Exceptions\NotAllowedException;
 class ContactsEndpoint extends SearchableEndpointAbstract {
     protected string $endpoint = 'contacts';
 
-    public function create(NamedEntityInterface $data): ContactResource {
+    public function create(NamedEntityInterface $data, ID $id = null): ContactResource {
         $response = $this->client->post($this->endpoint, [
             'body' => $data->toJson(),
         ]);

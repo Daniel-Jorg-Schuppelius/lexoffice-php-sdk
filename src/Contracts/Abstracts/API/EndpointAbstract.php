@@ -38,7 +38,7 @@ abstract class EndpointAbstract implements EndpointInterface {
         return $response->getBody()->getContents();
     }
 
-    abstract public function create(NamedEntityInterface $data): ResourceInterface;
+    abstract public function create(NamedEntityInterface $data, ID $id = null): ResourceInterface;
     abstract public function get(ID $id): NamedEntityInterface;
     abstract public function update(ID $id, NamedEntityInterface $data): ResourceInterface;
     abstract public function delete(ID $id): bool;

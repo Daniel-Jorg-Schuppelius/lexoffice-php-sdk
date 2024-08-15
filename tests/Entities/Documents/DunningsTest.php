@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Entities;
+namespace Tests\Entities\Documents;
 
 use Lexoffice\Entities\Documents\Dunnings\Dunning;
 use PHPUnit\Framework\TestCase;

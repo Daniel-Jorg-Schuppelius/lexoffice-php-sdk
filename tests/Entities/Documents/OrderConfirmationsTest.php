@@ -2,23 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Tests\Entities;
+namespace Tests\Entities\Documents;
 
-use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
+use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmation;
 use PHPUnit\Framework\TestCase;
 
-class RecurringTemplateTest extends TestCase {
-    public function testCreateRecurringTemplate() {
+class OrderConfirmationsTest extends TestCase {
+    public function testCreateOrderConfirmation() {
         $data = [
-            "id" => "ac1d66a8-6d59-408b-9413-d56b1db7946f",
+            "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
-            "createdDate" => "2023-02-10T09:00:00.000+01:00",
-            "updatedDate" => "2023-02-10T09:00:00.000+01:00",
+            "createdDate" => "2023-04-24T08:20:22.528+02:00",
+            "updatedDate" => "2023-04-24T08:20:22.528+02:00",
             "version" => 0,
             "language" => "de",
             "archived" => false,
+            "voucherStatus" => "draft",
+            "voucherNumber" => "AB1019",
+            "voucherDate" => "2023-02-22T00:00:00.000+01:00",
             "address" => [
-                "contactId" => "464f4881-7a8c-4dc4-87de-7c6fd9a506b8",
+                "contactId" => null,
                 "name" => "Bike & Ride GmbH & Co. KG",
                 "supplement" => "Gebäude 10",
                 "street" => "Musterstraße 42",
@@ -119,23 +122,20 @@ class RecurringTemplateTest extends TestCase {
                     "discountRange" => 10
                 ]
             ],
-            "title" => "Rechnung",
+            "shippingConditions" => [
+                "shippingDate" => "2023-04-22T00:00:00.000+02:00",
+                "shippingEndDate" => null,
+                "shippingType" => "delivery"
+            ],
+            "relatedVouchers" => [],
+            "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
+            "title" => "Auftragsbestätigung",
             "introduction" => "Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung",
             "remark" => "Vielen Dank für Ihren Einkauf",
-            "recurringTemplateSettings" => [
-                "id" => "9c5b8bde-7d36-49e8-af5c-4fbe7dc9fa01",
-                "startDate" => "2023-03-01",
-                "endDate" => "2023-06-30",
-                "finalize" => true,
-                "shippingType" => "service",
-                "executionInterval" => "MONTHLY",
-                "nextExecutionDate" => "2023-03-01",
-                "lastExecutionFailed" => false,
-                "lastExecutionErrorMessage" => null,
-                "executionStatus" => "ACTIVE"
-            ]
+            "deliveryTerms" => "Lieferung an die angegebene Lieferadresse"
         ];
-        $recurringTemplate = new RecurringTemplate($data);
-        $this->assertInstanceOf(RecurringTemplate::class, $recurringTemplate);
+
+        $orderConfirmations = new OrderConfirmation($data);
+        $this->assertInstanceOf(OrderConfirmation::class, $orderConfirmations);
     }
 }

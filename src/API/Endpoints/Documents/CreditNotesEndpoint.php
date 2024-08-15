@@ -14,7 +14,7 @@ use Lexoffice\Exceptions\NotAllowedException;
 class CreditNotesEndpoint extends DocumentEndpointAbstract {
     protected string $endpoint = 'credit-notes';
 
-    public function create(NamedEntityInterface $data): CreditNoteResource {
+    public function create(NamedEntityInterface $data, ID $id = null): CreditNoteResource {
         if (!$data->isValid()) {
             throw new \InvalidArgumentException('Data is not valid');
         }

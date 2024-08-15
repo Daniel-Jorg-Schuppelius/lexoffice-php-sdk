@@ -94,7 +94,7 @@ class Client implements ApiClientInterface {
         if ($response->getStatusCode() >= 400) {
             switch ($response->getStatusCode()) {
                 case 400:
-                    throw new BadRequestException('Bad Rquest', 400, $response);
+                    throw new BadRequestException('Bad Request', 400, $response);
                 case 401:
                     throw new UnauthorizedException('Unauthorized', 401, $response);
                 case 402:

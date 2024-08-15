@@ -12,7 +12,7 @@ use Lexoffice\Entities\ID;
 class ArticlesEndpoint extends SearchableEndpointAbstract {
     protected string $endpoint = 'articles';
 
-    public function create(NamedEntityInterface $data): ArticleResource {
+    public function create(NamedEntityInterface $data, ID $id = null): ArticleResource {
         $response = $this->client->post($this->endpoint, [
             'body' => $data->toJson(),
         ]);

@@ -14,7 +14,7 @@ use Lexoffice\Exceptions\NotAllowedException;
 class CountriesEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'countries';
 
-    public function create(NamedEntityInterface $data): ResourceInterface {
+    public function create(NamedEntityInterface $data, ID $id = null): ResourceInterface {
         throw new NotAllowedException('Not Allowed', 405);
     }
 
