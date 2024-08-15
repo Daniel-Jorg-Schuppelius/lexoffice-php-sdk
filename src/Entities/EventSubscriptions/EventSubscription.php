@@ -13,9 +13,9 @@ use Lexoffice\Enums\EventType;
 use Psr\Log\LoggerInterface;
 
 class EventSubscription extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface {
-    protected SubscriptionID $subscriptionId;
-    protected OrganizationID $organizationId;
-    protected DateTime $createdDate;
+    protected ?SubscriptionID $subscriptionId;
+    protected ?OrganizationID $organizationId;
+    protected ?DateTime $createdDate;
     public EventType $eventType;
     public string $callbackUrl;
 
