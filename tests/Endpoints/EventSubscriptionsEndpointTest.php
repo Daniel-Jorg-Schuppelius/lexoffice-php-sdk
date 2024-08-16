@@ -3,18 +3,18 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\Api\Endpoints\EventSubscriptionsEndpoint;
-use Lexoffice\Contracts\Interfaces\API\EndpointInterface;
+use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\EventSubscriptions\EventSubscription;
 use Lexoffice\Entities\EventSubscriptions\EventSubscriptionResource;
 use Tests\Contracts\EndpointTest;
 
 class EventSubscriptionsEndpointTest extends EndpointTest {
-    protected ?EndpointInterface $endpoint;
+    protected ?ListableEndpointInterface $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
         $this->endpoint = new EventSubscriptionsEndpoint($this->client);
-        $this->apiDisabled = false; // API is disabled
+        $this->apiDisabled = true; // API is disabled
     }
 
     public function testJsonSerialize() {
@@ -58,14 +58,33 @@ class EventSubscriptionsEndpointTest extends EndpointTest {
         $this->assertInstanceOf(EventSubscriptionResource::class, $eventSubscriptionResource);
         $eventSubscription = $this->endpoint->get($eventSubscriptionResource->getId());
         $this->assertEquals($data['eventType'], $eventSubscription->eventType->value);
+        $this->assertEquals($data['callbackUrl'], $eventSubscription->callbackUrl);
+        $this->endpoint->delete($eventSubscriptionResource->getId());
     }
 
-    public function testGetAllAndDeleteEventSubscriptionsAPI() {
-        $eventSubscriptions = $this->endpoint->getAll();
+    public function testListAndDeleteEventSubscriptionsAPI() {
+        if ($this->apiDisabled) {
+            $this->markTestSkipped('API is disabled');
+        }
+
+        $data = [
+            "eventType" => "article.created",
+            "callbackUrl" => "https://schuppelius.org/webhook3"
+        ];
+
+        $data1 = [
+            "eventType" => "article.deleted",
+            "callbackUrl" => "https://schuppelius.org/webhook4"
+        ];
+
+        $this->endpoint->create(new EventSubscription($data));
+        $this->endpoint->create(new EventSubscription($data1));
+
+        $eventSubscriptions = $this->endpoint->list();
         foreach ($eventSubscriptions->getValues() as $val) {
             $this->endpoint->delete($val->getId());
         }
-        $eventSubscriptions = $this->endpoint->getAll();
+        $eventSubscriptions = $this->endpoint->list();
         $this->assertEquals(0, count($eventSubscriptions->getValues()));
     }
 }
