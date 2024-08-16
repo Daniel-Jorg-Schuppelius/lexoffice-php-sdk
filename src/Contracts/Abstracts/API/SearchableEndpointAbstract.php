@@ -6,7 +6,7 @@ namespace Lexoffice\Contracts\Abstracts\API;
 
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 
-abstract class SearchableEndpointAbstract extends EndpointAbstract implements SearchableEndpointInterface {
+abstract class SearchableEndpointAbstract extends ClassicEndpointAbstract implements SearchableEndpointInterface {
     protected function getEntities(string $entityClass, array $queryParams = []) {
         $queryString = http_build_query($queryParams);
         $response = $this->client->get("{$this->endpoint}?{$queryString}");

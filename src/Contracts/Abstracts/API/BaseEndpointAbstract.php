@@ -5,15 +5,12 @@ declare(strict_types=1);
 namespace Lexoffice\Contracts\Abstracts\API;
 
 use Lexoffice\Contracts\Interfaces\API\ApiClientInterface;
-use Lexoffice\Contracts\Interfaces\API\EndpointInterface;
-use Lexoffice\Contracts\Interfaces\API\ResourceInterface;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
-use Lexoffice\Entities\ID;
+use Lexoffice\Contracts\Interfaces\API\BaseEndpointInterface;
 use Lexoffice\Exceptions\ApiException;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
-abstract class EndpointAbstract implements EndpointInterface {
+abstract class BaseEndpointAbstract implements BaseEndpointInterface {
     protected ?LoggerInterface $logger;
 
     protected ApiClientInterface $client;
@@ -37,9 +34,4 @@ abstract class EndpointAbstract implements EndpointInterface {
 
         return $response->getBody()->getContents();
     }
-
-    abstract public function create(NamedEntityInterface $data, ID $id = null): ResourceInterface;
-    abstract public function get(ID $id): NamedEntityInterface;
-    abstract public function update(ID $id, NamedEntityInterface $data): ResourceInterface;
-    abstract public function delete(ID $id): bool;
 }

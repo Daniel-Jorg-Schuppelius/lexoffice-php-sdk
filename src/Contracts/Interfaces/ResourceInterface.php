@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Contracts\Interfaces\API;
+namespace Lexoffice\Contracts\Interfaces;
 
 use DateTime;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;

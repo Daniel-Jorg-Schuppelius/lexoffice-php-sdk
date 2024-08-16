@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Entities\Documents\DeliveryNotes;
+namespace Lexoffice\Entities\Files;
 
 use Lexoffice\Contracts\Abstracts\ResourceAbstract;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 
-class DeliveryNoteResource extends ResourceAbstract {
+class FileResource extends ResourceAbstract {
     public function getResource(): NamedEntityInterface {
-        return new DeliveryNote();
+        return new File();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\EndpointAbstract;
+use Lexoffice\Contracts\Abstracts\API\ClassicEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\EventSubscriptions\EventSubscription;
@@ -10,7 +10,7 @@ use Lexoffice\Entities\EventSubscriptions\EventSubscriptionResource;
 use Lexoffice\Entities\EventSubscriptions\EventSubscriptions;
 use Lexoffice\Entities\ID;
 
-class EventSubscriptionsEndpoint extends EndpointAbstract implements ListableEndpointInterface {
+class EventSubscriptionsEndpoint extends ClassicEndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'event-subscriptions';
 
     public function create(NamedEntityInterface $data, ID $id = null): EventSubscriptionResource {
