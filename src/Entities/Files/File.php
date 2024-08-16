@@ -9,7 +9,8 @@ use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Psr\Log\LoggerInterface;
 
 class File extends NamedEntity implements IdentifiableInterface {
-    protected FileID $id;
+    protected ?FileID $id;
+    protected ?string $filePath;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
@@ -17,5 +18,9 @@ class File extends NamedEntity implements IdentifiableInterface {
 
     public function getID(): FileID {
         return $this->id;
+    }
+
+    public function getFilePath(): ?string {
+        return $this->filePath;
     }
 }
