@@ -2,26 +2,26 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\PaymentConditionsEndpoint;
+use Lexoffice\Api\Endpoints\PostingCategoriesEndpoint;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
-use Lexoffice\Entities\PaymentConditions\PaymentConditions;
+use Lexoffice\Entities\PostingCategories\PostingCategories;
 use Tests\Contracts\EndpointTest;
 
-class PaymentConditionsEndpointTest extends EndpointTest {
+class PostingCategoriesEndpointTest extends EndpointTest {
     private ?ListableEndpointInterface $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
-        $this->endpoint = new PaymentConditionsEndpoint($this->client);
+        $this->endpoint = new PostingCategoriesEndpoint($this->client);
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testGetPaymentConditionsAPI() {
+    public function testGetPostingCategoriesAPI() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
 
-        $paymentConditions = $this->endpoint->list();
-        $this->assertInstanceOf(PaymentConditions::class, $paymentConditions);
+        $postingCategories = $this->endpoint->list();
+        $this->assertInstanceOf(PostingCategories::class, $postingCategories);
     }
 }
