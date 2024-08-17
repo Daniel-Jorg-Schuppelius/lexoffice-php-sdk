@@ -3,12 +3,12 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\Api\Endpoints\Documents\DownPaymentInvoicesEndpoint;
-use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
+use Lexoffice\Contracts\Interfaces\API\BaseEndpointInterface;
 use Lexoffice\Entities\Documents\DownPaymentInvoices\DownPaymentInvoice;
 use Tests\Contracts\EndpointTest;
 
 final class DownPaymentInvoicesEndpointTest extends EndpointTest {
-    protected ?DocumentEndpointInterface $endpoint;
+    protected ?BaseEndpointInterface $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
@@ -92,7 +92,6 @@ final class DownPaymentInvoicesEndpointTest extends EndpointTest {
 
         $downPaymentInvoice = new DownPaymentInvoice($data, $this->logger);
         $this->assertTrue($downPaymentInvoice->isValid());
-        $this->assertNotEquals($data, $downPaymentInvoice->toArray());
         $this->assertNotEquals(json_encode($data), $downPaymentInvoice->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $downPaymentInvoice->toJson());
         $this->assertStringContainsString(substr($downPaymentInvoice->title, 2, -2), $downPaymentInvoice->toJson());

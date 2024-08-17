@@ -68,7 +68,10 @@ class DeliveryNotesTest extends TestCase {
             ]
         ];
 
-        $deliveryNotes = new DeliveryNote($data);
-        $this->assertInstanceOf(DeliveryNote::class, $deliveryNotes);
+        $deliveryNote = new DeliveryNote($data);
+        $this->assertInstanceOf(DeliveryNote::class, $deliveryNote);
+        $this->assertNotEquals($data, $deliveryNote->toArray());
+        $this->assertEquals($data["address"], $deliveryNote->address->toArray());
+        $this->assertCount(2, $deliveryNote->lineItems->GetValues());
     }
 }

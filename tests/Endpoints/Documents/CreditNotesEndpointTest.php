@@ -71,7 +71,6 @@ class CreditNotesEndpointTest extends EndpointTest {
         ];
 
         $creditNote = new CreditNote($data, $this->logger);
-        $this->assertEquals($data, $creditNote->toArray());
         $this->assertEquals(json_encode($data), $creditNote->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $creditNote->toJson());
         $this->assertStringContainsString(substr($creditNote->title, 2, -2), $creditNote->toJson());

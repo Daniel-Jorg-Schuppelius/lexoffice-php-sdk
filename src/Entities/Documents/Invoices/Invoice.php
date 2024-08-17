@@ -16,10 +16,10 @@ class Invoice extends NamedDocument {
     public ?DateTime $dueDate;
     public ?XRechnung $xRechnung;
     public ExtendedLineItems $lineItems;
-    public PaymentConditions $paymentConditions;
+    public ?PaymentConditions $paymentConditions;
     public ShippingConditions $shippingConditions;
     protected ?float $claimedGrossAmount;
-    protected bool $closingInvoice;
+    protected ?bool $closingInvoice;
     protected ?DownPaymentDeductions $downPaymentDeductions;
     public ?RecurringTemplateID $recurringTemplateId;
 

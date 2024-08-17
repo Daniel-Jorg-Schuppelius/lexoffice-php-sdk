@@ -82,7 +82,11 @@ class DownPaymentInvoicesTest extends TestCase {
             "title" => "1. Abschlagsrechnung"
         ];
 
-        $downPaymentInvoices = new DownPaymentInvoice($data);
-        $this->assertInstanceOf(DownPaymentInvoice::class, $downPaymentInvoices);
+        $downPaymentInvoice = new DownPaymentInvoice($data);
+        $this->assertInstanceOf(DownPaymentInvoice::class, $downPaymentInvoice);
+        $this->assertNotEquals($data, $downPaymentInvoice->toArray());
+        $this->assertEquals($data["address"], $downPaymentInvoice->address->toArray());
+        $this->assertCount(1, $downPaymentInvoice->lineItems->GetValues());
+        $this->assertEquals($data["totalPrice"], $downPaymentInvoice->totalPrice->toArray());
     }
 }

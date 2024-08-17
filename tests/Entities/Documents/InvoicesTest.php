@@ -267,6 +267,7 @@ class InvoicesTest extends TestCase {
 
         $invoice = new Invoice($data);
         $this->assertInstanceOf(Invoice::class, $invoice);
+        $this->assertNotEquals($data, $invoice->toArray());
         $this->assertEquals($data1, $invoice->toArray());
     }
 }

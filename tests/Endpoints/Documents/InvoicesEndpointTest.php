@@ -21,6 +21,7 @@ class InvoicesEndpointTest extends EndpointTest {
         $data = [
             "lineItems" => [
                 [
+                    "discountPercentage" => 50.0,
                     "id" => "97b98491-e953-4dc9-97a9-ae437a8052b4",
                     "type" => "material",
                     "name" => "Abus Kabelschloss Primo 590 ",
@@ -33,10 +34,10 @@ class InvoicesEndpointTest extends EndpointTest {
                         "grossAmount" => 15.95,
                         "taxRatePercentage" => 19.0
                     ],
-                    "discountPercentage" => 50.0,
                     "lineItemAmount" => 13.4
                 ],
                 [
+                    "discountPercentage" => 0.0,
                     "id" => "dc4c805b-7df1-4310-a548-22be4499eb04",
                     "type" => "service",
                     "name" => "Aufwändige Montage",
@@ -49,14 +50,12 @@ class InvoicesEndpointTest extends EndpointTest {
                         "grossAmount" => 8.9,
                         "taxRatePercentage" => 7.0
                     ],
-                    "discountPercentage" => 0.0,
                     "lineItemAmount" => 8.32
                 ],
                 [
-                    "id" => null,
+                    "discountPercentage" => 0.0,
                     "type" => "custom",
                     "name" => "Energieriegel Testpaket",
-                    "description" => null,
                     "quantity" => 1.0,
                     "unitName" => "Stück",
                     "unitPrice" => [
@@ -65,7 +64,6 @@ class InvoicesEndpointTest extends EndpointTest {
                         "grossAmount" => 5.0,
                         "taxRatePercentage" => 0.0
                     ],
-                    "discountPercentage" => 0.0,
                     "lineItemAmount" => 5.0
                 ],
                 [
@@ -74,6 +72,20 @@ class InvoicesEndpointTest extends EndpointTest {
                     "description" => "This item type can contain either a name or a description or both."
                 ]
             ],
+            "paymentConditions" => [
+                "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
+                "paymentTermLabelTemplate" => "{discountRange} Tage -{discount}, {paymentRange} Tage netto",
+                "paymentTermDuration" => 30,
+                "paymentDiscountConditions" => [
+                    "discountPercentage" => 3.0,
+                    "discountRange" => 10
+                ]
+            ],
+            "shippingConditions" => [
+                "shippingDate" => "2023-04-22T00:00:00.000+02:00",
+                "shippingType" => "delivery"
+            ],
+            "closingInvoice" => false,
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
             "createdDate" => "2023-04-24T08:20:22.528+02:00",
@@ -84,9 +96,7 @@ class InvoicesEndpointTest extends EndpointTest {
             "voucherStatus" => "draft",
             "voucherNumber" => "RE1019",
             "voucherDate" => "2023-02-22T00:00:00.000+01:00",
-            "dueDate" => null,
             "address" => [
-                "contactId" => null,
                 "name" => "Bike & Ride GmbH & Co. KG",
                 "supplement" => "Gebäude 10",
                 "street" => "Musterstraße 42",
@@ -94,14 +104,11 @@ class InvoicesEndpointTest extends EndpointTest {
                 "city" => "Freiburg",
                 "countryCode" => "DE"
             ],
-            "xRechnung" => null,
             "totalPrice" => [
                 "currency" => "EUR",
                 "totalNetAmount" => 26.72,
                 "totalGrossAmount" => 29.85,
                 "totalTaxAmount" => 3.13,
-                "totalDiscountAbsolute" => null,
-                "totalDiscountPercentage" => null
             ],
             "taxAmounts" => [
                 [
@@ -122,26 +129,7 @@ class InvoicesEndpointTest extends EndpointTest {
             ],
             "taxConditions" => [
                 "taxType" => "net",
-                "taxTypeNote" => null
             ],
-            "paymentConditions" => [
-                "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
-                "paymentTermLabelTemplate" => "{discountRange} Tage -{discount}, {paymentRange} Tage netto",
-                "paymentTermDuration" => 30,
-                "paymentDiscountConditions" => [
-                    "discountPercentage" => 3.0,
-                    "discountRange" => 10
-                ]
-            ],
-            "shippingConditions" => [
-                "shippingDate" => "2023-04-22T00:00:00.000+02:00",
-                "shippingEndDate" => null,
-                "shippingType" => "delivery"
-            ],
-            "closingInvoice" => false,
-            "claimedGrossAmount" => null,
-            "downPaymentDeductions" => null,
-            "recurringTemplateId" => null,
             "relatedVouchers" => [],
             "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
             "title" => "Rechnung",
@@ -153,7 +141,7 @@ class InvoicesEndpointTest extends EndpointTest {
         ];
 
         $invoice = new Invoice($data, $this->logger);
-        // $this->assertEquals(json_encode($data), $invoice->toJson());
+        $this->assertEquals(json_encode($data), $invoice->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $invoice->toJson());
         $this->assertStringContainsString(substr($invoice->title, 2, -2), $invoice->toJson());
     }
@@ -165,7 +153,7 @@ class InvoicesEndpointTest extends EndpointTest {
 
         $data = [
             "archived" => false,
-            "voucherDate" => "2024-02-22T00:00:00.000+01:00",
+            "voucherDate" => "2023-02-22T00:00:00.000+01:00",
             "address" => [
                 "name" => "Bike & Ride GmbH & Co. KG",
                 "supplement" => "Gebäude 10",
@@ -177,18 +165,6 @@ class InvoicesEndpointTest extends EndpointTest {
             "lineItems" => [
                 [
                     "type" => "custom",
-                    "name" => "Abus Kabelschloss Primo 590",
-                    "description" => "· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm",
-                    "quantity" => 2,
-                    "unitName" => "Stück",
-                    "unitPrice" => [
-                        "currency" => "EUR",
-                        "netAmount" => 13.4,
-                        "taxRatePercentage" => 19
-                    ]
-                ],
-                [
-                    "type" => "custom",
                     "name" => "Energieriegel Testpaket",
                     "quantity" => 1,
                     "unitName" => "Stück",
@@ -196,7 +172,8 @@ class InvoicesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "taxRatePercentage" => 0
-                    ]
+                    ],
+                    "discountPercentage" => 0
                 ],
                 [
                     "type" => "text",
@@ -210,9 +187,21 @@ class InvoicesEndpointTest extends EndpointTest {
             "taxConditions" => [
                 "taxType" => "net"
             ],
-            "title" => "Rechnungskorrektur",
-            "introduction" => "Rechnungskorrektur zur Rechnung RE-00020",
-            "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."
+            "paymentConditions" => [
+                "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
+                "paymentTermDuration" => 30,
+                "paymentDiscountConditions" => [
+                    "discountPercentage" => 3,
+                    "discountRange" => 10
+                ]
+            ],
+            "shippingConditions" => [
+                "shippingDate" => "2023-04-22T00:00:00.000+02:00",
+                "shippingType" => "delivery"
+            ],
+            "title" => "Rechnung",
+            "introduction" => "Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung",
+            "remark" => "Vielen Dank für Ihren Einkauf"
         ];
 
         $invoice = new Invoice($data);

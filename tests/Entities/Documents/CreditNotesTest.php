@@ -88,9 +88,9 @@ class CreditNotesTest extends TestCase {
             ]
         ];
 
-        $creditNotes = new CreditNote($data);
-        $this->assertInstanceOf(CreditNote::class, $creditNotes);
-        $this->assertEquals($data, $creditNotes->toArray());
+        $creditNote = new CreditNote($data);
+        $this->assertInstanceOf(CreditNote::class, $creditNote);
+        $this->assertEquals($data, $creditNote->toArray());
     }
 
     public function testValidateCreditNote() {
@@ -173,7 +173,7 @@ class CreditNotesTest extends TestCase {
             ]
         ];
 
-        $creditNotes = new CreditNote($data);
-        $this->assertTrue($creditNotes->isValid());
+        $creditNote = new CreditNote($data);
+        $this->assertTrue($creditNote->isValid());
     }
 }

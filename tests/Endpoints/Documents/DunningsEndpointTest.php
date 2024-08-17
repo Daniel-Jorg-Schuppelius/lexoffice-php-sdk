@@ -96,7 +96,6 @@ final class DunningsEndpointTest extends EndpointTest {
 
         $dunning = new Dunning($data, $this->logger);
         $this->assertTrue($dunning->isValid());
-        $this->assertEquals($data, $dunning->toArray());
         $this->assertEquals(json_encode($data), $dunning->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $dunning->toJson());
         $this->assertStringContainsString(substr($dunning->title, 2, -2), $dunning->toJson());

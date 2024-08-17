@@ -83,7 +83,8 @@ class DunningsTest extends TestCase {
             "title" => "Mahnung"
         ];
 
-        $dunnings = new Dunning($data);
-        $this->assertInstanceOf(Dunning::class, $dunnings);
+        $dunning = new Dunning($data);
+        $this->assertInstanceOf(Dunning::class, $dunning);
+        $this->assertEquals($data, $dunning->toArray());
     }
 }

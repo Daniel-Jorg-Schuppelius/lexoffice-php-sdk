@@ -79,7 +79,6 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
 
         $deliveryNote = new DeliveryNote($data, $this->logger);
         $this->assertTrue($deliveryNote->isValid());
-        $this->assertNotEquals($data, $deliveryNote->toArray());
         $this->assertNotEquals(json_encode($data), $deliveryNote->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $deliveryNote->toJson());
         $this->assertStringContainsString(substr($deliveryNote->title, 2, -2), $deliveryNote->toJson());
