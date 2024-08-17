@@ -22,7 +22,11 @@ class EventSubscriptionsEndpoint extends ClassicEndpointAbstract implements List
         return EventSubscriptionResource::fromJson($body);
     }
 
-    public function get(ID $id): EventSubscription {
+    public function get(?ID $id = null): EventSubscription {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('ID is required');
+        }
+
         $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
         $body = $this->handleResponse($response, 200);
 

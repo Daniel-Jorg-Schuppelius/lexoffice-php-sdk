@@ -22,7 +22,11 @@ class ContactsEndpoint extends SearchableEndpointAbstract {
         return ContactResource::fromJson($body);
     }
 
-    public function get(ID $id): Contact {
+    public function get(?ID $id = null): Contact {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('ID is required');
+        }
+
         $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
         $body = $this->handleResponse($response, 200);
 

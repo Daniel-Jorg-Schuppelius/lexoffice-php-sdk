@@ -12,7 +12,7 @@ use Lexoffice\Exceptions\NotAllowedException;
 class PostingCategoriesEndpoint extends BaseEndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'payment-conditions';
 
-    public function get(ID $id): PostingCategory {
+    public function get(?ID $id = null): PostingCategory {
         throw new NotAllowedException('Not Allowed', 405);
     }
 

@@ -47,7 +47,11 @@ class FilesEndpoint extends BaseEndpointAbstract {
         ]);
     }
 
-    public function get(ID $id): File {
+    public function get(?ID $id = null): File {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('ID is required');
+        }
+
         return $this->download($id, sys_get_temp_dir());
     }
 }

@@ -8,5 +8,5 @@ use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\ID;
 
 interface BaseEndpointInterface {
-    public function get(ID $id): NamedEntityInterface;
+    public function get(?ID $id = null): NamedEntityInterface;
 }

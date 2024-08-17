@@ -9,7 +9,11 @@ use Lexoffice\Entities\ID;
 class DownPaymentInvoicesEndpoint extends BaseEndpointAbstract {
     protected string $endpoint = 'down-payment-invoices';
 
-    public function get(ID $id): DownPaymentInvoice {
+    public function get(?ID $id = null): DownPaymentInvoice {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('ID is required');
+        }
+
         $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
         $body = $this->handleResponse($response, 200);
 

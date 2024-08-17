@@ -22,7 +22,11 @@ class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
         return DeliveryNoteResource::fromJson($body);
     }
 
-    public function get(ID $id): DeliveryNote {
+    public function get(?ID $id = null): DeliveryNote {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('ID is required');
+        }
+
         $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
         $body = $this->handleResponse($response, 200);
 

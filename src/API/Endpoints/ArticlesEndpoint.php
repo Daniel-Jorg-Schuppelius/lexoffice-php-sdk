@@ -21,7 +21,11 @@ class ArticlesEndpoint extends SearchableEndpointAbstract {
         return ArticleResource::fromJson($body);
     }
 
-    public function get(ID $id): Article {
+    public function get(?ID $id = null): Article {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('ID is required');
+        }
+
         $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
         $body = $this->handleResponse($response, 200);
 

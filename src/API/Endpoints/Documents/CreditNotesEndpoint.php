@@ -26,7 +26,11 @@ class CreditNotesEndpoint extends DocumentEndpointAbstract {
         return CreditNoteResource::fromJson($body);
     }
 
-    public function get(ID $id): CreditNote {
+    public function get(?ID $id = null): CreditNote {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('ID is required');
+        }
+
         $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
         $body = $this->handleResponse($response, 200);
 

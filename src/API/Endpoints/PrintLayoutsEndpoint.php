@@ -12,7 +12,7 @@ use Lexoffice\Exceptions\NotAllowedException;
 class PrintLayoutsEndpoint extends BaseEndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'print-layouts';
 
-    public function get(ID $id): PrintLayout {
+    public function get(?ID $id = null): PrintLayout {
         throw new NotAllowedException('Not Allowed', 405);
     }
 

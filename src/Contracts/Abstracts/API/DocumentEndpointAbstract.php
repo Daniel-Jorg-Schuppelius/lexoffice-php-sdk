@@ -13,7 +13,7 @@ use Lexoffice\Entities\Vouchers\VoucherID;
 
 abstract class DocumentEndpointAbstract extends BaseEndpointAbstract implements DocumentEndpointInterface {
     abstract public function create(NamedEntityInterface $data, ID $id = null): ResourceInterface;
-    abstract public function get(ID $id): NamedEntityInterface;
+    abstract public function get(?ID $id = null): NamedEntityInterface;
     abstract public function render(ID $id): DocumentFileID;
     abstract public function pursue(VoucherID $id, bool $finalize = false): ResourceInterface;
 }

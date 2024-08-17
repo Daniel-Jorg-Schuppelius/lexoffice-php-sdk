@@ -27,7 +27,11 @@ class DunningsEndpoint extends DocumentEndpointAbstract {
         return DunningResource::fromJson($body);
     }
 
-    public function get(ID $id): Dunning {
+    public function get(?ID $id = null): Dunning {
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('ID is required');
+        }
+
         $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
         $body = $this->handleResponse($response, 200);
 

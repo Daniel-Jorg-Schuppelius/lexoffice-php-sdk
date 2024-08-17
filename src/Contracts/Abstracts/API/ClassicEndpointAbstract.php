@@ -10,7 +10,7 @@ use Lexoffice\Entities\ID;
 
 abstract class ClassicEndpointAbstract extends BaseEndpointAbstract {
     abstract public function create(NamedEntityInterface $data, ID $id = null): ResourceInterface;
-    abstract public function get(ID $id): NamedEntityInterface;
+    abstract public function get(?ID $id = null): NamedEntityInterface;
     abstract public function update(ID $id, NamedEntityInterface $data): ResourceInterface;
     abstract public function delete(ID $id): bool;
 }

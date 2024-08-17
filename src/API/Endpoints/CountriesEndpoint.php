@@ -12,7 +12,7 @@ use Lexoffice\Exceptions\NotAllowedException;
 class CountriesEndpoint extends BaseEndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'countries';
 
-    public function get(ID $id): Country {
+    public function get(?ID $id = null): Country {
         throw new NotAllowedException('Not Allowed', 405);
     }
 
