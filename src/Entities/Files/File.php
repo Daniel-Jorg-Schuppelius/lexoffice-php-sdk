@@ -23,4 +23,8 @@ class File extends NamedEntity implements IdentifiableInterface {
     public function getFilePath(): ?string {
         return $this->filePath;
     }
+
+    public function isValid(): bool {
+        return !is_null($this->id) || !is_null($this->filePath);
+    }
 }
