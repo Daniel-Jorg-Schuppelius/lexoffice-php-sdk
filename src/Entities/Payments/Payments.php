@@ -4,25 +4,12 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Payments;
 
-use DateTime;
-use Lexoffice\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Entities\Payments\PaymentItems;
-use Lexoffice\Enums\Currency;
-use Lexoffice\Enums\PaymentStatus;
-use Lexoffice\Enums\VoucherStatus;
-use Lexoffice\Enums\VoucherType;
+use Lexoffice\Contracts\Abstracts\NamedValues;
 use Psr\Log\LoggerInterface;
 
-class Payments extends NamedEntity {
-    public float $openAmount;
-    public Currency $currency;
-    public PaymentStatus $paymentStatus;
-    public VoucherType $voucherType;
-    public VoucherStatus $voucherStatus;
-    public DateTime $paidDate;
-    public PaymentItems $paymentItems;
-
+class Payments extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
+        $this->valueClassName = Payment::class;
         parent::__construct($data, $logger);
     }
 }

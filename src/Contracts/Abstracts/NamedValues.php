@@ -58,6 +58,8 @@ abstract class NamedValues implements NamedValuesInterface {
             foreach ($data as $item) {
                 if (is_scalar($item) || is_array($item) || is_null($item)) {
                     $result[] = new $this->valueClassName($item);
+                } elseif (is_object($item) && $item instanceof NamedEntity && ($item->getEntityName() == $this->valueClassName)) {
+                    $result[] = $item;
                 } else {
                     throw new \InvalidArgumentException("Value must be an array of scalars, or a nested array.");
                 }

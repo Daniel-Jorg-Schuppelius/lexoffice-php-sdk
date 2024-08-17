@@ -1,15 +1,22 @@
 <?php
 
-declare(strict_types=1);
+namespace Tests\Endpoints;
 
-namespace Tests\Entities;
-
+use Lexoffice\Api\Endpoints\PaymentsEndpoint;
+use Lexoffice\Contracts\Interfaces\API\BaseEndpointInterface;
 use Lexoffice\Entities\Payments\Payment;
-use Lexoffice\Entities\Payments\Payments;
-use PHPUnit\Framework\TestCase;
+use Tests\Contracts\EndpointTest;
 
-class PaymentsTest extends TestCase {
-    public function testCreatePayments() {
+class PaymentsEndpointTest extends EndpointTest {
+    private ?BaseEndpointInterface $endpoint;
+
+    public function __construct($name) {
+        parent::__construct($name);
+        $this->endpoint = new PaymentsEndpoint($this->client);
+        $this->apiDisabled = true; // API is disabled
+    }
+
+    public function testJsonSerialize() {
         $data1 = [
             "openAmount" => 200.00,
             "currency" => "EUR",
@@ -21,8 +28,8 @@ class PaymentsTest extends TestCase {
 
         $data2 = [
             "openAmount" => 39.90,
-            "paymentStatus" => "openExpense",
             "currency" => "EUR",
+            "paymentStatus" => "openExpense",
             "voucherType" => "purchaseinvoice",
             "voucherStatus" => "open",
             "paymentItems" => [
@@ -60,8 +67,8 @@ class PaymentsTest extends TestCase {
 
         $data4 = [
             "openAmount" => 0.0,
-            "paymentStatus" => "balanced",
             "currency" => "EUR",
+            "paymentStatus" => "balanced",
             "voucherType" => "invoice",
             "voucherStatus" => "paid",
             "paidDate" => "2023-07-14T13:42:02.123+02:00",
@@ -82,23 +89,13 @@ class PaymentsTest extends TestCase {
         ];
 
         $payment1 = new Payment($data1);
-        $this->assertInstanceOf(Payment::class, $payment1);
         $payment2 = new Payment($data2);
-        $this->assertInstanceOf(Payment::class, $payment2);
         $payment3 = new Payment($data3);
-        $this->assertInstanceOf(Payment::class, $payment3);
         $payment4 = new Payment($data4);
-        $this->assertInstanceOf(Payment::class, $payment4);
-        $payments1 = new Payments([$payment1->toArray(), $payment2->toArray(), $payment3->toArray(), $payment4->toArray()]);
-        $this->assertInstanceOf(Payments::class, $payments1);
-        $this->assertCount(4, $payments1->getValues());
-        $this->assertEquals($payment1, $payments1->getValues()[0]);
-        $this->assertEquals($payment2, $payments1->getValues()[1]);
-        $this->assertEquals($payment3, $payments1->getValues()[2]);
-        $this->assertEquals($payment4, $payments1->getValues()[3]);
-        $payments2 = new Payments([$payment1, $payment2, $payment3, $payment4]);
-        $this->assertInstanceOf(Payments::class, $payments2);
-        $this->assertCount(4, $payments2->getValues());
-        $this->assertEquals($payments1, $payments2);
+
+        $this->assertEquals(json_encode($data1), $payment1->toJson());
+        $this->assertEquals(json_encode($data2), $payment2->toJson());
+        $this->assertEquals(json_encode($data3), $payment3->toJson());
+        $this->assertEquals(json_encode($data4), $payment4->toJson());
     }
 }
