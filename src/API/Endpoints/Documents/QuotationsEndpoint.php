@@ -6,9 +6,9 @@ use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Documents\Quotations\Quotation;
 use Lexoffice\Entities\Documents\Quotations\QuotationResource;
-use Lexoffice\Entities\Documents\DocumentFileID;
 use Lexoffice\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
+use Lexoffice\Exceptions\NotAllowedException;
 
 class QuotationsEndpoint extends DocumentEndpointAbstract {
     protected string $endpoint = 'quotations';
@@ -31,23 +31,10 @@ class QuotationsEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return Quotation::fromJson($body);
-    }
-
-    public function render(ID $id): DocumentFileID {
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}/document");
-        $body = $this->handleResponse($response, 200);
-
-        return DocumentFileID::fromJson($body);
+        return Quotation::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): QuotationResource {
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return Quotation::fromJson($body);
+        throw new NotAllowedException('Quotations cannot be pursued');
     }
 }

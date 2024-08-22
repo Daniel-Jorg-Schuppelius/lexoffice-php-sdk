@@ -16,11 +16,7 @@ class CountriesEndpoint extends BaseEndpointAbstract implements ListableEndpoint
         throw new NotAllowedException('Not Allowed', 405);
     }
 
-    public function list(array $queryParams = [], array $options = []): Countries {
-        $params = "?" . http_build_query($queryParams) ?? '';
-        $response = $this->client->get($this->endpoint . $params, $options);
-        $this->handleResponse($response, 200);
-
-        return Countries::fromJson($response->getBody());
+    public function list(array $options = []): Countries {
+        return Countries::fromJson(parent::getContents([], $options));
     }
 }

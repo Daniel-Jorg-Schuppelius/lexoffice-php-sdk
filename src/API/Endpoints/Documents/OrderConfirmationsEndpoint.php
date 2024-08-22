@@ -6,7 +6,6 @@ use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmation;
 use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmationResource;
-use Lexoffice\Entities\Documents\DocumentFileID;
 use Lexoffice\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
@@ -31,23 +30,10 @@ class OrderConfirmationsEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return OrderConfirmation::fromJson($body);
-    }
-
-    public function render(ID $id): DocumentFileID {
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}/document");
-        $body = $this->handleResponse($response, 200);
-
-        return DocumentFileID::fromJson($body);
+        return OrderConfirmation::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): OrderConfirmationResource {
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return OrderConfirmation::fromJson($body);
+        return OrderConfirmationResource::fromJson(parent::getContents([], [], "{$this->endpoint}?precedingSalesVoucherId={$id->toString()}"));
     }
 }

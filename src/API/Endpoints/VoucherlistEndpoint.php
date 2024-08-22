@@ -22,10 +22,6 @@ class VoucherlistEndpoint extends BaseEndpointAbstract implements SearchableEndp
             throw new \InvalidArgumentException('voucherStatus is required in $queryParams');
         }
 
-        $params = "?" . http_build_query($queryParams) ?? '';
-        $response = $this->client->get($this->endpoint . $params, $options);
-        $this->handleResponse($response, 200);
-
-        return VoucherListPage::fromJson($response->getBody());
+        return VoucherlistPage::fromJson(parent::getContents($queryParams, $options));
     }
 }

@@ -3,18 +3,18 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\Api\Endpoints\Documents\RecurringTemplatesEndpoint;
-use Lexoffice\Contracts\Interfaces\API\BaseEndpointInterface;
+use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplatesPage;
 use Tests\Contracts\EndpointTest;
 
 class RecurringTemplatesEndpointTest extends EndpointTest {
-    protected ?BaseEndpointInterface $endpoint;
+    protected ?SearchableEndpointInterface $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
         $this->endpoint = new RecurringTemplatesEndpoint($this->client);
-        $this->apiDisabled = true; // API is disabled
+        $this->apiDisabled = false; // API is disabled
     }
 
     public function testJsonSerialize() {
@@ -151,7 +151,7 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
             $this->markTestSkipped('API is disabled');
         }
 
-        $recurringTemplatePage = $this->endpoint->getAll();
+        $recurringTemplatePage = $this->endpoint->search();
         $this->assertNotEmpty($recurringTemplatePage);
         $this->assertInstanceOf(RecurringTemplatesPage::class, $recurringTemplatePage);
     }

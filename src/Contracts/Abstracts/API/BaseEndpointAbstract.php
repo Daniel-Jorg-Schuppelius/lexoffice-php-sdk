@@ -21,6 +21,16 @@ abstract class BaseEndpointAbstract implements BaseEndpointInterface {
         $this->logger = $logger;
     }
 
+    protected function getContents(array $queryParams = [], array $options = [], string $urlPath = null, int $statusCode = 200): string {
+        if (is_null($urlPath)) {
+            $urlPath = $this->endpoint;
+        }
+        $queryString = http_build_query($queryParams);
+        $response = $this->client->get("{$urlPath}?{$queryString}", $options);
+
+        return $this->handleResponse($response, $statusCode);;
+    }
+
     protected function handleResponse(ResponseInterface $response, int $expectedStatusCode): string {
         $statusCode = $response->getStatusCode();
 

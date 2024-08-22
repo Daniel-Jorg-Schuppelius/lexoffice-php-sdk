@@ -16,11 +16,7 @@ class PostingCategoriesEndpoint extends BaseEndpointAbstract implements Listable
         throw new NotAllowedException('Not Allowed', 405);
     }
 
-    public function list(array $queryParams = [], array $options = []): PostingCategories {
-        $params = "?" . http_build_query($queryParams) ?? '';
-        $response = $this->client->get($this->endpoint . $params, $options);
-        $this->handleResponse($response, 200);
-
-        return PostingCategories::fromJson($response->getBody());
+    public function list(array $options = []): PostingCategories {
+        return PostingCategories::fromJson(parent::getContents([], $options));
     }
 }

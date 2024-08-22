@@ -16,11 +16,7 @@ class PrintLayoutsEndpoint extends BaseEndpointAbstract implements ListableEndpo
         throw new NotAllowedException('Not Allowed', 405);
     }
 
-    public function list(array $queryParams = [], array $options = []): PrintLayouts {
-        $params = "?" . http_build_query($queryParams) ?? '';
-        $response = $this->client->get($this->endpoint . $params, $options);
-        $this->handleResponse($response, 200);
-
-        return PrintLayouts::fromJson($response->getBody());
+    public function list(array $options = []): PrintLayouts {
+        return PrintLayouts::fromJson(parent::getContents([], $options));
     }
 }

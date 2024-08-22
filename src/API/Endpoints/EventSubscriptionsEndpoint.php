@@ -2,7 +2,8 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\ClassicEndpointAbstract;
+use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use Lexoffice\Contracts\Interfaces\API\ClassicEndpointInterface;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\EventSubscriptions\EventSubscription;
@@ -10,7 +11,7 @@ use Lexoffice\Entities\EventSubscriptions\EventSubscriptionResource;
 use Lexoffice\Entities\EventSubscriptions\EventSubscriptions;
 use Lexoffice\Entities\ID;
 
-class EventSubscriptionsEndpoint extends ClassicEndpointAbstract implements ListableEndpointInterface {
+class EventSubscriptionsEndpoint extends BaseEndpointAbstract implements ClassicEndpointInterface, ListableEndpointInterface {
     protected string $endpoint = 'event-subscriptions';
 
     public function create(NamedEntityInterface $data, ID $id = null): EventSubscriptionResource {
@@ -27,10 +28,7 @@ class EventSubscriptionsEndpoint extends ClassicEndpointAbstract implements List
             throw new \InvalidArgumentException('ID is required');
         }
 
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return EventSubscription::fromJson($body);
+        return EventSubscription::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
     }
 
     public function update(ID $id, NamedEntityInterface $data): EventSubscriptionResource {
@@ -49,11 +47,7 @@ class EventSubscriptionsEndpoint extends ClassicEndpointAbstract implements List
         return true;
     }
 
-    public function list(array $queryParams = [], array $options = []): EventSubscriptions {
-        $params = "?" . http_build_query($queryParams) ?? '';
-        $response = $this->client->get($this->endpoint . $params, $options);
-        $body = $this->handleResponse($response, 200);
-
-        return EventSubscriptions::fromJson($body);
+    public function list(array $options = []): EventSubscriptions {
+        return EventSubscriptions::fromJson(parent::getContents([], $options));
     }
 }

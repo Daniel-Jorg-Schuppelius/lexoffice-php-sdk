@@ -2,7 +2,8 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\SearchableEndpointAbstract;
+use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Vouchers\Voucher;
 use Lexoffice\Entities\Vouchers\VoucherResource;
@@ -10,7 +11,7 @@ use Lexoffice\Entities\Vouchers\VouchersPage;
 use Lexoffice\Entities\ID;
 use Lexoffice\Exceptions\NotAllowedException;
 
-class VouchersEndpoint extends SearchableEndpointAbstract {
+class VouchersEndpoint extends BaseEndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'vouchers';
 
     public function create(NamedEntityInterface $data, ID $id = null): VoucherResource {
@@ -27,10 +28,7 @@ class VouchersEndpoint extends SearchableEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return Voucher::fromJson($body);
+        return Voucher::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
     }
 
     public function update(ID $id, NamedEntityInterface $data): VoucherResource {
@@ -51,11 +49,6 @@ class VouchersEndpoint extends SearchableEndpointAbstract {
             throw new \InvalidArgumentException('voucherNumber is required in $queryParams');
         }
 
-        $params = "?" . http_build_query($queryParams) ?? '';
-        $response = $this->client->get($this->endpoint . $params, $options);
-
-        $body = $this->handleResponse($response, 200);
-
-        return VouchersPage::fromJson($body);
+        return VouchersPage::fromJson(parent::getContents($queryParams, $options));
     }
 }

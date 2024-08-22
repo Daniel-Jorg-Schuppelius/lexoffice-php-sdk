@@ -14,9 +14,6 @@ class DownPaymentInvoicesEndpoint extends BaseEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return DownPaymentInvoice::fromJson($body);
+        return DownPaymentInvoice::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
     }
 }

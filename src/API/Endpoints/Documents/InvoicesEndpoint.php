@@ -6,7 +6,6 @@ use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Documents\Invoices\Invoice;
 use Lexoffice\Entities\Documents\Invoices\InvoiceResource;
-use Lexoffice\Entities\Documents\DocumentFileID;
 use Lexoffice\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
@@ -31,23 +30,10 @@ class InvoicesEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return Invoice::fromJson($body);
-    }
-
-    public function render(ID $id): DocumentFileID {
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}/document");
-        $body = $this->handleResponse($response, 200);
-
-        return DocumentFileID::fromJson($body);
+        return Invoice::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): InvoiceResource {
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return Invoice::fromJson($body);
+        return InvoiceResource::fromJson(parent::getContents([], [], "{$this->endpoint}?precedingSalesVoucherId={$id->toString()}[&finalize=$finalize]"));
     }
 }

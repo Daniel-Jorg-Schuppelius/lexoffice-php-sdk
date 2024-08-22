@@ -14,6 +14,12 @@ use Lexoffice\Entities\Vouchers\VoucherID;
 abstract class DocumentEndpointAbstract extends BaseEndpointAbstract implements DocumentEndpointInterface {
     abstract public function create(NamedEntityInterface $data, ID $id = null): ResourceInterface;
     abstract public function get(?ID $id = null): NamedEntityInterface;
-    abstract public function render(ID $id): DocumentFileID;
     abstract public function pursue(VoucherID $id, bool $finalize = false): ResourceInterface;
+
+    public function render(ID $id): DocumentFileID {
+        $response = $this->client->get("{$this->endpoint}/{$id->toString()}/document");
+        $body = $this->handleResponse($response, 200);
+
+        return DocumentFileID::fromJson($body);
+    }
 }

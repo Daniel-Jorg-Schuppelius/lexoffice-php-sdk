@@ -7,7 +7,6 @@ use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Documents\Dunnings\Dunning;
 use Lexoffice\Entities\Documents\Dunnings\DunningResource;
-use Lexoffice\Entities\Documents\DocumentFileID;
 use Lexoffice\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
@@ -32,23 +31,10 @@ class DunningsEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return Dunning::fromJson($body);
-    }
-
-    public function render(ID $id): DocumentFileID {
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}/document");
-        $body = $this->handleResponse($response, 200);
-
-        return DocumentFileID::fromJson($body);
+        return Dunning::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): DunningResource {
-        $response = $this->client->get("{$this->endpoint}?precedingSalesVoucherId={$id->toString()}[&finalize=$finalize]");
-        $body = $this->handleResponse($response, 200);
-
-        return Dunning::fromJson($body);
+        return DunningResource::fromJson(parent::getContents([], [], "{$this->endpoint}?precedingSalesVoucherId={$id->toString()}"));
     }
 }

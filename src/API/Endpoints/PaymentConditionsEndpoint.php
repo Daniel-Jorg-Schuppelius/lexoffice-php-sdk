@@ -16,11 +16,7 @@ class PaymentConditionsEndpoint extends BaseEndpointAbstract implements Listable
         throw new NotAllowedException('Not Allowed', 405);
     }
 
-    public function list(array $queryParams = [], array $options = []): PaymentConditions {
-        $params = "?" . http_build_query($queryParams) ?? '';
-        $response = $this->client->get($this->endpoint . $params, $options);
-        $this->handleResponse($response, 200);
-
-        return PaymentConditions::fromJson($response->getBody());
+    public function list(array $options = []): PaymentConditions {
+        return PaymentConditions::fromJson(parent::getContents([], $options));
     }
 }

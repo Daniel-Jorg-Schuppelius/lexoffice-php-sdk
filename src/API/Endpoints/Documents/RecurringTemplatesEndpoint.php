@@ -3,11 +3,12 @@
 namespace Lexoffice\Api\Endpoints\Documents;
 
 use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplatesPage;
 use Lexoffice\Entities\ID;
 
-class RecurringTemplatesEndpoint extends BaseEndpointAbstract {
+class RecurringTemplatesEndpoint extends BaseEndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'recurring-templates';
 
     public function get(?ID $id = null): RecurringTemplate {
@@ -15,17 +16,10 @@ class RecurringTemplatesEndpoint extends BaseEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return RecurringTemplate::fromJson($body);
+        return RecurringTemplate::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
     }
 
-    public function getAll(array $queryParams = [], array $options = []): RecurringTemplatesPage {
-        $params = "?" . http_build_query($queryParams) ?? '';
-        $response = $this->client->get($this->endpoint . $params, $options);
-        $body = $this->handleResponse($response, 200);
-
-        return RecurringTemplatesPage::fromJson($body);
+    public function search(array $queryParams = [], array $options = []): RecurringTemplatesPage {
+        return RecurringTemplatesPage::fromJson(parent::getContents($queryParams, $options));
     }
 }

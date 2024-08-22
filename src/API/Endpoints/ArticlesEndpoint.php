@@ -2,14 +2,16 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\SearchableEndpointAbstract;
+use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use Lexoffice\Contracts\Interfaces\API\ClassicEndpointInterface;
+use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticleResource;
 use Lexoffice\Entities\Articles\ArticlesPage;
 use Lexoffice\Entities\ID;
 
-class ArticlesEndpoint extends SearchableEndpointAbstract {
+class ArticlesEndpoint extends BaseEndpointAbstract implements ClassicEndpointInterface, SearchableEndpointInterface {
     protected string $endpoint = 'articles';
 
     public function create(NamedEntityInterface $data, ID $id = null): ArticleResource {
@@ -26,10 +28,7 @@ class ArticlesEndpoint extends SearchableEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return Article::fromJson($body);
+        return Article::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
     }
 
     public function update(ID $id, NamedEntityInterface $data): ArticleResource {
@@ -49,10 +48,6 @@ class ArticlesEndpoint extends SearchableEndpointAbstract {
     }
 
     public function search(array $queryParams = [], array $options = []): ArticlesPage {
-        $params = "?" . http_build_query($queryParams) ?? '';
-        $response = $this->client->get($this->endpoint . $params, $options);
-        $body = $this->handleResponse($response, 200);
-
-        return ArticlesPage::fromJson($body);
+        return ArticlesPage::fromJson(parent::getContents($queryParams, $options));
     }
 }

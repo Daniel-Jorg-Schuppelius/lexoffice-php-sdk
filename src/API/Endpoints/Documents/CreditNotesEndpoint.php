@@ -6,7 +6,6 @@ use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNoteResource;
-use Lexoffice\Entities\Documents\DocumentFileID;
 use Lexoffice\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
@@ -31,23 +30,10 @@ class CreditNotesEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
-        $body = $this->handleResponse($response, 200);
-
-        return CreditNote::fromJson($body);
-    }
-
-    public function render(ID $id): DocumentFileID {
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}/document");
-        $body = $this->handleResponse($response, 200);
-
-        return DocumentFileID::fromJson($body);
+        return CreditNote::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): CreditNoteResource {
-        $response = $this->client->get("{$this->endpoint}?precedingSalesVoucherId={$id->toString()}[&finalize=$finalize]");
-        $body = $this->handleResponse($response, 200);
-
-        return CreditNote::fromJson($body);
+        return CreditNoteResource::fromJson(parent::getContents([], [], "{$this->endpoint}?precedingSalesVoucherId={$id->toString()}[&finalize=$finalize]"));
     }
 }
