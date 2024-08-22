@@ -17,9 +17,9 @@ class CreditNote extends NamedDocument {
 
     public function isValid(): bool {
         return isset($this->voucherDate)
-            && $this->address->isValid()
-            && $this->totalPrice->isValid()
-            && $this->taxConditions->isValid()
-            && $this->lineItems->isValid();
+            && (isset($this->address) && $this->address->isValid())
+            && (isset($this->totalPrice) && $this->totalPrice->isValid())
+            && (isset($this->taxConditions) && $this->taxConditions->isValid())
+            && (isset($this->lineItems) && $this->lineItems->isValid());
     }
 }
