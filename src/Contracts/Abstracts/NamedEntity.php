@@ -165,6 +165,11 @@ abstract class NamedEntity implements NamedEntityInterface {
                         $this->logger->info("property {$name} is not valid", $property);
                     }
                     return false;
+                } elseif ($property["value"] instanceof NamedEntityInterface && !$property["value"]->isValid()) {
+                    if ($this->logger) {
+                        $this->logger->info("property {$name} is not valid", $property);
+                    }
+                    return false;
                 }
             }
         }

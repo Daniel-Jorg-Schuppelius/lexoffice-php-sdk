@@ -94,8 +94,8 @@ final class DunningsEndpointTest extends EndpointTest {
             ];
 
 
-        $dunning = new Dunning($data, $this->logger);
-        $this->assertTrue($dunning->isValid());
+        $dunning = new Dunning($data);
+        $this->assertFalse($dunning->isValid());
         $this->assertEquals(json_encode($data), $dunning->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $dunning->toJson());
         $this->assertStringContainsString(substr($dunning->title, 2, -2), $dunning->toJson());
@@ -150,7 +150,7 @@ final class DunningsEndpointTest extends EndpointTest {
             "remark" => "Sollten Sie den offenen Betrag bereits beglichen haben, betrachten Sie dieses Schreiben als gegenstandslos."
         ];
 
-        $dunning = new Dunning($data);
+        $dunning = new Dunning($data, $this->logger);
         $dunningResource = $this->endpoint->create($dunning);
         $this->assertInstanceOf(DunningResource::class, $dunningResource);
         $loadedDunning = $this->endpoint->get($dunningResource->getId());

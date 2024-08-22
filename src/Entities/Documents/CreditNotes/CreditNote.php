@@ -14,4 +14,12 @@ class CreditNote extends NamedDocument {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
+
+    public function isValid(): bool {
+        return isset($this->voucherDate)
+            && $this->address->isValid()
+            && $this->totalPrice->isValid()
+            && $this->taxConditions->isValid()
+            && $this->lineItems->isValid();
+    }
 }

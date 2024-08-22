@@ -10,12 +10,15 @@ use Psr\Log\LoggerInterface;
 
 class Address extends NamedEntity {
     public ?string $supplement;
-    public string $street;
-    public string $zip;
-    public string $city;
+    public ?string $street;
+    public ?string $zip;
+    public ?string $city;
     public CountryCode $countryCode;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
+        if (!isset($data->countryCode)) {
+            $this->countryCode = CountryCode::Germany;
+        }
     }
 }

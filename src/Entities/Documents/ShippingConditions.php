@@ -17,4 +17,15 @@ class ShippingConditions extends NamedEntity {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
+
+    public function isValid(): bool {
+        if (isset($this->shippingType) && ($this->shippingType === ShippingType::DELIVERYPERIOD || $this->shippingType === ShippingType::SERVICEPERIOD)) {
+            return isset($this->shippingDate)
+                && !is_null($this->shippingEndDate);
+        } elseif (isset($this->shippingType) && ($this->shippingType === ShippingType::DELIVERY || $this->shippingType === ShippingType::SERVICE)) {
+            return isset($this->shippingDate);
+        }
+
+        return isset($this->shippingType);
+    }
 }

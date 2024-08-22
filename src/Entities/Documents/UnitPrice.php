@@ -10,8 +10,8 @@ use Psr\Log\LoggerInterface;
 
 class UnitPrice extends NamedEntity {
     public Currency $currency;
-    public float $netAmount;
-    public float $grossAmount;
+    public ?float $netAmount;
+    public ?float $grossAmount;
     public float $taxRatePercentage;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {

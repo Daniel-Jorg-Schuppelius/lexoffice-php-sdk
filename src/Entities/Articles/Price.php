@@ -17,4 +17,11 @@ class Price extends NamedEntity {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
+
+    public function isValid(): bool {
+        if ($this->leadingPrice === LeadingPrice::GROSS) {
+            return !is_null($this->grossPrice);
+        }
+        return !is_null($this->netPrice);
+    }
 }

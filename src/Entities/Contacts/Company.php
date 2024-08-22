@@ -8,10 +8,10 @@ use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Psr\Log\LoggerInterface;
 
 class Company extends NamedEntity {
-    public bool $allowTaxFreeInvoices;
+    public ?bool $allowTaxFreeInvoices;
     public string $name;
-    public string $taxNumber;
-    public string $vatRegistrationId;
+    public ?string $taxNumber;
+    public ?string $vatRegistrationId;
     public ContactPersons $contactPersons;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {

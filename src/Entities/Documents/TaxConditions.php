@@ -11,7 +11,7 @@ use Psr\Log\LoggerInterface;
 
 class TaxConditions extends NamedEntity {
     public TaxType $taxType;
-    protected TaxSubType $taxSubType;
+    protected ?TaxSubType $taxSubType;
     protected ?string $taxTypeNote;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {

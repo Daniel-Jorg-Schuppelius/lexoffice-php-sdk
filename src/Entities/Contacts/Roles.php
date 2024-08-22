@@ -8,10 +8,14 @@ use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Psr\Log\LoggerInterface;
 
 class Roles extends NamedEntity {
-    protected Role $customer;
-    protected Role $vendor;
+    protected ?Role $customer;
+    protected ?Role $vendor;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
+    }
+
+    public function isValid(): bool {
+        return !is_null($this->customer) || !is_null($this->vendor);
     }
 }
