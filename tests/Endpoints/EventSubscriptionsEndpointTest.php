@@ -3,13 +3,12 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\Api\Endpoints\EventSubscriptionsEndpoint;
-use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\EventSubscriptions\EventSubscription;
 use Lexoffice\Entities\EventSubscriptions\EventSubscriptionResource;
 use Tests\Contracts\EndpointTest;
 
 class EventSubscriptionsEndpointTest extends EndpointTest {
-    protected ?ListableEndpointInterface $endpoint;
+    protected ?EventSubscriptionsEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);

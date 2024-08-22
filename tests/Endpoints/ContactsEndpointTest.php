@@ -3,14 +3,13 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\Api\Endpoints\ContactsEndpoint;
-use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Contacts\Contact;
 use Lexoffice\Entities\Contacts\ContactResource;
 use Lexoffice\Entities\Contacts\ContactsPage;
 use Tests\Contracts\EndpointTest;
 
 class ContactsEndpointTest extends EndpointTest {
-    private ?SearchableEndpointInterface $endpoint;
+    private ?ContactsEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);

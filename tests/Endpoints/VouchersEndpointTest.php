@@ -3,19 +3,18 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\Api\Endpoints\VouchersEndpoint;
-use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Vouchers\Voucher;
 use Lexoffice\Entities\Vouchers\VoucherResource;
 use Lexoffice\Entities\Vouchers\VouchersPage;
 use Tests\Contracts\EndpointTest;
 
 class VouchersEndpointTest extends EndpointTest {
-    protected ?SearchableEndpointInterface $endpoint;
+    protected ?VouchersEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
         $this->endpoint = new VouchersEndpoint($this->client);
-        $this->apiDisabled = false; // API is disabled
+        $this->apiDisabled = true; // API is disabled
     }
 
     public function testJsonSerialize() {

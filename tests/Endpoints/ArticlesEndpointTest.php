@@ -3,14 +3,13 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\Api\Endpoints\ArticlesEndpoint;
-use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticleResource;
 use Lexoffice\Entities\Articles\ArticlesPage;
 use Tests\Contracts\EndpointTest;
 
 class ArticlesEndpointTest extends EndpointTest {
-    protected ?SearchableEndpointInterface $endpoint;
+    protected ?ArticlesEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
