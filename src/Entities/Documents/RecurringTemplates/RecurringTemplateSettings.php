@@ -26,4 +26,8 @@ class RecurringTemplateSettings extends NamedEntity {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
+
+    public function toArray(): array {
+        return $this->getArray('Y-m-d');
+    }
 }
