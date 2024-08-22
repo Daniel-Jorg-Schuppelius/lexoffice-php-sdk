@@ -132,22 +132,7 @@ abstract class NamedEntity implements NamedEntityInterface {
         return $result;
     }
 
-    public function isValid(): bool {
-        foreach ($this->getEntityProperties() as $name => $property) {
-            if ($property['type'] instanceof ReflectionNamedType && !$property['allowsNull']) {
-                if (!$property['isInitialized']) {
-                    if ($this->logger) {
-                        $this->logger->info("property {$name} is not valid", $property);
-                    }
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-
-    public function toArray(): array {
+    protected function getArray(string $dateFormat = DateTime::RFC3339_EXTENDED): array {
         $result = [];
 
         foreach ($this->getEntityProperties(true) as $key => $property) {
@@ -163,13 +148,31 @@ abstract class NamedEntity implements NamedEntityInterface {
             } elseif ($property["value"] instanceof BackedEnum) {
                 $result[$key] = $property["value"]->value;
             } elseif ($property["value"] instanceof DateTime) {
-                $result[$key] = $property["value"]->format(DateTime::RFC3339_EXTENDED);
+                $result[$key] = $property["value"]->format($dateFormat);
             } else {
                 $result[$key] = $property["value"];
             }
         }
 
         return $result;
+    }
+
+    public function isValid(): bool {
+        foreach ($this->getEntityProperties() as $name => $property) {
+            if ($property['type'] instanceof ReflectionNamedType && !$property['allowsNull']) {
+                if (!$property['isInitialized']) {
+                    if ($this->logger) {
+                        $this->logger->info("property {$name} is not valid", $property);
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public function toArray(): array {
+        return $this->getArray();
     }
 
     public function toJson(): string {

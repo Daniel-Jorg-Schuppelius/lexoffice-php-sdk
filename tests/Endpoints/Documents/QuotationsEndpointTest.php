@@ -14,7 +14,7 @@ class QuotationsEndpointTest extends EndpointTest {
     public function __construct($name) {
         parent::__construct($name);
         $this->endpoint = new QuotationsEndpoint($this->client);
-        $this->apiDisabled = false; // API is disabled
+        $this->apiDisabled = true; // API is disabled
     }
 
     public function testJsonSerialize() {
