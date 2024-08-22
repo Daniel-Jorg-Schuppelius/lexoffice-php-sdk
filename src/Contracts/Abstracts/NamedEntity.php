@@ -175,8 +175,8 @@ abstract class NamedEntity implements NamedEntityInterface {
         return $this->getArray();
     }
 
-    public function toJson(): string {
-        return json_encode($this->toArray());
+    public function toJson(int $flags = 0): string {
+        return json_encode($this->toArray(), $flags);
     }
 
     public static function fromArray(array $data): self {

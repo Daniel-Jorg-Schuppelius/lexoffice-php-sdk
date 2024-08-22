@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Entities\Articles;
+namespace Lexoffice\Entities\VoucherList;
 
 use Lexoffice\Contracts\Abstracts\NamedPage;
 use Lexoffice\Entities\VoucherList\Vouchers;

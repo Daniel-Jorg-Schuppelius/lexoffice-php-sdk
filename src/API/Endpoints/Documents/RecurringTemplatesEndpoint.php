@@ -4,6 +4,7 @@ namespace Lexoffice\Api\Endpoints\Documents;
 
 use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
+use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplatesPage;
 use Lexoffice\Entities\ID;
 
 class RecurringTemplatesEndpoint extends BaseEndpointAbstract {
@@ -18,5 +19,13 @@ class RecurringTemplatesEndpoint extends BaseEndpointAbstract {
         $body = $this->handleResponse($response, 200);
 
         return RecurringTemplate::fromJson($body);
+    }
+
+    public function getAll(array $queryParams = [], array $options = []): RecurringTemplatesPage {
+        $params = "?" . http_build_query($queryParams) ?? '';
+        $response = $this->client->get($this->endpoint . $params, $options);
+        $body = $this->handleResponse($response, 200);
+
+        return RecurringTemplatesPage::fromJson($body);
     }
 }

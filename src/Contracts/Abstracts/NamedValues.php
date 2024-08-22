@@ -97,8 +97,8 @@ abstract class NamedValues implements NamedValuesInterface {
         return $result;
     }
 
-    public function toJson(): string {
-        return json_encode($this->toArray(), JSON_FORCE_OBJECT);
+    public function toJson(int $flags = JSON_FORCE_OBJECT): string {
+        return json_encode($this->toArray(), $flags);
     }
 
     public static function fromArray(array $data): self {

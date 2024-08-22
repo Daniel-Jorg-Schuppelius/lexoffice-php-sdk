@@ -7,5 +7,5 @@ namespace Lexoffice\Contracts\Interfaces\API;
 use Lexoffice\Contracts\Abstracts\NamedValues;
 
 interface ListableEndpointInterface extends BaseEndpointInterface {
-    public function list(array $queryParams = []): NamedValues;
+    public function list(array $queryParams = [], array $options = []): NamedValues;
 }

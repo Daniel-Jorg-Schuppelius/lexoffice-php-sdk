@@ -13,9 +13,9 @@ use Psr\Log\LoggerInterface;
 
 class RecurringTemplateSettings extends NamedEntity {
     protected RecurringTemplateSettingsID $id;
-    protected ?DateTime $startDate;
-    protected ?DateTime $nextExecutionDate;
-    protected ?DateTime $endDate;
+    public ?DateTime $startDate;
+    public ?DateTime $nextExecutionDate;
+    public ?DateTime $endDate;
     public bool $finalize;
     public ShippingType $shippingType;
     public ExecutionInterval $executionInterval;

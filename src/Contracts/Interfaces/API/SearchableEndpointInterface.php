@@ -7,5 +7,5 @@ namespace Lexoffice\Contracts\Interfaces\API;
 use Lexoffice\Contracts\Abstracts\NamedPage;
 
 interface SearchableEndpointInterface extends BaseEndpointInterface {
-    public function search(array $queryParams = []): NamedPage;
+    public function search(array $queryParams = [], array $options = []): NamedPage;
 }

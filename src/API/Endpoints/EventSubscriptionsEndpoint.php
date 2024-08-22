@@ -49,8 +49,9 @@ class EventSubscriptionsEndpoint extends ClassicEndpointAbstract implements List
         return true;
     }
 
-    public function list(array $queryParams = []): EventSubscriptions {
-        $response = $this->client->get("{$this->endpoint}", $queryParams);
+    public function list(array $queryParams = [], array $options = []): EventSubscriptions {
+        $params = "?" . http_build_query($queryParams) ?? '';
+        $response = $this->client->get($this->endpoint . $params, $options);
         $body = $this->handleResponse($response, 200);
 
         return EventSubscriptions::fromJson($body);

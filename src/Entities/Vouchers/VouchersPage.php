@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Lexoffice\Entities\Articles;
+namespace Lexoffice\Entities\Vouchers;
 
 use Lexoffice\Contracts\Abstracts\NamedPage;
-use Lexoffice\Entities\VoucherList\Vouchers;
+use Lexoffice\Entities\Vouchers\Vouchers;
 use Psr\Log\LoggerInterface;
 
 class VouchersPage extends NamedPage {

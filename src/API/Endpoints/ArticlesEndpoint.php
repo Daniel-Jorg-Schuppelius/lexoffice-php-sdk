@@ -48,8 +48,9 @@ class ArticlesEndpoint extends SearchableEndpointAbstract {
         return true;
     }
 
-    public function search(array $queryParams = []): ArticlesPage {
-        $response = $this->client->get($this->endpoint, $queryParams);
+    public function search(array $queryParams = [], array $options = []): ArticlesPage {
+        $params = "?" . http_build_query($queryParams) ?? '';
+        $response = $this->client->get($this->endpoint . $params, $options);
         $body = $this->handleResponse($response, 200);
 
         return ArticlesPage::fromJson($body);

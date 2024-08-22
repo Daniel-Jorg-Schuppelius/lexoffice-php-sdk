@@ -81,8 +81,8 @@ abstract class NamedValue implements NamedValueInterface {
         return $result;
     }
 
-    public function toJson(): string {
-        return json_encode($this->toArray(), JSON_FORCE_OBJECT);
+    public function toJson(int $flags = 0): string {
+        return json_encode($this->toArray(), $flags);
     }
 
     public function toString(): string {

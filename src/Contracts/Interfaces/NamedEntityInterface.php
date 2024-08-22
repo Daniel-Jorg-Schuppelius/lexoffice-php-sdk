@@ -15,7 +15,7 @@ interface NamedEntityInterface {
     public function isValid(): bool;
 
     public function toArray(): array;
-    public function toJson(): string;
+    public function toJson(int $flags = 0): string;
 
     public static function fromArray(array $data): self;
     public static function fromJson(string $data): self;
