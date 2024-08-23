@@ -6,15 +6,17 @@ namespace Lexoffice\Entities\Articles;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
+use Lexoffice\Contracts\Interfaces\ArchivableInterface;
 use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
+use Lexoffice\Contracts\Interfaces\VersionableInterface;
 use Lexoffice\Enums\ArticleType;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Entities\Version;
 use Psr\Log\LoggerInterface;
 
-class Article extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface, ExtendedTimestampableInterface {
+class Article extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface, ArchivableInterface, ExtendedTimestampableInterface, VersionableInterface {
     public ?ArticleID $id;
     public ?OrganizationID $organizationId;
     protected ?DateTime $createdDate;
@@ -48,5 +50,13 @@ class Article extends NamedEntity implements IdentifiableInterface, Organization
 
     public function getUpdatedDate(): ?DateTime {
         return $this->updatedDate;
+    }
+
+    public function getVersion(): ?Version {
+        return $this->version;
+    }
+
+    public function isArchived(): bool {
+        return $this->archived ?? false;
     }
 }

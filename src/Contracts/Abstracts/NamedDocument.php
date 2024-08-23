@@ -8,6 +8,7 @@ use DateTime;
 use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
+use Lexoffice\Contracts\Interfaces\VersionableInterface;
 use Lexoffice\Entities\ID;
 use Lexoffice\Entities\Version;
 use Lexoffice\Entities\Documents\Address;
@@ -22,7 +23,7 @@ use Lexoffice\Enums\Language;
 use Lexoffice\Enums\VoucherStatus;
 use Psr\Log\LoggerInterface;
 
-abstract class NamedDocument extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface, ExtendedTimestampableInterface {
+abstract class NamedDocument extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface, ExtendedTimestampableInterface, VersionableInterface {
     protected ?ID $id;
     protected ?OrganizationID $organizationId;
     protected ?DateTime $createdDate;
@@ -62,5 +63,9 @@ abstract class NamedDocument extends NamedEntity implements IdentifiableInterfac
 
     public function getUpdatedDate(): ?DateTime {
         return $this->updatedDate;
+    }
+
+    public function getVersion(): Version {
+        return $this->version;
     }
 }

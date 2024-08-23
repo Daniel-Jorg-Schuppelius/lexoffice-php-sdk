@@ -13,4 +13,8 @@ class Version extends NamedValue {
         $this->readOnly = true;
         $this->entityName = 'version';
     }
+
+    public function isValid(): bool {
+        return isset($this->value) && is_numeric($this->value) && $this->value >= 0;
+    }
 }
