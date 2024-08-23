@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Contracts\Abstracts;
 
 use DateTime;
+use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
 use Lexoffice\Entities\ID;
@@ -21,7 +22,7 @@ use Lexoffice\Enums\Language;
 use Lexoffice\Enums\VoucherStatus;
 use Psr\Log\LoggerInterface;
 
-abstract class NamedDocument extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface {
+abstract class NamedDocument extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface, ExtendedTimestampableInterface {
     protected ?ID $id;
     protected ?OrganizationID $organizationId;
     protected ?DateTime $createdDate;
@@ -53,5 +54,13 @@ abstract class NamedDocument extends NamedEntity implements IdentifiableInterfac
 
     public function getOrganizationID(): OrganizationID {
         return $this->organizationId;
+    }
+
+    public function getCreatedDate(): ?DateTime {
+        return $this->createdDate;
+    }
+
+    public function getUpdatedDate(): ?DateTime {
+        return $this->updatedDate;
     }
 }

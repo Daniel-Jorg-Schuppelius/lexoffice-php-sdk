@@ -6,12 +6,13 @@ namespace Lexoffice\Entities\Vouchers;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
+use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Entities\Contacts\ContactID;
 use Lexoffice\Enums\VoucherStatus;
 use Psr\Log\LoggerInterface;
 
-class BaseVoucher extends NamedEntity implements IdentifiableInterface {
+class BaseVoucher extends NamedEntity implements IdentifiableInterface, ExtendedTimestampableInterface {
     protected ?VoucherID $id;
     public ?VoucherStatus $voucherStatus;
     public ?string $voucherNumber;
@@ -28,5 +29,13 @@ class BaseVoucher extends NamedEntity implements IdentifiableInterface {
 
     public function getID(): VoucherID {
         return $this->id;
+    }
+
+    public function getCreatedDate(): ?DateTime {
+        return $this->createdDate;
+    }
+
+    public function getUpdatedDate(): ?DateTime {
+        return $this->updatedDate;
     }
 }

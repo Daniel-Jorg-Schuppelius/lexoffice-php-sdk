@@ -6,6 +6,7 @@ namespace Lexoffice\Entities\Articles;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
+use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
 use Lexoffice\Enums\ArticleType;
@@ -13,9 +14,9 @@ use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Entities\Version;
 use Psr\Log\LoggerInterface;
 
-class Article extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface {
-    protected ?ArticleID $id;
-    protected ?OrganizationID $organizationId;
+class Article extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface, ExtendedTimestampableInterface {
+    public ?ArticleID $id;
+    public ?OrganizationID $organizationId;
     protected ?DateTime $createdDate;
     protected ?DateTime $updatedDate;
     protected ?bool $archived;
@@ -39,5 +40,13 @@ class Article extends NamedEntity implements IdentifiableInterface, Organization
 
     public function getOrganizationID(): OrganizationID {
         return $this->organizationId;
+    }
+
+    public function getCreatedDate(): ?DateTime {
+        return $this->createdDate;
+    }
+
+    public function getUpdatedDate(): ?DateTime {
+        return $this->updatedDate;
     }
 }
