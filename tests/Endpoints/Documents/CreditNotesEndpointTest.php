@@ -29,6 +29,7 @@ class CreditNotesEndpointTest extends EndpointTest {
                     "unitPrice" => [
                         "currency" => "EUR",
                         "netAmount" => 13.4,
+                        "grossAmount" => 15.946,
                         "taxRatePercentage" => 19
                     ]
                 ],
@@ -40,6 +41,7 @@ class CreditNotesEndpointTest extends EndpointTest {
                     "unitPrice" => [
                         "currency" => "EUR",
                         "netAmount" => 5,
+                        "grossAmount" => 5,
                         "taxRatePercentage" => 0
                     ]
                 ],

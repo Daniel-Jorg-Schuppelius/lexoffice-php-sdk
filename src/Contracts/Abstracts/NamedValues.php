@@ -41,6 +41,12 @@ abstract class NamedValues implements NamedValuesInterface {
     }
 
     public function isValid(): bool {
+        foreach ($this->values as $value) {
+            if ($value instanceof NamedEntityInterface && !$value->isValid()) {
+                return false;
+            }
+        }
+
         return true;
     }
 

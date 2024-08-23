@@ -162,12 +162,12 @@ abstract class NamedEntity implements NamedEntityInterface {
             if ($property['type'] instanceof ReflectionNamedType && !$property['allowsNull']) {
                 if (!$property['isInitialized']) {
                     if ($this->logger) {
-                        $this->logger->info("property {$name} is not valid", $property);
+                        $this->logger->info("validation -> property {$name} is not initialized", $property);
                     }
                     return false;
                 } elseif ($property["value"] instanceof NamedEntityInterface && !$property["value"]->isValid()) {
                     if ($this->logger) {
-                        $this->logger->info("property {$name} is not valid", $property);
+                        $this->logger->info("validation -> property {$name} is not valid", $property);
                     }
                     return false;
                 }

@@ -16,5 +16,14 @@ class UnitPrice extends NamedEntity {
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
+
+        if (!isset($this->netAmount) && isset($this->grossAmount)) {
+            $this->netAmount = $this->grossAmount / (1 + $this->taxRatePercentage / 100);
+        } elseif (!isset($this->grossAmount) && isset($this->netAmount)) {
+            $this->grossAmount = $this->netAmount * (1 + $this->taxRatePercentage / 100);
+        } elseif (!isset($this->netAmount) && !isset($this->grossAmount)) {
+            $this->netAmount = 0;
+            $this->grossAmount = 0;
+        }
     }
 }

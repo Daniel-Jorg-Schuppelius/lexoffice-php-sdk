@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Documents\DeliveryNotes;
 
 use Lexoffice\Contracts\Abstracts\NamedDocument;
-use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Lexoffice\Entities\Documents\ShippingConditions;
 use Psr\Log\LoggerInterface;
 
 class DeliveryNote extends NamedDocument {
-    public ExtendedLineItems $lineItems;
+    public DeliveryNoteExtendedLineItems $lineItems;
     public ShippingConditions $shippingConditions;
     public ?string $deliveryTerms;
 
