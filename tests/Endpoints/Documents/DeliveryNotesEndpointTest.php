@@ -3,13 +3,12 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\Api\Endpoints\Documents\DeliveryNotesEndpoint;
-use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
 use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
 use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNoteResource;
 use Tests\Contracts\EndpointTest;
 
 final class DeliveryNotesEndpointTest extends EndpointTest {
-    protected ?DocumentEndpointInterface $endpoint;
+    protected ?DeliveryNotesEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
@@ -81,7 +80,7 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
         $this->assertTrue($deliveryNote->isValid());
         $this->assertNotEquals(json_encode($data), $deliveryNote->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $deliveryNote->toJson());
-        $this->assertStringContainsString(substr($deliveryNote->title, 2, -2), $deliveryNote->toJson());
+        $this->assertStringContainsString(substr($deliveryNote->getTitle(), 2, -2), $deliveryNote->toJson());
     }
 
     public function testCreateAndGetDeliveryNoteAPI() {
@@ -140,6 +139,6 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
         $this->assertInstanceOf(DeliveryNoteResource::class, $deliveryNoteResource);
         $loadedDeliveryNote = $this->endpoint->get($deliveryNoteResource->getId());
         $this->assertInstanceOf(DeliveryNote::class, $loadedDeliveryNote);
-        $this->assertEquals($deliveryNote->address, $loadedDeliveryNote->address);
+        $this->assertEquals($deliveryNote->getAddress(), $loadedDeliveryNote->getAddress());
     }
 }

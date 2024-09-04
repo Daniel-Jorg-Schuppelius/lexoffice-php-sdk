@@ -9,7 +9,7 @@ use Lexoffice\Enums\Currency;
 use Psr\Log\LoggerInterface;
 
 class TotalPrice extends NamedEntity {
-    public Currency $currency;
+    protected Currency $currency;
     protected ?float $totalNetAmount;
     protected ?float $totalGrossAmount;
     protected ?float $totalTaxAmount;
@@ -18,5 +18,33 @@ class TotalPrice extends NamedEntity {
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
+    }
+
+    public function getCurrency(): Currency {
+        return $this->currency;
+    }
+
+    public function getTotalNetAmount(): ?float {
+        return $this->totalNetAmount;
+    }
+
+    public function getTotalGrossAmount(): ?float {
+        return $this->totalGrossAmount;
+    }
+
+    public function getTotalTaxAmount(): ?float {
+        return $this->totalTaxAmount;
+    }
+
+    public function getTotalDiscountAbsolute(): ?float {
+        return $this->totalDiscountAbsolute;
+    }
+
+    public function getTotalDiscountPercentage(): ?float {
+        return $this->totalDiscountPercentage;
+    }
+
+    public function setCurrency(Currency $currency): void {
+        $this->currency = $currency;
     }
 }

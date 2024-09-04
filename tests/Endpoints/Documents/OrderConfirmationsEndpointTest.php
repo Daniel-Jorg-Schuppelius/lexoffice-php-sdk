@@ -3,13 +3,12 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\Api\Endpoints\Documents\OrderConfirmationsEndpoint;
-use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
 use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmation;
 use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmationResource;
 use Tests\Contracts\EndpointTest;
 
 class OrderConfirmationsEndpointTest extends EndpointTest {
-    protected ?DocumentEndpointInterface $endpoint;
+    protected ?OrderConfirmationsEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
@@ -140,7 +139,7 @@ class OrderConfirmationsEndpointTest extends EndpointTest {
         $orderConfirmation = new OrderConfirmation($data, $this->logger);
         $this->assertEquals(json_encode($data), $orderConfirmation->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $orderConfirmation->toJson());
-        $this->assertStringContainsString(json_encode($orderConfirmation->title), $orderConfirmation->toJson());
+        $this->assertStringContainsString(json_encode($orderConfirmation->getTitle()), $orderConfirmation->toJson());
     }
 
     public function testCreateAndGetOrderConfirmationAPI() {
@@ -233,6 +232,6 @@ class OrderConfirmationsEndpointTest extends EndpointTest {
         $this->assertInstanceOf(OrderConfirmationResource::class, $orderConfirmationResource);
         $loadedOrderConfirmation = $this->endpoint->get($orderConfirmationResource->getId());
         $this->assertInstanceOf(OrderConfirmation::class, $loadedOrderConfirmation);
-        $this->assertEquals($orderConfirmation->address, $loadedOrderConfirmation->address);
+        $this->assertEquals($orderConfirmation->getAddress(), $loadedOrderConfirmation->getAddress());
     }
 }

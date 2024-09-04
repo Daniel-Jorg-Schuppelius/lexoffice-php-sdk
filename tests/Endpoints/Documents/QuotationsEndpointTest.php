@@ -3,13 +3,12 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\Api\Endpoints\Documents\QuotationsEndpoint;
-use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
 use Lexoffice\Entities\Documents\Quotations\Quotation;
 use Lexoffice\Entities\Documents\Quotations\QuotationResource;
 use Tests\Contracts\EndpointTest;
 
 class QuotationsEndpointTest extends EndpointTest {
-    protected ?DocumentEndpointInterface $endpoint;
+    protected ?QuotationsEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
@@ -134,7 +133,7 @@ class QuotationsEndpointTest extends EndpointTest {
         $quotation = new Quotation($data, $this->logger);
         $this->assertEquals(json_encode($data), $quotation->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $quotation->toJson());
-        $this->assertStringContainsString(substr($quotation->title, 2, -2), $quotation->toJson());
+        $this->assertStringContainsString(substr($quotation->getTitle(), 2, -2), $quotation->toJson());
     }
 
     public function testCreateAndGetQuotationAPI() {
@@ -245,6 +244,6 @@ class QuotationsEndpointTest extends EndpointTest {
         $this->assertInstanceOf(QuotationResource::class, $quotationResource);
         $loadedQuotation = $this->endpoint->get($quotationResource->getId());
         $this->assertInstanceOf(Quotation::class, $loadedQuotation);
-        $this->assertEquals($quotation->address, $loadedQuotation->address);
+        $this->assertEquals($quotation->getAddress(), $loadedQuotation->getAddress());
     }
 }

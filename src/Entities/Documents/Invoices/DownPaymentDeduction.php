@@ -15,12 +15,48 @@ class DownPaymentDeduction extends NamedEntity {
     protected string $title;
     protected string $voucherNumber;
     protected DateTime $voucherDate;
-    public float $receivedGrossAmount;
-    public float $receivedNetAmount;
-    public float $receivedTaxAmount;
-    public float $taxRatePercentage;
+    protected float $receivedGrossAmount;
+    protected float $receivedNetAmount;
+    protected float $receivedTaxAmount;
+    protected float $taxRatePercentage;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
+    }
+
+    public function getId(): ID {
+        return $this->id;
+    }
+
+    public function getVoucherType(): string {
+        return $this->voucherType;
+    }
+
+    public function getTitle(): string {
+        return $this->title;
+    }
+
+    public function getVoucherNumber(): string {
+        return $this->voucherNumber;
+    }
+
+    public function getVoucherDate(): DateTime {
+        return $this->voucherDate;
+    }
+
+    public function getReceivedGrossAmount(): float {
+        return $this->receivedGrossAmount;
+    }
+
+    public function getReceivedNetAmount(): float {
+        return $this->receivedNetAmount;
+    }
+
+    public function getReceivedTaxAmount(): float {
+        return $this->receivedTaxAmount;
+    }
+
+    public function getTaxRatePercentage(): float {
+        return $this->taxRatePercentage;
     }
 }

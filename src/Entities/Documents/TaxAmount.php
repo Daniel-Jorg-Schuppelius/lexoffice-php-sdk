@@ -15,4 +15,16 @@ class TaxAmount extends NamedEntity {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
+
+    public function getTaxRatePercentage(): float {
+        return $this->taxRatePercentage;
+    }
+
+    public function getTaxAmount(): float {
+        return $this->taxAmount;
+    }
+
+    public function getNetAmount(): float {
+        return $this->netAmount;
+    }
 }

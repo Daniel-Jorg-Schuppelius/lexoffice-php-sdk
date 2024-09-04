@@ -3,13 +3,12 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\Api\Endpoints\Documents\DunningsEndpoint;
-use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
 use Lexoffice\Entities\Documents\Dunnings\Dunning;
 use Lexoffice\Entities\Documents\Dunnings\DunningResource;
 use Tests\Contracts\EndpointTest;
 
 final class DunningsEndpointTest extends EndpointTest {
-    protected ?DocumentEndpointInterface $endpoint;
+    protected ?DunningsEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
@@ -98,7 +97,7 @@ final class DunningsEndpointTest extends EndpointTest {
         $this->assertFalse($dunning->isValid());
         $this->assertEquals(json_encode($data), $dunning->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $dunning->toJson());
-        $this->assertStringContainsString(substr($dunning->title, 2, -2), $dunning->toJson());
+        $this->assertStringContainsString(substr($dunning->getTitle(), 2, -2), $dunning->toJson());
     }
 
     public function testCreateAndGetDunningAPI() {
@@ -155,6 +154,6 @@ final class DunningsEndpointTest extends EndpointTest {
         $this->assertInstanceOf(DunningResource::class, $dunningResource);
         $loadedDunning = $this->endpoint->get($dunningResource->getId());
         $this->assertInstanceOf(Dunning::class, $loadedDunning);
-        $this->assertEquals($dunning->address, $loadedDunning->address);
+        $this->assertEquals($dunning->getAddress(), $loadedDunning->getAddress());
     }
 }

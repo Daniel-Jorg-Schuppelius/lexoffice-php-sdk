@@ -3,13 +3,12 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\Api\Endpoints\Documents\CreditNotesEndpoint;
-use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNoteResource;
 use Tests\Contracts\EndpointTest;
 
 class CreditNotesEndpointTest extends EndpointTest {
-    protected ?DocumentEndpointInterface $endpoint;
+    protected ?CreditNotesEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
@@ -75,7 +74,7 @@ class CreditNotesEndpointTest extends EndpointTest {
         $creditNote = new CreditNote($data, $this->logger);
         $this->assertEquals(json_encode($data), $creditNote->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $creditNote->toJson());
-        $this->assertStringContainsString(substr($creditNote->title, 2, -2), $creditNote->toJson());
+        $this->assertStringContainsString(substr($creditNote->getTitle(), 2, -2), $creditNote->toJson());
     }
 
     public function testCreateAndGetCreditNoteAPI() {
@@ -140,6 +139,6 @@ class CreditNotesEndpointTest extends EndpointTest {
         $this->assertInstanceOf(CreditNoteResource::class, $creditNoteResource);
         $loadedCreditNote = $this->endpoint->get($creditNoteResource->getId());
         $this->assertInstanceOf(CreditNote::class, $loadedCreditNote);
-        $this->assertEquals($creditNote->address, $loadedCreditNote->address);
+        $this->assertEquals($creditNote->getAddress(), $loadedCreditNote->getAddress());
     }
 }

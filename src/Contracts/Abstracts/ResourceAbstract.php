@@ -8,7 +8,6 @@ use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
 use Lexoffice\Contracts\Interfaces\ResourceInterface;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\ID;
 use Lexoffice\Entities\Version;
 use Psr\Log\LoggerInterface;
@@ -39,6 +38,4 @@ abstract class ResourceAbstract extends NamedEntity implements ResourceInterface
     public function getUpdatedDate(): DateTime {
         return $this->updatedDate;
     }
-
-    abstract public function getResource(): NamedEntityInterface;
 }

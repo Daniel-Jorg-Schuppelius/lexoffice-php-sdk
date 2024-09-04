@@ -9,12 +9,28 @@ use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Psr\Log\LoggerInterface;
 
 class Created extends NamedEntity {
-    public UserID $userId;
-    public string $userName;
-    public string $userEmail;
-    public DateTime $date;
+    protected UserID $userId;
+    protected string $userName;
+    protected string $userEmail;
+    protected DateTime $date;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
+    }
+
+    public function getUserId(): UserID {
+        return $this->userId;
+    }
+
+    public function getUserName(): string {
+        return $this->userName;
+    }
+
+    public function getUserEmail(): string {
+        return $this->userEmail;
+    }
+
+    public function getDate(): DateTime {
+        return $this->date;
     }
 }

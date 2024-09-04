@@ -16,6 +16,22 @@ class Roles extends NamedEntity {
     }
 
     public function isValid(): bool {
-        return !is_null($this->customer) || !is_null($this->vendor);
+        return isset($this->customer) || isset($this->vendor);
+    }
+
+    public function getCustomer(): ?Role {
+        return $this->customer ?? null;
+    }
+
+    public function getVendor(): ?Role {
+        return $this->vendor ?? null;
+    }
+
+    public function getCustomerNumber(): ?int {
+        return $this->customer->getValue();
+    }
+
+    public function getVendorNumber(): ?int {
+        return $this->vendor->getValue();
     }
 }

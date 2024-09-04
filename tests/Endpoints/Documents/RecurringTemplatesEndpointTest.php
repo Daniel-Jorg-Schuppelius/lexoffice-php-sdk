@@ -3,13 +3,12 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\Api\Endpoints\Documents\RecurringTemplatesEndpoint;
-use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplatesPage;
 use Tests\Contracts\EndpointTest;
 
 class RecurringTemplatesEndpointTest extends EndpointTest {
-    protected ?SearchableEndpointInterface $endpoint;
+    protected ?RecurringTemplatesEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
@@ -143,7 +142,7 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
         $recurringTemplate = new RecurringTemplate($data, $this->logger);
         $this->assertEquals(json_encode($data), $recurringTemplate->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $recurringTemplate->toJson());
-        $this->assertStringContainsString(substr($recurringTemplate->title, 2, -2), $recurringTemplate->toJson());
+        $this->assertStringContainsString(substr($recurringTemplate->getTitle(), 2, -2), $recurringTemplate->toJson());
     }
 
     public function testGetRecurringTemplatesPage() {

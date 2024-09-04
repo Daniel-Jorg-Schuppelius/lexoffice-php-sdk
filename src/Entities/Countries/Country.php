@@ -10,12 +10,28 @@ use Lexoffice\Enums\TaxClassification;
 use Psr\Log\LoggerInterface;
 
 class Country extends NamedEntity {
-    public ?CountryCode $countryCode;
-    public ?string $countryNameEN;
-    public ?string $countryNameDE;
-    public ?TaxClassification $taxClassification;
+    protected ?CountryCode $countryCode;
+    protected ?string $countryNameEN;
+    protected ?string $countryNameDE;
+    protected ?TaxClassification $taxClassification;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
+    }
+
+    public function getCountryCode(): ?CountryCode {
+        return $this->countryCode ?? null;
+    }
+
+    public function getCountryNameEN(): ?string {
+        return $this->countryNameEN ?? null;
+    }
+
+    public function getCountryNameDE(): ?string {
+        return $this->countryNameDE ?? null;
+    }
+
+    public function getTaxClassification(): ?TaxClassification {
+        return $this->taxClassification ?? null;
     }
 }

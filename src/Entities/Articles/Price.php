@@ -9,10 +9,10 @@ use Lexoffice\Enums\LeadingPrice;
 use Psr\Log\LoggerInterface;
 
 class Price extends NamedEntity {
-    protected ?float $netPrice;
-    protected ?float $grossPrice;
-    protected LeadingPrice $leadingPrice;
-    protected float $taxRate = 0;
+    public ?float $netPrice;
+    public ?float $grossPrice;
+    public LeadingPrice $leadingPrice;
+    public float $taxRate = 0;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
@@ -20,8 +20,8 @@ class Price extends NamedEntity {
 
     public function isValid(): bool {
         if ($this->leadingPrice === LeadingPrice::GROSS) {
-            return !is_null($this->grossPrice);
+            return isset($this->grossPrice) && !is_null($this->grossPrice);
         }
-        return !is_null($this->netPrice);
+        return isset($this->netPrice) && !is_null($this->netPrice);
     }
 }

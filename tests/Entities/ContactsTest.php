@@ -8,6 +8,7 @@ use Lexoffice\Entities\Contacts\Company;
 use Lexoffice\Entities\Contacts\Contact;
 use Lexoffice\Entities\Contacts\Contacts;
 use Lexoffice\Entities\Contacts\ContactsPage;
+use Lexoffice\Entities\Contacts\Roles;
 use PHPUnit\Framework\TestCase;
 
 class ContactsTest extends TestCase {
@@ -235,5 +236,72 @@ class ContactsTest extends TestCase {
         $this->assertInstanceOf(ContactsPage::class, $contactsPage);
         $this->assertInstanceOf(Contacts::class, $contactsPage->getContent());
         $this->assertInstanceOf(Contact::class, $contactsPage->getValues()[0]);
+    }
+
+    public function testCreateCompany() {
+        $data =  [
+            "name" => "Testfirma",
+            "taxNumber" => "12345/12345",
+            "vatRegistrationId" => "DE123456789",
+            "allowTaxFreeInvoices" => true,
+            "contactPersons" => [
+                [
+                    "salutation" => "Herr",
+                    "firstName" => "Max",
+                    "primary" => true,
+                    "emailAddress" => "contactpersonmail@lexoffice.de",
+                    "phoneNumber" => "08000/11111"
+                ]
+            ]
+        ];
+
+        $company = new Company($data);
+        $companyArray = $company->toArray();
+        $this->assertEquals($data, $companyArray);
+        $this->assertInstanceOf(Company::class, $company);
+        $this->assertTrue($company->allowTaxFreeInvoices);
+        $this->assertFalse($company->isValid());
+    }
+
+    public function testCreateRoles() {
+        $data = [
+            "customer" => [
+                "number" => 10307
+            ],
+            "vendor" => [
+                "number" => 70303
+            ]
+        ];
+
+        $data1 = [
+            "customer" => [
+                "number" => 10307
+            ]
+        ];
+
+        $data2 = [
+            "vendor" => [
+                "number" => null
+            ]
+        ];
+
+        $data3 = [
+            "vendor" => null
+        ];
+
+        $roles = new Roles($data);
+        $roles1 = new Roles($data1);
+        $roles2 = new Roles($data2);
+        $roles3 = new Roles($data3);
+        $rolesArray = $roles->toArray();
+        $this->assertEquals($data, $rolesArray);
+        $this->assertInstanceOf(Roles::class, $roles);
+        $this->assertNotEquals($roles2, $roles3);
+        $this->assertTrue($roles->isValid());
+        $this->assertTrue($roles1->isValid());
+        $this->assertTrue($roles2->isValid());
+        $this->assertFalse($roles3->isValid());
+        $this->assertEquals(10307, $roles->getCustomerNumber());
+        $this->assertEquals(70303, $roles->getVendorNumber());
     }
 }

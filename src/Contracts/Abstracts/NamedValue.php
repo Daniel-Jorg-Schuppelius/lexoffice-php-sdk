@@ -30,7 +30,7 @@ abstract class NamedValue implements NamedValueInterface {
     }
 
     public function getValue() {
-        return $this->value;
+        return $this->value ?? null;
     }
 
     public function setData($data): NamedEntityInterface {

@@ -7,5 +7,5 @@ namespace Lexoffice\Contracts\Interfaces;
 use Lexoffice\Entities\ID;
 
 interface IdentifiableInterface {
-    public function getID(): ID;
+    public function getID(): ?ID;
 }

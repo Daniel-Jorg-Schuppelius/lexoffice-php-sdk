@@ -16,4 +16,16 @@ class RelatedVoucher extends NamedEntity {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
+
+    public function getId(): ID {
+        return $this->id;
+    }
+
+    public function getVoucherNumber(): string {
+        return $this->voucherNumber;
+    }
+
+    public function getVoucherType(): string {
+        return $this->voucherType;
+    }
 }

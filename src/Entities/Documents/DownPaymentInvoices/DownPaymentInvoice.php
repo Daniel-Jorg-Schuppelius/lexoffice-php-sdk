@@ -12,13 +12,33 @@ use Lexoffice\Entities\Documents\ShippingConditions;
 use Psr\Log\LoggerInterface;
 
 class DownPaymentInvoice extends NamedDocument {
-    public ?DateTime $dueDate;
-    public ?ExtendedLineItems $lineItems;
-    public ?PaymentConditions $paymentConditions;
-    public ?ShippingConditions $shippingConditions;
-    public ?ClosingInvoiceID $closingInvoiceId;
+    protected ?DateTime $dueDate;
+    protected ?ExtendedLineItems $lineItems;
+    protected ?PaymentConditions $paymentConditions;
+    protected ?ShippingConditions $shippingConditions;
+    protected ?ClosingInvoiceID $closingInvoiceId;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
+    }
+
+    public function getDueDate(): ?DateTime {
+        return $this->dueDate ?? null;
+    }
+
+    public function getLineItems(): ?ExtendedLineItems {
+        return $this->lineItems ?? null;
+    }
+
+    public function getPaymentConditions(): ?PaymentConditions {
+        return $this->paymentConditions ?? null;
+    }
+
+    public function getShippingConditions(): ?ShippingConditions {
+        return $this->shippingConditions ?? null;
+    }
+
+    public function getClosingInvoiceId(): ?ClosingInvoiceID {
+        return $this->closingInvoiceId ?? null;
     }
 }

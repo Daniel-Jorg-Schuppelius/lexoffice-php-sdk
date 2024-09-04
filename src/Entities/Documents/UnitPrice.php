@@ -9,10 +9,10 @@ use Lexoffice\Enums\Currency;
 use Psr\Log\LoggerInterface;
 
 class UnitPrice extends NamedEntity {
-    public Currency $currency;
-    public ?float $netAmount;
-    public ?float $grossAmount;
-    public float $taxRatePercentage;
+    protected Currency $currency;
+    protected ?float $netAmount;
+    protected ?float $grossAmount;
+    protected float $taxRatePercentage;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
@@ -25,5 +25,37 @@ class UnitPrice extends NamedEntity {
             $this->netAmount = 0;
             $this->grossAmount = 0;
         }
+    }
+
+    public function getCurrency(): Currency {
+        return $this->currency;
+    }
+
+    public function getNetAmount(): ?float {
+        return $this->netAmount;
+    }
+
+    public function getGrossAmount(): ?float {
+        return $this->grossAmount;
+    }
+
+    public function getTaxRatePercentage(): float {
+        return $this->taxRatePercentage;
+    }
+
+    public function setCurrency(Currency $currency): void {
+        $this->currency = $currency;
+    }
+
+    public function setNetAmount(float $netAmount): void {
+        $this->netAmount = $netAmount;
+    }
+
+    public function setGrossAmount(float $grossAmount): void {
+        $this->grossAmount = $grossAmount;
+    }
+
+    public function setTaxRatePercentage(float $taxRatePercentage): void {
+        $this->taxRatePercentage = $taxRatePercentage;
     }
 }

@@ -14,12 +14,12 @@ use Psr\Log\LoggerInterface;
 
 class BaseVoucher extends NamedEntity implements IdentifiableInterface, ExtendedTimestampableInterface {
     protected ?VoucherID $id;
-    public ?VoucherStatus $voucherStatus;
-    public ?string $voucherNumber;
-    public ?DateTime $voucherDate;
-    public ?DateTime $dueDate;
-    public ?string $contactName;
-    public ?ContactID $contactId;
+    protected ?VoucherStatus $voucherStatus;
+    protected ?string $voucherNumber;
+    protected ?DateTime $voucherDate;
+    protected ?DateTime $dueDate;
+    protected ?string $contactName;
+    protected ?ContactID $contactId;
     protected ?DateTime $createdDate;
     protected ?DateTime $updatedDate;
 
@@ -37,5 +37,53 @@ class BaseVoucher extends NamedEntity implements IdentifiableInterface, Extended
 
     public function getUpdatedDate(): ?DateTime {
         return $this->updatedDate;
+    }
+
+    public function getVoucherStatus(): ?VoucherStatus {
+        return $this->voucherStatus;
+    }
+
+    public function getVoucherNumber(): ?string {
+        return $this->voucherNumber;
+    }
+
+    public function getVoucherDate(): ?DateTime {
+        return $this->voucherDate;
+    }
+
+    public function getDueDate(): ?DateTime {
+        return $this->dueDate;
+    }
+
+    public function getContactName(): ?string {
+        return $this->contactName;
+    }
+
+    public function getContactId(): ?ContactID {
+        return $this->contactId;
+    }
+
+    public function setVoucherStatus(VoucherStatus $voucherStatus): void {
+        $this->voucherStatus = $voucherStatus;
+    }
+
+    public function setVoucherNumber(string $voucherNumber): void {
+        $this->voucherNumber = $voucherNumber;
+    }
+
+    public function setVoucherDate(DateTime $voucherDate): void {
+        $this->voucherDate = $voucherDate;
+    }
+
+    public function setDueDate(DateTime $dueDate): void {
+        $this->dueDate = $dueDate;
+    }
+
+    public function setContactName(string $contactName): void {
+        $this->contactName = $contactName;
+    }
+
+    public function setContactId(ContactID $contactId): void {
+        $this->contactId = $contactId;
     }
 }

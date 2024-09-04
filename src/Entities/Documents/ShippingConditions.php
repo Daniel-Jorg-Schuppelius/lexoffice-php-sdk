@@ -10,9 +10,9 @@ use Lexoffice\Enums\ShippingType;
 use Psr\Log\LoggerInterface;
 
 class ShippingConditions extends NamedEntity {
-    public DateTime $shippingDate;
-    public ?DateTime $shippingEndDate;
-    public ShippingType $shippingType;
+    protected DateTime $shippingDate;
+    protected ?DateTime $shippingEndDate;
+    protected ShippingType $shippingType;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
@@ -27,5 +27,29 @@ class ShippingConditions extends NamedEntity {
         }
 
         return isset($this->shippingType);
+    }
+
+    public function getShippingDate(): DateTime {
+        return $this->shippingDate;
+    }
+
+    public function getShippingEndDate(): ?DateTime {
+        return $this->shippingEndDate;
+    }
+
+    public function getShippingType(): ShippingType {
+        return $this->shippingType;
+    }
+
+    public function setShippingDate(DateTime $shippingDate): void {
+        $this->shippingDate = $shippingDate;
+    }
+
+    public function setShippingEndDate(DateTime $shippingEndDate): void {
+        $this->shippingEndDate = $shippingEndDate;
+    }
+
+    public function setShippingType(ShippingType $shippingType): void {
+        $this->shippingType = $shippingType;
     }
 }

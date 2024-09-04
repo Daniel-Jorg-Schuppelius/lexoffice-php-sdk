@@ -3,13 +3,12 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\Api\Endpoints\Documents\InvoicesEndpoint;
-use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
 use Lexoffice\Entities\Documents\Invoices\Invoice;
 use Lexoffice\Entities\Documents\Invoices\InvoiceResource;
 use Tests\Contracts\EndpointTest;
 
 class InvoicesEndpointTest extends EndpointTest {
-    protected ?DocumentEndpointInterface $endpoint;
+    protected ?InvoicesEndpoint $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);
@@ -143,7 +142,7 @@ class InvoicesEndpointTest extends EndpointTest {
         $invoice = new Invoice($data, $this->logger);
         $this->assertEquals(json_encode($data), $invoice->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $invoice->toJson());
-        $this->assertStringContainsString(substr($invoice->title, 2, -2), $invoice->toJson());
+        $this->assertStringContainsString(substr($invoice->getTitle(), 2, -2), $invoice->toJson());
     }
 
     public function testCreateAndGetInvoiceAPI() {
@@ -209,6 +208,6 @@ class InvoicesEndpointTest extends EndpointTest {
         $this->assertInstanceOf(InvoiceResource::class, $invoiceResource);
         $loadedInvoice = $this->endpoint->get($invoiceResource->getId());
         $this->assertInstanceOf(Invoice::class, $loadedInvoice);
-        $this->assertEquals($invoice->address, $loadedInvoice->address);
+        $this->assertEquals($invoice->getAddress(), $loadedInvoice->getAddress());
     }
 }

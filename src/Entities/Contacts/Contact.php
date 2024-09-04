@@ -36,31 +36,23 @@ class Contact extends NamedEntity implements IdentifiableInterface, Organization
         }
     }
 
-    public function getID(): ContactID {
-        return $this->id;
+    public function getID(): ?ContactID {
+        return $this->id ?? null;
     }
 
     public function isValid(): bool {
-        return parent::isValid() && (is_null($this->person) xor is_null($this->company));
+        return parent::isValid() && (isset($this->person) xor isset($this->company));
     }
 
     public function isArchived(): bool {
         return $this->archived ?? false;
     }
 
-    public function getOrganizationID(): OrganizationID {
-        return $this->organizationId;
+    public function getOrganizationID(): ?OrganizationID {
+        return $this->organizationId ?? null;
     }
 
-    public function getVersion(): Version {
-        return $this->version;
-    }
-
-    public function getPerson(): Person {
-        return $this->person;
-    }
-
-    public function getCompany(): Company {
-        return $this->company;
+    public function getVersion(): ?Version {
+        return $this->version ?? null;
     }
 }

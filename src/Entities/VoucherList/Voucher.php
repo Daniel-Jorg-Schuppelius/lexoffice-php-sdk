@@ -13,5 +13,25 @@ class Voucher extends BaseVoucher {
     protected float $totalAmount;
     protected float $openAmount;
     protected Currency $currency;
-    public bool $archived;
+    protected bool $archived;
+
+    public function getVoucherType(): VoucherType {
+        return $this->voucherType;
+    }
+
+    public function getTotalAmount(): float {
+        return $this->totalAmount;
+    }
+
+    public function getOpenAmount(): float {
+        return $this->openAmount;
+    }
+
+    public function getCurrency(): Currency {
+        return $this->currency;
+    }
+
+    public function isArchived(): bool {
+        return $this->archived;
+    }
 }

@@ -14,15 +14,43 @@ use Lexoffice\Enums\VoucherType;
 use Psr\Log\LoggerInterface;
 
 class Payment extends NamedEntity {
-    public float $openAmount;
-    public Currency $currency;
-    public PaymentStatus $paymentStatus;
-    public VoucherType $voucherType;
-    public VoucherStatus $voucherStatus;
-    public DateTime $paidDate;
-    public PaymentItems $paymentItems;
+    protected float $openAmount;
+    protected Currency $currency;
+    protected PaymentStatus $paymentStatus;
+    protected VoucherType $voucherType;
+    protected VoucherStatus $voucherStatus;
+    protected DateTime $paidDate;
+    protected PaymentItems $paymentItems;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
+    }
+
+    public function getOpenAmount(): float {
+        return $this->openAmount;
+    }
+
+    public function getCurrency(): Currency {
+        return $this->currency;
+    }
+
+    public function getPaymentStatus(): PaymentStatus {
+        return $this->paymentStatus;
+    }
+
+    public function getVoucherType(): VoucherType {
+        return $this->voucherType;
+    }
+
+    public function getVoucherStatus(): VoucherStatus {
+        return $this->voucherStatus;
+    }
+
+    public function getPaidDate(): DateTime {
+        return $this->paidDate;
+    }
+
+    public function getPaymentItems(): PaymentItems {
+        return $this->paymentItems;
     }
 }

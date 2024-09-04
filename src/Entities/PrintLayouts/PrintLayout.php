@@ -9,9 +9,9 @@ use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Psr\Log\LoggerInterface;
 
 class PrintLayout extends NamedEntity implements IdentifiableInterface {
-    public PrintLayoutID $id;
-    public string $name;
-    public bool $default;
+    protected PrintLayoutID $id;
+    protected string $name;
+    protected bool $default;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
@@ -19,5 +19,13 @@ class PrintLayout extends NamedEntity implements IdentifiableInterface {
 
     public function getID(): PrintLayoutID {
         return $this->id;
+    }
+
+    public function getName(): string {
+        return $this->name;
+    }
+
+    public function isDefault(): bool {
+        return $this->default;
     }
 }

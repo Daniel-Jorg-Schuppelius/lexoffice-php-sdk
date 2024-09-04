@@ -36,24 +36,24 @@ class Article extends NamedEntity implements IdentifiableInterface, Organization
         parent::__construct($data, $logger);
     }
 
-    public function getID(): ArticleID {
-        return $this->id;
+    public function getID(): ?ArticleID {
+        return $this->id ?? null;
     }
 
-    public function getOrganizationID(): OrganizationID {
-        return $this->organizationId;
+    public function getOrganizationID(): ?OrganizationID {
+        return $this->organizationId ?? null;
     }
 
     public function getCreatedDate(): ?DateTime {
-        return $this->createdDate;
+        return $this->createdDate ?? null;
     }
 
     public function getUpdatedDate(): ?DateTime {
-        return $this->updatedDate;
+        return $this->updatedDate ?? null;
     }
 
     public function getVersion(): ?Version {
-        return $this->version;
+        return $this->version ?? null;
     }
 
     public function isArchived(): bool {

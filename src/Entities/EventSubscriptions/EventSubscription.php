@@ -17,8 +17,8 @@ class EventSubscription extends NamedEntity implements IdentifiableInterface, Or
     protected ?SubscriptionID $subscriptionId;
     protected ?OrganizationID $organizationId;
     protected ?DateTime $createdDate;
-    public EventType $eventType;
-    public string $callbackUrl;
+    protected EventType $eventType;
+    protected string $callbackUrl;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
@@ -34,5 +34,21 @@ class EventSubscription extends NamedEntity implements IdentifiableInterface, Or
 
     public function getCreatedDate(): ?DateTime {
         return $this->createdDate;
+    }
+
+    public function getEventType(): EventType {
+        return $this->eventType;
+    }
+
+    public function getCallbackUrl(): string {
+        return $this->callbackUrl;
+    }
+
+    public function setEventType(EventType $eventType): void {
+        $this->eventType = $eventType;
+    }
+
+    public function setCallbackUrl(string $callbackUrl): void {
+        $this->callbackUrl = $callbackUrl;
     }
 }

@@ -8,8 +8,8 @@ use Lexoffice\Contracts\Abstracts\NamedEntity;
 use Psr\Log\LoggerInterface;
 
 class Addresses extends NamedEntity {
-    protected AddressList $billing;
-    protected AddressList $shipping;
+    public AddressList $billing;
+    public AddressList $shipping;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
