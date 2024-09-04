@@ -21,4 +21,24 @@ class Sort extends NamedEntity {
         }
         parent::__construct($data, $logger);
     }
+
+    public function getDirection(): SortDirection {
+        return $this->direction;
+    }
+
+    public function getProperty(): string {
+        return $this->property;
+    }
+
+    public function getNullHandling(): string {
+        return $this->nullHandling;
+    }
+
+    public function isAscending(): bool {
+        return $this->ascending;
+    }
+
+    public function isIgnoreCase(): bool {
+        return $this->ignoreCase;
+    }
 }
