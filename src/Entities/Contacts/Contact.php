@@ -18,14 +18,14 @@ class Contact extends NamedEntity implements IdentifiableInterface, Organization
     protected ?ContactID $id;
     protected ?OrganizationID $organizationId;
     protected Version $version;
-    public Roles $roles;
-    public ?Company $company;
-    public ?Person $person;
-    public ?Addresses $addresses;
-    public ?XRechnung $xRechnung;
-    public ?EmailAddresses $emailAddresses;
-    public ?PhoneNumbers $phoneNumbers;
-    public ?string $note;
+    protected Roles $roles;
+    protected ?Company $company;
+    protected ?Person $person;
+    protected ?Addresses $addresses;
+    protected ?XRechnung $xRechnung;
+    protected ?EmailAddresses $emailAddresses;
+    protected ?PhoneNumbers $phoneNumbers;
+    protected ?string $note;
     protected ?bool $archived;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
@@ -54,5 +54,69 @@ class Contact extends NamedEntity implements IdentifiableInterface, Organization
 
     public function getVersion(): ?Version {
         return $this->version ?? null;
+    }
+
+    public function getRoles(): Roles {
+        return $this->roles;
+    }
+
+    public function getCompany(): ?Company {
+        return $this->company ?? null;
+    }
+
+    public function getPerson(): ?Person {
+        return $this->person ?? null;
+    }
+
+    public function getAddresses(): ?Addresses {
+        return $this->addresses ?? null;
+    }
+
+    public function getXRechnung(): ?XRechnung {
+        return $this->xRechnung ?? null;
+    }
+
+    public function getEmailAddresses(): ?EmailAddresses {
+        return $this->emailAddresses ?? null;
+    }
+
+    public function getPhoneNumbers(): ?PhoneNumbers {
+        return $this->phoneNumbers ?? null;
+    }
+
+    public function getNote(): ?string {
+        return $this->note ?? null;
+    }
+
+    public function setRoles(Roles $roles): void {
+        $this->roles = $roles;
+    }
+
+    public function setCompany(Company $company): void {
+        $this->company = $company;
+    }
+
+    public function setPerson(Person $person): void {
+        $this->person = $person;
+    }
+
+    public function setAddresses(Addresses $addresses): void {
+        $this->addresses = $addresses;
+    }
+
+    public function setXRechnung(XRechnung $xRechnung): void {
+        $this->xRechnung = $xRechnung;
+    }
+
+    public function setEmailAddresses(EmailAddresses $emailAddresses): void {
+        $this->emailAddresses = $emailAddresses;
+    }
+
+    public function setPhoneNumbers(PhoneNumbers $phoneNumbers): void {
+        $this->phoneNumbers = $phoneNumbers;
+    }
+
+    public function setNote(string $note): void {
+        $this->note = $note;
     }
 }

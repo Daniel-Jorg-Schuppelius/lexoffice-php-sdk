@@ -124,10 +124,10 @@ class ContactsTest extends TestCase {
         $contactArray = $contact->toArray();
         $this->assertEquals($data, $contactArray);
         $this->assertInstanceOf(Contact::class, $contact);
-        $this->assertInstanceOf(Company::class, $contact->company);
-        $this->assertTrue($contact->company->allowTaxFreeInvoices);
-        $this->assertEquals('Max', $contact->company->contactPersons->getValues()[0]->firstName);
-        $this->assertEquals('Mustermann', $contact->company->contactPersons->getValues()[1]->lastName);
+        $this->assertInstanceOf(Company::class, $contact->getCompany());
+        $this->assertTrue($contact->getCompany()->getAllowTaxFreeInvoices());
+        $this->assertEquals('Max', $contact->getCompany()->getContactPersons()->getValues()[0]->getFirstName());
+        $this->assertEquals('Mustermann', $contact->getCompany()->getContactPersons()->getValues()[1]->getLastName());
     }
     public function testCreateContacts() {
         $data = [
@@ -173,8 +173,8 @@ class ContactsTest extends TestCase {
         $this->assertIsArray($contacts->getValues());
         $this->assertInstanceOf(Contact::class, $contacts->getValues()[0]);
         $this->assertInstanceOf(Contact::class, $contacts->getValues()[1]);
-        $this->assertEquals('Inge', $contacts->getValues()[0]->person->firstName);
-        $this->assertEquals('Mustermann', $contacts->getValues()[1]->person->lastName);
+        $this->assertEquals('Inge', $contacts->getValues()[0]->getPerson()->getFirstName());
+        $this->assertEquals('Mustermann', $contacts->getValues()[1]->getPerson()->getLastName());
     }
 
     public function testCreateContactsPage() {
@@ -259,7 +259,7 @@ class ContactsTest extends TestCase {
         $companyArray = $company->toArray();
         $this->assertEquals($data, $companyArray);
         $this->assertInstanceOf(Company::class, $company);
-        $this->assertTrue($company->allowTaxFreeInvoices);
+        $this->assertTrue($company->getAllowTaxFreeInvoices());
         $this->assertFalse($company->isValid());
     }
 
