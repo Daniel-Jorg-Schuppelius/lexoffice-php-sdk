@@ -48,9 +48,9 @@ class ArticlesTest extends TestCase {
         $this->assertTrue($article->isValid());
         $this->assertInstanceOf(Article::class, new Article());
         $this->assertInstanceOf(Article::class, $article);
-        $this->assertEquals('Lexware buchhaltung Premium 2024', $article->title);
+        $this->assertEquals('Lexware buchhaltung Premium 2024', $article->getTitle());
         $this->assertEquals($data, $article->toArray());
-        $this->assertEquals($price, $article->price);
+        $this->assertEquals($price, $article->getPrice());
     }
     public function testCreateArticles() {
         $data = [
@@ -96,8 +96,8 @@ class ArticlesTest extends TestCase {
         $this->assertInstanceOf(Articles::class, $articles);
         $this->assertInstanceOf(Article::class, $articles->getValues()[0]);
         $this->assertInstanceOf(Article::class, $articles->getValues()[1]);
-        $this->assertEquals('Lexware buchhaltung Premium 2024', $articles->getValues()[0]->title);
-        $this->assertEquals('Lexware warenwirtschaft Premium 2024', $articles->getValues()[1]->title);
+        $this->assertEquals('Lexware buchhaltung Premium 2024', $articles->getValues()[0]->getTitle());
+        $this->assertEquals('Lexware warenwirtschaft Premium 2024', $articles->getValues()[1]->getTitle());
         $this->assertIsArray($articles->getValues());
     }
 

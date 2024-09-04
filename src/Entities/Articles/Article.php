@@ -17,19 +17,19 @@ use Lexoffice\Entities\Version;
 use Psr\Log\LoggerInterface;
 
 class Article extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface, ArchivableInterface, ExtendedTimestampableInterface, VersionableInterface {
-    public ?ArticleID $id;
-    public ?OrganizationID $organizationId;
+    protected ?ArticleID $id;
+    protected ?OrganizationID $organizationId;
     protected ?DateTime $createdDate;
     protected ?DateTime $updatedDate;
     protected ?bool $archived;
-    public string $title;
-    public ?string $description;
-    public ArticleType $type;
-    public ?string $articleNumber;
-    public ?string $gtin;
-    public ?string $note;
-    public string $unitName;
-    public Price $price;
+    protected string $title;
+    protected ?string $description;
+    protected ArticleType $type;
+    protected ?string $articleNumber;
+    protected ?string $gtin;
+    protected ?string $note;
+    protected string $unitName;
+    protected Price $price;
     protected ?Version $version;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
@@ -58,5 +58,77 @@ class Article extends NamedEntity implements IdentifiableInterface, Organization
 
     public function isArchived(): bool {
         return $this->archived ?? false;
+    }
+
+    public function getTitle(): string {
+        return $this->title;
+    }
+
+    public function getDescription(): ?string {
+        return $this->description ?? null;
+    }
+
+    public function getType(): ArticleType {
+        return $this->type;
+    }
+
+    public function getArticleNumber(): ?string {
+        return $this->articleNumber ?? null;
+    }
+
+    public function getGtin(): ?string {
+        return $this->gtin ?? null;
+    }
+
+    public function getNote(): ?string {
+        return $this->note ?? null;
+    }
+
+    public function getUnitName(): string {
+        return $this->unitName;
+    }
+
+    public function getPrice(): Price {
+        return $this->price;
+    }
+
+    public function setID(ArticleID $id): void {
+        $this->id = $id;
+    }
+
+    public function setOrganizationID(OrganizationID $organizationId): void {
+        $this->organizationId = $organizationId;
+    }
+
+    public function setTitle(string $title): void {
+        $this->title = $title;
+    }
+
+    public function setDescription(?string $description): void {
+        $this->description = $description;
+    }
+
+    public function setType(ArticleType $type): void {
+        $this->type = $type;
+    }
+
+    public function setArticleNumber(?string $articleNumber): void {
+        $this->articleNumber = $articleNumber;
+    }
+
+    public function setGtin(?string $gtin): void {
+        $this->gtin = $gtin;
+    }
+
+    public function setNote(?string $note): void {
+        $this->note = $note;
+    }
+
+    public function setUnitName(string $unitName): void {
+        $this->unitName = $unitName;
+    }
+
+    public function setPrice(Price $price): void {
+        $this->price = $price;
     }
 }

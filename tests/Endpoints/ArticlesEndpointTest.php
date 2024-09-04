@@ -35,7 +35,7 @@ class ArticlesEndpointTest extends EndpointTest {
         $this->assertEquals($data, $article->toArray());
         $this->assertEquals(json_encode($data), $article->toJson());  // the order of the $data array is important for this test.
         $this->assertStringContainsString(substr($article->getID()->toJson(), 2, -2), json_encode($data));
-        $this->assertEquals(json_encode($data["price"]), $article->price->toJson());
+        $this->assertEquals(json_encode($data["price"]), $article->getPrice()->toJson());
     }
 
     public function testCreateAndDeleteArticleAPI() {
@@ -82,7 +82,7 @@ class ArticlesEndpointTest extends EndpointTest {
         $this->assertInstanceOf(ArticleResource::class, $articleResource);
         $article = $this->endpoint->get($articleResource->getId());
 
-        $article->title = "Lexware buchhaltung Premium 2022 Updated";
+        $article->setTitle("Lexware buchhaltung Premium 2022 Updated");
         $articleResourceUpdated = $this->endpoint->update($articleResource->getId(), $article);
         $this->assertInstanceOf(ArticleResource::class, $articleResourceUpdated);
 
