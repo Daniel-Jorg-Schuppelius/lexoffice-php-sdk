@@ -126,7 +126,7 @@ class VouchersEndpointTest extends EndpointTest {
         $this->assertInstanceOf(VoucherResource::class, $voucherResource);
         $voucher = $this->endpoint->get($voucherResource->getId());
 
-        $voucher->remark = "Bestellung von Max Mustermann.";
+        $voucher->setRemark("Bestellung von Max Mustermann.");
         $voucherResourceUpdated = $this->endpoint->update($voucherResource->getId(), $voucher);
         $this->assertInstanceOf(VoucherResource::class, $voucherResourceUpdated);
     }
