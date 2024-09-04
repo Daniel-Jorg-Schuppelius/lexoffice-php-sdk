@@ -62,7 +62,7 @@ class VouchersEndpointTest extends EndpointTest {
         $this->assertEquals($data, $voucher->toArray());
         $this->assertEquals(json_encode($data), $voucher->toJson());  // the order of the $data array is important for this test.
         $this->assertStringContainsString(substr($voucher->getID()->toJson(), 2, -2), json_encode($data));
-        $this->assertEquals(json_encode($data["voucherItems"]), $voucher->voucherItems->toJson(0));
+        $this->assertEquals(json_encode($data["voucherItems"]), $voucher->getVoucherItems()->toJson(0));
     }
 
     public function testCreateAndDeleteVoucherAPI() {
