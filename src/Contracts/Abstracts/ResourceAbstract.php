@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Contracts\Abstracts;
 
 use DateTime;
-use Lexoffice\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
 use Lexoffice\Contracts\Interfaces\ResourceInterface;
 use Lexoffice\Entities\ID;

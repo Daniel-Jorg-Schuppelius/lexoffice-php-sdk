@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Documents\Invoices;
 
 use DateTime;
-use Lexoffice\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Entities\ID;
 use Psr\Log\LoggerInterface;
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Lexoffice\Contracts\Abstracts;
 
-use Lexoffice\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Contracts\Interfaces\NamedValuesInterface;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Interfaces\NamedValuesInterface;
 use Lexoffice\Entities\Collations;
 use Psr\Log\LoggerInterface;
 

@@ -102,8 +102,8 @@ class ContactsEndpointTest extends EndpointTest {
         $this->assertInstanceOf(ContactResource::class, $contactResource);
         $contact = $this->endpoint->get($contactResource->getId());
 
-        $person = $contact->person;
-        $person->firstName = "Maximilian";
+        $person = $contact->getPerson();
+        $person->setFirstName("Maximilian");
         $contactResourceUpdated = $this->endpoint->update($contactResource->getId(), $contact);
         $this->assertInstanceOf(ContactResource::class, $contactResourceUpdated);
     }

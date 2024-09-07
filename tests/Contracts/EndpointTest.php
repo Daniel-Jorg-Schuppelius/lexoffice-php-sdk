@@ -6,7 +6,7 @@ namespace Tests\Contracts;
 
 use PHPUnit\Framework\TestCase;
 use Lexoffice\API\Client;
-use Lexoffice\Logger\ConsoleLoggerFactory;
+use APIToolkit\Logger\ConsoleLoggerFactory;
 use Psr\Log\LoggerInterface;
 use Tests\TestAPIClientFactory;
 

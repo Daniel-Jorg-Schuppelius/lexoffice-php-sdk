@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\Contracts\Interfaces\API;
 
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\ID;
 
 interface BaseEndpointInterface {

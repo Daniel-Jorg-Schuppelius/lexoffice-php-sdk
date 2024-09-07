@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Payments;
 
 use DateTime;
-use Lexoffice\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\Currency;
 use Lexoffice\Enums\PaymentItemType;
 use Psr\Log\LoggerInterface;

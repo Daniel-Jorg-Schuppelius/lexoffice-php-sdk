@@ -4,8 +4,53 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "adcb8ff987724d7cba6f56a46bece598",
+    "content-hash": "f661c1b37b2d8408ba7f0d9c1f62d710",
     "packages": [
+        {
+            "name": "daniel-jorg-schuppelius/php-api-toolkit",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit.git",
+                "reference": "38fe028616fc4ae7300cb65a1e6178bc4ca78638"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Daniel-Jorg-Schuppelius/php-api-toolkit/zipball/38fe028616fc4ae7300cb65a1e6178bc4ca78638",
+                "reference": "38fe028616fc4ae7300cb65a1e6178bc4ca78638",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1 || ^8.3",
+                "psr/log": "^3.0@dev"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^11.3@dev"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "APIToolkit\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Joerg Schuppelius",
+                    "email": "info@schuppelius.org"
+                }
+            ],
+            "description": "Reused codes for my api php sdks",
+            "support": {
+                "issues": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/issues",
+                "source": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/tree/v0.1.0"
+            },
+            "time": "2024-09-07T17:00:08+00:00"
+        },
         {
             "name": "guzzlehttp/guzzle",
             "version": "7.9.x-dev",

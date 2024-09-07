@@ -3,7 +3,7 @@
 namespace Lexoffice\Api\Endpoints\Documents;
 
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Documents\Quotations\Quotation;
 use Lexoffice\Entities\Documents\Quotations\QuotationResource;
 use Lexoffice\Entities\ID;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Documents;
 
-use Lexoffice\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\TaxSubType;
 use Lexoffice\Enums\TaxType;
 use Psr\Log\LoggerInterface;

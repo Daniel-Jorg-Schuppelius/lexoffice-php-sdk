@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\PostingCategories;
 
-use Lexoffice\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Enums\PostingCategoryType;
 use Psr\Log\LoggerInterface;

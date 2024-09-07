@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Contacts;
 
-use Lexoffice\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Psr\Log\LoggerInterface;
 
 class Person extends NamedEntity {

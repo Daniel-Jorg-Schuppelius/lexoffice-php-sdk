@@ -4,7 +4,7 @@ namespace Tests;
 
 use Lexoffice\API\Client;
 use Lexoffice\Contracts\Interfaces\API\ApiClientInterface;
-use Lexoffice\Logger\ConsoleLoggerFactory;
+use APIToolkit\Logger\ConsoleLoggerFactory;
 use Tests\Config\PostmanConfig;
 
 class TestAPIClientFactory {

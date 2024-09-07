@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\PostingCategories;
 
-use Lexoffice\Contracts\Abstracts\NamedValues;
+use APIToolkit\Contracts\Abstracts\NamedValues;
 use Psr\Log\LoggerInterface;
 
 class PostingCategories extends NamedValues {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Contacts;
 
-use Lexoffice\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\ArchivableInterface;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;

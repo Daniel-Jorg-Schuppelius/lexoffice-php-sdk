@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities;
 
-use Lexoffice\Contracts\Abstracts\NamedValue;
+use APIToolkit\Contracts\Abstracts\NamedValue;
 use Psr\Log\LoggerInterface;
 
 class ID extends NamedValue {

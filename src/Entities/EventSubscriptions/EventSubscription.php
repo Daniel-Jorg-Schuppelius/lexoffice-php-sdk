@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\EventSubscriptions;
 
 use DateTime;
-use Lexoffice\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
 use Lexoffice\Contracts\Interfaces\TimestampableInterface;

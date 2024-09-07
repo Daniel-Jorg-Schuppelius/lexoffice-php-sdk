@@ -6,7 +6,7 @@ namespace Lexoffice\Contracts\Interfaces;
 
 use DateTime;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 
 interface ResourceInterface extends IdentifiableInterface {
     public function getResourceUri(): string;

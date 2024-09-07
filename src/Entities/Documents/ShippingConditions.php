@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Documents;
 
 use DateTime;
-use Lexoffice\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Enums\ShippingType;
 use Psr\Log\LoggerInterface;
 

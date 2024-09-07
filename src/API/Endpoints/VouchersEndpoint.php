@@ -4,7 +4,7 @@ namespace Lexoffice\Api\Endpoints;
 
 use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Vouchers\Voucher;
 use Lexoffice\Entities\Vouchers\VoucherResource;
 use Lexoffice\Entities\Vouchers\VouchersPage;

@@ -3,7 +3,7 @@
 namespace Lexoffice\Api\Endpoints\Documents;
 
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Documents\Invoices\Invoice;
 use Lexoffice\Entities\Documents\Invoices\InvoiceResource;
 use Lexoffice\Entities\ID;

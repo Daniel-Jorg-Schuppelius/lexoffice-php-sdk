@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Contracts\Abstracts\API;
 
 use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Contracts\Interfaces\ResourceInterface;
 use Lexoffice\Entities\Documents\DocumentFileID;
 use Lexoffice\Entities\ID;

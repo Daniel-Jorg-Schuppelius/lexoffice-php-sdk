@@ -8,8 +8,8 @@ use Lexoffice\Entities\Articles\Articles;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticlesPage;
 use Lexoffice\Entities\Articles\Price;
-use Lexoffice\Logger\ConsoleLogger;
-use Lexoffice\Logger\ConsoleLoggerFactory;
+use APIToolkit\Logger\ConsoleLogger;
+use APIToolkit\Logger\ConsoleLoggerFactory;
 use PHPUnit\Framework\TestCase;
 
 class ArticlesTest extends TestCase {

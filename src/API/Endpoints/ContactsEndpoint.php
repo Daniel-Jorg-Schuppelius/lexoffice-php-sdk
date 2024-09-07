@@ -5,7 +5,7 @@ namespace Lexoffice\Api\Endpoints;
 use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\ClassicEndpointInterface;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Contacts\Contact;
 use Lexoffice\Entities\Contacts\ContactResource;
 use Lexoffice\Entities\Contacts\ContactsPage;

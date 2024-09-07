@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\VoucherList;
 
-use Lexoffice\Contracts\Abstracts\NamedValues;
+use APIToolkit\Contracts\Abstracts\NamedValues;
 use Lexoffice\Entities\VoucherList\Voucher;
 use Psr\Log\LoggerInterface;
 

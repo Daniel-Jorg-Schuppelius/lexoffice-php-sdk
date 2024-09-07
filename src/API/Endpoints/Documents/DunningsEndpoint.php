@@ -4,7 +4,7 @@ namespace Lexoffice\Api\Endpoints\Documents;
 
 use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
-use Lexoffice\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Documents\Dunnings\Dunning;
 use Lexoffice\Entities\Documents\Dunnings\DunningResource;
 use Lexoffice\Entities\ID;

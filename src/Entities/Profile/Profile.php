@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Profile;
 
-use Lexoffice\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
 use Lexoffice\Enums\DistanceSalesPrinciple;
 use Lexoffice\Enums\TaxType;
