@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Contacts;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Entities\Contact\PhoneNumbers as PhoneNumberList;
 use Psr\Log\LoggerInterface;
 
 class PhoneNumbers extends NamedEntity {

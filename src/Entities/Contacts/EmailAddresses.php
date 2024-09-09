@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Contacts;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Entities\Contact\EmailAddresses as EmailAddressList;
 use Psr\Log\LoggerInterface;
 
 class EmailAddresses extends NamedEntity {

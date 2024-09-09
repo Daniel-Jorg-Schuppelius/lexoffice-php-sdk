@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Documents;
 
+use APIToolkit\Entities\Common\Address as CommonAddress;
 use Psr\Log\LoggerInterface;
 
-class Address extends \Lexoffice\Entities\Address {
+class Address extends CommonAddress {
     protected ?ContactID $contactId;
     protected ?string $name;
     protected ?ContactID $contactPerson;

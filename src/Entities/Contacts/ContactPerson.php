@@ -8,8 +8,8 @@ use Psr\Log\LoggerInterface;
 
 class ContactPerson extends Person {
     protected ?bool $primary;
-    protected ?string $emailAddress;
-    protected ?string $phoneNumber;
+    protected ?EmailAddress $emailAddress;
+    protected ?PhoneNumber $phoneNumber;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
@@ -19,11 +19,11 @@ class ContactPerson extends Person {
         return $this->primary ?? false;
     }
 
-    public function getEmailAddress(): ?string {
+    public function getEmailAddress(): ?EmailAddress {
         return $this->emailAddress ?? null;
     }
 
-    public function getPhoneNumber(): ?string {
+    public function getPhoneNumber(): ?PhoneNumber {
         return $this->phoneNumber ?? null;
     }
 
@@ -31,11 +31,11 @@ class ContactPerson extends Person {
         $this->primary = $primary;
     }
 
-    public function setEmailAddress(string $emailAddress): void {
+    public function setEmailAddress(EmailAddress $emailAddress): void {
         $this->emailAddress = $emailAddress;
     }
 
-    public function setPhoneNumber(string $phoneNumber): void {
+    public function setPhoneNumber(PhoneNumber $phoneNumber): void {
         $this->phoneNumber = $phoneNumber;
     }
 }

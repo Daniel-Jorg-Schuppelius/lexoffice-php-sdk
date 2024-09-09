@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Contacts;
 
 use APIToolkit\Contracts\Abstracts\NamedValues;
-use Lexoffice\Entities\Address;
+use APIToolkit\Entities\Common\Address;
 use Psr\Log\LoggerInterface;
 
 class AddressList extends NamedValues {
