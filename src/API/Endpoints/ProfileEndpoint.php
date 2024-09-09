@@ -2,11 +2,11 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Entities\Profile\Profile;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 
-class ProfileEndpoint extends BaseEndpointAbstract {
+class ProfileEndpoint extends EndpointAbstract {
     protected string $endpoint = 'profile';
 
     public function get(?ID $id = null): Profile {

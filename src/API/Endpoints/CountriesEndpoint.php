@@ -2,14 +2,14 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\Countries\Countries;
 use Lexoffice\Entities\Countries\Country;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Exceptions\NotAllowedException;
 
-class CountriesEndpoint extends BaseEndpointAbstract implements ListableEndpointInterface {
+class CountriesEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'countries';
 
     public function get(?ID $id = null): Country {

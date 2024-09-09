@@ -8,7 +8,7 @@ use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
 use Lexoffice\Contracts\Interfaces\ResourceInterface;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Entities\Version;
 use Psr\Log\LoggerInterface;
 

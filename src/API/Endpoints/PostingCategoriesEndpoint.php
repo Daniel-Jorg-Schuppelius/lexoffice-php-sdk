@@ -2,14 +2,14 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\PostingCategories\PostingCategory;
 use Lexoffice\Entities\PostingCategories\PostingCategories;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Exceptions\NotAllowedException;
 
-class PostingCategoriesEndpoint extends BaseEndpointAbstract implements ListableEndpointInterface {
+class PostingCategoriesEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'payment-conditions';
 
     public function get(?ID $id = null): PostingCategory {

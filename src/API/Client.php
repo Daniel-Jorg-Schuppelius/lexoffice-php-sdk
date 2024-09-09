@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\API;
 
-use Lexoffice\Contracts\Interfaces\API\ApiClientInterface;
+use APIToolkit\Contracts\Interfaces\API\ApiClientInterface;
 use Lexoffice\Exceptions\ApiException;
 use Psr\Log\LoggerInterface;
 use GuzzleHttp\Client as HttpClient;

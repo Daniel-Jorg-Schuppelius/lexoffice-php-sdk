@@ -6,7 +6,7 @@ use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNoteResource;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class CreditNotesEndpoint extends DocumentEndpointAbstract {

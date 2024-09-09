@@ -11,7 +11,7 @@ use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
 use Lexoffice\Contracts\Interfaces\VersionableInterface;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Entities\Version;
 use Lexoffice\Entities\Documents\Address;
 use Lexoffice\Entities\Documents\TotalPrice;

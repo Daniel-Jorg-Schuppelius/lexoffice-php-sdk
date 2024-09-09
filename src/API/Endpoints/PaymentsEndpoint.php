@@ -2,11 +2,11 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Entities\Payments\Payment;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 
-class PaymentsEndpoint extends BaseEndpointAbstract {
+class PaymentsEndpoint extends EndpointAbstract {
     protected string $endpoint = 'payments';
 
     public function get(?ID $id = null): Payment {

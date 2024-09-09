@@ -2,14 +2,14 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\PrintLayouts\PrintLayout;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Entities\PrintLayouts\PrintLayouts;
 use Lexoffice\Exceptions\NotAllowedException;
 
-class PrintLayoutsEndpoint extends BaseEndpointAbstract implements ListableEndpointInterface {
+class PrintLayoutsEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'print-layouts';
 
     public function get(?ID $id = null): PrintLayout {

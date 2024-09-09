@@ -3,12 +3,12 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\Api\Endpoints\PaymentsEndpoint;
-use Lexoffice\Contracts\Interfaces\API\BaseEndpointInterface;
+use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
 use Lexoffice\Entities\Payments\Payment;
 use Tests\Contracts\EndpointTest;
 
 class PaymentsEndpointTest extends EndpointTest {
-    private ?BaseEndpointInterface $endpoint;
+    private ?EndpointInterface $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);

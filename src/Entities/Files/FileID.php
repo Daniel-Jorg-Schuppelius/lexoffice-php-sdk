@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Files;
 
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Psr\Log\LoggerInterface;
 
 class FileID extends ID {

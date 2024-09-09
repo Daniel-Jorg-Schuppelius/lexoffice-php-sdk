@@ -2,14 +2,14 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\PaymentConditions\PaymentCondition;
 use Lexoffice\Entities\PaymentConditions\PaymentConditions;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Exceptions\NotAllowedException;
 
-class PaymentConditionsEndpoint extends BaseEndpointAbstract implements ListableEndpointInterface {
+class PaymentConditionsEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'payment-conditions';
 
     public function get(?ID $id = null): PaymentCondition {

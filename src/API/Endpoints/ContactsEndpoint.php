@@ -2,17 +2,17 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\ClassicEndpointInterface;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Contacts\Contact;
 use Lexoffice\Entities\Contacts\ContactResource;
 use Lexoffice\Entities\Contacts\ContactsPage;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Exceptions\NotAllowedException;
 
-class ContactsEndpoint extends BaseEndpointAbstract implements ClassicEndpointInterface, SearchableEndpointInterface {
+class ContactsEndpoint extends EndpointAbstract implements ClassicEndpointInterface, SearchableEndpointInterface {
     protected string $endpoint = 'contacts';
 
     public function create(NamedEntityInterface $data, ID $id = null): ContactResource {

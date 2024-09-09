@@ -3,7 +3,7 @@
 namespace Tests;
 
 use Lexoffice\API\Client;
-use Lexoffice\Contracts\Interfaces\API\ApiClientInterface;
+use APIToolkit\Contracts\Interfaces\API\ApiClientInterface;
 use APIToolkit\Logger\ConsoleLoggerFactory;
 use Tests\Config\PostmanConfig;
 

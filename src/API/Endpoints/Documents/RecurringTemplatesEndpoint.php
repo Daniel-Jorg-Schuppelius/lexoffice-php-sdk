@@ -2,13 +2,13 @@
 
 namespace Lexoffice\Api\Endpoints\Documents;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplatesPage;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 
-class RecurringTemplatesEndpoint extends BaseEndpointAbstract implements SearchableEndpointInterface {
+class RecurringTemplatesEndpoint extends EndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'recurring-templates';
 
     public function get(?ID $id = null): RecurringTemplate {

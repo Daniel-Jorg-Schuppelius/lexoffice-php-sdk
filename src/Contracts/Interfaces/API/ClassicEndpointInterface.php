@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Lexoffice\Contracts\Interfaces\API;
 
+use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Contracts\Interfaces\ResourceInterface;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 
-interface ClassicEndpointInterface extends BaseEndpointInterface {
+interface ClassicEndpointInterface extends EndpointInterface {
     public function create(NamedEntityInterface $data, ID $id = null): ResourceInterface;
     public function update(ID $id, NamedEntityInterface $data): ResourceInterface;
     public function delete(ID $id): bool;

@@ -3,12 +3,12 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\Api\Endpoints\VoucherListEndpoint;
-use Lexoffice\Contracts\Interfaces\API\BaseEndpointInterface;
+use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
 use Lexoffice\Entities\VoucherList\Vouchers;
 use Tests\Contracts\EndpointTest;
 
 class VoucherListEndpointTest extends EndpointTest {
-    private ?BaseEndpointInterface $endpoint;
+    private ?EndpointInterface $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);

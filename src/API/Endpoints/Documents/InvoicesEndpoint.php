@@ -6,7 +6,7 @@ use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Documents\Invoices\Invoice;
 use Lexoffice\Entities\Documents\Invoices\InvoiceResource;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class InvoicesEndpoint extends DocumentEndpointAbstract {

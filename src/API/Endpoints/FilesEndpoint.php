@@ -2,12 +2,12 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Entities\Files\File;
 use Lexoffice\Entities\Files\FileResource;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 
-class FilesEndpoint extends BaseEndpointAbstract {
+class FilesEndpoint extends EndpointAbstract {
     protected string $endpoint = 'files';
 
     public function upload(File $file): FileResource {

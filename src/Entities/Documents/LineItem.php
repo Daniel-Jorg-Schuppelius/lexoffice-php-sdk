@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Documents;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Enums\ItemType;
 use Psr\Log\LoggerInterface;
 

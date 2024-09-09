@@ -6,7 +6,7 @@ namespace Lexoffice\Entities\Documents\Invoices;
 
 use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Psr\Log\LoggerInterface;
 
 class DownPaymentDeduction extends NamedEntity {

@@ -2,13 +2,13 @@
 
 namespace Lexoffice\Api\Endpoints;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\VoucherList\VoucherListPage;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Lexoffice\Entities\VoucherList\Vouchers;
 
-class VoucherlistEndpoint extends BaseEndpointAbstract implements SearchableEndpointInterface {
+class VoucherlistEndpoint extends EndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'voucherlist';
 
     public function get(?ID $id = null): Vouchers {

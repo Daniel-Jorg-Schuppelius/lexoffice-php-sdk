@@ -3,12 +3,12 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\Api\Endpoints\ProfileEndpoint;
-use Lexoffice\Contracts\Interfaces\API\BaseEndpointInterface;
+use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
 use Lexoffice\Entities\Profile\Profile;
 use Tests\Contracts\EndpointTest;
 
 class ProfileEndpointTest extends EndpointTest {
-    private ?BaseEndpointInterface $endpoint;
+    private ?EndpointInterface $endpoint;
 
     public function __construct($name) {
         parent::__construct($name);

@@ -2,11 +2,11 @@
 
 namespace Lexoffice\Api\Endpoints\Documents;
 
-use Lexoffice\Contracts\Abstracts\API\BaseEndpointAbstract;
+use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Entities\Documents\DownPaymentInvoices\DownPaymentInvoice;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 
-class DownPaymentInvoicesEndpoint extends BaseEndpointAbstract {
+class DownPaymentInvoicesEndpoint extends EndpointAbstract {
     protected string $endpoint = 'down-payment-invoices';
 
     public function get(?ID $id = null): DownPaymentInvoice {

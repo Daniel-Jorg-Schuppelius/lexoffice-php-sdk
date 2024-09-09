@@ -6,7 +6,7 @@ namespace Lexoffice\Entities\PaymentConditions;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
-use Lexoffice\Entities\ID;
+use APIToolkit\Entities\ID;
 use Psr\Log\LoggerInterface;
 
 class PaymentCondition extends NamedEntity implements IdentifiableInterface {
