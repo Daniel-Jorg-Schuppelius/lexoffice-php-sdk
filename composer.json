@@ -23,6 +23,7 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Lexoffice\\": "src/",
             "Tests\\": "tests/"
         }
     },
