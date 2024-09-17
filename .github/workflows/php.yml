@@ -28,7 +28,7 @@ jobs:
       run: composer install --prefer-dist --no-progress --no-interaction
 
     - name: Dump Autoload
-      run: composer dump-autoload
+      run: composer dump-autoload -o
       
     - name: Cache Composer packages
       id: composer-cache
