@@ -39,5 +39,8 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
+    - name: Copy phpunit.xml
+      run: php -r "file_exists('phpunit.xml') || copy('phpunit.xml.dist', 'phpunit.xml');"
+
     - name: Run test suite
       run: composer run-script test
