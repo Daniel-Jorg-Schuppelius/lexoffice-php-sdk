@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a04f53a4e3a7efe1fcffd46f0f834a30",
+    "content-hash": "fe6ca7ff922a8fb741e1adc33dfb5f25",
     "packages": [
         {
             "name": "daniel-jorg-schuppelius/php-api-toolkit",
@@ -2364,14 +2364,16 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "psr/log": 20,
-        "phpunit/phpunit": 20
+        "psr/log": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1 || ^8.3"
+        "php": "^8.2 || ^8.3"
     },
     "platform-dev": [],
+    "platform-overrides": {
+        "php": "8.2.0"
+    },
     "plugin-api-version": "2.6.0"
 }
