@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\FilesEndpoint;
+use Lexoffice\API\Endpoints\FilesEndpoint;
 use Lexoffice\Entities\Files\File;
 use Lexoffice\Entities\Files\FileResource;
 use Tests\Contracts\EndpointTest;

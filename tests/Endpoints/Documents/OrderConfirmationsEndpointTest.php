@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints\Documents;
 
-use Lexoffice\Api\Endpoints\Documents\OrderConfirmationsEndpoint;
+use Lexoffice\API\Endpoints\Documents\OrderConfirmationsEndpoint;
 use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmation;
 use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmationResource;
 use Tests\Contracts\EndpointTest;

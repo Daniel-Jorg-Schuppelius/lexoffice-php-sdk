@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints\Documents;
 
-use Lexoffice\Api\Endpoints\Documents\CreditNotesEndpoint;
+use Lexoffice\API\Endpoints\Documents\CreditNotesEndpoint;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNoteResource;
 use Tests\Contracts\EndpointTest;

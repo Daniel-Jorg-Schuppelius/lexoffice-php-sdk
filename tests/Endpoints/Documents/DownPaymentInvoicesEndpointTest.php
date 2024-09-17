@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints\Documents;
 
-use Lexoffice\Api\Endpoints\Documents\DownPaymentInvoicesEndpoint;
+use Lexoffice\API\Endpoints\Documents\DownPaymentInvoicesEndpoint;
 use Lexoffice\Entities\Documents\DownPaymentInvoices\DownPaymentInvoice;
 use Tests\Contracts\EndpointTest;
 

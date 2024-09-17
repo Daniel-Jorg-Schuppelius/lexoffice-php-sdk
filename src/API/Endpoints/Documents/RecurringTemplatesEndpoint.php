@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexoffice\Api\Endpoints\Documents;
+namespace Lexoffice\API\Endpoints\Documents;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;

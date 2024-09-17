@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexoffice\Api\Endpoints;
+namespace Lexoffice\API\Endpoints;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;

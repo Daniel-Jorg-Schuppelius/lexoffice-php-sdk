@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\VouchersEndpoint;
+use Lexoffice\API\Endpoints\VouchersEndpoint;
 use Lexoffice\Entities\Vouchers\Voucher;
 use Lexoffice\Entities\Vouchers\VoucherResource;
 use Lexoffice\Entities\Vouchers\VouchersPage;

@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints\Documents;
 
-use Lexoffice\Api\Endpoints\Documents\DeliveryNotesEndpoint;
+use Lexoffice\API\Endpoints\Documents\DeliveryNotesEndpoint;
 use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
 use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNoteResource;
 use Tests\Contracts\EndpointTest;

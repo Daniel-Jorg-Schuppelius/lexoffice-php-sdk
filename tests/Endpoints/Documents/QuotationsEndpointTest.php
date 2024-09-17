@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints\Documents;
 
-use Lexoffice\Api\Endpoints\Documents\QuotationsEndpoint;
+use Lexoffice\API\Endpoints\Documents\QuotationsEndpoint;
 use Lexoffice\Entities\Documents\Quotations\Quotation;
 use Lexoffice\Entities\Documents\Quotations\QuotationResource;
 use Tests\Contracts\EndpointTest;

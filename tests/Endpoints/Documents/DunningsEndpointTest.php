@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints\Documents;
 
-use Lexoffice\Api\Endpoints\Documents\DunningsEndpoint;
+use Lexoffice\API\Endpoints\Documents\DunningsEndpoint;
 use Lexoffice\Entities\Documents\Dunnings\Dunning;
 use Lexoffice\Entities\Documents\Dunnings\DunningResource;
 use Tests\Contracts\EndpointTest;

@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\ContactsEndpoint;
+use Lexoffice\API\Endpoints\ContactsEndpoint;
 use Lexoffice\Entities\Contacts\Contact;
 use Lexoffice\Entities\Contacts\ContactResource;
 use Lexoffice\Entities\Contacts\ContactsPage;

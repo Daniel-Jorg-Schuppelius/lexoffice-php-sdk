@@ -1,6 +1,6 @@
 <?php
 
-namespace Lexoffice\Api\Endpoints\Documents;
+namespace Lexoffice\API\Endpoints\Documents;
 
 use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;

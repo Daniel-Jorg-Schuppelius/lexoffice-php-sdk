@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\ProfileEndpoint;
+use Lexoffice\API\Endpoints\ProfileEndpoint;
 use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
 use Lexoffice\Entities\Profile\Profile;
 use Tests\Contracts\EndpointTest;

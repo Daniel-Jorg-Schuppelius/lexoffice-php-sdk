@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\CountriesEndpoint;
+use Lexoffice\API\Endpoints\CountriesEndpoint;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\Countries\Countries;
 use Tests\Contracts\EndpointTest;

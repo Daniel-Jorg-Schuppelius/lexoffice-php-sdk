@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\VoucherListEndpoint;
+use Lexoffice\API\Endpoints\VoucherListEndpoint;
 use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
 use Lexoffice\Entities\VoucherList\Vouchers;
 use Tests\Contracts\EndpointTest;

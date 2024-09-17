@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\EventSubscriptionsEndpoint;
+use Lexoffice\API\Endpoints\EventSubscriptionsEndpoint;
 use Lexoffice\Entities\EventSubscriptions\EventSubscription;
 use Lexoffice\Entities\EventSubscriptions\EventSubscriptionResource;
 use Tests\Contracts\EndpointTest;

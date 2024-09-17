@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\PaymentConditionsEndpoint;
+use Lexoffice\API\Endpoints\PaymentConditionsEndpoint;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\PaymentConditions\PaymentConditions;
 use Tests\Contracts\EndpointTest;

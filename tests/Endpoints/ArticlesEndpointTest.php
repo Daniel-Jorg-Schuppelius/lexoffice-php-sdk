@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\ArticlesEndpoint;
+use Lexoffice\API\Endpoints\ArticlesEndpoint;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticleResource;
 use Lexoffice\Entities\Articles\ArticlesPage;

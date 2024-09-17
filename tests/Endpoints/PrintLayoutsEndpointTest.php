@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\Api\Endpoints\PrintLayoutsEndpoint;
+use Lexoffice\API\Endpoints\PrintLayoutsEndpoint;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\PrintLayouts\PrintLayouts;
 use Tests\Contracts\EndpointTest;

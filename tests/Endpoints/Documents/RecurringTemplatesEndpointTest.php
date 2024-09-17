@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints\Documents;
 
-use Lexoffice\Api\Endpoints\Documents\RecurringTemplatesEndpoint;
+use Lexoffice\API\Endpoints\Documents\RecurringTemplatesEndpoint;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplatesPage;
 use Tests\Contracts\EndpointTest;

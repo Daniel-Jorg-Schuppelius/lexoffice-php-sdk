@@ -2,7 +2,7 @@
 
 namespace Tests\Endpoints\Documents;
 
-use Lexoffice\Api\Endpoints\Documents\InvoicesEndpoint;
+use Lexoffice\API\Endpoints\Documents\InvoicesEndpoint;
 use Lexoffice\Entities\Documents\Invoices\Invoice;
 use Lexoffice\Entities\Documents\Invoices\InvoiceResource;
 use Tests\Contracts\EndpointTest;
