@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Contacts;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Contracts\Interfaces\ArchivableInterface;
-use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
-use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
-use Lexoffice\Contracts\Interfaces\VersionableInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\ArchivableNamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\VersionableNamedEntityInterface;
+use APIToolkit\Entities\Version;
+use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
 use Lexoffice\Entities\Profile\OrganizationID;
-use Lexoffice\Entities\Version;
 use Lexoffice\Entities\XRechnung;
 use Psr\Log\LoggerInterface;
 
-class Contact extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface, ArchivableInterface, VersionableInterface {
+class Contact extends NamedEntity implements IdentifiableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface, ArchivableNamedEntityInterface, VersionableNamedEntityInterface {
     protected ?ContactID $id;
     protected ?OrganizationID $organizationId;
     protected Version $version;

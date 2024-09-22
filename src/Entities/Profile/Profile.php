@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Profile;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
+use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
 use Lexoffice\Enums\DistanceSalesPrinciple;
 use Lexoffice\Enums\TaxType;
 use Psr\Log\LoggerInterface;
 
-class Profile extends NamedEntity implements OrganizationIdentifiableInterface {
+class Profile extends NamedEntity implements OrganizationIdentifiableNamedEntityInterface {
     protected OrganizationID $organizationId;
     protected string $companyName;
     protected Created $created;

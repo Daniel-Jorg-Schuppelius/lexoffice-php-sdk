@@ -7,12 +7,12 @@ namespace Lexoffice\Contracts\Interfaces\API;
 use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
-use Lexoffice\Contracts\Interfaces\ResourceInterface;
+use Lexoffice\Contracts\Interfaces\ResourceNamedEntityInterface;
 use Lexoffice\Entities\Documents\DocumentFileID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 interface DocumentEndpointInterface extends EndpointInterface {
-    public function create(NamedEntityInterface $data, ID $id = null): ResourceInterface;
+    public function create(NamedEntityInterface $data, ID $id = null): ResourceNamedEntityInterface;
     public function render(ID $id): DocumentFileID;
-    public function pursue(VoucherID $id, bool $finalize = false): ResourceInterface;
+    public function pursue(VoucherID $id, bool $finalize = false): ResourceNamedEntityInterface;
 }

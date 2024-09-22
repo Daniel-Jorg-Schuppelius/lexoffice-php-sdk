@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\PaymentConditions;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
 use APIToolkit\Entities\ID;
 use Psr\Log\LoggerInterface;
 
-class PaymentCondition extends NamedEntity implements IdentifiableInterface {
+class PaymentCondition extends NamedEntity implements IdentifiableNamedEntityInterface {
     protected ID $id;
     protected bool $organizationDefault;
     protected string $paymentTermLabelTemplate;

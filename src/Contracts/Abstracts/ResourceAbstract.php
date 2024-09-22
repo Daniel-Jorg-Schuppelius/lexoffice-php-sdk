@@ -6,13 +6,13 @@ namespace Lexoffice\Contracts\Abstracts;
 
 use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
-use Lexoffice\Contracts\Interfaces\ResourceInterface;
 use APIToolkit\Entities\ID;
-use Lexoffice\Entities\Version;
+use APIToolkit\Entities\Version;
+use Lexoffice\Contracts\Interfaces\ExtendedTimestampableNamedEntityInterface;
+use Lexoffice\Contracts\Interfaces\ResourceNamedEntityInterface;
 use Psr\Log\LoggerInterface;
 
-abstract class ResourceAbstract extends NamedEntity implements ResourceInterface, ExtendedTimestampableInterface {
+abstract class ResourceAbstract extends NamedEntity implements ResourceNamedEntityInterface, ExtendedTimestampableNamedEntityInterface {
     protected ID $id;
     protected string $resourceUri;
     protected DateTime $createdDate;

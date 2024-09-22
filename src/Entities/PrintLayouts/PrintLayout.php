@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\PrintLayouts;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
 use Psr\Log\LoggerInterface;
 
-class PrintLayout extends NamedEntity implements IdentifiableInterface {
+class PrintLayout extends NamedEntity implements IdentifiableNamedEntityInterface {
     protected PrintLayoutID $id;
     protected string $name;
     protected bool $default;

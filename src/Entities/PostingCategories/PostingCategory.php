@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\PostingCategories;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
 use Lexoffice\Enums\PostingCategoryType;
 use Psr\Log\LoggerInterface;
 
-class PostingCategory extends NamedEntity implements IdentifiableInterface {
+class PostingCategory extends NamedEntity implements IdentifiableNamedEntityInterface {
     protected PostingCategoryID $id;
     protected string $name;
     protected PostingCategoryType $type;

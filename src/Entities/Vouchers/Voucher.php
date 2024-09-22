@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Vouchers;
 
 use DateTime;
-use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
+use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
 use Lexoffice\Entities\Files\Files;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\TaxType;
 use Lexoffice\Enums\VoucherType;
 
-class Voucher extends BaseVoucher implements OrganizationIdentifiableInterface {
+class Voucher extends BaseVoucher implements OrganizationIdentifiableNamedEntityInterface {
     protected ?OrganizationID $organizationId;
     protected VoucherType $type;
     protected ?DateTime $shippingDate;

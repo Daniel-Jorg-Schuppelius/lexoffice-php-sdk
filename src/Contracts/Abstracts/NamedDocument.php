@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Lexoffice\Contracts\Abstracts;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use DateTime;
-use Lexoffice\Contracts\Interfaces\ArchivableInterface;
-use Lexoffice\Contracts\Interfaces\ExtendedTimestampableInterface;
-use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
-use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableInterface;
-use Lexoffice\Contracts\Interfaces\VersionableInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\ArchivableNamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\VersionableNamedEntityInterface;
 use APIToolkit\Entities\ID;
-use Lexoffice\Entities\Version;
+use APIToolkit\Entities\Version;
+use DateTime;
+use Lexoffice\Contracts\Interfaces\ExtendedTimestampableNamedEntityInterface;
+use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
 use Lexoffice\Entities\Documents\Address;
 use Lexoffice\Entities\Documents\TotalPrice;
 use Lexoffice\Entities\Documents\TaxConditions;
@@ -25,7 +25,7 @@ use Lexoffice\Enums\Language;
 use Lexoffice\Enums\VoucherStatus;
 use Psr\Log\LoggerInterface;
 
-abstract class NamedDocument extends NamedEntity implements IdentifiableInterface, OrganizationIdentifiableInterface, ArchivableInterface, ExtendedTimestampableInterface, VersionableInterface {
+abstract class NamedDocument extends NamedEntity implements IdentifiableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface, ArchivableNamedEntityInterface, ExtendedTimestampableNamedEntityInterface, VersionableNamedEntityInterface {
     protected ?ID $id;
     protected ?OrganizationID $organizationId;
     protected ?DateTime $createdDate;

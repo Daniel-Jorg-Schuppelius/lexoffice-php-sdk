@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Files;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Contracts\Interfaces\IdentifiableInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
 use Psr\Log\LoggerInterface;
 
-class File extends NamedEntity implements IdentifiableInterface {
+class File extends NamedEntity implements IdentifiableNamedEntityInterface {
     public const ALLOWED_EXTENSIONS = ['pdf', 'jpg', 'png'];
 
     protected ?FileID $id;
