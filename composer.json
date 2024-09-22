@@ -1,41 +1,42 @@
 {
-    "name": "daniel-jorg-schuppelius/lexoffice-php-sdk",
-    "description": "Lexoffice SDK for PHP",
-    "type": "library",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Daniel Joerg Schuppelius",
-            "email": "info@schuppelius.org"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-        "php": "^8.2 || ^8.3",
-        "guzzlehttp/guzzle": "^8.0",
-        "psr/log": "^3.0@dev",
-        "daniel-jorg-schuppelius/php-api-toolkit": "^0.4"
-    },
-    "autoload": {
-        "psr-4": {
-            "Lexoffice\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Lexoffice\\": "src/",
-            "Tests\\": "tests/"
-        }
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^11.3"
-    },
-    "config": {
-        "platform": {
-            "php": "8.2.0"
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit"
+  "name": "daniel-jorg-schuppelius/lexoffice-php-sdk",
+  "description": "Lexoffice SDK for PHP",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Daniel Joerg Schuppelius",
+      "email": "info@schuppelius.org"
     }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^8.2 || ^8.3",
+    "guzzlehttp/guzzle": "^8.0",
+    "psr/log": "^3.0@dev",
+    "daniel-jorg-schuppelius/php-api-toolkit": "^0.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Lexoffice\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Lexoffice\\": "src/",
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.3"
+  },
+  "config": {
+    "platform": {
+      "php": "8.2.0"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  }
 }
