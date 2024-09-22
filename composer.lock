@@ -4,25 +4,25 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fe6ca7ff922a8fb741e1adc33dfb5f25",
+    "content-hash": "f27b1b16111bf94b39b12600d963d707",
     "packages": [
         {
             "name": "daniel-jorg-schuppelius/php-api-toolkit",
-            "version": "v0.3.7",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit.git",
-                "reference": "f20f2f6e2f9e6f87c77b89b8baabe44b9c3286a8"
+                "reference": "ff2a30778daa1e53db41fbc047338e673e9f51f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Daniel-Jorg-Schuppelius/php-api-toolkit/zipball/f20f2f6e2f9e6f87c77b89b8baabe44b9c3286a8",
-                "reference": "f20f2f6e2f9e6f87c77b89b8baabe44b9c3286a8",
+                "url": "https://api.github.com/repos/Daniel-Jorg-Schuppelius/php-api-toolkit/zipball/ff2a30778daa1e53db41fbc047338e673e9f51f4",
+                "reference": "ff2a30778daa1e53db41fbc047338e673e9f51f4",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/guzzle": "7.9",
-                "php": "^8.1 || ^8.3",
+                "guzzlehttp/guzzle": "8.0.x-dev",
+                "php": "^8.2 || ^8.3",
                 "psr/log": "^3.0@dev"
             },
             "require-dev": {
@@ -47,29 +47,29 @@
             "description": "Reused codes for my api php sdks",
             "support": {
                 "issues": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/issues",
-                "source": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/tree/v0.3.7"
+                "source": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/tree/v0.4.0"
             },
-            "time": "2024-09-10T18:44:02+00:00"
+            "time": "2024-09-22T07:03:05+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
-            "version": "7.9.0",
+            "version": "8.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
-                "reference": "84ac2b2afc44e40d3e8e658a45d68d6d20437612"
+                "reference": "04ff56e86bbd1af8ce754ed538cf02948586a23b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/84ac2b2afc44e40d3e8e658a45d68d6d20437612",
-                "reference": "84ac2b2afc44e40d3e8e658a45d68d6d20437612",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/04ff56e86bbd1af8ce754ed538cf02948586a23b",
+                "reference": "04ff56e86bbd1af8ce754ed538cf02948586a23b",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "guzzlehttp/promises": "^1.5.3 || ^2.0.3",
-                "guzzlehttp/psr7": "^2.7.0",
-                "php": "^7.2.5 || ^8.0",
+                "guzzlehttp/promises": "^2.0.2",
+                "guzzlehttp/psr7": "^2.6.2",
+                "php": "^7.4 || ^8.0",
                 "psr/http-client": "^1.0",
                 "symfony/deprecation-contracts": "^2.2 || ^3.0"
             },
@@ -81,7 +81,7 @@
                 "ext-curl": "*",
                 "guzzle/client-integration-tests": "3.0.2",
                 "php-http/message-factory": "^1.1",
-                "phpunit/phpunit": "^8.5.39 || ^9.6.20",
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15",
                 "psr/log": "^1.1 || ^2.0 || ^3.0"
             },
             "suggest": {
@@ -97,9 +97,6 @@
                 }
             },
             "autoload": {
-                "files": [
-                    "src/functions_include.php"
-                ],
                 "psr-4": {
                     "GuzzleHttp\\": "src/"
                 }
@@ -159,7 +156,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
-                "source": "https://github.com/guzzle/guzzle/tree/7.9.0"
+                "source": "https://github.com/guzzle/guzzle/tree/8.0"
             },
             "funding": [
                 {
@@ -175,7 +172,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-07-18T11:52:56+00:00"
+            "time": "2024-03-31T21:37:12+00:00"
         },
         {
             "name": "guzzlehttp/promises",
