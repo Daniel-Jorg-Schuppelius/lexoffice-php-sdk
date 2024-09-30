@@ -92,6 +92,6 @@ class RecurringTemplateSettings extends NamedEntity {
     }
 
     public function toArray(): array {
-        return $this->getArray('Y-m-d');
+        return $this->getArray(false, true, 'Y-m-d');
     }
 }
