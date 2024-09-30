@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "daniel-jorg-schuppelius/php-api-toolkit",
-            "version": "v0.6.1",
+            "version": "v0.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit.git",
-                "reference": "0a2cdf14fdf136adab884c2e971d2d858d3203a7"
+                "reference": "58f014856c52f6f1143b47604719e8069179070e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Daniel-Jorg-Schuppelius/php-api-toolkit/zipball/0a2cdf14fdf136adab884c2e971d2d858d3203a7",
-                "reference": "0a2cdf14fdf136adab884c2e971d2d858d3203a7",
+                "url": "https://api.github.com/repos/Daniel-Jorg-Schuppelius/php-api-toolkit/zipball/58f014856c52f6f1143b47604719e8069179070e",
+                "reference": "58f014856c52f6f1143b47604719e8069179070e",
                 "shasum": ""
             },
             "require": {
@@ -47,9 +47,9 @@
             "description": "Reused codes for my api php sdks",
             "support": {
                 "issues": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/issues",
-                "source": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/tree/v0.6.1"
+                "source": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/tree/v0.6.3"
             },
-            "time": "2024-09-25T20:48:19+00:00"
+            "time": "2024-09-29T12:35:17+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
