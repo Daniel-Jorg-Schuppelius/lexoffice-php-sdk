@@ -15,7 +15,7 @@
     "php": "^8.2 || ^8.3",
     "guzzlehttp/guzzle": "^7.9 || ^8.0",
     "psr/log": "^3.0@dev",
-    "daniel-jorg-schuppelius/php-api-toolkit": "^0.7.2"
+    "daniel-jorg-schuppelius/php-api-toolkit": "^1.0"
   },
   "autoload": {
     "psr-4": {
