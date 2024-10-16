@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Tests\Contracts;
 
+use APIToolkit\Factories\ConsoleLoggerFactory;
 use PHPUnit\Framework\TestCase;
 use Lexoffice\API\Client;
-use APIToolkit\Logger\ConsoleLoggerFactory;
 use Psr\Log\LoggerInterface;
 use Tests\TestAPIClientFactory;
 
