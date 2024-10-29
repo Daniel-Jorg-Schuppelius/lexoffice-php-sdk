@@ -15,7 +15,7 @@ use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\PostingCategories\PostingCategory;
 use Lexoffice\Entities\PostingCategories\PostingCategories;
 use APIToolkit\Entities\ID;
-use Lexoffice\Exceptions\NotAllowedException;
+use APIToolkit\Exceptions\NotAllowedException;
 
 class PostingCategoriesEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'payment-conditions';

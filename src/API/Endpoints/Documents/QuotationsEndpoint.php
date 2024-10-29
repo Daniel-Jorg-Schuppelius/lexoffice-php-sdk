@@ -16,7 +16,7 @@ use Lexoffice\Entities\Documents\Quotations\Quotation;
 use Lexoffice\Entities\Documents\Quotations\QuotationResource;
 use APIToolkit\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
-use Lexoffice\Exceptions\NotAllowedException;
+use APIToolkit\Exceptions\NotAllowedException;
 
 class QuotationsEndpoint extends DocumentEndpointAbstract {
     protected string $endpoint = 'quotations';

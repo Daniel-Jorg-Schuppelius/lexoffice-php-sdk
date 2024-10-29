@@ -15,7 +15,7 @@ use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\PrintLayouts\PrintLayout;
 use APIToolkit\Entities\ID;
 use Lexoffice\Entities\PrintLayouts\PrintLayouts;
-use Lexoffice\Exceptions\NotAllowedException;
+use APIToolkit\Exceptions\NotAllowedException;
 
 class PrintLayoutsEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'print-layouts';

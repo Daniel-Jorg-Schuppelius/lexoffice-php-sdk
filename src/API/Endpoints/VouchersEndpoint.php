@@ -17,7 +17,7 @@ use Lexoffice\Entities\Vouchers\Voucher;
 use Lexoffice\Entities\Vouchers\VoucherResource;
 use Lexoffice\Entities\Vouchers\VouchersPage;
 use APIToolkit\Entities\ID;
-use Lexoffice\Exceptions\NotAllowedException;
+use APIToolkit\Exceptions\NotAllowedException;
 
 class VouchersEndpoint extends EndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'vouchers';

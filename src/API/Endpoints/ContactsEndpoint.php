@@ -18,7 +18,7 @@ use Lexoffice\Entities\Contacts\Contact;
 use Lexoffice\Entities\Contacts\ContactResource;
 use Lexoffice\Entities\Contacts\ContactsPage;
 use APIToolkit\Entities\ID;
-use Lexoffice\Exceptions\NotAllowedException;
+use APIToolkit\Exceptions\NotAllowedException;
 
 class ContactsEndpoint extends EndpointAbstract implements ClassicEndpointInterface, SearchableEndpointInterface {
     protected string $endpoint = 'contacts';

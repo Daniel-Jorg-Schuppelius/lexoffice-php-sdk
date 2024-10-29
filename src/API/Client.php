@@ -13,19 +13,20 @@ declare(strict_types=1);
 namespace Lexoffice\API;
 
 use APIToolkit\Contracts\Interfaces\API\ApiClientInterface;
-use Lexoffice\Exceptions\ApiException;
+use APIToolkit\Exceptions\ApiException;
+use APIToolkit\Exceptions\BadRequestException;
+use APIToolkit\Exceptions\ConflictException;
+use APIToolkit\Exceptions\ForbiddenException;
+use APIToolkit\Exceptions\NotAcceptableException;
+use APIToolkit\Exceptions\NotAllowedException;
+use APIToolkit\Exceptions\NotFoundException;
+use APIToolkit\Exceptions\PaymentRequiredException;
+use APIToolkit\Exceptions\TooManyRequestsException;
+use APIToolkit\Exceptions\UnauthorizedException;
+use APIToolkit\Exceptions\UnsupportedMediaTypeException;
 use Psr\Log\LoggerInterface;
 use GuzzleHttp\Client as HttpClient;
-use Lexoffice\Exceptions\BadRequestException;
-use Lexoffice\Exceptions\ConflictException;
-use Lexoffice\Exceptions\ForbiddenException;
-use Lexoffice\Exceptions\NotAcceptableException;
-use Lexoffice\Exceptions\NotAllowedException;
-use Lexoffice\Exceptions\NotFoundException;
-use Lexoffice\Exceptions\PaymentRequiredException;
-use Lexoffice\Exceptions\TooManyRequestsException;
-use Lexoffice\Exceptions\UnauthorizedException;
-use Lexoffice\Exceptions\UnsupportedMediaTypeException;
+use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 
 class Client implements ApiClientInterface {
@@ -54,7 +55,7 @@ class Client implements ApiClientInterface {
 
     public function setRequestInterval(float $requestInterval): void {
         if ($requestInterval < Client::MIN_INTERVAL) {
-            throw new \InvalidArgumentException('Request interval must be at least ' . Client::MIN_INTERVAL . ' seconds');
+            throw new InvalidArgumentException('Request interval must be at least ' . Client::MIN_INTERVAL . ' seconds');
         }
         $this->requestInterval = $requestInterval;
     }

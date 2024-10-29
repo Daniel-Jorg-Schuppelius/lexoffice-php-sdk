@@ -15,7 +15,7 @@ use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\Countries\Countries;
 use Lexoffice\Entities\Countries\Country;
 use APIToolkit\Entities\ID;
-use Lexoffice\Exceptions\NotAllowedException;
+use APIToolkit\Exceptions\NotAllowedException;
 
 class CountriesEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'countries';
