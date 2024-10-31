@@ -12,16 +12,16 @@ declare(strict_types=1);
 
 namespace Tests\Contracts;
 
+use APIToolkit\Contracts\Interfaces\API\ApiClientInterface;
 use APIToolkit\Factories\ConsoleLoggerFactory;
 use PHPUnit\Framework\TestCase;
-use Lexoffice\API\Client;
 use Psr\Log\LoggerInterface;
 use Tests\TestAPIClientFactory;
 
 abstract class EndpointTest extends TestCase {
     protected ?LoggerInterface $logger = null;
 
-    protected ?Client $client;
+    protected ?ApiClientInterface $client;
 
     protected bool $apiDisabled = false;
 
