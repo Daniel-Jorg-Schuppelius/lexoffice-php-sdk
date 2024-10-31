@@ -21,7 +21,7 @@ class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
     protected string $endpoint = 'delivery-notes';
 
     public function create(NamedEntityInterface $data, ID $id = null): DeliveryNoteResource {
-        $response = $this->client->post($this->endpoint, [
+        $response = $this->client->post($this->getEndpointUrl(), [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 201);
@@ -34,10 +34,10 @@ class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        return DeliveryNote::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        return DeliveryNote::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): DeliveryNoteResource {
-        return DeliveryNoteResource::fromJson(parent::getContents([], [], "{$this->endpoint}?precedingSalesVoucherId={$id->toString()}"));
+        return DeliveryNoteResource::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}"));
     }
 }

@@ -23,7 +23,7 @@ class ArticlesEndpoint extends EndpointAbstract implements ClassicEndpointInterf
     protected string $endpoint = 'articles';
 
     public function create(NamedEntityInterface $data, ID $id = null): ArticleResource {
-        $response = $this->client->post($this->endpoint, [
+        $response = $this->client->post($this->getEndpointUrl(), [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 201);
@@ -40,7 +40,7 @@ class ArticlesEndpoint extends EndpointAbstract implements ClassicEndpointInterf
     }
 
     public function update(ID $id, NamedEntityInterface $data): ArticleResource {
-        $response = $this->client->put("{$this->endpoint}/{$id->toString()}", [
+        $response = $this->client->put("{$this->getEndpointUrl()}/{$id->toString()}", [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 200);
@@ -49,7 +49,7 @@ class ArticlesEndpoint extends EndpointAbstract implements ClassicEndpointInterf
     }
 
     public function delete(ID $id): bool {
-        $response = $this->client->delete("{$this->endpoint}/{$id->toString()}");
+        $response = $this->client->delete("{$this->getEndpointUrl()}/{$id->toString()}");
         $this->handleResponse($response, 204);
 
         return true;

@@ -24,7 +24,7 @@ class ContactsEndpoint extends EndpointAbstract implements ClassicEndpointInterf
     protected string $endpoint = 'contacts';
 
     public function create(NamedEntityInterface $data, ID $id = null): ContactResource {
-        $response = $this->client->post($this->endpoint, [
+        $response = $this->client->post($this->getEndpointUrl(), [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 200);
@@ -37,11 +37,11 @@ class ContactsEndpoint extends EndpointAbstract implements ClassicEndpointInterf
             throw new \InvalidArgumentException('ID is required');
         }
 
-        return Contact::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        return Contact::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
     }
 
     public function update(ID $id, NamedEntityInterface $data): ContactResource {
-        $response = $this->client->put("{$this->endpoint}/{$id->toString()}", [
+        $response = $this->client->put("{$this->getEndpointUrl()}/{$id->toString()}", [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 200);

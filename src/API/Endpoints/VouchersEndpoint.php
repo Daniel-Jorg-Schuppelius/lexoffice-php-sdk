@@ -23,7 +23,7 @@ class VouchersEndpoint extends EndpointAbstract implements SearchableEndpointInt
     protected string $endpoint = 'vouchers';
 
     public function create(NamedEntityInterface $data, ID $id = null): VoucherResource {
-        $response = $this->client->post($this->endpoint, [
+        $response = $this->client->post($this->getEndpointUrl(), [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 200);
@@ -36,11 +36,11 @@ class VouchersEndpoint extends EndpointAbstract implements SearchableEndpointInt
             throw new \InvalidArgumentException('ID is required');
         }
 
-        return Voucher::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        return Voucher::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
     }
 
     public function update(ID $id, NamedEntityInterface $data): VoucherResource {
-        $response = $this->client->put("{$this->endpoint}/{$id->toString()}", [
+        $response = $this->client->put("{$this->getEndpointUrl()}/{$id->toString()}", [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 200);

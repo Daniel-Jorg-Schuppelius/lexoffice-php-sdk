@@ -25,7 +25,7 @@ class InvoicesEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('Data is not valid');
         }
 
-        $response = $this->client->post($this->endpoint, [
+        $response = $this->client->post($this->getEndpointUrl(), [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 201);
@@ -38,10 +38,10 @@ class InvoicesEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        return Invoice::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        return Invoice::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): InvoiceResource {
-        return InvoiceResource::fromJson(parent::getContents([], [], "{$this->endpoint}?precedingSalesVoucherId={$id->toString()}[&finalize=$finalize]"));
+        return InvoiceResource::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}[&finalize=$finalize]"));
     }
 }

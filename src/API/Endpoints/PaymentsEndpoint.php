@@ -22,6 +22,6 @@ class PaymentsEndpoint extends EndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        return Payment::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        return Payment::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
     }
 }

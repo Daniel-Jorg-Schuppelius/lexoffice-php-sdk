@@ -26,7 +26,7 @@ abstract class DocumentEndpointAbstract extends EndpointAbstract implements Docu
     abstract public function pursue(VoucherID $id, bool $finalize = false): ResourceNamedEntityInterface;
 
     public function render(ID $id): DocumentFileID {
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}/document");
+        $response = $this->client->get("{$this->getEndpointUrl()}/{$id->toString()}/document");
         $body = $this->handleResponse($response, 200);
 
         return DocumentFileID::fromJson($body);

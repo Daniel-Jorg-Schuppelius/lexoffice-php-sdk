@@ -19,7 +19,7 @@ class FilesEndpoint extends EndpointAbstract {
     protected string $endpoint = 'files';
 
     public function upload(File $file): FileResource {
-        $response = $this->client->post($this->endpoint, [
+        $response = $this->client->post($this->getEndpointUrl(), [
             'multipart' => [
                 [
                     'name' => 'file',
@@ -39,7 +39,7 @@ class FilesEndpoint extends EndpointAbstract {
     }
 
     public function download(ID $id, string $path): File {
-        $response = $this->client->get("{$this->endpoint}/{$id->toString()}");
+        $response = $this->client->get("{$this->getEndpointUrl()}/{$id->toString()}");
 
         $body = $this->handleResponse($response, 200);
 

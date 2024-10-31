@@ -25,7 +25,7 @@ class OrderConfirmationsEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('Data is not valid');
         }
 
-        $response = $this->client->post($this->endpoint, [
+        $response = $this->client->post($this->getEndpointUrl(), [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 201);
@@ -38,10 +38,10 @@ class OrderConfirmationsEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        return OrderConfirmation::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        return OrderConfirmation::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): OrderConfirmationResource {
-        return OrderConfirmationResource::fromJson(parent::getContents([], [], "{$this->endpoint}?precedingSalesVoucherId={$id->toString()}"));
+        return OrderConfirmationResource::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}"));
     }
 }

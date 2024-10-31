@@ -26,7 +26,7 @@ class DunningsEndpoint extends DocumentEndpointAbstract {
             throw new InvalidArgumentException('$id (PrecedingSalesVoucherID) is required');
         }
 
-        $response = $this->client->post("{$this->endpoint}?precedingSalesVoucherId={$id->toString()}", [
+        $response = $this->client->post("{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}", [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 201);
@@ -39,10 +39,10 @@ class DunningsEndpoint extends DocumentEndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        return Dunning::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        return Dunning::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): DunningResource {
-        return DunningResource::fromJson(parent::getContents([], [], "{$this->endpoint}?precedingSalesVoucherId={$id->toString()}"));
+        return DunningResource::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}"));
     }
 }

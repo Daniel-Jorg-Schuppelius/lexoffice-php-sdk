@@ -23,7 +23,7 @@ class EventSubscriptionsEndpoint extends EndpointAbstract implements ClassicEndp
     protected string $endpoint = 'event-subscriptions';
 
     public function create(NamedEntityInterface $data, ID $id = null): EventSubscriptionResource {
-        $response = $this->client->post($this->endpoint, [
+        $response = $this->client->post($this->getEndpointUrl(), [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 201);
@@ -36,11 +36,11 @@ class EventSubscriptionsEndpoint extends EndpointAbstract implements ClassicEndp
             throw new \InvalidArgumentException('ID is required');
         }
 
-        return EventSubscription::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        return EventSubscription::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
     }
 
     public function update(ID $id, NamedEntityInterface $data): EventSubscriptionResource {
-        $response = $this->client->put("{$this->endpoint}/{$id->toString()}", [
+        $response = $this->client->put("{$this->getEndpointUrl()}/{$id->toString()}", [
             'body' => $data->toJson(),
         ]);
         $body = $this->handleResponse($response, 200);
@@ -49,7 +49,7 @@ class EventSubscriptionsEndpoint extends EndpointAbstract implements ClassicEndp
     }
 
     public function delete(ID $id): bool {
-        $response = $this->client->delete("{$this->endpoint}/{$id->toString()}");
+        $response = $this->client->delete("{$this->getEndpointUrl()}/{$id->toString()}");
         $this->handleResponse($response, 204);
 
         return true;

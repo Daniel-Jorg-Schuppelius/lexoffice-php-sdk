@@ -24,7 +24,7 @@ class RecurringTemplatesEndpoint extends EndpointAbstract implements SearchableE
             throw new \InvalidArgumentException('ID is required');
         }
 
-        return RecurringTemplate::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        return RecurringTemplate::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
     }
 
     public function search(array $queryParams = [], array $options = []): RecurringTemplatesPage {

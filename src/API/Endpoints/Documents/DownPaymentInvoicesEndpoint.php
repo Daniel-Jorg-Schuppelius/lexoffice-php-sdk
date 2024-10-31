@@ -22,6 +22,6 @@ class DownPaymentInvoicesEndpoint extends EndpointAbstract {
             throw new \InvalidArgumentException('ID is required');
         }
 
-        return DownPaymentInvoice::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        return DownPaymentInvoice::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
     }
 }
