@@ -16,8 +16,8 @@ use Lexoffice\Entities\Articles\Articles;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticlesPage;
 use Lexoffice\Entities\Articles\Price;
-use APIToolkit\Logger\ConsoleLogger;
-use APIToolkit\Factories\ConsoleLoggerFactory;
+use ERRORToolkit\Logger\ConsoleLogger;
+use ERRORToolkit\Factories\ConsoleLoggerFactory;
 use PHPUnit\Framework\TestCase;
 
 class ArticlesTest extends TestCase {
