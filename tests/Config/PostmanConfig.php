@@ -8,36 +8,51 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Tests\Config;
 
-class PostmanConfig {
-    public ?string $resourceUrl = null;
-    public ?string $accessToken = null;
+use ConfigToolkit\ConfigLoader;
+use Exception;
+use Psr\Log\LoggerInterface;
 
-    public function __construct() {
-        $this->setPostmanConfig();
+class PostmanConfig {
+    private const CONFIG_PATH = __DIR__ . '/../../.samples/postman_config.json';
+
+    private ConfigLoader $configLoader;
+    private static ?LoggerInterface $logger = null;
+
+    public function __construct(?LoggerInterface $logger = null) {
+        self::$logger = $logger;
+        $this->configLoader = ConfigLoader::getInstance(self::$logger);
+        $this->loadConfig();
     }
 
     public function isConfigured(): bool {
-        return !is_null($this->resourceUrl) && !is_null($this->accessToken);
+        return $this->getResourceUrl() !== null && $this->getAccessToken() !== null;
     }
 
-    private function setPostmanConfig() {
-        $filePath = __DIR__ . '/../../.samples/postman_config.json';
-        if (file_exists($filePath)) {
-            $jsonContent = file_get_contents($filePath);
-            $config = json_decode($jsonContent, true);
-
-            foreach ($config['values'] as $value) {
-                if ($value['key'] === 'resourceurl') {
-                    $this->resourceUrl = $value['value'];
-                }
-                if ($value['key'] === 'accessToken') {
-                    $this->accessToken = $value['value'];
-                }
+    private function loadConfig(): void {
+        try {
+            if (!file_exists(self::CONFIG_PATH)) {
+                throw new Exception("Postman-Config-Datei nicht gefunden: " . self::CONFIG_PATH);
             }
-        } else {
-            error_log('Postman config file not found, please create one at ../../.samples/postman_config.json');
+
+            $this->configLoader->loadConfigFile(self::CONFIG_PATH);
+        } catch (Exception $e) {
+            if (self::$logger) {
+                self::$logger->error("Fehler beim Laden der Postman-Config: " . $e->getMessage());
+            } else {
+                error_log("Fehler beim Laden der Postman-Config: " . $e->getMessage());
+            }
         }
+    }
+
+    public function getResourceUrl(): ?string {
+        return $this->configLoader->get("values", "resourceurl");
+    }
+
+    public function getAccessToken(): ?string {
+        return $this->configLoader->get("values", "accessToken");
     }
 }
