@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "daniel-jorg-schuppelius/php-api-toolkit",
-            "version": "v1.2.10",
+            "version": "v1.2.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit.git",
-                "reference": "e71d370d3cfd28a86d30b240a1e3ff70b9f140b8"
+                "reference": "80b94d375dad1250acee4a5c027e438db691ca3d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Daniel-Jorg-Schuppelius/php-api-toolkit/zipball/e71d370d3cfd28a86d30b240a1e3ff70b9f140b8",
-                "reference": "e71d370d3cfd28a86d30b240a1e3ff70b9f140b8",
+                "url": "https://api.github.com/repos/Daniel-Jorg-Schuppelius/php-api-toolkit/zipball/80b94d375dad1250acee4a5c027e438db691ca3d",
+                "reference": "80b94d375dad1250acee4a5c027e438db691ca3d",
                 "shasum": ""
             },
             "require": {
@@ -48,9 +48,9 @@
             "description": "Reused codes for my api php sdks",
             "support": {
                 "issues": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/issues",
-                "source": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/tree/v1.2.10"
+                "source": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/tree/v1.2.12"
             },
-            "time": "2025-03-11T08:40:12+00:00"
+            "time": "2025-03-18T05:40:40+00:00"
         },
         {
             "name": "dschuppelius/php-config-toolkit",
@@ -99,16 +99,16 @@
         },
         {
             "name": "dschuppelius/php-error-toolkit",
-            "version": "v1.2.4",
+            "version": "v1.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DSchuppelius/php-error-toolkit.git",
-                "reference": "296c0af378e77a713a7d41a1a581ad654daa6e75"
+                "reference": "e9e37e77fcf922c257682b512082aec10dcb34a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DSchuppelius/php-error-toolkit/zipball/296c0af378e77a713a7d41a1a581ad654daa6e75",
-                "reference": "296c0af378e77a713a7d41a1a581ad654daa6e75",
+                "url": "https://api.github.com/repos/DSchuppelius/php-error-toolkit/zipball/e9e37e77fcf922c257682b512082aec10dcb34a0",
+                "reference": "e9e37e77fcf922c257682b512082aec10dcb34a0",
                 "shasum": ""
             },
             "require": {
@@ -137,9 +137,9 @@
             "description": "Reused codes for my api php sdks",
             "support": {
                 "issues": "https://github.com/DSchuppelius/php-error-toolkit/issues",
-                "source": "https://github.com/DSchuppelius/php-error-toolkit/tree/v1.2.4"
+                "source": "https://github.com/DSchuppelius/php-error-toolkit/tree/v1.2.8"
             },
-            "time": "2025-03-16T09:01:22+00:00"
+            "time": "2025-03-18T12:39:28+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -2492,5 +2492,5 @@
     "platform-overrides": {
         "php": "8.2.0"
     },
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.3.0"
 }
