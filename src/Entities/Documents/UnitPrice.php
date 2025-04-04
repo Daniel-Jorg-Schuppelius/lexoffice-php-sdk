@@ -51,7 +51,7 @@ class UnitPrice extends NamedEntity {
         return $this->taxRatePercentage;
     }
 
-    public function setCurrency(Currency $currency): void {
+    public function setCurrency(CurrencyCode $currency): void {
         $this->currency = $currency;
     }
 
