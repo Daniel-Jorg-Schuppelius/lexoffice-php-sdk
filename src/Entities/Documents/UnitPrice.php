@@ -13,11 +13,11 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Documents;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Enums\Currency;
+use CommonToolkit\Enums\CurrencyCode;
 use Psr\Log\LoggerInterface;
 
 class UnitPrice extends NamedEntity {
-    protected Currency $currency;
+    protected CurrencyCode $currency;
     protected ?float $netAmount;
     protected ?float $grossAmount;
     protected float $taxRatePercentage;
@@ -35,7 +35,7 @@ class UnitPrice extends NamedEntity {
         }
     }
 
-    public function getCurrency(): Currency {
+    public function getCurrency(): CurrencyCode {
         return $this->currency;
     }
 

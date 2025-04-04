@@ -12,8 +12,10 @@ declare(strict_types=1);
 
 namespace Tests\Entities;
 
+use CommonToolkit\Enums\CurrencyCode;
 use Lexoffice\Entities\Payments\Payment;
 use Lexoffice\Entities\Payments\Payments;
+use Lexoffice\Enums\Currency;
 use PHPUnit\Framework\TestCase;
 
 class PaymentsTest extends TestCase {
@@ -104,6 +106,7 @@ class PaymentsTest extends TestCase {
         $this->assertEquals($payment2, $payments1->getValues()[1]);
         $this->assertEquals($payment3, $payments1->getValues()[2]);
         $this->assertEquals($payment4, $payments1->getValues()[3]);
+        $this->assertEquals(CurrencyCode::Euro, $payments1->getValues()[0]->getCurrency());
         $payments2 = new Payments([$payment1, $payment2, $payment3, $payment4]);
         $this->assertInstanceOf(Payments::class, $payments2);
         $this->assertCount(4, $payments2->getValues());

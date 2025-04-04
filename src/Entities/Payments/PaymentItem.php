@@ -14,7 +14,7 @@ namespace Lexoffice\Entities\Payments;
 
 use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Enums\Currency;
+use CommonToolkit\Enums\CurrencyCode;
 use Lexoffice\Enums\PaymentItemType;
 use Psr\Log\LoggerInterface;
 
@@ -22,7 +22,7 @@ class PaymentItem extends NamedEntity {
     protected PaymentItemType $paymentItemType;
     protected DateTime $postingDate;
     protected float $amount;
-    protected Currency $currency;
+    protected CurrencyCode $currency;
 
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
@@ -40,7 +40,7 @@ class PaymentItem extends NamedEntity {
         return $this->amount;
     }
 
-    public function getCurrency(): Currency {
+    public function getCurrency(): CurrencyCode {
         return $this->currency;
     }
 }

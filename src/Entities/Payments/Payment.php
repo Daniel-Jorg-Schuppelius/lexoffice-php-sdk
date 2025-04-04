@@ -14,8 +14,8 @@ namespace Lexoffice\Entities\Payments;
 
 use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
+use CommonToolkit\Enums\CurrencyCode;
 use Lexoffice\Entities\Payments\PaymentItems;
-use Lexoffice\Enums\Currency;
 use Lexoffice\Enums\PaymentStatus;
 use Lexoffice\Enums\VoucherStatus;
 use Lexoffice\Enums\VoucherType;
@@ -23,7 +23,7 @@ use Psr\Log\LoggerInterface;
 
 class Payment extends NamedEntity {
     protected float $openAmount;
-    protected Currency $currency;
+    protected CurrencyCode $currency;
     protected PaymentStatus $paymentStatus;
     protected VoucherType $voucherType;
     protected VoucherStatus $voucherStatus;
@@ -38,7 +38,7 @@ class Payment extends NamedEntity {
         return $this->openAmount;
     }
 
-    public function getCurrency(): Currency {
+    public function getCurrency(): CurrencyCode {
         return $this->currency;
     }
 
