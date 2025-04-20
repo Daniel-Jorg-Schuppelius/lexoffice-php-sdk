@@ -14,6 +14,7 @@ namespace Tests\Contracts;
 
 use APIToolkit\Contracts\Interfaces\API\ApiClientInterface;
 use ERRORToolkit\Factories\ConsoleLoggerFactory;
+use ERRORToolkit\LoggerRegistry;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Tests\TestAPIClientFactory;
@@ -28,6 +29,7 @@ abstract class EndpointTest extends TestCase {
     public function __construct($name) {
         parent::__construct($name);
         $this->logger = ConsoleLoggerFactory::getLogger();
+        LoggerRegistry::setLogger($this->logger);
         $this->client = TestAPIClientFactory::getClient();
     }
 

@@ -20,7 +20,7 @@ class TestAPIClientFactory {
 
     public static function getClient(): ApiClientInterface {
         if (self::$client === null) {
-            $config = new PostmanConfig();
+            $config = new PostmanConfig(ConsoleLoggerFactory::getLogger());
             self::$client = new Client($config->getAccessToken(), $config->getResourceUrl() . '/v1/', ConsoleLoggerFactory::getLogger(), true);
         }
         return self::$client;
