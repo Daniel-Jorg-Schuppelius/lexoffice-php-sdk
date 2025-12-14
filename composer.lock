@@ -69,13 +69,17 @@
         {
             "name": "daniel-jorg-schuppelius/php-api-toolkit",
             "version": "v1.4.1",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit.git",
                 "reference": "6a4595a1582d602396d992cb2843fd33f4fbeb66"
+                "reference": "6a4595a1582d602396d992cb2843fd33f4fbeb66"
             },
             "dist": {
                 "type": "zip",
+                "url": "https://api.github.com/repos/Daniel-Jorg-Schuppelius/php-api-toolkit/zipball/6a4595a1582d602396d992cb2843fd33f4fbeb66",
+                "reference": "6a4595a1582d602396d992cb2843fd33f4fbeb66",
                 "url": "https://api.github.com/repos/Daniel-Jorg-Schuppelius/php-api-toolkit/zipball/6a4595a1582d602396d992cb2843fd33f4fbeb66",
                 "reference": "6a4595a1582d602396d992cb2843fd33f4fbeb66",
                 "shasum": ""
@@ -84,6 +88,8 @@
                 "dschuppelius/php-common-toolkit": "^0.4.2",
                 "guzzlehttp/guzzle": "^7.9 || ^8.0",
                 "php": "^8.2 || ^8.3",
+                "psr/log": "^3.0@dev",
+                "ramsey/uuid": "^4.9"
                 "psr/log": "^3.0@dev",
                 "ramsey/uuid": "^4.9"
             },
@@ -110,7 +116,9 @@
             "support": {
                 "issues": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/issues",
                 "source": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/tree/v1.4.1"
+                "source": "https://github.com/Daniel-Jorg-Schuppelius/php-api-toolkit/tree/v1.4.1"
             },
+            "time": "2025-08-27T10:59:31+00:00"
             "time": "2025-08-27T10:59:31+00:00"
         },
         {
@@ -164,13 +172,17 @@
         {
             "name": "dschuppelius/php-config-toolkit",
             "version": "v0.2.14",
+            "version": "v0.2.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DSchuppelius/php-config-toolkit.git",
                 "reference": "0c7ae5bc9ff45e7e856d225b251d1525c43208ed"
+                "reference": "0c7ae5bc9ff45e7e856d225b251d1525c43208ed"
             },
             "dist": {
                 "type": "zip",
+                "url": "https://api.github.com/repos/DSchuppelius/php-config-toolkit/zipball/0c7ae5bc9ff45e7e856d225b251d1525c43208ed",
+                "reference": "0c7ae5bc9ff45e7e856d225b251d1525c43208ed",
                 "url": "https://api.github.com/repos/DSchuppelius/php-config-toolkit/zipball/0c7ae5bc9ff45e7e856d225b251d1525c43208ed",
                 "reference": "0c7ae5bc9ff45e7e856d225b251d1525c43208ed",
                 "shasum": ""
@@ -203,7 +215,9 @@
             "support": {
                 "issues": "https://github.com/DSchuppelius/php-config-toolkit/issues",
                 "source": "https://github.com/DSchuppelius/php-config-toolkit/tree/v0.2.14"
+                "source": "https://github.com/DSchuppelius/php-config-toolkit/tree/v0.2.14"
             },
+            "time": "2025-08-27T12:07:44+00:00"
             "time": "2025-08-27T12:07:44+00:00"
         },
         {
@@ -253,19 +267,25 @@
         {
             "name": "guzzlehttp/guzzle",
             "version": "7.10.0",
+            "version": "7.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "b51ac707cfa420b7bfd4e4d5e510ba8008e822b4"
                 "reference": "b51ac707cfa420b7bfd4e4d5e510ba8008e822b4"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b51ac707cfa420b7bfd4e4d5e510ba8008e822b4",
                 "reference": "b51ac707cfa420b7bfd4e4d5e510ba8008e822b4",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/b51ac707cfa420b7bfd4e4d5e510ba8008e822b4",
+                "reference": "b51ac707cfa420b7bfd4e4d5e510ba8008e822b4",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
+                "guzzlehttp/promises": "^2.3",
+                "guzzlehttp/psr7": "^2.8",
                 "guzzlehttp/promises": "^2.3",
                 "guzzlehttp/psr7": "^2.8",
                 "php": "^7.2.5 || ^8.0",
@@ -359,6 +379,7 @@
             "support": {
                 "issues": "https://github.com/guzzle/guzzle/issues",
                 "source": "https://github.com/guzzle/guzzle/tree/7.10.0"
+                "source": "https://github.com/guzzle/guzzle/tree/7.10.0"
             },
             "funding": [
                 {
@@ -375,17 +396,22 @@
                 }
             ],
             "time": "2025-08-23T22:36:01+00:00"
+            "time": "2025-08-23T22:36:01+00:00"
         },
         {
             "name": "guzzlehttp/promises",
+            "version": "2.3.0",
             "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/promises.git",
                 "reference": "481557b130ef3790cf82b713667b43030dc9c957"
+                "reference": "481557b130ef3790cf82b713667b43030dc9c957"
             },
             "dist": {
                 "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/481557b130ef3790cf82b713667b43030dc9c957",
+                "reference": "481557b130ef3790cf82b713667b43030dc9c957",
                 "url": "https://api.github.com/repos/guzzle/promises/zipball/481557b130ef3790cf82b713667b43030dc9c957",
                 "reference": "481557b130ef3790cf82b713667b43030dc9c957",
                 "shasum": ""
@@ -395,6 +421,7 @@
             },
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.8.2",
+                "phpunit/phpunit": "^8.5.44 || ^9.6.25"
                 "phpunit/phpunit": "^8.5.44 || ^9.6.25"
             },
             "type": "library",
@@ -442,6 +469,7 @@
             "support": {
                 "issues": "https://github.com/guzzle/promises/issues",
                 "source": "https://github.com/guzzle/promises/tree/2.3.0"
+                "source": "https://github.com/guzzle/promises/tree/2.3.0"
             },
             "funding": [
                 {
@@ -458,17 +486,22 @@
                 }
             ],
             "time": "2025-08-22T14:34:08+00:00"
+            "time": "2025-08-22T14:34:08+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
+            "version": "2.8.0",
             "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
                 "reference": "21dc724a0583619cd1652f673303492272778051"
+                "reference": "21dc724a0583619cd1652f673303492272778051"
             },
             "dist": {
                 "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/21dc724a0583619cd1652f673303492272778051",
+                "reference": "21dc724a0583619cd1652f673303492272778051",
                 "url": "https://api.github.com/repos/guzzle/psr7/zipball/21dc724a0583619cd1652f673303492272778051",
                 "reference": "21dc724a0583619cd1652f673303492272778051",
                 "shasum": ""
@@ -486,6 +519,7 @@
             "require-dev": {
                 "bamarni/composer-bin-plugin": "^1.8.2",
                 "http-interop/http-factory-tests": "0.9.0",
+                "phpunit/phpunit": "^8.5.44 || ^9.6.25"
                 "phpunit/phpunit": "^8.5.44 || ^9.6.25"
             },
             "suggest": {
@@ -558,6 +592,7 @@
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
                 "source": "https://github.com/guzzle/psr7/tree/2.8.0"
+                "source": "https://github.com/guzzle/psr7/tree/2.8.0"
             },
             "funding": [
                 {
@@ -573,6 +608,7 @@
                     "type": "tidelift"
                 }
             ],
+            "time": "2025-08-23T21:21:41+00:00"
             "time": "2025-08-23T21:21:41+00:00"
         },
         {
@@ -986,13 +1022,17 @@
         {
             "name": "symfony/deprecation-contracts",
             "version": "v3.6.0",
+            "version": "v3.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
                 "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62"
+                "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62"
             },
             "dist": {
                 "type": "zip",
+                "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/63afe740e99a13ba87ec199bb07bbdee937a5b62",
+                "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62",
                 "url": "https://api.github.com/repos/symfony/deprecation-contracts/zipball/63afe740e99a13ba87ec199bb07bbdee937a5b62",
                 "reference": "63afe740e99a13ba87ec199bb07bbdee937a5b62",
                 "shasum": ""
@@ -1007,6 +1047,7 @@
                     "name": "symfony/contracts"
                 },
                 "branch-alias": {
+                    "dev-main": "3.6-dev"
                     "dev-main": "3.6-dev"
                 }
             },
@@ -1033,6 +1074,7 @@
             "homepage": "https://symfony.com",
             "support": {
                 "source": "https://github.com/symfony/deprecation-contracts/tree/v3.6.0"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.6.0"
             },
             "funding": [
                 {
@@ -1048,6 +1090,7 @@
                     "type": "tidelift"
                 }
             ],
+            "time": "2024-09-25T14:21:43+00:00"
             "time": "2024-09-25T14:21:43+00:00"
         }
     ],
@@ -2831,7 +2874,7 @@
     "platform": {
         "php": "^8.2 || ^8.3"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "platform-overrides": {
         "php": "8.2.0"
     },
