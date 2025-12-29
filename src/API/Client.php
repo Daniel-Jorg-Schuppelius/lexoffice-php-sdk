@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace Lexoffice\API;
 
+use APIToolkit\Contracts\Abstracts\API\Authentication\BearerAuthentication;
 use APIToolkit\Contracts\Abstracts\API\ClientAbstract;
 use Psr\Log\LoggerInterface;
 use GuzzleHttp\Client as HttpClient;
-use Psr\Http\Message\ResponseInterface;
 
 class Client extends ClientAbstract {
     public const MIN_INTERVAL = 0.5;
@@ -26,14 +26,13 @@ class Client extends ClientAbstract {
             'base_uri' => $baseUrl,
             'timeout' => 2.0,
             'headers' => [
-                'Authorization' => 'Bearer ' . $apiKey,
                 'Accept' => 'application/json',
                 'Content-Type' => 'application/json',
             ],
         ]), $logger, $sleepAfterRequest);
-    }
 
-    protected function requestWithRetry(string $method, string $uri, array $options = [], int $maxRetries = 3, int $retryDelay = 1): ResponseInterface {
-        return parent::requestWithRetry($method, $uri, $options, $maxRetries, $retryDelay);
+        if ($apiKey !== null) {
+            $this->setAuthentication(new BearerAuthentication($apiKey));
+        }
     }
 }
