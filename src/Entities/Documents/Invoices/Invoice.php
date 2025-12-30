@@ -22,6 +22,7 @@ use Lexoffice\Entities\Documents\PrintLayoutID;
 use Lexoffice\Entities\Documents\ShippingConditions;
 use Lexoffice\Entities\Documents\TaxConditions;
 use Lexoffice\Entities\Documents\TotalPrice;
+use Lexoffice\Enums\Language;
 use Psr\Log\LoggerInterface;
 
 class Invoice extends NamedDocument {
@@ -84,7 +85,7 @@ class Invoice extends NamedDocument {
         return $this->recurringTemplateId ?? null;
     }
 
-    public function setLanguage(string $language): void {
+    public function setLanguage(Language $language): void {
         $this->language = $language;
     }
 

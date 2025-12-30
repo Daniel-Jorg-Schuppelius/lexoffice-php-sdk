@@ -19,6 +19,7 @@ use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Lexoffice\Entities\Documents\PrintLayoutID;
 use Lexoffice\Entities\Documents\ShippingConditions;
 use Lexoffice\Entities\Documents\TaxConditions;
+use Lexoffice\Enums\Language;
 use Psr\Log\LoggerInterface;
 
 class Dunning extends NamedDocument {
@@ -46,7 +47,7 @@ class Dunning extends NamedDocument {
         return $this->shippingConditions;
     }
 
-    public function setLanguage(string $language): void {
+    public function setLanguage(Language $language): void {
         $this->language = $language;
     }
 

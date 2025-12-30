@@ -18,6 +18,7 @@ use Lexoffice\Entities\Documents\Address;
 use Lexoffice\Entities\Documents\LineItems;
 use Lexoffice\Entities\Documents\PrintLayoutID;
 use Lexoffice\Entities\Documents\TotalPrice;
+use Lexoffice\Enums\Language;
 use Psr\Log\LoggerInterface;
 
 class CreditNote extends NamedDocument {
@@ -39,7 +40,7 @@ class CreditNote extends NamedDocument {
         return $this->lineItems;
     }
 
-    public function setLanguage(string $language): void {
+    public function setLanguage(Language $language): void {
         $this->language = $language;
     }
 

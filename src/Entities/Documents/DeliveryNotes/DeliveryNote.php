@@ -18,6 +18,7 @@ use Lexoffice\Entities\Documents\Address;
 use Lexoffice\Entities\Documents\PrintLayoutID;
 use Lexoffice\Entities\Documents\ShippingConditions;
 use Lexoffice\Entities\Documents\TaxConditions;
+use Lexoffice\Enums\Language;
 use Psr\Log\LoggerInterface;
 
 class DeliveryNote extends NamedDocument {
@@ -45,7 +46,7 @@ class DeliveryNote extends NamedDocument {
         return $this->deliveryTerms ?? null;
     }
 
-    public function setLanguage(string $language): void {
+    public function setLanguage(Language $language): void {
         $this->language = $language;
     }
 
