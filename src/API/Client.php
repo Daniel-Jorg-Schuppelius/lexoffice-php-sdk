@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Lexoffice\API;
 
-use APIToolkit\Contracts\Abstracts\API\Authentication\BearerAuthentication;
+use APIToolkit\API\Authentication\BearerAuthentication;
 use APIToolkit\Contracts\Abstracts\API\ClientAbstract;
 use Psr\Log\LoggerInterface;
 
