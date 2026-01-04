@@ -211,7 +211,7 @@ vendor/bin/phpunit
 
 Dieses Projekt ist unter der [MIT-Lizenz](LICENSE) lizenziert.
 
-## � Unterstützung
+## 💖 Unterstützung
 
 Wenn Ihnen dieses Projekt gefällt und es Ihnen bei Ihrer Arbeit hilft, würde ich mich sehr über eine Spende freuen!
 
