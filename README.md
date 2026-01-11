@@ -114,7 +114,7 @@ docs/
 ├── lexoffice-API-Samples.postman_collection.json  # Postman Collection (korrigiert)
 └── NOTES.md                        # Dokumentierte Abweichungen zur offiziellen API
 
-scripts/
+tools/
 └── check-endpoint-coverage.php     # Prüft SDK-Abdeckung gegen Postman Collection
 
 src/
