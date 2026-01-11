@@ -15,6 +15,9 @@ namespace Lexoffice\Entities\Files;
 use APIToolkit\Contracts\Abstracts\NamedValues;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @extends NamedValues<File>
+ */
 class Files extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = File::class;

@@ -16,6 +16,9 @@ use APIToolkit\Contracts\Abstracts\NamedValues;
 use Lexoffice\Entities\Sort;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @extends NamedValues<Sort>
+ */
 class Collations extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = Sort::class;

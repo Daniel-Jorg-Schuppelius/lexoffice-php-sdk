@@ -14,21 +14,25 @@ namespace Lexoffice\Contracts\Abstracts\API;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
-use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
-use Lexoffice\Entities\Documents\DocumentFileID;
 use APIToolkit\Entities\ID;
+use Lexoffice\Contracts\Interfaces\API\DocumentEndpointInterface;
 use Lexoffice\Contracts\Interfaces\ResourceNamedEntityInterface;
+use Lexoffice\Entities\Documents\DocumentFileID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 abstract class DocumentEndpointAbstract extends EndpointAbstract implements DocumentEndpointInterface {
-    abstract public function create(NamedEntityInterface $data, ID $id = null): ResourceNamedEntityInterface;
+    abstract public function create(NamedEntityInterface $data, ?ID $id = null, bool $finalize = false): ResourceNamedEntityInterface;
     abstract public function get(?ID $id = null): NamedEntityInterface;
     abstract public function pursue(VoucherID $id, bool $finalize = false): ResourceNamedEntityInterface;
 
     public function render(ID $id): DocumentFileID {
-        $response = $this->client->get("{$this->getEndpointUrl()}/{$id->toString()}/document");
-        $body = $this->handleResponse($response, 200);
+        self::logDebug('Rendering document', ['id' => $id->toString(), 'endpoint' => $this->endpoint]);
 
-        return DocumentFileID::fromJson($body);
+        return self::logInfoWithTimer(function () use ($id) {
+            $response = $this->client->get("{$this->getEndpointUrl()}/{$id->toString()}/document");
+            $body = $this->handleResponse($response, 200);
+
+            return DocumentFileID::fromJson($body);
+        }, "Document rendered (ID: {$id->toString()})");
     }
 }

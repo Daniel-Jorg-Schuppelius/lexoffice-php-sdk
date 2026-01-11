@@ -15,6 +15,9 @@ namespace Lexoffice\Entities\PaymentConditions;
 use APIToolkit\Contracts\Abstracts\NamedValues;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @extends NamedValues<PaymentCondition>
+ */
 class PaymentConditions extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = PaymentCondition::class;

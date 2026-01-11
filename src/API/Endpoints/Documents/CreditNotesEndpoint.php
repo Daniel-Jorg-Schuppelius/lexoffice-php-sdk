@@ -8,40 +8,67 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints\Documents;
 
-use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Entities\ID;
+use InvalidArgumentException;
+use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
 use Lexoffice\Entities\Documents\CreditNotes\CreditNoteResource;
-use APIToolkit\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class CreditNotesEndpoint extends DocumentEndpointAbstract {
     protected string $endpoint = 'credit-notes';
 
-    public function create(NamedEntityInterface $data, ID $id = null): CreditNoteResource {
+    public function create(NamedEntityInterface $data, ?ID $id = null, bool $finalize = false): CreditNoteResource {
         if (!$data->isValid()) {
-            throw new \InvalidArgumentException('Data is not valid');
+            self::logErrorAndThrow(InvalidArgumentException::class, 'Credit note data is not valid');
         }
 
-        $response = $this->client->post($this->getEndpointUrl(), [
-            'body' => $data->toJson(),
-        ]);
-        $body = $this->handleResponse($response, 201);
+        self::logDebug('Creating credit note', ['endpoint' => $this->endpoint, 'finalize' => $finalize]);
 
-        return CreditNoteResource::fromJson($body);
+        return self::logInfoWithTimer(function () use ($data, $finalize) {
+            $url = $this->getEndpointUrl();
+            if ($finalize) {
+                $url .= '?finalize=true';
+            }
+            $response = $this->client->post($url, [
+                'body' => $data->toJson(),
+            ]);
+            $body = $this->handleResponse($response, 201);
+
+            return CreditNoteResource::fromJson($body);
+        }, 'Credit note created');
     }
 
     public function get(?ID $id = null): CreditNote {
         if (is_null($id)) {
-            throw new \InvalidArgumentException('ID is required');
+            self::logErrorAndThrow(InvalidArgumentException::class, 'ID is required for getting a credit note');
         }
 
-        return CreditNote::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
+        self::logDebug('Fetching credit note', ['id' => $id->toString()]);
+
+        return self::logDebugWithTimer(
+            fn() => CreditNote::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            "Credit note fetched (ID: {$id->toString()})"
+        );
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): CreditNoteResource {
-        return CreditNoteResource::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}[&finalize=$finalize]"));
+        self::logDebug('Pursuing credit note from voucher', ['voucherId' => $id->toString(), 'finalize' => $finalize]);
+
+        return self::logInfoWithTimer(function () use ($id, $finalize) {
+            $url = "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}";
+            if ($finalize) {
+                $url .= '&finalize=true';
+            }
+            $response = $this->client->post($url, ['body' => '{}']);
+            $body = $this->handleResponse($response, 201);
+
+            return CreditNoteResource::fromJson($body);
+        }, "Credit note pursued from voucher (ID: {$id->toString()})");
     }
 }

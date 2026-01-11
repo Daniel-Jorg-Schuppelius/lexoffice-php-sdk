@@ -8,28 +8,38 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
-use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
-use Lexoffice\Entities\VoucherList\VoucherListPage;
 use APIToolkit\Entities\ID;
+use InvalidArgumentException;
+use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\VoucherList\Vouchers;
+use Lexoffice\Entities\VoucherList\VoucherListPage;
 
 class VoucherListEndpoint extends EndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'voucherlist';
 
     public function get(?ID $id = null): Vouchers {
-        return $this->search(["voucherType" => "any", "voucherStatus" => "any"])->getContent();
+        self::logDebug('Getting all vouchers');
+
+        return $this->search(['voucherType' => 'any', 'voucherStatus' => 'any'])->getContent();
     }
 
     public function search(array $queryParams = [], array $options = []): VoucherListPage {
         if (!isset($queryParams['voucherType'])) {
-            throw new \InvalidArgumentException('voucherType is required in $queryParams');
-        } else if (!isset($queryParams['voucherStatus'])) {
-            throw new \InvalidArgumentException('voucherStatus is required in $queryParams');
+            self::logErrorAndThrow(InvalidArgumentException::class, 'voucherType is required in $queryParams');
+        } elseif (!isset($queryParams['voucherStatus'])) {
+            self::logErrorAndThrow(InvalidArgumentException::class, 'voucherStatus is required in $queryParams');
         }
 
-        return VoucherListPage::fromJson(parent::getContents($queryParams, $options));
+        self::logDebug('Searching voucher list', ['queryParams' => $queryParams]);
+
+        return self::logDebugWithTimer(
+            fn() => VoucherListPage::fromJson(parent::getContents($queryParams, $options)),
+            'Voucher list search completed'
+        );
     }
 }

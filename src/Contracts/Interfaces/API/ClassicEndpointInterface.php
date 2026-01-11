@@ -18,7 +18,7 @@ use APIToolkit\Entities\ID;
 use Lexoffice\Contracts\Interfaces\ResourceNamedEntityInterface;
 
 interface ClassicEndpointInterface extends EndpointInterface {
-    public function create(NamedEntityInterface $data, ID $id = null): ResourceNamedEntityInterface;
+    public function create(NamedEntityInterface $data, ?ID $id = null): ResourceNamedEntityInterface;
     public function update(ID $id, NamedEntityInterface $data): ResourceNamedEntityInterface;
     public function delete(ID $id): bool;
 }

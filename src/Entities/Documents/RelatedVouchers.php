@@ -15,6 +15,9 @@ namespace Lexoffice\Entities\Documents;
 use APIToolkit\Contracts\Abstracts\NamedValues;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @extends NamedValues<RelatedVoucher>
+ */
 class RelatedVouchers extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = RelatedVoucher::class;

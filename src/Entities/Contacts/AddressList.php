@@ -16,6 +16,9 @@ use APIToolkit\Contracts\Abstracts\NamedValues;
 use APIToolkit\Entities\Common\Address;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @extends NamedValues<Address>
+ */
 class AddressList extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = Address::class;

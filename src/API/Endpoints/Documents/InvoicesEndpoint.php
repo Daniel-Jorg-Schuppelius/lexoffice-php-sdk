@@ -8,40 +8,67 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints\Documents;
 
-use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Entities\ID;
+use InvalidArgumentException;
+use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use Lexoffice\Entities\Documents\Invoices\Invoice;
 use Lexoffice\Entities\Documents\Invoices\InvoiceResource;
-use APIToolkit\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class InvoicesEndpoint extends DocumentEndpointAbstract {
     protected string $endpoint = 'invoices';
 
-    public function create(NamedEntityInterface $data, ID $id = null): InvoiceResource {
+    public function create(NamedEntityInterface $data, ?ID $id = null, bool $finalize = false): InvoiceResource {
         if (!$data->isValid()) {
-            throw new \InvalidArgumentException('Data is not valid');
+            self::logErrorAndThrow(InvalidArgumentException::class, 'Invoice data is not valid');
         }
 
-        $response = $this->client->post($this->getEndpointUrl(), [
-            'body' => $data->toJson(),
-        ]);
-        $body = $this->handleResponse($response, 201);
+        self::logDebug('Creating invoice', ['endpoint' => $this->endpoint, 'finalize' => $finalize]);
 
-        return InvoiceResource::fromJson($body);
+        return self::logInfoWithTimer(function () use ($data, $finalize) {
+            $url = $this->getEndpointUrl();
+            if ($finalize) {
+                $url .= '?finalize=true';
+            }
+            $response = $this->client->post($url, [
+                'body' => $data->toJson(),
+            ]);
+            $body = $this->handleResponse($response, 201);
+
+            return InvoiceResource::fromJson($body);
+        }, 'Invoice created');
     }
 
     public function get(?ID $id = null): Invoice {
         if (is_null($id)) {
-            throw new \InvalidArgumentException('ID is required');
+            self::logErrorAndThrow(InvalidArgumentException::class, 'ID is required for getting an invoice');
         }
 
-        return Invoice::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
+        self::logDebug('Fetching invoice', ['id' => $id->toString()]);
+
+        return self::logDebugWithTimer(
+            fn() => Invoice::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            "Invoice fetched (ID: {$id->toString()})"
+        );
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): InvoiceResource {
-        return InvoiceResource::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}[&finalize=$finalize]"));
+        self::logDebug('Pursuing invoice from voucher', ['voucherId' => $id->toString(), 'finalize' => $finalize]);
+
+        return self::logInfoWithTimer(function () use ($id, $finalize) {
+            $url = "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}";
+            if ($finalize) {
+                $url .= '&finalize=true';
+            }
+            $response = $this->client->post($url, ['body' => '{}']);
+            $body = $this->handleResponse($response, 201);
+
+            return InvoiceResource::fromJson($body);
+        }, "Invoice pursued from voucher (ID: {$id->toString()})");
     }
 }

@@ -15,6 +15,9 @@ namespace Lexoffice\Entities\PrintLayouts;
 use APIToolkit\Contracts\Abstracts\NamedValues;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @extends NamedValues<PrintLayout>
+ */
 class PrintLayouts extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = PrintLayout::class;

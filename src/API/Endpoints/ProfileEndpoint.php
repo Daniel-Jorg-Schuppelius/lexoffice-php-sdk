@@ -8,16 +8,23 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
-use Lexoffice\Entities\Profile\Profile;
 use APIToolkit\Entities\ID;
+use Lexoffice\Entities\Profile\Profile;
 
 class ProfileEndpoint extends EndpointAbstract {
     protected string $endpoint = 'profile';
 
     public function get(?ID $id = null): Profile {
-        return Profile::fromJson(parent::getContents());
+        self::logDebug('Fetching profile');
+
+        return self::logDebugWithTimer(
+            fn() => Profile::fromJson(parent::getContents()),
+            'Profile fetched'
+        );
     }
 }

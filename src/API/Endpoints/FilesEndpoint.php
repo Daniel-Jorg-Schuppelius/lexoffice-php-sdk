@@ -8,56 +8,67 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
+use APIToolkit\Entities\ID;
+use InvalidArgumentException;
 use Lexoffice\Entities\Files\File;
 use Lexoffice\Entities\Files\FileResource;
-use APIToolkit\Entities\ID;
 
 class FilesEndpoint extends EndpointAbstract {
     protected string $endpoint = 'files';
 
     public function upload(File $file): FileResource {
-        $response = $this->client->post($this->getEndpointUrl(), [
-            'multipart' => [
-                [
-                    'name' => 'file',
-                    'contents' => fopen($file->getFilePath(), 'r'),
-                    'filename' => basename($file->getFilePath()),
-                ],
-                [
-                    'name'     => 'type',
-                    'contents' => 'voucher',
-                ],
-            ],
-            'timeout' => 120,
-        ]);
-        $body = $this->handleResponse($response, 202);
+        self::logDebug('Uploading file', ['filePath' => $file->getFilePath()]);
 
-        return FileResource::fromJson($body);
+        return self::logInfoWithTimer(function () use ($file) {
+            $response = $this->client->post($this->getEndpointUrl(), [
+                'multipart' => [
+                    [
+                        'name' => 'file',
+                        'contents' => fopen($file->getFilePath(), 'r'),
+                        'filename' => basename($file->getFilePath()),
+                    ],
+                    [
+                        'name'     => 'type',
+                        'contents' => 'voucher',
+                    ],
+                ],
+                'timeout' => 120,
+            ]);
+            $body = $this->handleResponse($response, 202);
+
+            return FileResource::fromJson($body);
+        }, 'File uploaded');
     }
 
     public function download(ID $id, string $path): File {
-        $response = $this->client->get("{$this->getEndpointUrl()}/{$id->toString()}");
+        self::logDebug('Downloading file', ['id' => $id->toString(), 'path' => $path]);
 
-        $body = $this->handleResponse($response, 200);
+        return self::logInfoWithTimer(function () use ($id, $path) {
+            $response = $this->client->get("{$this->getEndpointUrl()}/{$id->toString()}");
 
-        $contentDisposition = $response->getHeader('Content-Disposition')[0];
-        preg_match('/filename[^;=\n]*=((["\']).*?\2|[^;\n]*)/', $contentDisposition, $matches);
-        $filePath = $path . (substr($path, -1) !== '/' || substr($path, -1) !== '\\' ? '/' : '') . $matches[1] ?? 'downloaded_file';
+            $body = $this->handleResponse($response, 200);
 
-        file_put_contents($filePath, base64_decode($body));
+            $contentDisposition = $response->getHeader('Content-Disposition')[0];
+            preg_match('/filename[^;=\n]*=((["\']).*?\2|[^;\n]*)/', $contentDisposition, $matches);
+            $filePath = $path . (substr($path, -1) !== '/' || substr($path, -1) !== '\\' ? '/' : '') . $matches[1] ?? 'downloaded_file';
 
-        return new File([
-            'id' => $id->toString(),
-            'filePath' => $filePath,
-        ]);
+            file_put_contents($filePath, base64_decode($body));
+
+            return new File([
+                'id' => $id->toString(),
+                'filePath' => $filePath,
+            ]);
+        }, "File downloaded (ID: {$id->toString()})");
     }
 
     public function get(?ID $id = null): File {
         if (is_null($id)) {
-            throw new \InvalidArgumentException('ID is required');
+            self::logErrorAndThrow(InvalidArgumentException::class, 'ID is required for getting a file');
         }
 
         return $this->download($id, sys_get_temp_dir());

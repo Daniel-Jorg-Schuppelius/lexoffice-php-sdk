@@ -8,23 +8,30 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
+use APIToolkit\Entities\ID;
+use APIToolkit\Exceptions\NotAllowedException;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\PrintLayouts\PrintLayout;
-use APIToolkit\Entities\ID;
 use Lexoffice\Entities\PrintLayouts\PrintLayouts;
-use APIToolkit\Exceptions\NotAllowedException;
 
 class PrintLayoutsEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'print-layouts';
 
     public function get(?ID $id = null): PrintLayout {
-        throw new NotAllowedException('Not Allowed', 405);
+        self::logErrorAndThrow(NotAllowedException::class, 'Getting a single print layout is not allowed', [], null, 405);
     }
 
     public function list(array $options = []): PrintLayouts {
-        return PrintLayouts::fromJson(parent::getContents([], $options));
+        self::logDebug('Listing print layouts');
+
+        return self::logDebugWithTimer(
+            fn() => PrintLayouts::fromJson(parent::getContents([], $options)),
+            'Print layouts list fetched'
+        );
     }
 }

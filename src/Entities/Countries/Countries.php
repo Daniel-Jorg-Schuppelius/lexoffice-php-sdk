@@ -15,6 +15,9 @@ namespace Lexoffice\Entities\Countries;
 use APIToolkit\Contracts\Abstracts\NamedValues;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @extends NamedValues<Country>
+ */
 class Countries extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = Country::class;

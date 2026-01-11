@@ -8,23 +8,30 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
+use APIToolkit\Entities\ID;
+use APIToolkit\Exceptions\NotAllowedException;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
 use Lexoffice\Entities\PaymentConditions\PaymentCondition;
 use Lexoffice\Entities\PaymentConditions\PaymentConditions;
-use APIToolkit\Entities\ID;
-use APIToolkit\Exceptions\NotAllowedException;
 
 class PaymentConditionsEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'payment-conditions';
 
     public function get(?ID $id = null): PaymentCondition {
-        throw new NotAllowedException('Not Allowed', 405);
+        self::logErrorAndThrow(NotAllowedException::class, 'Getting a single payment condition is not allowed', [], null, 405);
     }
 
     public function list(array $options = []): PaymentConditions {
-        return PaymentConditions::fromJson(parent::getContents([], $options));
+        self::logDebug('Listing payment conditions');
+
+        return self::logDebugWithTimer(
+            fn() => PaymentConditions::fromJson(parent::getContents([], $options)),
+            'Payment conditions list fetched'
+        );
     }
 }

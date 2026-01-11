@@ -20,7 +20,7 @@ use Lexoffice\Entities\Documents\DocumentFileID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 interface DocumentEndpointInterface extends EndpointInterface {
-    public function create(NamedEntityInterface $data, ID $id = null): ResourceNamedEntityInterface;
+    public function create(NamedEntityInterface $data, ?ID $id = null, bool $finalize = false): ResourceNamedEntityInterface;
     public function render(ID $id): DocumentFileID;
     public function pursue(VoucherID $id, bool $finalize = false): ResourceNamedEntityInterface;
 }

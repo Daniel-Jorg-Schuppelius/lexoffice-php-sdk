@@ -110,6 +110,13 @@ $profile = $endpoint->get();
 ## 🏗️ Projektstruktur
 
 ```
+docs/
+├── lexoffice-API-Samples.postman_collection.json  # Postman Collection (korrigiert)
+└── NOTES.md                        # Dokumentierte Abweichungen zur offiziellen API
+
+scripts/
+└── check-endpoint-coverage.php     # Prüft SDK-Abdeckung gegen Postman Collection
+
 src/
 ├── API/
 │   ├── Client.php                  # API Client mit Bearer Auth
@@ -139,7 +146,7 @@ src/
 │   ├── Abstracts/                  # Basis-Klassen
 │   └── Interfaces/                 # Interface-Definitionen
 ├── Entities/                       # Domain-Entities
-└── Enums/                          # Enumerations (20+ Typen)
+└── Enums/                          # Enumerations (20 Typen)
 ```
 
 ## 🔌 API-Endpunkte
@@ -203,9 +210,20 @@ vendor/bin/phpunit
 
 ## 📖 Abhängigkeiten
 
-- [php-api-toolkit](https://github.com/daniel-jorg-schuppelius/php-api-toolkit) (^2.0) - Basis-Klassen für Clients, Endpoints und Entities
+- [php-api-toolkit](https://github.com/daniel-jorg-schuppelius/php-api-toolkit) (^2.2) - Basis-Klassen für Clients, Endpoints und Entities
 - [GuzzleHttp](https://github.com/guzzle/guzzle) - HTTP Client
 - [PSR-3 Logger](https://www.php-fig.org/psr/psr-3/) - Logging-Interface
+
+### Toolkit-Features
+
+Das SDK nutzt die erweiterten Funktionen des php-api-toolkit:
+
+| Feature | Beschreibung |
+|---------|--------------|
+| **E-Mail-Validierung** | `EmailAddress::isValid()`, `getDomain()`, `isDisposable()` |
+| **Telefonnummer-Formatierung** | `PhoneNumber::toE164()`, `format()`, `isGermanMobile()` |
+| **Adress-Validierung** | `Address::isValidZip()`, `getGermanState()`, `getFullAddress()` |
+| **Personen-Handling** | Strukturierte Vor-/Nachname-Verwaltung mit Anrede |
 
 ## 📄 Lizenz
 

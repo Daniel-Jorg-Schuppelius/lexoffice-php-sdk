@@ -15,6 +15,9 @@ namespace Lexoffice\Entities\Profile;
 use APIToolkit\Contracts\Abstracts\NamedValues;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @extends NamedValues<BusinessFeature>
+ */
 class BusinessFeatures extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = BusinessFeature::class;

@@ -15,6 +15,9 @@ namespace Lexoffice\Entities\Documents\Invoices;
 use APIToolkit\Contracts\Abstracts\NamedValues;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @extends NamedValues<DownPaymentDeduction>
+ */
 class DownPaymentDeductions extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = DownPaymentDeduction::class;

@@ -8,36 +8,82 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints\Documents;
 
-use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Entities\ID;
+use InvalidArgumentException;
+use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
 use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNoteResource;
-use APIToolkit\Entities\ID;
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
     protected string $endpoint = 'delivery-notes';
 
-    public function create(NamedEntityInterface $data, ID $id = null): DeliveryNoteResource {
-        $response = $this->client->post($this->getEndpointUrl(), [
-            'body' => $data->toJson(),
-        ]);
-        $body = $this->handleResponse($response, 201);
+    public function create(NamedEntityInterface $data, ?ID $id = null, bool $finalize = false): DeliveryNoteResource {
+        self::logDebug('Creating delivery note', ['endpoint' => $this->endpoint, 'finalize' => $finalize]);
 
-        return DeliveryNoteResource::fromJson($body);
+        return self::logInfoWithTimer(function () use ($data, $finalize) {
+            $url = $this->getEndpointUrl();
+            if ($finalize) {
+                $url .= '?finalize=true';
+            }
+            $response = $this->client->post($url, [
+                'body' => $data->toJson(),
+            ]);
+            $body = $this->handleResponse($response, 201);
+
+            return DeliveryNoteResource::fromJson($body);
+        }, 'Delivery note created');
     }
 
     public function get(?ID $id = null): DeliveryNote {
         if (is_null($id)) {
-            throw new \InvalidArgumentException('ID is required');
+            self::logErrorAndThrow(InvalidArgumentException::class, 'ID is required for getting a delivery note');
         }
 
-        return DeliveryNote::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
+        self::logDebug('Fetching delivery note', ['id' => $id->toString()]);
+
+        return self::logDebugWithTimer(
+            fn() => DeliveryNote::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            "Delivery note fetched (ID: {$id->toString()})"
+        );
     }
 
     public function pursue(VoucherID $id, bool $finalize = false): DeliveryNoteResource {
-        return DeliveryNoteResource::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}"));
+        self::logDebug('Pursuing delivery note from voucher', ['voucherId' => $id->toString()]);
+
+        return self::logInfoWithTimer(function () use ($id) {
+            $url = "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}";
+            $response = $this->client->post($url, ['body' => '{}']);
+            $body = $this->handleResponse($response, 201);
+
+            return DeliveryNoteResource::fromJson($body);
+        }, "Delivery note pursued from voucher (ID: {$id->toString()})");
+    }
+
+    public function sendMail(ID $id, array $recipients, ?string $message = null, ?string $signature = null, array $attachments = []): void {
+        self::logDebug('Sending delivery note via email', ['id' => $id->toString(), 'recipients' => $recipients]);
+
+        self::logInfoWithTimer(function () use ($id, $recipients, $message, $signature, $attachments) {
+            $payload = ['recipients' => $recipients];
+            if ($message !== null) {
+                $payload['message'] = $message;
+            }
+            if ($signature !== null) {
+                $payload['signature'] = $signature;
+            }
+            if (!empty($attachments)) {
+                $payload['attachments'] = $attachments;
+            }
+
+            $response = $this->client->post("{$this->getEndpointUrl()}/{$id->toString()}/sendmail", [
+                'body' => json_encode($payload),
+            ]);
+            $this->handleResponse($response, 204);
+        }, "Delivery note sent via email (ID: {$id->toString()})");
     }
 }

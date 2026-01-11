@@ -8,26 +8,39 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints\Documents;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
+use APIToolkit\Entities\ID;
+use InvalidArgumentException;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
 use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplatesPage;
-use APIToolkit\Entities\ID;
 
 class RecurringTemplatesEndpoint extends EndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'recurring-templates';
 
     public function get(?ID $id = null): RecurringTemplate {
         if (is_null($id)) {
-            throw new \InvalidArgumentException('ID is required');
+            self::logErrorAndThrow(InvalidArgumentException::class, 'ID is required for getting a recurring template');
         }
 
-        return RecurringTemplate::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}"));
+        self::logDebug('Fetching recurring template', ['id' => $id->toString()]);
+
+        return self::logDebugWithTimer(
+            fn() => RecurringTemplate::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            "Recurring template fetched (ID: {$id->toString()})"
+        );
     }
 
     public function search(array $queryParams = [], array $options = []): RecurringTemplatesPage {
-        return RecurringTemplatesPage::fromJson(parent::getContents($queryParams, $options));
+        self::logDebug('Searching recurring templates', ['queryParams' => $queryParams]);
+
+        return self::logDebugWithTimer(
+            fn() => RecurringTemplatesPage::fromJson(parent::getContents($queryParams, $options)),
+            'Recurring templates search completed'
+        );
     }
 }

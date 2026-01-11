@@ -8,54 +8,79 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Entities\ID;
+use InvalidArgumentException;
 use Lexoffice\Contracts\Interfaces\API\ClassicEndpointInterface;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use Lexoffice\Entities\Articles\Article;
 use Lexoffice\Entities\Articles\ArticleResource;
 use Lexoffice\Entities\Articles\ArticlesPage;
-use APIToolkit\Entities\ID;
 
 class ArticlesEndpoint extends EndpointAbstract implements ClassicEndpointInterface, SearchableEndpointInterface {
     protected string $endpoint = 'articles';
 
-    public function create(NamedEntityInterface $data, ID $id = null): ArticleResource {
-        $response = $this->client->post($this->getEndpointUrl(), [
-            'body' => $data->toJson(),
-        ]);
-        $body = $this->handleResponse($response, 201);
+    public function create(NamedEntityInterface $data, ?ID $id = null): ArticleResource {
+        self::logDebug('Creating article', ['endpoint' => $this->endpoint]);
 
-        return ArticleResource::fromJson($body);
+        return self::logInfoWithTimer(function () use ($data) {
+            $response = $this->client->post($this->getEndpointUrl(), [
+                'body' => $data->toJson(),
+            ]);
+            $body = $this->handleResponse($response, 201);
+
+            return ArticleResource::fromJson($body);
+        }, 'Article created');
     }
 
     public function get(?ID $id = null): Article {
         if (is_null($id)) {
-            throw new \InvalidArgumentException('ID is required');
+            self::logErrorAndThrow(InvalidArgumentException::class, 'ID is required for getting an article');
         }
 
-        return Article::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}"));
+        self::logDebug('Fetching article', ['id' => $id->toString()]);
+
+        return self::logDebugWithTimer(
+            fn() => Article::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}")),
+            "Article fetched (ID: {$id->toString()})"
+        );
     }
 
     public function update(ID $id, NamedEntityInterface $data): ArticleResource {
-        $response = $this->client->put("{$this->getEndpointUrl()}/{$id->toString()}", [
-            'body' => $data->toJson(),
-        ]);
-        $body = $this->handleResponse($response, 200);
+        self::logDebug('Updating article', ['id' => $id->toString()]);
 
-        return ArticleResource::fromJson($body);
+        return self::logInfoWithTimer(function () use ($id, $data) {
+            $response = $this->client->put("{$this->getEndpointUrl()}/{$id->toString()}", [
+                'body' => $data->toJson(),
+            ]);
+            $body = $this->handleResponse($response, 200);
+
+            return ArticleResource::fromJson($body);
+        }, "Article updated (ID: {$id->toString()})");
     }
 
     public function delete(ID $id): bool {
-        $response = $this->client->delete("{$this->getEndpointUrl()}/{$id->toString()}");
-        $this->handleResponse($response, 204);
+        self::logDebug('Deleting article', ['id' => $id->toString()]);
 
-        return true;
+        return self::logInfoWithTimer(function () use ($id) {
+            $response = $this->client->delete("{$this->getEndpointUrl()}/{$id->toString()}");
+            $this->handleResponse($response, 204);
+
+            return true;
+        }, "Article deleted (ID: {$id->toString()})");
     }
 
     public function search(array $queryParams = [], array $options = []): ArticlesPage {
-        return ArticlesPage::fromJson(parent::getContents($queryParams, $options));
+        self::logDebug('Searching articles', ['queryParams' => $queryParams]);
+
+        return self::logDebugWithTimer(
+            fn() => ArticlesPage::fromJson(parent::getContents($queryParams, $options)),
+            'Articles search completed'
+        );
     }
 }

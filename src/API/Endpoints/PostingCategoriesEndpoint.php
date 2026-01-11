@@ -8,23 +8,30 @@
  * License Uri  : https://opensource.org/license/mit
  */
 
+declare(strict_types=1);
+
 namespace Lexoffice\API\Endpoints;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
-use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
-use Lexoffice\Entities\PostingCategories\PostingCategory;
-use Lexoffice\Entities\PostingCategories\PostingCategories;
 use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
+use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
+use Lexoffice\Entities\PostingCategories\PostingCategories;
+use Lexoffice\Entities\PostingCategories\PostingCategory;
 
 class PostingCategoriesEndpoint extends EndpointAbstract implements ListableEndpointInterface {
-    protected string $endpoint = 'payment-conditions';
+    protected string $endpoint = 'posting-categories';
 
     public function get(?ID $id = null): PostingCategory {
-        throw new NotAllowedException('Not Allowed', 405);
+        self::logErrorAndThrow(NotAllowedException::class, 'Getting a single posting category is not allowed', [], null, 405);
     }
 
     public function list(array $options = []): PostingCategories {
-        return PostingCategories::fromJson(parent::getContents([], $options));
+        self::logDebug('Listing posting categories');
+
+        return self::logDebugWithTimer(
+            fn() => PostingCategories::fromJson(parent::getContents([], $options)),
+            'Posting categories list fetched'
+        );
     }
 }

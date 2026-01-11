@@ -15,6 +15,9 @@ namespace Lexoffice\Entities\PostingCategories;
 use APIToolkit\Contracts\Abstracts\NamedValues;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @extends NamedValues<PostingCategory>
+ */
 class PostingCategories extends NamedValues {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = PostingCategory::class;
