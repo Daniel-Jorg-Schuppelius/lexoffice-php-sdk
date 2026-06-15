@@ -21,24 +21,58 @@ use Lexoffice\Entities\Files\FileResource;
 class FilesEndpoint extends EndpointAbstract {
     protected string $endpoint = 'files';
 
-    public function upload(File $file): FileResource {
-        self::logDebug('Uploading file', ['filePath' => $file->getFilePath()]);
+    public const UPLOAD_TIMEOUT = 120.0;
 
-        return self::logInfoWithTimer(function () use ($file) {
-            $response = $this->client->post($this->getEndpointUrl(), [
-                'multipart' => [
-                    [
-                        'name' => 'file',
-                        'contents' => fopen($file->getFilePath(), 'r'),
-                        'filename' => basename($file->getFilePath()),
+    public function upload(File $file): FileResource {
+        $filePath = $file->getFilePath();
+
+        if ($filePath === null || !is_file($filePath) || !is_readable($filePath)) {
+            self::logErrorAndThrow(InvalidArgumentException::class, 'File to upload does not exist or is not readable');
+        }
+
+        self::logDebug('Uploading file', ['filePath' => $filePath]);
+
+        return self::logInfoWithTimer(function () use ($filePath) {
+            $handle = fopen($filePath, 'r');
+            if ($handle === false) {
+                self::logErrorAndThrow(InvalidArgumentException::class, 'Unable to open file for upload');
+            }
+
+            // Uploads need a generous timeout. The underlying client overrides the
+            // per-request "timeout" option with its own configured timeout, so raise
+            // the client timeout for the duration of the upload (and restore it).
+            $previousTimeout = null;
+            if (method_exists($this->client, 'getTimeout') && method_exists($this->client, 'setTimeout')) {
+                $previousTimeout = $this->client->getTimeout();
+                if ($previousTimeout < self::UPLOAD_TIMEOUT) {
+                    $this->client->setTimeout(self::UPLOAD_TIMEOUT);
+                }
+            }
+
+            try {
+                $response = $this->client->post($this->getEndpointUrl(), [
+                    'multipart' => [
+                        [
+                            'name' => 'file',
+                            'contents' => $handle,
+                            'filename' => basename($filePath),
+                        ],
+                        [
+                            'name'     => 'type',
+                            'contents' => 'voucher',
+                        ],
                     ],
-                    [
-                        'name'     => 'type',
-                        'contents' => 'voucher',
-                    ],
-                ],
-                'timeout' => 120,
-            ]);
+                    'timeout' => self::UPLOAD_TIMEOUT,
+                ]);
+            } finally {
+                if ($previousTimeout !== null) {
+                    $this->client->setTimeout($previousTimeout);
+                }
+                if (is_resource($handle)) {
+                    fclose($handle);
+                }
+            }
+
             $body = $this->handleResponse($response, 202);
 
             return FileResource::fromJson($body);
@@ -53,11 +87,17 @@ class FilesEndpoint extends EndpointAbstract {
 
             $body = $this->handleResponse($response, 200);
 
-            $contentDisposition = $response->getHeader('Content-Disposition')[0];
-            preg_match('/filename[^;=\n]*=((["\']).*?\2|[^;\n]*)/', $contentDisposition, $matches);
-            $filePath = $path . (substr($path, -1) !== '/' || substr($path, -1) !== '\\' ? '/' : '') . $matches[1] ?? 'downloaded_file';
+            $contentDisposition = $response->getHeader('Content-Disposition')[0] ?? '';
+            $fileName = 'downloaded_file';
+            if (preg_match('/filename[^;=\n]*=(["\']?)(.*?)\1(?:;|$)/', $contentDisposition, $matches) && $matches[2] !== '') {
+                $fileName = basename(trim($matches[2]));
+            }
 
-            file_put_contents($filePath, base64_decode($body));
+            $lastChar = substr($path, -1);
+            $separator = ($lastChar === '/' || $lastChar === '\\') ? '' : '/';
+            $filePath = $path . $separator . $fileName;
+
+            file_put_contents($filePath, $body);
 
             return new File([
                 'id' => $id->toString(),
