@@ -26,7 +26,7 @@ abstract class OfflineEndpointTest extends TestCase {
         parent::__construct($name);
         $this->logger = ConsoleLoggerFactory::getLogger();
         LoggerRegistry::setLogger($this->logger);
-        $this->mockClient = new MockApiClient();
+        $this->mockClient = new MockApiClient;
     }
 
     protected function setUp(): void {

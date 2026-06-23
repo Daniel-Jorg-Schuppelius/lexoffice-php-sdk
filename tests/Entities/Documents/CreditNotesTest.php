@@ -16,7 +16,7 @@ use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
 use PHPUnit\Framework\TestCase;
 
 class CreditNotesTest extends TestCase {
-    public function testCreateCreditNote() {
+    public function test_create_credit_note() {
         $data = [
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -34,7 +34,7 @@ class CreditNotesTest extends TestCase {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -47,9 +47,9 @@ class CreditNotesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.946,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
-                    "lineItemAmount" => 26.8
+                    "lineItemAmount" => 26.8,
                 ],
                 [
                     "type" => "custom",
@@ -60,31 +60,31 @@ class CreditNotesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "grossAmount" => 5,
-                        "taxRatePercentage" => 0
+                        "taxRatePercentage" => 0,
                     ],
-                    "lineItemAmount" => 5
-                ]
+                    "lineItemAmount" => 5,
+                ],
             ],
             "totalPrice" => [
                 "currency" => "EUR",
                 "totalNetAmount" => 31.8,
                 "totalGrossAmount" => 36.89,
-                "totalTaxAmount" => 5.09
+                "totalTaxAmount" => 5.09,
             ],
             "taxAmounts" => [
                 [
                     "taxRatePercentage" => 0,
                     "taxAmount" => 0,
-                    "netAmount" => 5
+                    "netAmount" => 5,
                 ],
                 [
                     "taxRatePercentage" => 19,
                     "taxAmount" => 5.09,
-                    "netAmount" => 26.8
-                ]
+                    "netAmount" => 26.8,
+                ],
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "relatedVouchers" => [],
             "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
@@ -92,8 +92,8 @@ class CreditNotesTest extends TestCase {
             "introduction" => "Rechnungskorrektur zur Rechnung RE-00020",
             "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.",
             "files" => [
-                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3"
-            ]
+                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3",
+            ],
         ];
 
         $creditNote = new CreditNote($data);
@@ -101,7 +101,7 @@ class CreditNotesTest extends TestCase {
         $this->assertEquals($data, $creditNote->toArray());
     }
 
-    public function testValidateCreditNote() {
+    public function test_validate_credit_note() {
         $data = [
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -119,7 +119,7 @@ class CreditNotesTest extends TestCase {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -132,9 +132,9 @@ class CreditNotesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.946,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
-                    "lineItemAmount" => 26.8
+                    "lineItemAmount" => 26.8,
                 ],
                 [
                     "type" => "custom",
@@ -145,31 +145,31 @@ class CreditNotesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "grossAmount" => 5,
-                        "taxRatePercentage" => 0
+                        "taxRatePercentage" => 0,
                     ],
-                    "lineItemAmount" => 5
-                ]
+                    "lineItemAmount" => 5,
+                ],
             ],
             "totalPrice" => [
                 "currency" => "EUR",
                 "totalNetAmount" => 31.8,
                 "totalGrossAmount" => 36.89,
-                "totalTaxAmount" => 5.09
+                "totalTaxAmount" => 5.09,
             ],
             "taxAmounts" => [
                 [
                     "taxRatePercentage" => 0,
                     "taxAmount" => 0,
-                    "netAmount" => 5
+                    "netAmount" => 5,
                 ],
                 [
                     "taxRatePercentage" => 19,
                     "taxAmount" => 5.09,
-                    "netAmount" => 26.8
-                ]
+                    "netAmount" => 26.8,
+                ],
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "relatedVouchers" => [],
             "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
@@ -177,8 +177,8 @@ class CreditNotesTest extends TestCase {
             "introduction" => "Rechnungskorrektur zur Rechnung RE-00020",
             "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.",
             "files" => [
-                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3"
-            ]
+                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3",
+            ],
         ];
 
         $creditNote = new CreditNote($data);

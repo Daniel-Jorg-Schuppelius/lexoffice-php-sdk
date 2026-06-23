@@ -44,14 +44,14 @@ class PaymentConditionsEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testListPaymentConditions(): void {
+    public function test_list_payment_conditions(): void {
         $result = $this->endpoint->list();
 
         $this->assertInstanceOf(PaymentConditions::class, $result);
         $this->assertRequestMade('GET', 'payment-conditions');
     }
 
-    public function testGetPaymentConditionThrowsNotAllowedException(): void {
+    public function test_get_payment_condition_throws_not_allowed_exception(): void {
         $this->expectException(NotAllowedException::class);
         $this->expectExceptionMessage('Getting a single payment condition is not allowed');
 

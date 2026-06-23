@@ -10,8 +10,8 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\API\Endpoints\VoucherListEndpoint;
 use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
+use Lexoffice\API\Endpoints\VoucherListEndpoint;
 use Lexoffice\Entities\VoucherList\Vouchers;
 use Tests\Contracts\EndpointTest;
 
@@ -23,7 +23,7 @@ class VoucherListEndpointTest extends EndpointTest {
         $this->endpoint = new VoucherListEndpoint($this->client);
         $this->apiDisabled = true; // API is disabled
     }
-    public function testGetVoucherListAPI() {
+    public function test_get_voucher_list_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

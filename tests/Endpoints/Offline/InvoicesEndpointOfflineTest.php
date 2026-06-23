@@ -15,8 +15,7 @@ namespace Tests\Endpoints\Offline;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\Documents\InvoicesEndpoint;
-use Lexoffice\Entities\Documents\Invoices\Invoice;
-use Lexoffice\Entities\Documents\Invoices\InvoiceResource;
+use Lexoffice\Entities\Documents\Invoices\{Invoice, InvoiceResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 use Tests\Contracts\OfflineEndpointTest;
 
@@ -76,7 +75,7 @@ class InvoicesEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testGetInvoice(): void {
+    public function test_get_invoice(): void {
         $id = new ID('f4d3c2b1-a0e9-8765-4321-fedcba098765');
         $result = $this->endpoint->get($id);
 
@@ -85,14 +84,14 @@ class InvoicesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'invoices/f4d3c2b1-a0e9-8765-4321-fedcba098765');
     }
 
-    public function testGetInvoiceWithoutIdThrowsException(): void {
+    public function test_get_invoice_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testPursueInvoice(): void {
+    public function test_pursue_invoice(): void {
         $voucherId = new VoucherID('previous-voucher-id-12345');
         $result = $this->endpoint->pursue($voucherId, false);
 

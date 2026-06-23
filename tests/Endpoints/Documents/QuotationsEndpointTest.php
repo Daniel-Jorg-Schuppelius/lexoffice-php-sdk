@@ -11,8 +11,7 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\API\Endpoints\Documents\QuotationsEndpoint;
-use Lexoffice\Entities\Documents\Quotations\Quotation;
-use Lexoffice\Entities\Documents\Quotations\QuotationResource;
+use Lexoffice\Entities\Documents\Quotations\{Quotation, QuotationResource};
 use Tests\Contracts\EndpointTest;
 
 class QuotationsEndpointTest extends EndpointTest {
@@ -24,7 +23,7 @@ class QuotationsEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data = [
             "expirationDate" => "2023-04-15T12:43:03.900+02:00",
             "lineItems" => [
@@ -44,10 +43,10 @@ class QuotationsEndpointTest extends EndpointTest {
                                 "currency" => "EUR",
                                 "netAmount" => 13.4,
                                 "grossAmount" => 15.95,
-                                "taxRatePercentage" => 19
+                                "taxRatePercentage" => 19,
                             ],
-                            "lineItemAmount" => 15.95
-                        ]
+                            "lineItemAmount" => 15.95,
+                        ],
                     ],
                     "alternative" => false,
                     "optional" => false,
@@ -62,9 +61,9 @@ class QuotationsEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 20.08,
                         "grossAmount" => 23.9,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
-                    "lineItemAmount" => 23.90
+                    "lineItemAmount" => 23.90,
                 ],
                 [
                     "alternative" => false,
@@ -80,10 +79,10 @@ class QuotationsEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 4.12,
                         "grossAmount" => 4.9,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
-                    "lineItemAmount" => 4.90
-                ]
+                    "lineItemAmount" => 4.90,
+                ],
             ],
             "paymentConditions" => [
                 "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
@@ -91,8 +90,8 @@ class QuotationsEndpointTest extends EndpointTest {
                 "paymentTermDuration" => 30,
                 "paymentDiscountConditions" => [
                     "discountPercentage" => 3,
-                    "discountRange" => 10
-                ]
+                    "discountRange" => 10,
+                ],
             ],
             "id" => "424f784e-1f4e-439e-8f71-19673e6d6583",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -110,23 +109,23 @@ class QuotationsEndpointTest extends EndpointTest {
                 "street" => "Jubiläumsweg 25",
                 "zip" => "14089",
                 "city" => "Berlin",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "totalPrice" => [
                 "currency" => "EUR",
                 "totalNetAmount" => 20.08,
                 "totalGrossAmount" => 23.90,
-                "totalTaxAmount" => 3.82
+                "totalTaxAmount" => 3.82,
             ],
             "taxAmounts" => [
                 [
                     "taxRatePercentage" => 19,
                     "taxAmount" => 3.82,
-                    "netAmount" => 20.08
-                ]
+                    "netAmount" => 20.08,
+                ],
             ],
             "taxConditions" => [
-                "taxType" => "gross"
+                "taxType" => "gross",
             ],
             "relatedVouchers" => [],
             "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
@@ -134,8 +133,8 @@ class QuotationsEndpointTest extends EndpointTest {
             "introduction" => "Gerne bieten wir Ihnen an:",
             "remark" => "Wir freuen uns auf Ihre Auftragserteilung und sichern eine einwandfreie Ausführung zu.",
             "files" => [
-                "documentFileId" => "ebd84e8a-716d-4a20-a76d-21de75a6d3d1"
-            ]
+                "documentFileId" => "ebd84e8a-716d-4a20-a76d-21de75a6d3d1",
+            ],
         ];
 
         $quotation = new Quotation($data, $this->logger);
@@ -144,7 +143,7 @@ class QuotationsEndpointTest extends EndpointTest {
         $this->assertStringContainsString(substr($quotation->getTitle(), 2, -2), $quotation->toJson());
     }
 
-    public function testCreateAndGetQuotationAPI() {
+    public function test_create_and_get_quotation_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -161,7 +160,7 @@ class QuotationsEndpointTest extends EndpointTest {
                     "street" => "Jubiläumsweg 25",
                     "city" => "Berlin",
                     "zip" => "14089",
-                    "countryCode" => "DE"
+                    "countryCode" => "DE",
                 ],
                 "lineItems" => [
                     [
@@ -174,7 +173,7 @@ class QuotationsEndpointTest extends EndpointTest {
                             "currency" => "EUR",
                             "netAmount" => 20.08,
                             "grossAmount" => 23.9,
-                            "taxRatePercentage" => 19
+                            "taxRatePercentage" => 19,
                         ],
                         "discountPercentage" => 0,
                         "lineItemAmount" => 23.90,
@@ -189,16 +188,16 @@ class QuotationsEndpointTest extends EndpointTest {
                                     "currency" => "EUR",
                                     "netAmount" => 13.4,
                                     "grossAmount" => 15.95,
-                                    "taxRatePercentage" => 19
+                                    "taxRatePercentage" => 19,
                                 ],
                                 "discountPercentage" => 0,
                                 "lineItemAmount" => 15.95,
                                 "alternative" => true,
-                                "optional" => false
-                            ]
+                                "optional" => false,
+                            ],
                         ],
                         "alternative" => false,
-                        "optional" => false
+                        "optional" => false,
                     ],
                     [
                         "type" => "custom",
@@ -210,41 +209,41 @@ class QuotationsEndpointTest extends EndpointTest {
                             "currency" => "EUR",
                             "netAmount" => 4.12,
                             "grossAmount" => 4.9,
-                            "taxRatePercentage" => 19
+                            "taxRatePercentage" => 19,
                         ],
                         "discountPercentage" => 0,
                         "lineItemAmount" => 4.90,
                         "alternative" => false,
-                        "optional" => true
-                    ]
+                        "optional" => true,
+                    ],
                 ],
                 "totalPrice" => [
                     "currency" => "EUR",
                     "totalNetAmount" => 20.08,
                     "totalGrossAmount" => 23.90,
-                    "totalTaxAmount" => 3.82
+                    "totalTaxAmount" => 3.82,
                 ],
                 "taxAmounts" => [
                     [
                         "taxRatePercentage" => 19,
                         "taxAmount" => 3.82,
-                        "netAmount" => 20.08
-                    ]
+                        "netAmount" => 20.08,
+                    ],
                 ],
                 "taxConditions" => [
-                    "taxType" => "gross"
+                    "taxType" => "gross",
                 ],
                 "paymentConditions" => [
                     "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
                     "paymentTermDuration" => 30,
                     "paymentDiscountConditions" => [
                         "discountPercentage" => 3,
-                        "discountRange" => 10
-                    ]
+                        "discountRange" => 10,
+                    ],
                 ],
                 "introduction" => "Gerne bieten wir Ihnen an:",
                 "remark" => "Wir freuen uns auf Ihre Auftragserteilung und sichern eine einwandfreie Ausführung zu.",
-                "title" => "Angebot"
+                "title" => "Angebot",
             ];
 
         $quotation = new Quotation($data);

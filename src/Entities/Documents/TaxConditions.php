@@ -13,8 +13,7 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Documents;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Enums\TaxSubType;
-use Lexoffice\Enums\TaxType;
+use Lexoffice\Enums\{TaxSubType, TaxType};
 use Psr\Log\LoggerInterface;
 
 class TaxConditions extends NamedEntity {

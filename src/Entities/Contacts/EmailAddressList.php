@@ -14,5 +14,4 @@ namespace Lexoffice\Entities\Contacts;
 
 use APIToolkit\Entities\StringValues;
 
-class EmailAddressList extends StringValues {
-}
+class EmailAddressList extends StringValues {}

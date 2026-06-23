@@ -24,7 +24,7 @@ class PostingCategoriesEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testGetPostingCategoriesAPI() {
+    public function test_get_posting_categories_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

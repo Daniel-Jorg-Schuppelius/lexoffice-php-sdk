@@ -15,9 +15,7 @@ namespace Tests\Endpoints\Offline;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\ArticlesEndpoint;
-use Lexoffice\Entities\Articles\Article;
-use Lexoffice\Entities\Articles\ArticleResource;
-use Lexoffice\Entities\Articles\ArticlesPage;
+use Lexoffice\Entities\Articles\{Article, ArticleResource, ArticlesPage};
 use Tests\Contracts\OfflineEndpointTest;
 
 class ArticlesEndpointOfflineTest extends OfflineEndpointTest {
@@ -64,7 +62,7 @@ class ArticlesEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testCreateArticle(): void {
+    public function test_create_article(): void {
         $data = [
             'title' => 'Test Article',
             'type' => 'PRODUCT',
@@ -85,7 +83,7 @@ class ArticlesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('POST', 'articles');
     }
 
-    public function testGetArticle(): void {
+    public function test_get_article(): void {
         $id = new ID('eb46d328-e1dc-11ee-8444-2fadfc15a567');
         $result = $this->endpoint->get($id);
 
@@ -95,14 +93,14 @@ class ArticlesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'articles/eb46d328-e1dc-11ee-8444-2fadfc15a567');
     }
 
-    public function testGetArticleWithoutIdThrowsException(): void {
+    public function test_get_article_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testUpdateArticle(): void {
+    public function test_update_article(): void {
         $this->mockClient->addResponse('PUT', 'articles/eb46d328-e1dc-11ee-8444-2fadfc15a567', 200, json_encode([
             'id' => 'eb46d328-e1dc-11ee-8444-2fadfc15a567',
             'resourceUri' => 'https://api.lexoffice.io/v1/articles/eb46d328-e1dc-11ee-8444-2fadfc15a567',
@@ -124,7 +122,7 @@ class ArticlesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('PUT', 'articles/eb46d328-e1dc-11ee-8444-2fadfc15a567');
     }
 
-    public function testDeleteArticle(): void {
+    public function test_delete_article(): void {
         $this->mockClient->addResponse('DELETE', 'articles/eb46d328-e1dc-11ee-8444-2fadfc15a567', 204, '');
 
         $id = new ID('eb46d328-e1dc-11ee-8444-2fadfc15a567');
@@ -134,7 +132,7 @@ class ArticlesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('DELETE', 'articles/eb46d328-e1dc-11ee-8444-2fadfc15a567');
     }
 
-    public function testSearchArticles(): void {
+    public function test_search_articles(): void {
         $result = $this->endpoint->search();
 
         $this->assertInstanceOf(ArticlesPage::class, $result);

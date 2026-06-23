@@ -11,8 +11,7 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\API\Endpoints\Documents\RecurringTemplatesEndpoint;
-use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
-use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplatesPage;
+use Lexoffice\Entities\Documents\RecurringTemplates\{RecurringTemplate, RecurringTemplatesPage};
 use Tests\Contracts\EndpointTest;
 
 class RecurringTemplatesEndpointTest extends EndpointTest {
@@ -24,7 +23,7 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data = [
             "lineItems" => [
                 [
@@ -39,9 +38,9 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.95,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
-                    "lineItemAmount" => 13.4
+                    "lineItemAmount" => 13.4,
                 ],
                 [
                     "discountPercentage" => 0,
@@ -55,9 +54,9 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 8.32,
                         "grossAmount" => 8.9,
-                        "taxRatePercentage" => 7
+                        "taxRatePercentage" => 7,
                     ],
-                    "lineItemAmount" => 8.32
+                    "lineItemAmount" => 8.32,
                 ],
                 [
                     "discountPercentage" => 0,
@@ -69,15 +68,15 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "grossAmount" => 5,
-                        "taxRatePercentage" => 0
+                        "taxRatePercentage" => 0,
                     ],
-                    "lineItemAmount" => 5
+                    "lineItemAmount" => 5,
                 ],
                 [
                     "type" => "text",
                     "name" => "Freitextposition",
-                    "description" => "This item type can contain either a name or a description or both."
-                ]
+                    "description" => "This item type can contain either a name or a description or both.",
+                ],
             ],
             "paymentConditions" => [
                 "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
@@ -85,8 +84,8 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
                 "paymentTermDuration" => 30,
                 "paymentDiscountConditions" => [
                     "discountPercentage" => 3,
-                    "discountRange" => 10
-                ]
+                    "discountRange" => 10,
+                ],
             ],
             "recurringTemplateSettings" => [
                 "id" => "9c5b8bde-7d36-49e8-af5c-4fbe7dc9fa01",
@@ -97,7 +96,7 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
                 "shippingType" => "service",
                 "executionInterval" => "MONTHLY",
                 "lastExecutionFailed" => false,
-                "executionStatus" => "ACTIVE"
+                "executionStatus" => "ACTIVE",
             ],
             "id" => "ac1d66a8-6d59-408b-9413-d56b1db7946f",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -113,39 +112,38 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
                 "street" => "Musterstraße 42",
                 "zip" => "79112",
                 "city" => "Freiburg",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "totalPrice" => [
                 "currency" => "EUR",
                 "totalNetAmount" => 26.72,
                 "totalGrossAmount" => 29.85,
-                "totalTaxAmount" => 3.13
+                "totalTaxAmount" => 3.13,
             ],
             "taxAmounts" => [
                 [
                     "taxRatePercentage" => 0,
                     "taxAmount" => 0,
-                    "netAmount" => 5
+                    "netAmount" => 5,
                 ],
                 [
                     "taxRatePercentage" => 7,
                     "taxAmount" => 0.58,
-                    "netAmount" => 8.32
+                    "netAmount" => 8.32,
                 ],
                 [
                     "taxRatePercentage" => 19,
                     "taxAmount" => 2.55,
-                    "netAmount" => 13.4
-                ]
+                    "netAmount" => 13.4,
+                ],
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "title" => "Rechnung",
             "introduction" => "Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung",
-            "remark" => "Vielen Dank für Ihren Einkauf"
+            "remark" => "Vielen Dank für Ihren Einkauf",
         ];
-
 
         $recurringTemplate = new RecurringTemplate($data, $this->logger);
         $this->assertEquals(json_encode($data), $recurringTemplate->toJson());
@@ -153,7 +151,7 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
         $this->assertStringContainsString(substr($recurringTemplate->getTitle(), 2, -2), $recurringTemplate->toJson());
     }
 
-    public function testGetRecurringTemplatesPage() {
+    public function test_get_recurring_templates_page() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

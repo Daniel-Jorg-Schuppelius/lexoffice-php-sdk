@@ -15,9 +15,7 @@ namespace Tests\Endpoints\Offline;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\EventSubscriptionsEndpoint;
-use Lexoffice\Entities\EventSubscriptions\EventSubscription;
-use Lexoffice\Entities\EventSubscriptions\EventSubscriptionResource;
-use Lexoffice\Entities\EventSubscriptions\EventSubscriptions;
+use Lexoffice\Entities\EventSubscriptions\{EventSubscription, EventSubscriptionResource, EventSubscriptions};
 use Tests\Contracts\OfflineEndpointTest;
 
 class EventSubscriptionsEndpointOfflineTest extends OfflineEndpointTest {
@@ -58,7 +56,7 @@ class EventSubscriptionsEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testCreateEventSubscription(): void {
+    public function test_create_event_subscription(): void {
         $data = [
             'eventType' => 'contact.changed',
             'callbackUrl' => 'https://example.com/webhook',
@@ -71,7 +69,7 @@ class EventSubscriptionsEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('POST', 'event-subscriptions');
     }
 
-    public function testGetEventSubscription(): void {
+    public function test_get_event_subscription(): void {
         $id = new ID('sub-12345-67890');
         $result = $this->endpoint->get($id);
 
@@ -80,14 +78,14 @@ class EventSubscriptionsEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'event-subscriptions/sub-12345-67890');
     }
 
-    public function testGetEventSubscriptionWithoutIdThrowsException(): void {
+    public function test_get_event_subscription_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testDeleteEventSubscription(): void {
+    public function test_delete_event_subscription(): void {
         $this->mockClient->addResponse('DELETE', 'event-subscriptions/sub-12345-67890', 204, '');
 
         $id = new ID('sub-12345-67890');
@@ -97,7 +95,7 @@ class EventSubscriptionsEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('DELETE', 'event-subscriptions/sub-12345-67890');
     }
 
-    public function testListEventSubscriptions(): void {
+    public function test_list_event_subscriptions(): void {
         $result = $this->endpoint->list();
 
         $this->assertInstanceOf(EventSubscriptions::class, $result);

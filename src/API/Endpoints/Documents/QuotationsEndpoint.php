@@ -17,8 +17,7 @@ use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
 use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
-use Lexoffice\Entities\Documents\Quotations\Quotation;
-use Lexoffice\Entities\Documents\Quotations\QuotationResource;
+use Lexoffice\Entities\Documents\Quotations\{Quotation, QuotationResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class QuotationsEndpoint extends DocumentEndpointAbstract {
@@ -53,7 +52,7 @@ class QuotationsEndpoint extends DocumentEndpointAbstract {
         self::logDebug('Fetching quotation', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => Quotation::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => Quotation::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Quotation fetched (ID: {$id->toString()})"
         );
     }

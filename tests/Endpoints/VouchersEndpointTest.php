@@ -3,9 +3,7 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\API\Endpoints\VouchersEndpoint;
-use Lexoffice\Entities\Vouchers\Voucher;
-use Lexoffice\Entities\Vouchers\VoucherResource;
-use Lexoffice\Entities\Vouchers\VouchersPage;
+use Lexoffice\Entities\Vouchers\{Voucher, VoucherResource, VouchersPage};
 use Tests\Contracts\EndpointTest;
 
 class VouchersEndpointTest extends EndpointTest {
@@ -17,7 +15,7 @@ class VouchersEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data = [
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
             "type" => "salesinvoice",
@@ -32,20 +30,20 @@ class VouchersEndpointTest extends EndpointTest {
                     "amount" => 119.00,
                     "taxAmount" => 19.00,
                     "taxRatePercent" => 19.00,
-                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66"
+                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66",
                 ],
                 [
                     "amount" => 107.00,
                     "taxAmount" => 7.00,
                     "taxRatePercent" => 7.00,
-                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66"
+                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66",
                 ],
                 [
                     "amount" => 100.00,
                     "taxAmount" => 0,
                     "taxRatePercent" => 0.00,
-                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66"
-                ]
+                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66",
+                ],
             ],
             "files" => [],
             "version" => 2,
@@ -55,7 +53,7 @@ class VouchersEndpointTest extends EndpointTest {
             "voucherDate" => "2023-06-30T00:00:00.000+02:00",
             "dueDate" => "2023-07-07T00:00:00.000+02:00",
             "createdDate" => "2023-06-30T13:28:51.012+02:00",
-            "updatedDate" => "2023-06-30T13:28:51.012+02:00"
+            "updatedDate" => "2023-06-30T13:28:51.012+02:00",
         ];
 
         $voucher = new Voucher($data);
@@ -65,7 +63,7 @@ class VouchersEndpointTest extends EndpointTest {
         $this->assertEquals(json_encode($data["voucherItems"]), $voucher->getVoucherItems()->toJson(0));
     }
 
-    public function testCreateAndDeleteVoucherAPI() {
+    public function test_create_and_delete_voucher_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -86,9 +84,9 @@ class VouchersEndpointTest extends EndpointTest {
                     "amount" => 119.00,
                     "taxAmount" => 19.00,
                     "taxRatePercent" => 19,
-                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66"
-                ]
-            ]
+                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66",
+                ],
+            ],
         ];
 
         $voucher = new Voucher($data);
@@ -96,7 +94,7 @@ class VouchersEndpointTest extends EndpointTest {
         $this->assertInstanceOf(VoucherResource::class, $voucherResource);
     }
 
-    public function testCreateGetUpdateAndDeleteVoucherAPI() {
+    public function test_create_get_update_and_delete_voucher_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -117,9 +115,9 @@ class VouchersEndpointTest extends EndpointTest {
                     "amount" => 119.00,
                     "taxAmount" => 19.00,
                     "taxRatePercent" => 19,
-                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66"
-                ]
-            ]
+                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66",
+                ],
+            ],
         ];
 
         $voucherResource = $this->endpoint->create(new Voucher($data));
@@ -131,7 +129,7 @@ class VouchersEndpointTest extends EndpointTest {
         $this->assertInstanceOf(VoucherResource::class, $voucherResourceUpdated);
     }
 
-    public function testCreateSearchAndDeleteVoucherAPI() {
+    public function test_create_search_and_delete_voucher_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -152,9 +150,9 @@ class VouchersEndpointTest extends EndpointTest {
                     "amount" => 119.00,
                     "taxAmount" => 19.00,
                     "taxRatePercent" => 19,
-                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66"
-                ]
-            ]
+                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66",
+                ],
+            ],
         ];
 
         $vouchersPage = $this->endpoint->search(["voucherNumber" => "123-456"]);

@@ -14,10 +14,7 @@ namespace Lexoffice\Entities\Documents\CreditNotes;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedDocument;
-use Lexoffice\Entities\Documents\Address;
-use Lexoffice\Entities\Documents\LineItems;
-use Lexoffice\Entities\Documents\PrintLayoutID;
-use Lexoffice\Entities\Documents\TotalPrice;
+use Lexoffice\Entities\Documents\{Address, LineItems, PrintLayoutID, TotalPrice};
 use Lexoffice\Enums\Language;
 use Psr\Log\LoggerInterface;
 

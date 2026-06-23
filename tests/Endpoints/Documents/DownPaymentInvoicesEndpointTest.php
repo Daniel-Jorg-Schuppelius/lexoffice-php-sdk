@@ -23,7 +23,7 @@ final class DownPaymentInvoicesEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data = [
             "lineItems" => [
                 [
@@ -34,13 +34,13 @@ final class DownPaymentInvoicesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 559.66,
                         "grossAmount" => 666,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
-                    "lineItemAmount" => 666.00
-                ]
+                    "lineItemAmount" => 666.00,
+                ],
             ],
             "shippingConditions" => [
-                "shippingType" => "none"
+                "shippingType" => "none",
             ],
             "id" => "0333f0c7-2b89-4889-b64e-68b3ca3f167a",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -59,23 +59,23 @@ final class DownPaymentInvoicesEndpointTest extends EndpointTest {
                 "street" => "Musterstraße 42",
                 "zip" => "79112",
                 "city" => "Freiburg",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "totalPrice" => [
                 "currency" => "EUR",
                 "totalNetAmount" => 559.66,
                 "totalGrossAmount" => 666.00,
-                "totalTaxAmount" => 106.34
+                "totalTaxAmount" => 106.34,
             ],
             "taxAmounts" => [
                 [
                     "taxRatePercentage" => 19,
                     "taxAmount" => 106.34,
-                    "netAmount" => 559.66
-                ]
+                    "netAmount" => 559.66,
+                ],
             ],
             "taxConditions" => [
-                "taxType" => "gross"
+                "taxType" => "gross",
             ],
             "paymentConditions" => [
                 "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
@@ -83,8 +83,8 @@ final class DownPaymentInvoicesEndpointTest extends EndpointTest {
                 "paymentTermDuration" => 30,
                 "paymentDiscountConditions" => [
                     "discountPercentage" => 3,
-                    "discountRange" => 10
-                ]
+                    "discountRange" => 10,
+                ],
             ],
             "closingInvoiceId" => null,
             "relatedVouchers" => [],
@@ -92,9 +92,9 @@ final class DownPaymentInvoicesEndpointTest extends EndpointTest {
             "introduction" => "Wie vereinbart, erlauben wir uns folgenden pauschalen Abschlag in Rechnung zu stellen.",
             "remark" => "Vielen Dank für die gute Zusammenarbeit.",
             "files" => [
-                "documentFileId" => "aa0388c5-20b5-49d7-96ce-0c08ac0482f4"
+                "documentFileId" => "aa0388c5-20b5-49d7-96ce-0c08ac0482f4",
             ],
-            "title" => "1. Abschlagsrechnung"
+            "title" => "1. Abschlagsrechnung",
         ];
 
         $downPaymentInvoice = new DownPaymentInvoice($data, $this->logger);

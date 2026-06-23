@@ -15,8 +15,7 @@ namespace Tests\Endpoints\Offline;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\Documents\DeliveryNotesEndpoint;
-use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
-use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNoteResource;
+use Lexoffice\Entities\Documents\DeliveryNotes\{DeliveryNote, DeliveryNoteResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 use Tests\Contracts\OfflineEndpointTest;
 
@@ -67,7 +66,7 @@ class DeliveryNotesEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testGetDeliveryNote(): void {
+    public function test_get_delivery_note(): void {
         $id = new ID('69b92f7d-8649-4a28-b749-f924d8fcccd2');
         $result = $this->endpoint->get($id);
 
@@ -76,14 +75,14 @@ class DeliveryNotesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'delivery-notes/69b92f7d-8649-4a28-b749-f924d8fcccd2');
     }
 
-    public function testGetDeliveryNoteWithoutIdThrowsException(): void {
+    public function test_get_delivery_note_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testPursueDeliveryNote(): void {
+    public function test_pursue_delivery_note(): void {
         $voucherId = new VoucherID('previous-voucher-id-12345');
         $result = $this->endpoint->pursue($voucherId, false);
 
@@ -91,7 +90,7 @@ class DeliveryNotesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('POST', 'delivery-notes*precedingSalesVoucherId*');
     }
 
-    public function testSendMail(): void {
+    public function test_send_mail(): void {
         $id = new ID('69b92f7d-8649-4a28-b749-f924d8fcccd2');
         $this->endpoint->sendMail($id, ['test@example.com'], 'Test message', 'Best regards');
 

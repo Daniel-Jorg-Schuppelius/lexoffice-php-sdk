@@ -42,7 +42,7 @@ class ProfileEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testGetProfile(): void {
+    public function test_get_profile(): void {
         $result = $this->endpoint->get();
 
         $this->assertInstanceOf(Profile::class, $result);
@@ -51,7 +51,7 @@ class ProfileEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'profile');
     }
 
-    public function testGetProfileWithIdIgnoresId(): void {
+    public function test_get_profile_with_id_ignores_id(): void {
         // Profile endpoint ignores the ID parameter
         $result = $this->endpoint->get(null);
 

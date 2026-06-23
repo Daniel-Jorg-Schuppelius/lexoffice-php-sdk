@@ -15,8 +15,7 @@ namespace Tests\Endpoints\Offline;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\Documents\RecurringTemplatesEndpoint;
-use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
-use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplatesPage;
+use Lexoffice\Entities\Documents\RecurringTemplates\{RecurringTemplate, RecurringTemplatesPage};
 use Tests\Contracts\OfflineEndpointTest;
 
 class RecurringTemplatesEndpointOfflineTest extends OfflineEndpointTest {
@@ -91,7 +90,7 @@ class RecurringTemplatesEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testGetRecurringTemplate(): void {
+    public function test_get_recurring_template(): void {
         $id = new ID('7b6ce389-8ebb-4492-9a2a-6aa1320b5fca');
         $result = $this->endpoint->get($id);
 
@@ -100,14 +99,14 @@ class RecurringTemplatesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'recurring-templates/7b6ce389-8ebb-4492-9a2a-6aa1320b5fca');
     }
 
-    public function testGetRecurringTemplateWithoutIdThrowsException(): void {
+    public function test_get_recurring_template_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testSearchRecurringTemplates(): void {
+    public function test_search_recurring_templates(): void {
         $result = $this->endpoint->search();
 
         $this->assertInstanceOf(RecurringTemplatesPage::class, $result);

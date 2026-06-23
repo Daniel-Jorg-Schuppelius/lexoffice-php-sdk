@@ -14,10 +14,7 @@ namespace Lexoffice\Entities\Documents\DeliveryNotes;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedDocument;
-use Lexoffice\Entities\Documents\Address;
-use Lexoffice\Entities\Documents\PrintLayoutID;
-use Lexoffice\Entities\Documents\ShippingConditions;
-use Lexoffice\Entities\Documents\TaxConditions;
+use Lexoffice\Entities\Documents\{Address, PrintLayoutID, ShippingConditions, TaxConditions};
 use Lexoffice\Enums\Language;
 use Psr\Log\LoggerInterface;
 
@@ -30,7 +27,7 @@ class DeliveryNote extends NamedDocument {
         parent::__construct($data, $logger);
 
         if (!isset($this->shippingConditions)) {
-            $this->shippingConditions = new ShippingConditions();
+            $this->shippingConditions = new ShippingConditions;
         }
     }
 

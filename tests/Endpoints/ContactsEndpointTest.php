@@ -11,9 +11,7 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\API\Endpoints\ContactsEndpoint;
-use Lexoffice\Entities\Contacts\Contact;
-use Lexoffice\Entities\Contacts\ContactResource;
-use Lexoffice\Entities\Contacts\ContactsPage;
+use Lexoffice\Entities\Contacts\{Contact, ContactResource, ContactsPage};
 use Tests\Contracts\EndpointTest;
 
 class ContactsEndpointTest extends EndpointTest {
@@ -25,33 +23,33 @@ class ContactsEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data = [
             "version" => 0,
             "roles" => [
-                "customer" => []
+                "customer" => [],
             ],
             "person" => [
                 "salutation" => "Frau",
                 "firstName" => "Inge",
-                "lastName" => "Musterfrau"
+                "lastName" => "Musterfrau",
             ],
-            "note" => "Notizen"
+            "note" => "Notizen",
         ];
 
         $data1 = [
             "version" => 0,
             "roles" => [
                 "customer" => [
-                    "number" => 10001
-                ]
+                    "number" => 10001,
+                ],
             ],
             "person" => [
                 "salutation" => "Frau",
                 "firstName" => "Inge",
-                "lastName" => "Musterfrau"
+                "lastName" => "Musterfrau",
             ],
-            "note" => "Notizen"
+            "note" => "Notizen",
         ];
         $contact = new Contact($data, $this->logger);
         $contact1 = new Contact($data1, $this->logger);
@@ -65,7 +63,7 @@ class ContactsEndpointTest extends EndpointTest {
         $this->assertEquals($jsonOriginal1, $contact1->toJson());
     }
 
-    public function testCreateContactAPI() {
+    public function test_create_contact_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -73,14 +71,14 @@ class ContactsEndpointTest extends EndpointTest {
         $data = [
             "version" => 0,
             "roles" => [
-                "customer" => []
+                "customer" => [],
             ],
             "person" => [
                 "salutation" => "Frau",
                 "firstName" => "Inge",
-                "lastName" => "Musterfrau"
+                "lastName" => "Musterfrau",
             ],
-            "note" => "Notizen"
+            "note" => "Notizen",
         ];
         $contact = new Contact($data, $this->logger);
 
@@ -88,7 +86,7 @@ class ContactsEndpointTest extends EndpointTest {
         $this->assertInstanceOf(ContactResource::class, $contactResource);
     }
 
-    public function testCreateGetAndUpdateContactAPI() {
+    public function test_create_get_and_update_contact_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -96,14 +94,14 @@ class ContactsEndpointTest extends EndpointTest {
         $data = [
             "version" => 0,
             "roles" => [
-                "customer" => []
+                "customer" => [],
             ],
             "person" => [
                 "salutation" => "Herr",
                 "firstName" => "Max",
-                "lastName" => "Mustermann"
+                "lastName" => "Mustermann",
             ],
-            "note" => "Notizen"
+            "note" => "Notizen",
         ];
 
         $contactResource = $this->endpoint->create(new Contact($data, $this->logger));
@@ -116,7 +114,7 @@ class ContactsEndpointTest extends EndpointTest {
         $this->assertInstanceOf(ContactResource::class, $contactResourceUpdated);
     }
 
-    public function testCreateANDSearchContactAPI() {
+    public function test_create_and_search_contact_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -124,14 +122,14 @@ class ContactsEndpointTest extends EndpointTest {
         $data = [
             "version" => 0,
             "roles" => [
-                "customer" => []
+                "customer" => [],
             ],
             "person" => [
                 "salutation" => "Frau",
                 "firstName" => "Inge",
-                "lastName" => "Musterfrau"
+                "lastName" => "Musterfrau",
             ],
-            "note" => "Notizen"
+            "note" => "Notizen",
         ];
 
         $contactsPage = $this->endpoint->search();

@@ -16,7 +16,7 @@ use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
 use PHPUnit\Framework\TestCase;
 
 class DeliveryNotesTest extends TestCase {
-    public function testCreateDeliveryNote() {
+    public function test_create_delivery_note() {
         $data = [
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -34,7 +34,7 @@ class DeliveryNotesTest extends TestCase {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -47,8 +47,8 @@ class DeliveryNotesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.946,
-                        "taxRatePercentage" => 19
-                    ]
+                        "taxRatePercentage" => 19,
+                    ],
                 ],
                 [
                     "type" => "custom",
@@ -59,12 +59,12 @@ class DeliveryNotesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "grossAmount" => 5,
-                        "taxRatePercentage" => 0
-                    ]
-                ]
+                        "taxRatePercentage" => 0,
+                    ],
+                ],
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "relatedVouchers" => [],
             "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
@@ -72,8 +72,8 @@ class DeliveryNotesTest extends TestCase {
             "introduction" => "Lieferschein zur Rechnung RE-00020",
             "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.",
             "files" => [
-                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3"
-            ]
+                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3",
+            ],
         ];
 
         $deliveryNote = new DeliveryNote($data);
@@ -83,7 +83,7 @@ class DeliveryNotesTest extends TestCase {
         $this->assertCount(2, $deliveryNote->getLineItems()->getValues());
     }
 
-    public function testValidateDeliveryNote() {
+    public function test_validate_delivery_note() {
         $data = [
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -101,7 +101,7 @@ class DeliveryNotesTest extends TestCase {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -114,19 +114,19 @@ class DeliveryNotesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.946,
-                        "taxRatePercentage" => 19
-                    ]
+                        "taxRatePercentage" => 19,
+                    ],
                 ],
                 [
                     "type" => "custom",
                     "name" => "Energieriegel Testpaket",
                     "quantity" => 1,
                     "unitName" => "Stück",
-                    "unitPrice" => null
-                ]
+                    "unitPrice" => null,
+                ],
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "relatedVouchers" => [],
             "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
@@ -134,8 +134,8 @@ class DeliveryNotesTest extends TestCase {
             "introduction" => "Lieferschein zur Rechnung RE-00020",
             "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.",
             "files" => [
-                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3"
-            ]
+                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3",
+            ],
         ];
 
         $deliveryNote = new DeliveryNote($data);

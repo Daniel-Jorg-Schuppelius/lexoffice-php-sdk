@@ -16,13 +16,13 @@ use Lexoffice\Entities\PaymentConditions\PaymentConditions;
 use PHPUnit\Framework\TestCase;
 
 class PaymentConditionsTest extends TestCase {
-    public function testCreatePaymentConditions() {
+    public function test_create_payment_conditions() {
         $data = [
             [
                 "id" => "65be0654-60b6-11eb-b66d-5731dbc9bf6b",
                 "paymentTermLabelTemplate" => "Zahlbar in {paymentRange} Tagen, rein netto ohne Abzug",
                 "paymentTermDuration" => 14,
-                "organizationDefault" => false
+                "organizationDefault" => false,
             ],
             [
                 "id" => "3fcc62d1-0925-456d-890b-779b56e7289e",
@@ -30,10 +30,10 @@ class PaymentConditionsTest extends TestCase {
                 "paymentTermDuration" => 30,
                 "paymentDiscountConditions" => [
                     "discountRange" => 10,
-                    "discountPercentage" => 3.00
+                    "discountPercentage" => 3.00,
                 ],
-                "organizationDefault" => true
-            ]
+                "organizationDefault" => true,
+            ],
         ];
 
         $paymentConditions = new PaymentConditions($data);

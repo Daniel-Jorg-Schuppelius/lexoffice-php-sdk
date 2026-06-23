@@ -23,7 +23,7 @@ class ProfileEndpoint extends EndpointAbstract {
         self::logDebug('Fetching profile');
 
         return self::logDebugWithTimer(
-            fn() => Profile::fromJson(parent::getContents()),
+            fn () => Profile::fromJson(parent::getContents()),
             'Profile fetched'
         );
     }

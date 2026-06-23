@@ -12,10 +12,9 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\EventSubscriptions;
 
-use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\TimestampableNamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\{IdentifiableNamedEntityInterface, TimestampableNamedEntityInterface};
+use DateTime;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\EventType;

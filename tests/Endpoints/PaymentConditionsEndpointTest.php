@@ -24,7 +24,7 @@ class PaymentConditionsEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testGetPaymentConditionsAPI() {
+    public function test_get_payment_conditions_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

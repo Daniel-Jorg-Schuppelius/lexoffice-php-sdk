@@ -16,9 +16,7 @@ use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\VouchersEndpoint;
-use Lexoffice\Entities\Vouchers\Voucher;
-use Lexoffice\Entities\Vouchers\VoucherResource;
-use Lexoffice\Entities\Vouchers\VouchersPage;
+use Lexoffice\Entities\Vouchers\{Voucher, VoucherResource, VouchersPage};
 use Tests\Contracts\OfflineEndpointTest;
 
 class VouchersEndpointOfflineTest extends OfflineEndpointTest {
@@ -62,7 +60,7 @@ class VouchersEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testCreateVoucher(): void {
+    public function test_create_voucher(): void {
         $data = [
             'version' => 0,
             'voucherNumber' => 'RE-2024-001',
@@ -80,7 +78,7 @@ class VouchersEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('POST', 'vouchers');
     }
 
-    public function testGetVoucher(): void {
+    public function test_get_voucher(): void {
         $id = new ID('a1b2c3d4-e5f6-7890-abcd-ef1234567890');
         $result = $this->endpoint->get($id);
 
@@ -89,14 +87,14 @@ class VouchersEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'vouchers/a1b2c3d4-e5f6-7890-abcd-ef1234567890');
     }
 
-    public function testGetVoucherWithoutIdThrowsException(): void {
+    public function test_get_voucher_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testUpdateVoucher(): void {
+    public function test_update_voucher(): void {
         $this->mockClient->addResponse('PUT', 'vouchers/a1b2c3d4-e5f6-7890-abcd-ef1234567890', 200, json_encode([
             'id' => 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
             'resourceUri' => 'https://api.lexoffice.io/v1/vouchers/a1b2c3d4-e5f6-7890-abcd-ef1234567890',
@@ -117,7 +115,7 @@ class VouchersEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('PUT', 'vouchers/a1b2c3d4-e5f6-7890-abcd-ef1234567890');
     }
 
-    public function testDeleteVoucherThrowsNotAllowedException(): void {
+    public function test_delete_voucher_throws_not_allowed_exception(): void {
         $this->expectException(NotAllowedException::class);
         $this->expectExceptionMessage('Vouchers cannot be deleted');
 
@@ -125,14 +123,14 @@ class VouchersEndpointOfflineTest extends OfflineEndpointTest {
         $this->endpoint->delete($id);
     }
 
-    public function testSearchVouchersWithVoucherNumber(): void {
+    public function test_search_vouchers_with_voucher_number(): void {
         $result = $this->endpoint->search(['voucherNumber' => 'RE-2024-001']);
 
         $this->assertInstanceOf(VouchersPage::class, $result);
         $this->assertRequestMade('GET', 'vouchers*');
     }
 
-    public function testSearchVouchersWithoutVoucherNumberThrowsException(): void {
+    public function test_search_vouchers_without_voucher_number_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('voucherNumber is required');
 

@@ -28,7 +28,7 @@ class DownPaymentInvoicesEndpoint extends EndpointAbstract {
         self::logDebug('Fetching down payment invoice', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => DownPaymentInvoice::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => DownPaymentInvoice::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Down payment invoice fetched (ID: {$id->toString()})"
         );
     }

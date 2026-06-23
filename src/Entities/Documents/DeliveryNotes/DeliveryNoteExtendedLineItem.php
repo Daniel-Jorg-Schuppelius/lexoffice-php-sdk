@@ -21,14 +21,14 @@ class DeliveryNoteExtendedLineItem extends ExtendedLineItem {
             return isset($this->name);
         } elseif (isset($this->type) && $this->type == ItemType::CUSTOM) {
             return isset($this->name)
-                && (isset($this->quantity) && !is_null($this->quantity))
-                && (isset($this->unitName) && !is_null($this->unitName));
+                && isset($this->quantity)
+                && isset($this->unitName);
         }
 
         return !is_null($this->id)
             && isset($this->type)
             && isset($this->name)
-            && (isset($this->quantity) && !is_null($this->quantity))
-            && (isset($this->unitName) && !is_null($this->unitName));
+            && isset($this->quantity)
+            && isset($this->unitName);
     }
 }

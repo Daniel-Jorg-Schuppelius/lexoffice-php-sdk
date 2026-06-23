@@ -16,7 +16,7 @@ use Lexoffice\Entities\VoucherList\Vouchers;
 use PHPUnit\Framework\TestCase;
 
 class VoucherListTest extends TestCase {
-    public function testCreateVoucher() {
+    public function test_create_voucher() {
         $data = [
             "content" => [
                 [
@@ -33,7 +33,7 @@ class VoucherListTest extends TestCase {
                     "totalAmount" => 80.04,
                     "openAmount" => 80.04,
                     "currency" => "EUR",
-                    "archived" => false
+                    "archived" => false,
                 ],
                 [
                     "id" => "f3d3ae48-30d9-4b56-973a-b3159cbe743c",
@@ -49,7 +49,7 @@ class VoucherListTest extends TestCase {
                     "totalAmount" => 99.8,
                     "openAmount" => 74.8,
                     "currency" => "EUR",
-                    "archived" => false
+                    "archived" => false,
                 ],
                 [
                     "id" => "55aa6de8-d32d-47bd-9c3c-d541ab65a8e8",
@@ -65,8 +65,8 @@ class VoucherListTest extends TestCase {
                     "totalAmount" => 498.8,
                     "openAmount" => 498.8,
                     "currency" => "EUR",
-                    "archived" => false
-                ]
+                    "archived" => false,
+                ],
             ],
         ];
         $vouchers = new Vouchers($data);

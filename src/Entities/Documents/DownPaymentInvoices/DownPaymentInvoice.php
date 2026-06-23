@@ -14,9 +14,7 @@ namespace Lexoffice\Entities\Documents\DownPaymentInvoices;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedDocument;
-use Lexoffice\Entities\Documents\ExtendedLineItems;
-use Lexoffice\Entities\Documents\PaymentConditions;
-use Lexoffice\Entities\Documents\ShippingConditions;
+use Lexoffice\Entities\Documents\{ExtendedLineItems, PaymentConditions, ShippingConditions};
 use Psr\Log\LoggerInterface;
 
 class DownPaymentInvoice extends NamedDocument {

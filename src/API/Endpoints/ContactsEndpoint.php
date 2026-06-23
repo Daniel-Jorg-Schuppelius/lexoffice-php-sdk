@@ -17,11 +17,8 @@ use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
 use InvalidArgumentException;
-use Lexoffice\Contracts\Interfaces\API\ClassicEndpointInterface;
-use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
-use Lexoffice\Entities\Contacts\Contact;
-use Lexoffice\Entities\Contacts\ContactResource;
-use Lexoffice\Entities\Contacts\ContactsPage;
+use Lexoffice\Contracts\Interfaces\API\{ClassicEndpointInterface, SearchableEndpointInterface};
+use Lexoffice\Entities\Contacts\{Contact, ContactResource, ContactsPage};
 
 class ContactsEndpoint extends EndpointAbstract implements ClassicEndpointInterface, SearchableEndpointInterface {
     protected string $endpoint = 'contacts';
@@ -47,7 +44,7 @@ class ContactsEndpoint extends EndpointAbstract implements ClassicEndpointInterf
         self::logDebug('Fetching contact', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => Contact::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => Contact::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Contact fetched (ID: {$id->toString()})"
         );
     }
@@ -73,7 +70,7 @@ class ContactsEndpoint extends EndpointAbstract implements ClassicEndpointInterf
         self::logDebug('Searching contacts', ['queryParams' => $queryParams]);
 
         return self::logDebugWithTimer(
-            fn() => ContactsPage::fromJson(parent::getContents($queryParams, $options)),
+            fn () => ContactsPage::fromJson(parent::getContents($queryParams, $options)),
             'Contacts search completed'
         );
     }

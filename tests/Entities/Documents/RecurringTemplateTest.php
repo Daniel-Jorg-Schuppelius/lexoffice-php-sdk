@@ -16,7 +16,7 @@ use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
 use PHPUnit\Framework\TestCase;
 
 class RecurringTemplateTest extends TestCase {
-    public function testCreateRecurringTemplate() {
+    public function test_create_recurring_template() {
         $data = [
             "id" => "ac1d66a8-6d59-408b-9413-d56b1db7946f",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -32,7 +32,7 @@ class RecurringTemplateTest extends TestCase {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -46,10 +46,10 @@ class RecurringTemplateTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.95,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
                     "discountPercentage" => 50,
-                    "lineItemAmount" => 13.4
+                    "lineItemAmount" => 13.4,
                 ],
                 [
                     "id" => "dc4c805b-7df1-4310-a548-22be4499eb04",
@@ -62,10 +62,10 @@ class RecurringTemplateTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 8.32,
                         "grossAmount" => 8.9,
-                        "taxRatePercentage" => 7
+                        "taxRatePercentage" => 7,
                     ],
                     "discountPercentage" => 0,
-                    "lineItemAmount" => 8.32
+                    "lineItemAmount" => 8.32,
                 ],
                 [
                     "id" => null,
@@ -78,16 +78,16 @@ class RecurringTemplateTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "grossAmount" => 5,
-                        "taxRatePercentage" => 0
+                        "taxRatePercentage" => 0,
                     ],
                     "discountPercentage" => 0,
-                    "lineItemAmount" => 5
+                    "lineItemAmount" => 5,
                 ],
                 [
                     "type" => "text",
                     "name" => "Freitextposition",
-                    "description" => "This item type can contain either a name or a description or both."
-                ]
+                    "description" => "This item type can contain either a name or a description or both.",
+                ],
             ],
             "totalPrice" => [
                 "currency" => "EUR",
@@ -95,28 +95,28 @@ class RecurringTemplateTest extends TestCase {
                 "totalGrossAmount" => 29.85,
                 "totalTaxAmount" => 3.13,
                 "totalDiscountAbsolute" => null,
-                "totalDiscountPercentage" => null
+                "totalDiscountPercentage" => null,
             ],
             "taxAmounts" => [
                 [
                     "taxRatePercentage" => 0,
                     "taxAmount" => 0,
-                    "netAmount" => 5
+                    "netAmount" => 5,
                 ],
                 [
                     "taxRatePercentage" => 7,
                     "taxAmount" => 0.58,
-                    "netAmount" => 8.32
+                    "netAmount" => 8.32,
                 ],
                 [
                     "taxRatePercentage" => 19,
                     "taxAmount" => 2.55,
-                    "netAmount" => 13.4
-                ]
+                    "netAmount" => 13.4,
+                ],
             ],
             "taxConditions" => [
                 "taxType" => "net",
-                "taxTypeNote" => null
+                "taxTypeNote" => null,
             ],
             "paymentConditions" => [
                 "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
@@ -124,8 +124,8 @@ class RecurringTemplateTest extends TestCase {
                 "paymentTermDuration" => 30,
                 "paymentDiscountConditions" => [
                     "discountPercentage" => 3,
-                    "discountRange" => 10
-                ]
+                    "discountRange" => 10,
+                ],
             ],
             "title" => "Rechnung",
             "introduction" => "Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung",
@@ -140,8 +140,8 @@ class RecurringTemplateTest extends TestCase {
                 "nextExecutionDate" => "2023-03-01",
                 "lastExecutionFailed" => false,
                 "lastExecutionErrorMessage" => null,
-                "executionStatus" => "ACTIVE"
-            ]
+                "executionStatus" => "ACTIVE",
+            ],
         ];
         $recurringTemplate = new RecurringTemplate($data);
         $this->assertInstanceOf(RecurringTemplate::class, $recurringTemplate);

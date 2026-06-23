@@ -11,8 +11,7 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\API\Endpoints\FilesEndpoint;
-use Lexoffice\Entities\Files\File;
-use Lexoffice\Entities\Files\FileResource;
+use Lexoffice\Entities\Files\{File, FileResource};
 use Tests\Contracts\EndpointTest;
 
 class FilesEndpointTest extends EndpointTest {
@@ -24,7 +23,7 @@ class FilesEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testUploadAndDownloadFilesAPI() {
+    public function test_upload_and_download_files_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

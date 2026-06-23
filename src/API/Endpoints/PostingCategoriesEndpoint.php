@@ -16,8 +16,7 @@ use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
-use Lexoffice\Entities\PostingCategories\PostingCategories;
-use Lexoffice\Entities\PostingCategories\PostingCategory;
+use Lexoffice\Entities\PostingCategories\{PostingCategories, PostingCategory};
 
 class PostingCategoriesEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'posting-categories';
@@ -30,7 +29,7 @@ class PostingCategoriesEndpoint extends EndpointAbstract implements ListableEndp
         self::logDebug('Listing posting categories');
 
         return self::logDebugWithTimer(
-            fn() => PostingCategories::fromJson(parent::getContents([], $options)),
+            fn () => PostingCategories::fromJson(parent::getContents([], $options)),
             'Posting categories list fetched'
         );
     }

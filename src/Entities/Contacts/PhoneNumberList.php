@@ -14,5 +14,4 @@ namespace Lexoffice\Entities\Contacts;
 
 use APIToolkit\Entities\StringValues;
 
-class PhoneNumberList extends StringValues {
-}
+class PhoneNumberList extends StringValues {}

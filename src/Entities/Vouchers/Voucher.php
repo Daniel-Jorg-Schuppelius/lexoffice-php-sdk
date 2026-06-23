@@ -16,8 +16,7 @@ use DateTime;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
 use Lexoffice\Entities\Files\Files;
 use Lexoffice\Entities\Profile\OrganizationID;
-use Lexoffice\Enums\TaxType;
-use Lexoffice\Enums\VoucherType;
+use Lexoffice\Enums\{TaxType, VoucherType};
 
 class Voucher extends BaseVoucher implements OrganizationIdentifiableNamedEntityInterface {
     protected ?OrganizationID $organizationId;

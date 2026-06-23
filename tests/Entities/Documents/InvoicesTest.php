@@ -16,7 +16,7 @@ use Lexoffice\Entities\Documents\Invoices\Invoice;
 use PHPUnit\Framework\TestCase;
 
 class InvoicesTest extends TestCase {
-    public function testCreateInvoice() {
+    public function test_create_invoice() {
         $data = [
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -36,7 +36,7 @@ class InvoicesTest extends TestCase {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "xRechnung" => null,
             "lineItems" => [
@@ -51,10 +51,10 @@ class InvoicesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.95,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
                     "discountPercentage" => 50,
-                    "lineItemAmount" => 13.4
+                    "lineItemAmount" => 13.4,
                 ],
                 [
                     "id" => "dc4c805b-7df1-4310-a548-22be4499eb04",
@@ -67,10 +67,10 @@ class InvoicesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 8.32,
                         "grossAmount" => 8.9,
-                        "taxRatePercentage" => 7
+                        "taxRatePercentage" => 7,
                     ],
                     "discountPercentage" => 0,
-                    "lineItemAmount" => 8.32
+                    "lineItemAmount" => 8.32,
                 ],
                 [
                     "id" => null,
@@ -83,16 +83,16 @@ class InvoicesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "grossAmount" => 5,
-                        "taxRatePercentage" => 0
+                        "taxRatePercentage" => 0,
                     ],
                     "discountPercentage" => 0,
-                    "lineItemAmount" => 5
+                    "lineItemAmount" => 5,
                 ],
                 [
                     "type" => "text",
                     "name" => "Freitextposition",
-                    "description" => "This item type can contain either a name or a description or both."
-                ]
+                    "description" => "This item type can contain either a name or a description or both.",
+                ],
             ],
             "totalPrice" => [
                 "currency" => "EUR",
@@ -100,28 +100,28 @@ class InvoicesTest extends TestCase {
                 "totalGrossAmount" => 29.85,
                 "totalTaxAmount" => 3.13,
                 "totalDiscountAbsolute" => null,
-                "totalDiscountPercentage" => null
+                "totalDiscountPercentage" => null,
             ],
             "taxAmounts" => [
                 [
                     "taxRatePercentage" => 0,
                     "taxAmount" => 0,
-                    "netAmount" => 5
+                    "netAmount" => 5,
                 ],
                 [
                     "taxRatePercentage" => 7,
                     "taxAmount" => 0.58,
-                    "netAmount" => 8.32
+                    "netAmount" => 8.32,
                 ],
                 [
                     "taxRatePercentage" => 19,
                     "taxAmount" => 2.55,
-                    "netAmount" => 13.4
-                ]
+                    "netAmount" => 13.4,
+                ],
             ],
             "taxConditions" => [
                 "taxType" => "net",
-                "taxTypeNote" => null
+                "taxTypeNote" => null,
             ],
             "paymentConditions" => [
                 "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
@@ -129,13 +129,13 @@ class InvoicesTest extends TestCase {
                 "paymentTermDuration" => 30,
                 "paymentDiscountConditions" => [
                     "discountPercentage" => 3,
-                    "discountRange" => 10
-                ]
+                    "discountRange" => 10,
+                ],
             ],
             "shippingConditions" => [
                 "shippingDate" => "2023-04-22T00:00:00.000+02:00",
                 "shippingEndDate" => null,
-                "shippingType" => "delivery"
+                "shippingType" => "delivery",
             ],
             "closingInvoice" => false,
             "claimedGrossAmount" => null,
@@ -147,8 +147,8 @@ class InvoicesTest extends TestCase {
             "introduction" => "Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung",
             "remark" => "Vielen Dank für Ihren Einkauf",
             "files" => [
-                "documentFileId" => "75295db7-7e69-4630-befd-a7f4ddfdaa83"
-            ]
+                "documentFileId" => "75295db7-7e69-4630-befd-a7f4ddfdaa83",
+            ],
         ];
 
         $data1 = [
@@ -168,7 +168,7 @@ class InvoicesTest extends TestCase {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -182,10 +182,10 @@ class InvoicesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.95,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
                     "discountPercentage" => 50,
-                    "lineItemAmount" => 13.4
+                    "lineItemAmount" => 13.4,
                 ],
                 [
                     "id" => "dc4c805b-7df1-4310-a548-22be4499eb04",
@@ -198,10 +198,10 @@ class InvoicesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 8.32,
                         "grossAmount" => 8.9,
-                        "taxRatePercentage" => 7
+                        "taxRatePercentage" => 7,
                     ],
                     "discountPercentage" => 0,
-                    "lineItemAmount" => 8.32
+                    "lineItemAmount" => 8.32,
                 ],
                 [
                     "type" => "custom",
@@ -212,16 +212,16 @@ class InvoicesTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "grossAmount" => 5,
-                        "taxRatePercentage" => 0
+                        "taxRatePercentage" => 0,
                     ],
                     "discountPercentage" => 0,
-                    "lineItemAmount" => 5
+                    "lineItemAmount" => 5,
                 ],
                 [
                     "type" => "text",
                     "name" => "Freitextposition",
-                    "description" => "This item type can contain either a name or a description or both."
-                ]
+                    "description" => "This item type can contain either a name or a description or both.",
+                ],
             ],
             "totalPrice" => [
                 "currency" => "EUR",
@@ -233,18 +233,18 @@ class InvoicesTest extends TestCase {
                 [
                     "taxRatePercentage" => 0,
                     "taxAmount" => 0,
-                    "netAmount" => 5
+                    "netAmount" => 5,
                 ],
                 [
                     "taxRatePercentage" => 7,
                     "taxAmount" => 0.58,
-                    "netAmount" => 8.32
+                    "netAmount" => 8.32,
                 ],
                 [
                     "taxRatePercentage" => 19,
                     "taxAmount" => 2.55,
-                    "netAmount" => 13.4
-                ]
+                    "netAmount" => 13.4,
+                ],
             ],
             "taxConditions" => [
                 "taxType" => "net",
@@ -255,12 +255,12 @@ class InvoicesTest extends TestCase {
                 "paymentTermDuration" => 30,
                 "paymentDiscountConditions" => [
                     "discountPercentage" => 3,
-                    "discountRange" => 10
-                ]
+                    "discountRange" => 10,
+                ],
             ],
             "shippingConditions" => [
                 "shippingDate" => "2023-04-22T00:00:00.000+02:00",
-                "shippingType" => "delivery"
+                "shippingType" => "delivery",
             ],
             "closingInvoice" => false,
             "relatedVouchers" => [],
@@ -269,8 +269,8 @@ class InvoicesTest extends TestCase {
             "introduction" => "Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung",
             "remark" => "Vielen Dank für Ihren Einkauf",
             "files" => [
-                "documentFileId" => "75295db7-7e69-4630-befd-a7f4ddfdaa83"
-            ]
+                "documentFileId" => "75295db7-7e69-4630-befd-a7f4ddfdaa83",
+            ],
         ];
 
         $invoice = new Invoice($data);

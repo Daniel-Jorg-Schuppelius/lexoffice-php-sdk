@@ -10,8 +10,8 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\API\Endpoints\ProfileEndpoint;
 use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
+use Lexoffice\API\Endpoints\ProfileEndpoint;
 use Lexoffice\Entities\Profile\Profile;
 use Tests\Contracts\EndpointTest;
 
@@ -23,7 +23,7 @@ class ProfileEndpointTest extends EndpointTest {
         $this->endpoint = new ProfileEndpoint($this->client);
         $this->apiDisabled = true; // API is disabled
     }
-    public function testGetProfileAPI() {
+    public function test_get_profile_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

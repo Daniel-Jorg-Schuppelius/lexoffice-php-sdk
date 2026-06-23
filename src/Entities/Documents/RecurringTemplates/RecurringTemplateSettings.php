@@ -12,11 +12,9 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Documents\RecurringTemplates;
 
-use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Enums\ExecutionInterval;
-use Lexoffice\Enums\ExecutionStatus;
-use Lexoffice\Enums\ShippingType;
+use DateTime;
+use Lexoffice\Enums\{ExecutionInterval, ExecutionStatus, ShippingType};
 use Psr\Log\LoggerInterface;
 
 class RecurringTemplateSettings extends NamedEntity {

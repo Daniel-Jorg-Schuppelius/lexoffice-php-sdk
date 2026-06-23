@@ -16,8 +16,7 @@ use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
-use Lexoffice\Entities\Documents\Invoices\Invoice;
-use Lexoffice\Entities\Documents\Invoices\InvoiceResource;
+use Lexoffice\Entities\Documents\Invoices\{Invoice, InvoiceResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class InvoicesEndpoint extends DocumentEndpointAbstract {
@@ -52,7 +51,7 @@ class InvoicesEndpoint extends DocumentEndpointAbstract {
         self::logDebug('Fetching invoice', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => Invoice::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => Invoice::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Invoice fetched (ID: {$id->toString()})"
         );
     }

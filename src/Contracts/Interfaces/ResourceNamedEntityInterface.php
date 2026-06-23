@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Lexoffice\Contracts\Interfaces;
 
-use DateTime;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
+use DateTime;
 
 interface ResourceNamedEntityInterface extends IdentifiableNamedEntityInterface {
     public function getResourceUri(): string;

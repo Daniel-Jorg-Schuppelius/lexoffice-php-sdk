@@ -14,8 +14,7 @@ namespace Lexoffice\Entities\Profile;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
-use Lexoffice\Enums\DistanceSalesPrinciple;
-use Lexoffice\Enums\TaxType;
+use Lexoffice\Enums\{DistanceSalesPrinciple, TaxType};
 use Psr\Log\LoggerInterface;
 
 class Profile extends NamedEntity implements OrganizationIdentifiableNamedEntityInterface {

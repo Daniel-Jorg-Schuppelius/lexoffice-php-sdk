@@ -12,15 +12,15 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Vouchers;
 
-use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
+use DateTime;
 use Lexoffice\Contracts\Interfaces\ExtendedTimestampableNamedEntityInterface;
 use Lexoffice\Entities\Contacts\ContactID;
 use Lexoffice\Enums\VoucherStatus;
 use Psr\Log\LoggerInterface;
 
-class BaseVoucher extends NamedEntity implements IdentifiableNamedEntityInterface, ExtendedTimestampableNamedEntityInterface {
+class BaseVoucher extends NamedEntity implements ExtendedTimestampableNamedEntityInterface, IdentifiableNamedEntityInterface {
     protected ?VoucherID $id;
     protected ?VoucherStatus $voucherStatus;
     protected ?string $voucherNumber;

@@ -15,8 +15,7 @@ namespace Tests\Endpoints\Offline;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\Documents\DunningsEndpoint;
-use Lexoffice\Entities\Documents\Dunnings\Dunning;
-use Lexoffice\Entities\Documents\Dunnings\DunningResource;
+use Lexoffice\Entities\Documents\Dunnings\{Dunning, DunningResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 use Tests\Contracts\OfflineEndpointTest;
 
@@ -75,7 +74,7 @@ class DunningsEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testGetDunning(): void {
+    public function test_get_dunning(): void {
         $id = new ID('5d217758-ea2a-11eb-a8d0-47ec974ddbcf');
         $result = $this->endpoint->get($id);
 
@@ -84,14 +83,14 @@ class DunningsEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'dunnings/5d217758-ea2a-11eb-a8d0-47ec974ddbcf');
     }
 
-    public function testGetDunningWithoutIdThrowsException(): void {
+    public function test_get_dunning_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testPursueDunning(): void {
+    public function test_pursue_dunning(): void {
         $voucherId = new VoucherID('previous-invoice-id-12345');
         $result = $this->endpoint->pursue($voucherId, false);
 

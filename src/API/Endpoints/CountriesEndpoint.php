@@ -16,8 +16,7 @@ use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
-use Lexoffice\Entities\Countries\Countries;
-use Lexoffice\Entities\Countries\Country;
+use Lexoffice\Entities\Countries\{Countries, Country};
 
 class CountriesEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'countries';
@@ -30,7 +29,7 @@ class CountriesEndpoint extends EndpointAbstract implements ListableEndpointInte
         self::logDebug('Listing countries');
 
         return self::logDebugWithTimer(
-            fn() => Countries::fromJson(parent::getContents([], $options)),
+            fn () => Countries::fromJson(parent::getContents([], $options)),
             'Countries list fetched'
         );
     }

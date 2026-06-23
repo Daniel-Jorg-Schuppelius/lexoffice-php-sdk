@@ -65,7 +65,7 @@ class QuotationsEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testGetQuotation(): void {
+    public function test_get_quotation(): void {
         $id = new ID('629c831d-c5e7-4ca5-8b94-ea3e3ba02fbd');
         $result = $this->endpoint->get($id);
 
@@ -74,14 +74,14 @@ class QuotationsEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'quotations/629c831d-c5e7-4ca5-8b94-ea3e3ba02fbd');
     }
 
-    public function testGetQuotationWithoutIdThrowsException(): void {
+    public function test_get_quotation_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testPursueQuotationThrowsNotAllowedException(): void {
+    public function test_pursue_quotation_throws_not_allowed_exception(): void {
         $this->expectException(NotAllowedException::class);
         $this->expectExceptionMessage('Quotations cannot be pursued');
 

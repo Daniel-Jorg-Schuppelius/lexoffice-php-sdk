@@ -12,13 +12,10 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Payments;
 
-use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use CommonToolkit\Enums\CurrencyCode;
-use Lexoffice\Entities\Payments\PaymentItems;
-use Lexoffice\Enums\PaymentStatus;
-use Lexoffice\Enums\VoucherStatus;
-use Lexoffice\Enums\VoucherType;
+use DateTime;
+use Lexoffice\Enums\{PaymentStatus, VoucherStatus, VoucherType};
 use Psr\Log\LoggerInterface;
 
 class Payment extends NamedEntity {

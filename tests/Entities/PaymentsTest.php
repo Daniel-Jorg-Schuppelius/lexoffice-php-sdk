@@ -13,20 +13,18 @@ declare(strict_types=1);
 namespace Tests\Entities;
 
 use CommonToolkit\Enums\CurrencyCode;
-use Lexoffice\Entities\Payments\Payment;
-use Lexoffice\Entities\Payments\Payments;
-use Lexoffice\Enums\Currency;
+use Lexoffice\Entities\Payments\{Payment, Payments};
 use PHPUnit\Framework\TestCase;
 
 class PaymentsTest extends TestCase {
-    public function testCreatePayments() {
+    public function test_create_payments() {
         $data1 = [
             "openAmount" => 200.00,
             "currency" => "EUR",
             "paymentStatus" => "openRevenue",
             "voucherType" => "invoice",
             "voucherStatus" => "open",
-            "paymentItems" => []
+            "paymentItems" => [],
         ];
 
         $data2 = [
@@ -40,15 +38,15 @@ class PaymentsTest extends TestCase {
                     "paymentItemType" => "manualPayment",
                     "postingDate" => "2023-11-07T00:00:00.000+01:00",
                     "amount" => 10.50,
-                    "currency" => "EUR"
+                    "currency" => "EUR",
                 ],
                 [
                     "paymentItemType" => "manualPayment",
                     "postingDate" => "2023-11-13T00:00:00.000+01:00",
                     "amount" => 20.0,
-                    "currency" => "EUR"
-                ]
-            ]
+                    "currency" => "EUR",
+                ],
+            ],
         ];
 
         $data3 = [
@@ -63,9 +61,9 @@ class PaymentsTest extends TestCase {
                     "paymentItemType" => "manualPayment",
                     "postingDate" => "2023-07-14T00:00:00.000+01:00",
                     "amount" => 119.0,
-                    "currency" => "EUR"
-                ]
-            ]
+                    "currency" => "EUR",
+                ],
+            ],
         ];
 
         $data4 = [
@@ -80,15 +78,15 @@ class PaymentsTest extends TestCase {
                     "paymentItemType" => "manualPayment",
                     "postingDate" => "2023-07-14T00:00:00.000+01:00",
                     "amount" => 72.0,
-                    "currency" => "EUR"
+                    "currency" => "EUR",
                 ],
                 [
                     "paymentItemType" => "cashDiscount",
                     "postingDate" => "2023-07-14T00:00:00.000+01:00",
                     "amount" => 7.85,
-                    "currency" => "EUR"
-                ]
-            ]
+                    "currency" => "EUR",
+                ],
+            ],
         ];
 
         $payment1 = new Payment($data1);

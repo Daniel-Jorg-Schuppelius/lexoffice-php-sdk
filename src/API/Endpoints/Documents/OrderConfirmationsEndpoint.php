@@ -16,8 +16,7 @@ use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
-use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmation;
-use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmationResource;
+use Lexoffice\Entities\Documents\OrderConfirmations\{OrderConfirmation, OrderConfirmationResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class OrderConfirmationsEndpoint extends DocumentEndpointAbstract {
@@ -52,7 +51,7 @@ class OrderConfirmationsEndpoint extends DocumentEndpointAbstract {
         self::logDebug('Fetching order confirmation', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => OrderConfirmation::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => OrderConfirmation::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Order confirmation fetched (ID: {$id->toString()})"
         );
     }

@@ -15,8 +15,7 @@ namespace Lexoffice\API\Endpoints;
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
-use Lexoffice\Entities\Files\File;
-use Lexoffice\Entities\Files\FileResource;
+use Lexoffice\Entities\Files\{File, FileResource};
 
 class FilesEndpoint extends EndpointAbstract {
     protected string $endpoint = 'files';
@@ -58,14 +57,14 @@ class FilesEndpoint extends EndpointAbstract {
                             'filename' => basename($filePath),
                         ],
                         [
-                            'name'     => 'type',
+                            'name' => 'type',
                             'contents' => 'voucher',
                         ],
                     ],
                     'timeout' => self::UPLOAD_TIMEOUT,
                 ]);
             } finally {
-                if ($previousTimeout !== null) {
+                if ($previousTimeout !== null && method_exists($this->client, 'setTimeout')) {
                     $this->client->setTimeout($previousTimeout);
                 }
                 if (is_resource($handle)) {

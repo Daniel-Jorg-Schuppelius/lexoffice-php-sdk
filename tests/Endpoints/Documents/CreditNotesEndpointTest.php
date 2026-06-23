@@ -11,8 +11,7 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\API\Endpoints\Documents\CreditNotesEndpoint;
-use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
-use Lexoffice\Entities\Documents\CreditNotes\CreditNoteResource;
+use Lexoffice\Entities\Documents\CreditNotes\{CreditNote, CreditNoteResource};
 use Tests\Contracts\EndpointTest;
 
 class CreditNotesEndpointTest extends EndpointTest {
@@ -24,7 +23,7 @@ class CreditNotesEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data = [
             "lineItems" => [
                 [
@@ -37,8 +36,8 @@ class CreditNotesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.946,
-                        "taxRatePercentage" => 19
-                    ]
+                        "taxRatePercentage" => 19,
+                    ],
                 ],
                 [
                     "type" => "custom",
@@ -49,14 +48,14 @@ class CreditNotesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "grossAmount" => 5,
-                        "taxRatePercentage" => 0
-                    ]
+                        "taxRatePercentage" => 0,
+                    ],
                 ],
                 [
                     "type" => "text",
                     "name" => "Strukturieren Sie Ihre Belege durch Text-Elemente.",
-                    "description" => "Das hilft beim Verständnis"
-                ]
+                    "description" => "Das hilft beim Verständnis",
+                ],
             ],
             "archived" => false,
             "voucherDate" => "2024-02-22T00:00:00.000+01:00",
@@ -66,17 +65,17 @@ class CreditNotesEndpointTest extends EndpointTest {
                 "street" => "Musterstraße 42",
                 "zip" => "79112",
                 "city" => "Freiburg",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "totalPrice" => [
-                "currency" => "EUR"
+                "currency" => "EUR",
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "title" => "Rechnungskorrektur",
             "introduction" => "Rechnungskorrektur zur Rechnung RE-00020",
-            "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."
+            "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.",
         ];
 
         $creditNote = new CreditNote($data, $this->logger);
@@ -85,7 +84,7 @@ class CreditNotesEndpointTest extends EndpointTest {
         $this->assertStringContainsString(substr($creditNote->getTitle(), 2, -2), $creditNote->toJson());
     }
 
-    public function testCreateAndGetCreditNoteAPI() {
+    public function test_create_and_get_credit_note_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -99,7 +98,7 @@ class CreditNotesEndpointTest extends EndpointTest {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -111,8 +110,8 @@ class CreditNotesEndpointTest extends EndpointTest {
                     "unitPrice" => [
                         "currency" => "EUR",
                         "netAmount" => 13.4,
-                        "taxRatePercentage" => 19
-                    ]
+                        "taxRatePercentage" => 19,
+                    ],
                 ],
                 [
                     "type" => "custom",
@@ -122,24 +121,24 @@ class CreditNotesEndpointTest extends EndpointTest {
                     "unitPrice" => [
                         "currency" => "EUR",
                         "netAmount" => 5,
-                        "taxRatePercentage" => 0
-                    ]
+                        "taxRatePercentage" => 0,
+                    ],
                 ],
                 [
                     "type" => "text",
                     "name" => "Strukturieren Sie Ihre Belege durch Text-Elemente.",
-                    "description" => "Das hilft beim Verständnis"
-                ]
+                    "description" => "Das hilft beim Verständnis",
+                ],
             ],
             "totalPrice" => [
-                "currency" => "EUR"
+                "currency" => "EUR",
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "title" => "Rechnungskorrektur",
             "introduction" => "Rechnungskorrektur zur Rechnung RE-00020",
-            "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."
+            "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.",
         ];
 
         $creditNote = new CreditNote($data);

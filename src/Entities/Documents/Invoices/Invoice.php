@@ -14,14 +14,8 @@ namespace Lexoffice\Entities\Documents\Invoices;
 
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedDocument;
-use Lexoffice\Entities\Documents\Address;
+use Lexoffice\Entities\Documents\{Address, ExtendedLineItems, PaymentConditions, PrintLayoutID, ShippingConditions, TaxConditions, TotalPrice};
 use Lexoffice\Entities\XRechnung;
-use Lexoffice\Entities\Documents\ExtendedLineItems;
-use Lexoffice\Entities\Documents\PaymentConditions;
-use Lexoffice\Entities\Documents\PrintLayoutID;
-use Lexoffice\Entities\Documents\ShippingConditions;
-use Lexoffice\Entities\Documents\TaxConditions;
-use Lexoffice\Entities\Documents\TotalPrice;
 use Lexoffice\Enums\Language;
 use Psr\Log\LoggerInterface;
 

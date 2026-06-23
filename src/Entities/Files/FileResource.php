@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Files;
 
-use Lexoffice\Contracts\Abstracts\ResourceAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
+use Lexoffice\Contracts\Abstracts\ResourceAbstract;
 
 class FileResource extends ResourceAbstract {
     public function getResource(): NamedEntityInterface {
-        return new File();
+        return new File;
     }
 }

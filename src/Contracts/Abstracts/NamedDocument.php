@@ -13,27 +13,16 @@ declare(strict_types=1);
 namespace Lexoffice\Contracts\Abstracts;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\ArchivableNamedEntityInterface;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\VersionableNamedEntityInterface;
-use APIToolkit\Entities\ID;
-use APIToolkit\Entities\Version;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\{ArchivableNamedEntityInterface, IdentifiableNamedEntityInterface, VersionableNamedEntityInterface};
+use APIToolkit\Entities\{ID, Version};
 use DateTime;
-use Lexoffice\Contracts\Interfaces\ExtendedTimestampableNamedEntityInterface;
-use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
-use Lexoffice\Entities\Documents\Address;
-use Lexoffice\Entities\Documents\TotalPrice;
-use Lexoffice\Entities\Documents\TaxConditions;
-use Lexoffice\Entities\Documents\PrintLayoutID;
-use Lexoffice\Entities\Documents\DocumentFile;
-use Lexoffice\Entities\Documents\RelatedVouchers;
-use Lexoffice\Entities\Documents\TaxAmounts;
+use Lexoffice\Contracts\Interfaces\{ExtendedTimestampableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface};
+use Lexoffice\Entities\Documents\{Address, DocumentFile, PrintLayoutID, RelatedVouchers, TaxAmounts, TaxConditions, TotalPrice};
 use Lexoffice\Entities\Profile\OrganizationID;
-use Lexoffice\Enums\Language;
-use Lexoffice\Enums\VoucherStatus;
+use Lexoffice\Enums\{Language, VoucherStatus};
 use Psr\Log\LoggerInterface;
 
-abstract class NamedDocument extends NamedEntity implements IdentifiableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface, ArchivableNamedEntityInterface, ExtendedTimestampableNamedEntityInterface, VersionableNamedEntityInterface {
+abstract class NamedDocument extends NamedEntity implements ArchivableNamedEntityInterface, ExtendedTimestampableNamedEntityInterface, IdentifiableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface, VersionableNamedEntityInterface {
     protected ?ID $id;
     protected ?OrganizationID $organizationId;
     protected ?DateTime $createdDate;

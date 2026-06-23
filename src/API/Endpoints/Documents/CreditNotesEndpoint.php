@@ -16,8 +16,7 @@ use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
-use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
-use Lexoffice\Entities\Documents\CreditNotes\CreditNoteResource;
+use Lexoffice\Entities\Documents\CreditNotes\{CreditNote, CreditNoteResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class CreditNotesEndpoint extends DocumentEndpointAbstract {
@@ -52,7 +51,7 @@ class CreditNotesEndpoint extends DocumentEndpointAbstract {
         self::logDebug('Fetching credit note', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => CreditNote::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => CreditNote::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Credit note fetched (ID: {$id->toString()})"
         );
     }

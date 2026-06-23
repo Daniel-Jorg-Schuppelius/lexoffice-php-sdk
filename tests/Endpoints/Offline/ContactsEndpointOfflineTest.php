@@ -16,9 +16,7 @@ use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\ContactsEndpoint;
-use Lexoffice\Entities\Contacts\Contact;
-use Lexoffice\Entities\Contacts\ContactResource;
-use Lexoffice\Entities\Contacts\ContactsPage;
+use Lexoffice\Entities\Contacts\{Contact, ContactResource, ContactsPage};
 use Tests\Contracts\OfflineEndpointTest;
 
 class ContactsEndpointOfflineTest extends OfflineEndpointTest {
@@ -65,7 +63,7 @@ class ContactsEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testCreateContact(): void {
+    public function test_create_contact(): void {
         $data = [
             'version' => 0,
             'roles' => [
@@ -87,7 +85,7 @@ class ContactsEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('POST', 'contacts');
     }
 
-    public function testGetContact(): void {
+    public function test_get_contact(): void {
         $id = new ID('e9066f04-8cc7-4616-93f8-ac9571762f49');
         $result = $this->endpoint->get($id);
 
@@ -97,14 +95,14 @@ class ContactsEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'contacts/e9066f04-8cc7-4616-93f8-ac9571762f49');
     }
 
-    public function testGetContactWithoutIdThrowsException(): void {
+    public function test_get_contact_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testUpdateContact(): void {
+    public function test_update_contact(): void {
         $this->mockClient->addResponse('PUT', 'contacts/e9066f04-8cc7-4616-93f8-ac9571762f49', 200, json_encode([
             'id' => 'e9066f04-8cc7-4616-93f8-ac9571762f49',
             'resourceUri' => 'https://api.lexoffice.io/v1/contacts/e9066f04-8cc7-4616-93f8-ac9571762f49',
@@ -130,7 +128,7 @@ class ContactsEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('PUT', 'contacts/e9066f04-8cc7-4616-93f8-ac9571762f49');
     }
 
-    public function testDeleteContactThrowsNotAllowedException(): void {
+    public function test_delete_contact_throws_not_allowed_exception(): void {
         $this->expectException(NotAllowedException::class);
         $this->expectExceptionMessage('Deleting contacts is not allowed');
 
@@ -138,14 +136,14 @@ class ContactsEndpointOfflineTest extends OfflineEndpointTest {
         $this->endpoint->delete($id);
     }
 
-    public function testSearchContacts(): void {
+    public function test_search_contacts(): void {
         $result = $this->endpoint->search();
 
         $this->assertInstanceOf(ContactsPage::class, $result);
         $this->assertRequestMade('GET', 'contacts*');
     }
 
-    public function testSearchContactsWithFilters(): void {
+    public function test_search_contacts_with_filters(): void {
         $result = $this->endpoint->search(['email' => 'test@example.com']);
 
         $this->assertInstanceOf(ContactsPage::class, $result);

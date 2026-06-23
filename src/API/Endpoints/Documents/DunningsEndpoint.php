@@ -16,8 +16,7 @@ use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
-use Lexoffice\Entities\Documents\Dunnings\Dunning;
-use Lexoffice\Entities\Documents\Dunnings\DunningResource;
+use Lexoffice\Entities\Documents\Dunnings\{Dunning, DunningResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class DunningsEndpoint extends DocumentEndpointAbstract {
@@ -52,7 +51,7 @@ class DunningsEndpoint extends DocumentEndpointAbstract {
         self::logDebug('Fetching dunning', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => Dunning::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => Dunning::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Dunning fetched (ID: {$id->toString()})"
         );
     }

@@ -11,8 +11,7 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\API\Endpoints\Documents\DeliveryNotesEndpoint;
-use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
-use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNoteResource;
+use Lexoffice\Entities\Documents\DeliveryNotes\{DeliveryNote, DeliveryNoteResource};
 use Tests\Contracts\EndpointTest;
 
 final class DeliveryNotesEndpointTest extends EndpointTest {
@@ -24,7 +23,7 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data = [
             "lineItems" => [
                 [
@@ -37,8 +36,8 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.946,
-                        "taxRatePercentage" => 19
-                    ]
+                        "taxRatePercentage" => 19,
+                    ],
                 ],
                 [
                     "type" => "custom",
@@ -49,9 +48,9 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "grossAmount" => 5,
-                        "taxRatePercentage" => 0
-                    ]
-                ]
+                        "taxRatePercentage" => 0,
+                    ],
+                ],
             ],
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -69,10 +68,10 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
                 "street" => "Musterstraße 42",
                 "zip" => "79112",
                 "city" => "Freiburg",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "relatedVouchers" => [],
             "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
@@ -80,8 +79,8 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
             "introduction" => "Lieferschein zur Rechnung RE-00020",
             "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.",
             "files" => [
-                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3"
-            ]
+                "documentFileId" => "a79fea19-a892-4ea9-89ad-e879946329a3",
+            ],
         ];
 
         $deliveryNote = new DeliveryNote($data, $this->logger);
@@ -91,7 +90,7 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
         $this->assertStringContainsString(substr($deliveryNote->getTitle(), 2, -2), $deliveryNote->toJson());
     }
 
-    public function testCreateAndGetDeliveryNoteAPI() {
+    public function test_create_and_get_delivery_note_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -105,7 +104,7 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -114,32 +113,32 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
                     "description" => "· 9,5 mm starkes, smoke-mattes Spiralkabel mit integrierter Halterlösung zur Befestigung am Sattelklemmbolzen · bewährter Qualitäts-Schließzylinder mit praktischem Wendeschlüssel · KabelØ: 9,5 mm, Länge: 150 cm",
                     "quantity" => 2,
                     "unitName" => "Stück",
-                    "unitPrice" => null
+                    "unitPrice" => null,
                 ],
                 [
                     "type" => "custom",
                     "name" => "Energieriegel Testpaket",
                     "quantity" => 1,
                     "unitName" => "Stück",
-                    "unitPrice" => null
+                    "unitPrice" => null,
                 ],
                 [
                     "type" => "text",
                     "name" => "Strukturieren Sie Ihre Belege durch Text-Elemente.",
-                    "description" => "Das hilft beim Verständnis"
-                ]
+                    "description" => "Das hilft beim Verständnis",
+                ],
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "shippingConditions" => [
                 "shippingDate" => "2023-02-22T00:00:00.000+01:00",
-                "shippingType" => "delivery"
+                "shippingType" => "delivery",
             ],
             "title" => "Lieferschein",
             "introduction" => "Lieferschein zur Rechnung RE-00020",
             "deliveryTerms" => "Lieferung frei Haus.",
-            "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut."
+            "remark" => "Folgende Lieferungen/Leistungen schreiben wir Ihnen gut.",
         ];
 
         $deliveryNote = new DeliveryNote($data);

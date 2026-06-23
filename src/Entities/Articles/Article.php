@@ -12,19 +12,16 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Articles;
 
-use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\ArchivableNamedEntityInterface;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\VersionableNamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\{ArchivableNamedEntityInterface, IdentifiableNamedEntityInterface, VersionableNamedEntityInterface};
 use APIToolkit\Entities\Version;
-use Lexoffice\Contracts\Interfaces\ExtendedTimestampableNamedEntityInterface;
-use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
-use Lexoffice\Enums\ArticleType;
+use DateTime;
+use Lexoffice\Contracts\Interfaces\{ExtendedTimestampableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface};
 use Lexoffice\Entities\Profile\OrganizationID;
+use Lexoffice\Enums\ArticleType;
 use Psr\Log\LoggerInterface;
 
-class Article extends NamedEntity implements IdentifiableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface, ArchivableNamedEntityInterface, ExtendedTimestampableNamedEntityInterface, VersionableNamedEntityInterface {
+class Article extends NamedEntity implements ArchivableNamedEntityInterface, ExtendedTimestampableNamedEntityInterface, IdentifiableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface, VersionableNamedEntityInterface {
     protected ?ArticleID $id;
     protected ?OrganizationID $organizationId;
     protected ?DateTime $createdDate;

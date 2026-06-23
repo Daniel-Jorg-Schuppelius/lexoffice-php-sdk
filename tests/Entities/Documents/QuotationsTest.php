@@ -16,7 +16,7 @@ use Lexoffice\Entities\Documents\Quotations\Quotation;
 use PHPUnit\Framework\TestCase;
 
 class QuotationsTest extends TestCase {
-    public function testCreateQuotation() {
+    public function test_create_quotation() {
         $data = [
             "id" => "424f784e-1f4e-439e-8f71-19673e6d6583",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -35,7 +35,7 @@ class QuotationsTest extends TestCase {
                 "street" => "Jubiläumsweg 25",
                 "city" => "Berlin",
                 "zip" => "14089",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -49,7 +49,7 @@ class QuotationsTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 20.08,
                         "grossAmount" => 23.9,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
                     "discountPercentage" => 0,
                     "lineItemAmount" => 23.90,
@@ -65,16 +65,16 @@ class QuotationsTest extends TestCase {
                                 "currency" => "EUR",
                                 "netAmount" => 13.4,
                                 "grossAmount" => 15.95,
-                                "taxRatePercentage" => 19
+                                "taxRatePercentage" => 19,
                             ],
                             "discountPercentage" => 0,
                             "lineItemAmount" => 15.95,
                             "alternative" => true,
-                            "optional" => false
-                        ]
+                            "optional" => false,
+                        ],
                     ],
                     "alternative" => false,
-                    "optional" => false
+                    "optional" => false,
                 ],
                 [
                     "id" => "0722bcc6-d1b7-417b-b834-3b47794fa9ab",
@@ -87,29 +87,29 @@ class QuotationsTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 4.12,
                         "grossAmount" => 4.9,
-                        "taxRatePercentage" => 19
+                        "taxRatePercentage" => 19,
                     ],
                     "discountPercentage" => 0,
                     "lineItemAmount" => 4.90,
                     "alternative" => false,
-                    "optional" => true
-                ]
+                    "optional" => true,
+                ],
             ],
             "totalPrice" => [
                 "currency" => "EUR",
                 "totalNetAmount" => 20.08,
                 "totalGrossAmount" => 23.90,
-                "totalTaxAmount" => 3.82
+                "totalTaxAmount" => 3.82,
             ],
             "taxAmounts" => [
                 [
                     "taxRatePercentage" => 19,
                     "taxAmount" => 3.82,
-                    "netAmount" => 20.08
-                ]
+                    "netAmount" => 20.08,
+                ],
             ],
             "taxConditions" => [
-                "taxType" => "gross"
+                "taxType" => "gross",
             ],
             "paymentConditions" => [
                 "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
@@ -117,17 +117,17 @@ class QuotationsTest extends TestCase {
                 "paymentTermDuration" => 30,
                 "paymentDiscountConditions" => [
                     "discountPercentage" => 3,
-                    "discountRange" => 10
-                ]
+                    "discountRange" => 10,
+                ],
             ],
             "relatedVouchers" => [],
             "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
             "introduction" => "Gerne bieten wir Ihnen an:",
             "remark" => "Wir freuen uns auf Ihre Auftragserteilung und sichern eine einwandfreie Ausführung zu.",
             "files" => [
-                "documentFileId" => "ebd84e8a-716d-4a20-a76d-21de75a6d3d1"
+                "documentFileId" => "ebd84e8a-716d-4a20-a76d-21de75a6d3d1",
             ],
-            "title" => "Angebot"
+            "title" => "Angebot",
         ];
 
         $quotations = new Quotation($data);

@@ -10,9 +10,9 @@
 
 namespace Tests;
 
-use Lexoffice\API\Client;
 use APIToolkit\Contracts\Interfaces\API\ApiClientInterface;
 use ERRORToolkit\Factories\ConsoleLoggerFactory;
+use Lexoffice\API\Client;
 use Tests\Config\PostmanConfig;
 
 class TestAPIClientFactory {

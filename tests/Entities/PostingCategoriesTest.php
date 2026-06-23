@@ -16,7 +16,7 @@ use Lexoffice\Entities\PostingCategories\PostingCategories;
 use PHPUnit\Framework\TestCase;
 
 class PostingCategoriesTest extends TestCase {
-    public function testCreatePostingCategories() {
+    public function test_create_posting_categories() {
         $data = [
             [
                 "id" => "cf03a2b0-f838-474f-ac5e-67adb9b830c7",
@@ -24,7 +24,7 @@ class PostingCategoriesTest extends TestCase {
                 "type" => "outgo",
                 "contactRequired" => false,
                 "splitAllowed" => true,
-                "groupName" => "Reisen"
+                "groupName" => "Reisen",
             ],
             [
                 "id" => "3620798f-ae06-4492-b775-1c87eb99247c",
@@ -32,7 +32,7 @@ class PostingCategoriesTest extends TestCase {
                 "type" => "outgo",
                 "contactRequired" => false,
                 "splitAllowed" => true,
-                "groupName" => "Reisen"
+                "groupName" => "Reisen",
             ],
             [
                 "id" => "8f8664a1-fd86-11e1-a21f-0800200c9a66",
@@ -40,7 +40,7 @@ class PostingCategoriesTest extends TestCase {
                 "type" => "income",
                 "contactRequired" => false,
                 "splitAllowed" => true,
-                "groupName" => "Einnahmen"
+                "groupName" => "Einnahmen",
             ],
             [
                 "id" => "8f8664a0-fd86-11e1-a21f-0800200c9a66",
@@ -48,8 +48,8 @@ class PostingCategoriesTest extends TestCase {
                 "type" => "income",
                 "contactRequired" => false,
                 "splitAllowed" => true,
-                "groupName" => "Einnahmen"
-            ]
+                "groupName" => "Einnahmen",
+            ],
         ];
 
         $postingCategories = new PostingCategories($data);

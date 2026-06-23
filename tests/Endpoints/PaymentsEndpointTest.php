@@ -10,8 +10,8 @@
 
 namespace Tests\Endpoints;
 
-use Lexoffice\API\Endpoints\PaymentsEndpoint;
 use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
+use Lexoffice\API\Endpoints\PaymentsEndpoint;
 use Lexoffice\Entities\Payments\Payment;
 use Tests\Contracts\EndpointTest;
 
@@ -24,14 +24,14 @@ class PaymentsEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data1 = [
             "openAmount" => 200.00,
             "currency" => "EUR",
             "paymentStatus" => "openRevenue",
             "voucherType" => "invoice",
             "voucherStatus" => "open",
-            "paymentItems" => []
+            "paymentItems" => [],
         ];
 
         $data2 = [
@@ -45,15 +45,15 @@ class PaymentsEndpointTest extends EndpointTest {
                     "paymentItemType" => "manualPayment",
                     "postingDate" => "2023-11-07T00:00:00.000+01:00",
                     "amount" => 10.50,
-                    "currency" => "EUR"
+                    "currency" => "EUR",
                 ],
                 [
                     "paymentItemType" => "manualPayment",
                     "postingDate" => "2023-11-13T00:00:00.000+01:00",
                     "amount" => 20.0,
-                    "currency" => "EUR"
-                ]
-            ]
+                    "currency" => "EUR",
+                ],
+            ],
         ];
 
         $data3 = [
@@ -68,9 +68,9 @@ class PaymentsEndpointTest extends EndpointTest {
                     "paymentItemType" => "manualPayment",
                     "postingDate" => "2023-07-14T00:00:00.000+01:00",
                     "amount" => 119.0,
-                    "currency" => "EUR"
-                ]
-            ]
+                    "currency" => "EUR",
+                ],
+            ],
         ];
 
         $data4 = [
@@ -85,15 +85,15 @@ class PaymentsEndpointTest extends EndpointTest {
                     "paymentItemType" => "manualPayment",
                     "postingDate" => "2023-07-14T00:00:00.000+01:00",
                     "amount" => 72.0,
-                    "currency" => "EUR"
+                    "currency" => "EUR",
                 ],
                 [
                     "paymentItemType" => "cashDiscount",
                     "postingDate" => "2023-07-14T00:00:00.000+01:00",
                     "amount" => 7.85,
-                    "currency" => "EUR"
-                ]
-            ]
+                    "currency" => "EUR",
+                ],
+            ],
         ];
 
         $payment1 = new Payment($data1);

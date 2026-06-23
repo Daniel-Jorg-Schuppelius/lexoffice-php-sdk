@@ -16,11 +16,8 @@ use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
-use Lexoffice\Contracts\Interfaces\API\ClassicEndpointInterface;
-use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
-use Lexoffice\Entities\EventSubscriptions\EventSubscription;
-use Lexoffice\Entities\EventSubscriptions\EventSubscriptionResource;
-use Lexoffice\Entities\EventSubscriptions\EventSubscriptions;
+use Lexoffice\Contracts\Interfaces\API\{ClassicEndpointInterface, ListableEndpointInterface};
+use Lexoffice\Entities\EventSubscriptions\{EventSubscription, EventSubscriptionResource, EventSubscriptions};
 
 class EventSubscriptionsEndpoint extends EndpointAbstract implements ClassicEndpointInterface, ListableEndpointInterface {
     protected string $endpoint = 'event-subscriptions';
@@ -46,7 +43,7 @@ class EventSubscriptionsEndpoint extends EndpointAbstract implements ClassicEndp
         self::logDebug('Fetching event subscription', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => EventSubscription::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => EventSubscription::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Event subscription fetched (ID: {$id->toString()})"
         );
     }
@@ -79,7 +76,7 @@ class EventSubscriptionsEndpoint extends EndpointAbstract implements ClassicEndp
         self::logDebug('Listing event subscriptions');
 
         return self::logDebugWithTimer(
-            fn() => EventSubscriptions::fromJson(parent::getContents([], $options)),
+            fn () => EventSubscriptions::fromJson(parent::getContents([], $options)),
             'Event subscriptions list fetched'
         );
     }

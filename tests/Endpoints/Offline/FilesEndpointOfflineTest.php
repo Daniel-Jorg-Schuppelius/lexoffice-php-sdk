@@ -15,8 +15,7 @@ namespace Tests\Endpoints\Offline;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\FilesEndpoint;
-use Lexoffice\Entities\Files\File;
-use Lexoffice\Entities\Files\FileResource;
+use Lexoffice\Entities\Files\{File, FileResource};
 use Tests\Contracts\OfflineEndpointTest;
 
 class FilesEndpointOfflineTest extends OfflineEndpointTest {
@@ -53,7 +52,7 @@ class FilesEndpointOfflineTest extends OfflineEndpointTest {
         );
     }
 
-    public function testDownloadWritesRawBodyVerbatim(): void {
+    public function test_download_writes_raw_body_verbatim(): void {
         $file = $this->endpoint->download(new ID('abc-123'), $this->tmpDir);
 
         $this->assertInstanceOf(File::class, $file);
@@ -62,13 +61,13 @@ class FilesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertSame($this->binaryBody, file_get_contents($file->getFilePath()));
     }
 
-    public function testDownloadUsesFilenameFromContentDisposition(): void {
+    public function test_download_uses_filename_from_content_disposition(): void {
         $file = $this->endpoint->download(new ID('abc-123'), $this->tmpDir);
 
         $this->assertSame('invoice.pdf', basename($file->getFilePath()));
     }
 
-    public function testDownloadJoinsPathWithoutDoubleSlash(): void {
+    public function test_download_joins_path_without_double_slash(): void {
         // Path already ending in a separator must not produce a double slash.
         $file = $this->endpoint->download(new ID('abc-123'), $this->tmpDir . '/');
 
@@ -76,7 +75,7 @@ class FilesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertSame($this->tmpDir . '/invoice.pdf', $file->getFilePath());
     }
 
-    public function testDownloadFallsBackToDefaultFilename(): void {
+    public function test_download_falls_back_to_default_filename(): void {
         $this->mockClient->clearResponses();
         $this->mockClient->addResponse('GET', 'files/*', 200, 'data', []); // no Content-Disposition
 
@@ -86,13 +85,13 @@ class FilesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertSame('data', file_get_contents($file->getFilePath()));
     }
 
-    public function testUploadThrowsForMissingFile(): void {
+    public function test_upload_throws_for_missing_file(): void {
         $this->expectException(InvalidArgumentException::class);
 
         $this->endpoint->upload(new File(['filePath' => $this->tmpDir . '/does-not-exist.pdf']));
     }
 
-    public function testUploadSucceedsWithExistingFile(): void {
+    public function test_upload_succeeds_with_existing_file(): void {
         $this->mockClient->clearResponses();
         $this->mockClient->addResponse('POST', 'files', 202, json_encode(['id' => 'new-file-id']));
 

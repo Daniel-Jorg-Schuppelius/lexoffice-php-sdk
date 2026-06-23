@@ -16,8 +16,7 @@ use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
-use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
-use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplatesPage;
+use Lexoffice\Entities\Documents\RecurringTemplates\{RecurringTemplate, RecurringTemplatesPage};
 
 class RecurringTemplatesEndpoint extends EndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'recurring-templates';
@@ -30,7 +29,7 @@ class RecurringTemplatesEndpoint extends EndpointAbstract implements SearchableE
         self::logDebug('Fetching recurring template', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => RecurringTemplate::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => RecurringTemplate::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Recurring template fetched (ID: {$id->toString()})"
         );
     }
@@ -39,7 +38,7 @@ class RecurringTemplatesEndpoint extends EndpointAbstract implements SearchableE
         self::logDebug('Searching recurring templates', ['queryParams' => $queryParams]);
 
         return self::logDebugWithTimer(
-            fn() => RecurringTemplatesPage::fromJson(parent::getContents($queryParams, $options)),
+            fn () => RecurringTemplatesPage::fromJson(parent::getContents($queryParams, $options)),
             'Recurring templates search completed'
         );
     }

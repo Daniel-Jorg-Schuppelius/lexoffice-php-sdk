@@ -48,14 +48,14 @@ class CountriesEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testListCountries(): void {
+    public function test_list_countries(): void {
         $result = $this->endpoint->list();
 
         $this->assertInstanceOf(Countries::class, $result);
         $this->assertRequestMade('GET', 'countries');
     }
 
-    public function testGetCountryThrowsNotAllowedException(): void {
+    public function test_get_country_throws_not_allowed_exception(): void {
         $this->expectException(NotAllowedException::class);
         $this->expectExceptionMessage('Getting a single country is not allowed');
 

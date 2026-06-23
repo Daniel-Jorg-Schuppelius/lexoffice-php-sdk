@@ -13,10 +13,9 @@ declare(strict_types=1);
 
 /**
  * Script to check SDK endpoint coverage against Postman API collection
- * 
+ *
  * Usage: php scripts/check-endpoint-coverage.php [path-to-postman-collection.json]
  */
-
 $defaultPostmanPath = __DIR__ . '/../docs/lexoffice-API-Samples.postman_collection.json';
 $postmanPath = $argv[1] ?? $defaultPostmanPath;
 
@@ -139,13 +138,13 @@ function scanSdkEndpoints(string $srcPath): array {
         $methods = $methodMatches[1] ?? [];
 
         // Check if class extends DocumentEndpointAbstract (has render() method inherited)
-        $extendsDocumentEndpoint = (bool)preg_match('/extends\s+DocumentEndpointAbstract/', $content);
+        $extendsDocumentEndpoint = (bool) preg_match('/extends\s+DocumentEndpointAbstract/', $content);
         if ($extendsDocumentEndpoint && !in_array('render', $methods)) {
             $methods[] = 'render';
         }
 
         // Check for finalize parameter in create method
-        $hasCreateFinalize = (bool)preg_match('/public\s+function\s+create\s*\([^)]*bool\s+\$finalize/', $content);
+        $hasCreateFinalize = (bool) preg_match('/public\s+function\s+create\s*\([^)]*bool\s+\$finalize/', $content);
 
         // Map method names to HTTP methods and actions
         $methodMapping = [

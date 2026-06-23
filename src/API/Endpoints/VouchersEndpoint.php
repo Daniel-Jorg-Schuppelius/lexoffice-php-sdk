@@ -18,9 +18,7 @@ use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
 use InvalidArgumentException;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
-use Lexoffice\Entities\Vouchers\Voucher;
-use Lexoffice\Entities\Vouchers\VoucherResource;
-use Lexoffice\Entities\Vouchers\VouchersPage;
+use Lexoffice\Entities\Vouchers\{Voucher, VoucherResource, VouchersPage};
 
 class VouchersEndpoint extends EndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'vouchers';
@@ -46,7 +44,7 @@ class VouchersEndpoint extends EndpointAbstract implements SearchableEndpointInt
         self::logDebug('Fetching voucher', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => Voucher::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => Voucher::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Voucher fetched (ID: {$id->toString()})"
         );
     }
@@ -76,7 +74,7 @@ class VouchersEndpoint extends EndpointAbstract implements SearchableEndpointInt
         self::logDebug('Searching vouchers', ['queryParams' => $queryParams]);
 
         return self::logDebugWithTimer(
-            fn() => VouchersPage::fromJson(parent::getContents($queryParams, $options)),
+            fn () => VouchersPage::fromJson(parent::getContents($queryParams, $options)),
             'Vouchers search completed'
         );
     }

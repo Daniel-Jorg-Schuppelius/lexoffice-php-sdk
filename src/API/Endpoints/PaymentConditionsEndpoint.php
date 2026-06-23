@@ -16,8 +16,7 @@ use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
-use Lexoffice\Entities\PaymentConditions\PaymentCondition;
-use Lexoffice\Entities\PaymentConditions\PaymentConditions;
+use Lexoffice\Entities\PaymentConditions\{PaymentCondition, PaymentConditions};
 
 class PaymentConditionsEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'payment-conditions';
@@ -30,7 +29,7 @@ class PaymentConditionsEndpoint extends EndpointAbstract implements ListableEndp
         self::logDebug('Listing payment conditions');
 
         return self::logDebugWithTimer(
-            fn() => PaymentConditions::fromJson(parent::getContents([], $options)),
+            fn () => PaymentConditions::fromJson(parent::getContents([], $options)),
             'Payment conditions list fetched'
         );
     }

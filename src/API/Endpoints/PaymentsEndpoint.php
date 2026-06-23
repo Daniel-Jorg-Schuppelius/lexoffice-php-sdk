@@ -28,7 +28,7 @@ class PaymentsEndpoint extends EndpointAbstract {
         self::logDebug('Fetching payment', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => Payment::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => Payment::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Payment fetched (ID: {$id->toString()})"
         );
     }

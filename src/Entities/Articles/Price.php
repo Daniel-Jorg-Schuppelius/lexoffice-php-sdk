@@ -60,8 +60,8 @@ class Price extends NamedEntity {
 
     public function isValid(): bool {
         if ($this->leadingPrice === LeadingPrice::GROSS) {
-            return isset($this->grossPrice) && !is_null($this->grossPrice);
+            return isset($this->grossPrice);
         }
-        return isset($this->netPrice) && !is_null($this->netPrice);
+        return isset($this->netPrice);
     }
 }

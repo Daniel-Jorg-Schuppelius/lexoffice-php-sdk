@@ -11,8 +11,7 @@
 namespace Tests\Endpoints\Documents;
 
 use Lexoffice\API\Endpoints\Documents\InvoicesEndpoint;
-use Lexoffice\Entities\Documents\Invoices\Invoice;
-use Lexoffice\Entities\Documents\Invoices\InvoiceResource;
+use Lexoffice\Entities\Documents\Invoices\{Invoice, InvoiceResource};
 use Tests\Contracts\EndpointTest;
 
 class InvoicesEndpointTest extends EndpointTest {
@@ -24,7 +23,7 @@ class InvoicesEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data = [
             "lineItems" => [
                 [
@@ -39,9 +38,9 @@ class InvoicesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 13.4,
                         "grossAmount" => 15.95,
-                        "taxRatePercentage" => 19.0
+                        "taxRatePercentage" => 19.0,
                     ],
-                    "lineItemAmount" => 13.4
+                    "lineItemAmount" => 13.4,
                 ],
                 [
                     "discountPercentage" => 0.0,
@@ -55,9 +54,9 @@ class InvoicesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 8.32,
                         "grossAmount" => 8.9,
-                        "taxRatePercentage" => 7.0
+                        "taxRatePercentage" => 7.0,
                     ],
-                    "lineItemAmount" => 8.32
+                    "lineItemAmount" => 8.32,
                 ],
                 [
                     "discountPercentage" => 0.0,
@@ -69,15 +68,15 @@ class InvoicesEndpointTest extends EndpointTest {
                         "currency" => "EUR",
                         "netAmount" => 5.0,
                         "grossAmount" => 5.0,
-                        "taxRatePercentage" => 0.0
+                        "taxRatePercentage" => 0.0,
                     ],
-                    "lineItemAmount" => 5.0
+                    "lineItemAmount" => 5.0,
                 ],
                 [
                     "type" => "text",
                     "name" => "Freitextposition",
-                    "description" => "This item type can contain either a name or a description or both."
-                ]
+                    "description" => "This item type can contain either a name or a description or both.",
+                ],
             ],
             "paymentConditions" => [
                 "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
@@ -85,12 +84,12 @@ class InvoicesEndpointTest extends EndpointTest {
                 "paymentTermDuration" => 30,
                 "paymentDiscountConditions" => [
                     "discountPercentage" => 3.0,
-                    "discountRange" => 10
-                ]
+                    "discountRange" => 10,
+                ],
             ],
             "shippingConditions" => [
                 "shippingDate" => "2023-04-22T00:00:00.000+02:00",
-                "shippingType" => "delivery"
+                "shippingType" => "delivery",
             ],
             "closingInvoice" => false,
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
@@ -109,7 +108,7 @@ class InvoicesEndpointTest extends EndpointTest {
                 "street" => "Musterstraße 42",
                 "zip" => "79112",
                 "city" => "Freiburg",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "totalPrice" => [
                 "currency" => "EUR",
@@ -121,18 +120,18 @@ class InvoicesEndpointTest extends EndpointTest {
                 [
                     "taxRatePercentage" => 0.0,
                     "taxAmount" => 0.0,
-                    "netAmount" => 5.0
+                    "netAmount" => 5.0,
                 ],
                 [
                     "taxRatePercentage" => 7.0,
                     "taxAmount" => 0.58,
-                    "netAmount" => 8.32
+                    "netAmount" => 8.32,
                 ],
                 [
                     "taxRatePercentage" => 19.0,
                     "taxAmount" => 2.55,
-                    "netAmount" => 13.4
-                ]
+                    "netAmount" => 13.4,
+                ],
             ],
             "taxConditions" => [
                 "taxType" => "net",
@@ -143,8 +142,8 @@ class InvoicesEndpointTest extends EndpointTest {
             "introduction" => "Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung",
             "remark" => "Vielen Dank für Ihren Einkauf",
             "files" => [
-                "documentFileId" => "75295db7-7e69-4630-befd-a7f4ddfdaa83"
-            ]
+                "documentFileId" => "75295db7-7e69-4630-befd-a7f4ddfdaa83",
+            ],
         ];
 
         $invoice = new Invoice($data, $this->logger);
@@ -153,7 +152,7 @@ class InvoicesEndpointTest extends EndpointTest {
         $this->assertStringContainsString(substr($invoice->getTitle(), 2, -2), $invoice->toJson());
     }
 
-    public function testCreateAndGetInvoiceAPI() {
+    public function test_create_and_get_invoice_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -167,7 +166,7 @@ class InvoicesEndpointTest extends EndpointTest {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -178,37 +177,37 @@ class InvoicesEndpointTest extends EndpointTest {
                     "unitPrice" => [
                         "currency" => "EUR",
                         "netAmount" => 5,
-                        "taxRatePercentage" => 0
+                        "taxRatePercentage" => 0,
                     ],
-                    "discountPercentage" => 0
+                    "discountPercentage" => 0,
                 ],
                 [
                     "type" => "text",
                     "name" => "Strukturieren Sie Ihre Belege durch Text-Elemente.",
-                    "description" => "Das hilft beim Verständnis"
-                ]
+                    "description" => "Das hilft beim Verständnis",
+                ],
             ],
             "totalPrice" => [
-                "currency" => "EUR"
+                "currency" => "EUR",
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "paymentConditions" => [
                 "paymentTermLabel" => "10 Tage - 3 %, 30 Tage netto",
                 "paymentTermDuration" => 30,
                 "paymentDiscountConditions" => [
                     "discountPercentage" => 3,
-                    "discountRange" => 10
-                ]
+                    "discountRange" => 10,
+                ],
             ],
             "shippingConditions" => [
                 "shippingDate" => "2023-04-22T00:00:00.000+02:00",
-                "shippingType" => "delivery"
+                "shippingType" => "delivery",
             ],
             "title" => "Rechnung",
             "introduction" => "Ihre bestellten Positionen stellen wir Ihnen hiermit in Rechnung",
-            "remark" => "Vielen Dank für Ihren Einkauf"
+            "remark" => "Vielen Dank für Ihren Einkauf",
         ];
 
         $invoice = new Invoice($data);

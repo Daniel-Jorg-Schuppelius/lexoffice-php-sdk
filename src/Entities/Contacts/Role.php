@@ -26,7 +26,7 @@ class Role extends NamedValue {
             return [];
         }
         return [
-            $this->entityName => $this->value
+            $this->entityName => $this->value,
         ];
     }
 }

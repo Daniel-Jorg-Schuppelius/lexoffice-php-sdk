@@ -13,12 +13,22 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\VoucherList;
 
 use Lexoffice\Contracts\Abstracts\NamedPage;
-use Lexoffice\Entities\VoucherList\Vouchers;
 use Psr\Log\LoggerInterface;
+use UnexpectedValueException;
 
 class VoucherListPage extends NamedPage {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = Vouchers::class;
         parent::__construct($data, $logger);
+    }
+
+    public function getContent(): Vouchers {
+        $content = parent::getContent();
+
+        if (!$content instanceof Vouchers) {
+            self::logErrorAndThrow(UnexpectedValueException::class, 'VoucherListPage content must be a Vouchers instance');
+        }
+
+        return $content;
     }
 }

@@ -25,7 +25,7 @@ class Address extends CommonAddress {
     }
 
     public function isValid(): bool {
-        return (isset($this->name) && !is_null($this->name)) || (isset($this->contactId) && $this->contactId->isValid());
+        return isset($this->name) || (isset($this->contactId) && $this->contactId->isValid());
     }
 
     public function getContactId(): ?ContactID {

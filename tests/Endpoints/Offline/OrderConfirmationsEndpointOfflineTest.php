@@ -15,8 +15,7 @@ namespace Tests\Endpoints\Offline;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\Documents\OrderConfirmationsEndpoint;
-use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmation;
-use Lexoffice\Entities\Documents\OrderConfirmations\OrderConfirmationResource;
+use Lexoffice\Entities\Documents\OrderConfirmations\{OrderConfirmation, OrderConfirmationResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 use Tests\Contracts\OfflineEndpointTest;
 
@@ -75,7 +74,7 @@ class OrderConfirmationsEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testGetOrderConfirmation(): void {
+    public function test_get_order_confirmation(): void {
         $id = new ID('abc12345-6789-0def-ghij-klmnopqrstuv');
         $result = $this->endpoint->get($id);
 
@@ -84,14 +83,14 @@ class OrderConfirmationsEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'order-confirmations/abc12345-6789-0def-ghij-klmnopqrstuv');
     }
 
-    public function testGetOrderConfirmationWithoutIdThrowsException(): void {
+    public function test_get_order_confirmation_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testPursueOrderConfirmation(): void {
+    public function test_pursue_order_confirmation(): void {
         $voucherId = new VoucherID('previous-quotation-id-12345');
         $result = $this->endpoint->pursue($voucherId, false);
 

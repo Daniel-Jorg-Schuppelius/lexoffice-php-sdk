@@ -11,8 +11,7 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\API\Endpoints\EventSubscriptionsEndpoint;
-use Lexoffice\Entities\EventSubscriptions\EventSubscription;
-use Lexoffice\Entities\EventSubscriptions\EventSubscriptionResource;
+use Lexoffice\Entities\EventSubscriptions\{EventSubscription, EventSubscriptionResource};
 use Tests\Contracts\EndpointTest;
 
 class EventSubscriptionsEndpointTest extends EndpointTest {
@@ -24,10 +23,10 @@ class EventSubscriptionsEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data = [
             "eventType" => "contact.changed",
-            "callbackUrl" => "https://schuppelius.org/webhook"
+            "callbackUrl" => "https://schuppelius.org/webhook",
         ];
 
         $eventSubscription = new EventSubscription($data);
@@ -35,14 +34,14 @@ class EventSubscriptionsEndpointTest extends EndpointTest {
         $this->assertEquals(json_encode($data), $eventSubscription->toJson());  // the order of the $data array is important for this test.
     }
 
-    public function testCreateAndDeleteEventSubscriptionAPI() {
+    public function test_create_and_delete_event_subscription_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
 
         $data = [
             "eventType" => "contact.changed",
-            "callbackUrl" => "https://schuppelius.org/webhook1"
+            "callbackUrl" => "https://schuppelius.org/webhook1",
         ];
 
         $eventSubscription = new EventSubscription($data);
@@ -51,14 +50,14 @@ class EventSubscriptionsEndpointTest extends EndpointTest {
         $this->endpoint->delete($eventSubscriptionResource->getId());
     }
 
-    public function testCreateGetUpdateAndDeleteEventSubscriptionAPI() {
+    public function test_create_get_update_and_delete_event_subscription_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
 
         $data = [
             "eventType" => "contact.created",
-            "callbackUrl" => "https://schuppelius.org/webhook2"
+            "callbackUrl" => "https://schuppelius.org/webhook2",
         ];
 
         $eventSubscriptionResource = $this->endpoint->create(new EventSubscription($data));
@@ -69,19 +68,19 @@ class EventSubscriptionsEndpointTest extends EndpointTest {
         $this->endpoint->delete($eventSubscriptionResource->getId());
     }
 
-    public function testListAndDeleteEventSubscriptionsAPI() {
+    public function test_list_and_delete_event_subscriptions_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
 
         $data = [
             "eventType" => "article.created",
-            "callbackUrl" => "https://schuppelius.org/webhook3"
+            "callbackUrl" => "https://schuppelius.org/webhook3",
         ];
 
         $data1 = [
             "eventType" => "article.deleted",
-            "callbackUrl" => "https://schuppelius.org/webhook4"
+            "callbackUrl" => "https://schuppelius.org/webhook4",
         ];
 
         $this->endpoint->create(new EventSubscription($data));

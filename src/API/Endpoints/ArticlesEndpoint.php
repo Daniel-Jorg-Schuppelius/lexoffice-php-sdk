@@ -16,11 +16,8 @@ use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
-use Lexoffice\Contracts\Interfaces\API\ClassicEndpointInterface;
-use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
-use Lexoffice\Entities\Articles\Article;
-use Lexoffice\Entities\Articles\ArticleResource;
-use Lexoffice\Entities\Articles\ArticlesPage;
+use Lexoffice\Contracts\Interfaces\API\{ClassicEndpointInterface, SearchableEndpointInterface};
+use Lexoffice\Entities\Articles\{Article, ArticleResource, ArticlesPage};
 
 class ArticlesEndpoint extends EndpointAbstract implements ClassicEndpointInterface, SearchableEndpointInterface {
     protected string $endpoint = 'articles';
@@ -46,7 +43,7 @@ class ArticlesEndpoint extends EndpointAbstract implements ClassicEndpointInterf
         self::logDebug('Fetching article', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => Article::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}")),
+            fn () => Article::fromJson(parent::getContents([], [], "{$this->endpoint}/{$id->toString()}")),
             "Article fetched (ID: {$id->toString()})"
         );
     }
@@ -79,7 +76,7 @@ class ArticlesEndpoint extends EndpointAbstract implements ClassicEndpointInterf
         self::logDebug('Searching articles', ['queryParams' => $queryParams]);
 
         return self::logDebugWithTimer(
-            fn() => ArticlesPage::fromJson(parent::getContents($queryParams, $options)),
+            fn () => ArticlesPage::fromJson(parent::getContents($queryParams, $options)),
             'Articles search completed'
         );
     }

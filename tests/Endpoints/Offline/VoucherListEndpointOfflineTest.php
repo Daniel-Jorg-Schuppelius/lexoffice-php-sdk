@@ -14,8 +14,7 @@ namespace Tests\Endpoints\Offline;
 
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\VoucherListEndpoint;
-use Lexoffice\Entities\VoucherList\VoucherListPage;
-use Lexoffice\Entities\VoucherList\Vouchers;
+use Lexoffice\Entities\VoucherList\{VoucherListPage, Vouchers};
 use Tests\Contracts\OfflineEndpointTest;
 
 class VoucherListEndpointOfflineTest extends OfflineEndpointTest {
@@ -54,7 +53,7 @@ class VoucherListEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testSearchVoucherList(): void {
+    public function test_search_voucher_list(): void {
         $result = $this->endpoint->search([
             'voucherType' => 'invoice',
             'voucherStatus' => 'open',
@@ -64,21 +63,21 @@ class VoucherListEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'voucherlist*');
     }
 
-    public function testSearchVoucherListWithoutVoucherTypeThrowsException(): void {
+    public function test_search_voucher_list_without_voucher_type_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('voucherType is required');
 
         $this->endpoint->search(['voucherStatus' => 'open']);
     }
 
-    public function testSearchVoucherListWithoutVoucherStatusThrowsException(): void {
+    public function test_search_voucher_list_without_voucher_status_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('voucherStatus is required');
 
         $this->endpoint->search(['voucherType' => 'invoice']);
     }
 
-    public function testGetVoucherListReturnsVouchers(): void {
+    public function test_get_voucher_list_returns_vouchers(): void {
         $result = $this->endpoint->get();
 
         $this->assertInstanceOf(Vouchers::class, $result);

@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Payments;
 
-use DateTime;
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use CommonToolkit\Enums\CurrencyCode;
+use DateTime;
 use Lexoffice\Enums\PaymentItemType;
 use Psr\Log\LoggerInterface;
 

@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Vouchers;
 
-use Lexoffice\Contracts\Abstracts\ResourceAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
+use Lexoffice\Contracts\Abstracts\ResourceAbstract;
 
 class VoucherResource extends ResourceAbstract {
     public function getResource(): NamedEntityInterface {
-        return new Voucher();
+        return new Voucher;
     }
 }

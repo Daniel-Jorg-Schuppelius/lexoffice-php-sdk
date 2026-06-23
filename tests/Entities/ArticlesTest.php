@@ -12,12 +12,9 @@ declare(strict_types=1);
 
 namespace Tests\Entities;
 
-use Lexoffice\Entities\Articles\Articles;
-use Lexoffice\Entities\Articles\Article;
-use Lexoffice\Entities\Articles\ArticlesPage;
-use Lexoffice\Entities\Articles\Price;
-use ERRORToolkit\Logger\ConsoleLogger;
 use ERRORToolkit\Factories\ConsoleLoggerFactory;
+use ERRORToolkit\Logger\ConsoleLogger;
+use Lexoffice\Entities\Articles\{Article, Articles, ArticlesPage, Price};
 use PHPUnit\Framework\TestCase;
 
 class ArticlesTest extends TestCase {
@@ -28,7 +25,7 @@ class ArticlesTest extends TestCase {
         $this->logger = ConsoleLoggerFactory::getLogger();
     }
 
-    public function testCreateArticle() {
+    public function test_create_article() {
         $data = [
             "id" => "eb46d328-e1dc-11ee-8444-2fadfc15a567",
             "organizationId" => "9e700f44-0c55-11ef-ac31-8f7c36d1b6e2",
@@ -46,21 +43,21 @@ class ArticlesTest extends TestCase {
                 "netPrice" => 61.90,
                 "grossPrice" => 73.66,
                 "leadingPrice" => "NET",
-                "taxRate" => 19.0
+                "taxRate" => 19.0,
             ],
-            "version" => 2
+            "version" => 2,
         ];
 
         $article = new Article($data, $this->logger);
         $price = new Price($data['price'], $this->logger);
         $this->assertTrue($article->isValid());
-        $this->assertInstanceOf(Article::class, new Article());
+        $this->assertInstanceOf(Article::class, new Article);
         $this->assertInstanceOf(Article::class, $article);
         $this->assertEquals('Lexware buchhaltung Premium 2024', $article->getTitle());
         $this->assertEquals($data, $article->toArray());
         $this->assertEquals($price, $article->getPrice());
     }
-    public function testCreateArticles() {
+    public function test_create_articles() {
         $data = [
             "content" => [
                 [
@@ -76,9 +73,9 @@ class ArticlesTest extends TestCase {
                         "netPrice" => 61.90,
                         "grossPrice" => 73.66,
                         "leadingPrice" => "NET",
-                        "taxRate" => 19.0
+                        "taxRate" => 19.0,
                     ],
-                    "version" => 1
+                    "version" => 1,
                 ],
                 [
                     "id" => "f7e14ba6-e2ac-11ee-96c1-3b561501789e",
@@ -93,9 +90,9 @@ class ArticlesTest extends TestCase {
                         "netPrice" => 61.90,
                         "grossPrice" => 73.66,
                         "leadingPrice" => "NET",
-                        "taxRate" => 19.0
+                        "taxRate" => 19.0,
                     ],
-                    "version" => 3
+                    "version" => 3,
                 ],
             ],
         ];
@@ -109,7 +106,7 @@ class ArticlesTest extends TestCase {
         $this->assertIsArray($articles->getValues());
     }
 
-    public function testCreateArticlesPage() {
+    public function test_create_articles_page() {
         $data = [
             "content" => [
                 [
@@ -125,9 +122,9 @@ class ArticlesTest extends TestCase {
                         "netPrice" => 61.90,
                         "grossPrice" => 73.66,
                         "leadingPrice" => "NET",
-                        "taxRate" => 19.0
+                        "taxRate" => 19.0,
                     ],
-                    "version" => 1
+                    "version" => 1,
                 ],
                 [
                     "id" => "f7e14ba6-e2ac-11ee-96c1-3b561501789e",
@@ -142,9 +139,9 @@ class ArticlesTest extends TestCase {
                         "netPrice" => 61.90,
                         "grossPrice" => 73.66,
                         "leadingPrice" => "NET",
-                        "taxRate" => 19.0
+                        "taxRate" => 19.0,
                     ],
-                    "version" => 3
+                    "version" => 3,
                 ],
             ],
             "totalPages" => 1,
@@ -156,13 +153,13 @@ class ArticlesTest extends TestCase {
                     "property" => "title",
                     "ignoreCase" => false,
                     "nullHandling" => "NATIVE",
-                    "ascending" => true
-                ]
+                    "ascending" => true,
+                ],
             ],
             "size" => 25,
             "number" => 0,
             "first" => true,
-            "numberOfElements" => 2
+            "numberOfElements" => 2,
         ];
 
         $articlesPage = new ArticlesPage($data, $this->logger);

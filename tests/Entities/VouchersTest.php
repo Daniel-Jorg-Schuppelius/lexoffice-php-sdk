@@ -16,7 +16,7 @@ use Lexoffice\Entities\Vouchers\Voucher;
 use PHPUnit\Framework\TestCase;
 
 class VouchersTest extends TestCase {
-    public function testCreateVoucher() {
+    public function test_create_voucher() {
         $data = [
             "id" => "a8691b5d-2393-4317-888d-bcd5d564f7d1",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -36,25 +36,25 @@ class VouchersTest extends TestCase {
                     "amount" => 119.00,
                     "taxAmount" => 19.00,
                     "taxRatePercent" => 19.00,
-                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66"
+                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66",
                 ],
                 [
                     "amount" => 107.00,
                     "taxAmount" => 7.00,
                     "taxRatePercent" => 7.00,
-                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66"
+                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66",
                 ],
                 [
                     "amount" => 100.00,
                     "taxAmount" => 0,
                     "taxRatePercent" => 0.00,
-                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66"
-                ]
+                    "categoryId" => "8f8664a8-fd86-11e1-a21f-0800200c9a66",
+                ],
             ],
             "files" => [],
             "createdDate" => "2023-06-30T13:28:51.012+02:00",
             "updatedDate" => "2023-06-30T13:28:51.012+02:00",
-            "version" => 2
+            "version" => 2,
         ];
 
         $voucher = new Voucher($data);

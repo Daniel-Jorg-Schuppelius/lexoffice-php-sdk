@@ -16,7 +16,7 @@ use Lexoffice\Entities\Documents\Dunnings\Dunning;
 use PHPUnit\Framework\TestCase;
 
 class DunningsTest extends TestCase {
-    public function testCreateDunning() {
+    public function test_create_dunning() {
         $data = [
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -32,7 +32,7 @@ class DunningsTest extends TestCase {
                 "street" => "Musterstraße 42",
                 "city" => "Freiburg",
                 "zip" => "79112",
-                "countryCode" => "DE"
+                "countryCode" => "DE",
             ],
             "lineItems" => [
                 [
@@ -44,51 +44,51 @@ class DunningsTest extends TestCase {
                         "currency" => "EUR",
                         "netAmount" => 5,
                         "grossAmount" => 5.0,
-                        "taxRatePercentage" => 0.0
+                        "taxRatePercentage" => 0.0,
                     ],
                     "discountPercentage" => 0,
-                    "lineItemAmount" => 5.0
+                    "lineItemAmount" => 5.0,
                 ],
                 [
                     "type" => "text",
                     "name" => "Strukturieren Sie Ihre Belege durch Text-Elemente.",
-                    "description" => "Das hilft beim Verständnis"
-                ]
+                    "description" => "Das hilft beim Verständnis",
+                ],
             ],
             "totalPrice" => [
                 "currency" => "EUR",
                 "totalNetAmount" => 5.0,
                 "totalGrossAmount" => 5.0,
-                "totalTaxAmount" => 0.0
+                "totalTaxAmount" => 0.0,
             ],
             "taxAmounts" => [
                 [
                     "taxRatePercentage" => 0.0,
                     "taxAmount" => 0.0,
-                    "netAmount" => 5.0
-                ]
+                    "netAmount" => 5.0,
+                ],
             ],
             "taxConditions" => [
-                "taxType" => "net"
+                "taxType" => "net",
             ],
             "shippingConditions" => [
                 "shippingDate" => "2023-07-21T15:16:44.051+02:00",
-                "shippingType" => "delivery"
+                "shippingType" => "delivery",
             ],
             "relatedVouchers" => [
                 [
                     "id" => "52cd26a2-ea26-11eb-a4f0-2bb179f80c5a",
                     "voucherNumber" => "RE0357",
-                    "voucherType" => "invoice"
-                ]
+                    "voucherType" => "invoice",
+                ],
             ],
             "printLayoutId" => "28c212c4-b6dd-11ee-b80a-dbc65f4ceccf",
             "introduction" => "Wir bitten Sie, die nachfolgend aufgelisteten Lieferungen/Leistungen unverzüglich zu begleichen.",
             "remark" => "Sollten Sie den offenen Betrag bereits beglichen haben, betrachten Sie dieses Schreiben als gegenstandslos.",
             "files" => [
-                "documentFileId" => "4e19354c-ea26-11eb-a31f-af2d58e85357"
+                "documentFileId" => "4e19354c-ea26-11eb-a31f-af2d58e85357",
             ],
-            "title" => "Mahnung"
+            "title" => "Mahnung",
         ];
 
         $dunning = new Dunning($data);

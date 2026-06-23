@@ -16,8 +16,7 @@ use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
 use Lexoffice\Contracts\Interfaces\API\ListableEndpointInterface;
-use Lexoffice\Entities\PrintLayouts\PrintLayout;
-use Lexoffice\Entities\PrintLayouts\PrintLayouts;
+use Lexoffice\Entities\PrintLayouts\{PrintLayout, PrintLayouts};
 
 class PrintLayoutsEndpoint extends EndpointAbstract implements ListableEndpointInterface {
     protected string $endpoint = 'print-layouts';
@@ -30,7 +29,7 @@ class PrintLayoutsEndpoint extends EndpointAbstract implements ListableEndpointI
         self::logDebug('Listing print layouts');
 
         return self::logDebugWithTimer(
-            fn() => PrintLayouts::fromJson(parent::getContents([], $options)),
+            fn () => PrintLayouts::fromJson(parent::getContents([], $options)),
             'Print layouts list fetched'
         );
     }

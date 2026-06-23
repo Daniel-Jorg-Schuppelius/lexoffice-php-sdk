@@ -62,7 +62,7 @@ class DownPaymentInvoicesEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testGetDownPaymentInvoice(): void {
+    public function test_get_down_payment_invoice(): void {
         $id = new ID('d52370ee-5bf5-11eb-ac18-17b8d0fb237f');
         $result = $this->endpoint->get($id);
 
@@ -71,7 +71,7 @@ class DownPaymentInvoicesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'down-payment-invoices/d52370ee-5bf5-11eb-ac18-17b8d0fb237f');
     }
 
-    public function testGetDownPaymentInvoiceWithoutIdThrowsException(): void {
+    public function test_get_down_payment_invoice_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 

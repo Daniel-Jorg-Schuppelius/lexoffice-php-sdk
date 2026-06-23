@@ -16,8 +16,7 @@ use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
-use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNote;
-use Lexoffice\Entities\Documents\DeliveryNotes\DeliveryNoteResource;
+use Lexoffice\Entities\Documents\DeliveryNotes\{DeliveryNote, DeliveryNoteResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 
 class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
@@ -48,7 +47,7 @@ class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
         self::logDebug('Fetching delivery note', ['id' => $id->toString()]);
 
         return self::logDebugWithTimer(
-            fn() => DeliveryNote::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
+            fn () => DeliveryNote::fromJson(parent::getContents([], [], "{$this->getEndpointUrl()}/{$id->toString()}")),
             "Delivery note fetched (ID: {$id->toString()})"
         );
     }

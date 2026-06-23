@@ -15,8 +15,7 @@ namespace Tests\Endpoints\Offline;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
 use Lexoffice\API\Endpoints\Documents\CreditNotesEndpoint;
-use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
-use Lexoffice\Entities\Documents\CreditNotes\CreditNoteResource;
+use Lexoffice\Entities\Documents\CreditNotes\{CreditNote, CreditNoteResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
 use Tests\Contracts\OfflineEndpointTest;
 
@@ -75,7 +74,7 @@ class CreditNotesEndpointOfflineTest extends OfflineEndpointTest {
         ]));
     }
 
-    public function testGetCreditNote(): void {
+    public function test_get_credit_note(): void {
         $id = new ID('854af5e4-323f-4fd1-b51e-0f83cdd98bcf');
         $result = $this->endpoint->get($id);
 
@@ -84,14 +83,14 @@ class CreditNotesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertRequestMade('GET', 'credit-notes/854af5e4-323f-4fd1-b51e-0f83cdd98bcf');
     }
 
-    public function testGetCreditNoteWithoutIdThrowsException(): void {
+    public function test_get_credit_note_without_id_throws_exception(): void {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('ID is required');
 
         $this->endpoint->get(null);
     }
 
-    public function testPursueCreditNote(): void {
+    public function test_pursue_credit_note(): void {
         $voucherId = new VoucherID('previous-voucher-id-12345');
         $result = $this->endpoint->pursue($voucherId, false);
 

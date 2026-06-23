@@ -13,16 +13,14 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Contacts;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\ArchivableNamedEntityInterface;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
-use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\VersionableNamedEntityInterface;
+use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\{ArchivableNamedEntityInterface, IdentifiableNamedEntityInterface, VersionableNamedEntityInterface};
 use APIToolkit\Entities\Version;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Entities\XRechnung;
 use Psr\Log\LoggerInterface;
 
-class Contact extends NamedEntity implements IdentifiableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface, ArchivableNamedEntityInterface, VersionableNamedEntityInterface {
+class Contact extends NamedEntity implements ArchivableNamedEntityInterface, IdentifiableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface, VersionableNamedEntityInterface {
     protected ?ContactID $id;
     protected ?OrganizationID $organizationId;
     protected Version $version;
@@ -39,7 +37,7 @@ class Contact extends NamedEntity implements IdentifiableNamedEntityInterface, O
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
 
-        if (is_null($this->version)) {
+        if (!isset($this->version)) {
             $this->version = new Version(0);
         }
     }

@@ -11,9 +11,7 @@
 namespace Tests\Endpoints;
 
 use Lexoffice\API\Endpoints\ArticlesEndpoint;
-use Lexoffice\Entities\Articles\Article;
-use Lexoffice\Entities\Articles\ArticleResource;
-use Lexoffice\Entities\Articles\ArticlesPage;
+use Lexoffice\Entities\Articles\{Article, ArticleResource, ArticlesPage};
 use Tests\Contracts\EndpointTest;
 
 class ArticlesEndpointTest extends EndpointTest {
@@ -25,7 +23,7 @@ class ArticlesEndpointTest extends EndpointTest {
         $this->apiDisabled = true; // API is disabled
     }
 
-    public function testJsonSerialize() {
+    public function test_json_serialize() {
         $data = [
             "id" => "eb46d328-e1dc-11ee-8444-2fadfc15a567",
             "title" => "Lexware buchhaltung Premium 2024",
@@ -35,8 +33,8 @@ class ArticlesEndpointTest extends EndpointTest {
             "price" => [
                 "netPrice" => 61.90,
                 "leadingPrice" => "NET",
-                "taxRate" => 19.0
-            ]
+                "taxRate" => 19.0,
+            ],
         ];
 
         $article = new Article($data);
@@ -46,7 +44,7 @@ class ArticlesEndpointTest extends EndpointTest {
         $this->assertEquals(json_encode($data["price"]), $article->getPrice()->toJson());
     }
 
-    public function testCreateAndDeleteArticleAPI() {
+    public function test_create_and_delete_article_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -59,8 +57,8 @@ class ArticlesEndpointTest extends EndpointTest {
             "price" => [
                 "netPrice" => 61.90,
                 "leadingPrice" => "NET",
-                "taxRate" => 19.0
-            ]
+                "taxRate" => 19.0,
+            ],
         ];
 
         $article = new Article($data);
@@ -69,7 +67,7 @@ class ArticlesEndpointTest extends EndpointTest {
         $this->endpoint->delete($articleResource->getId());
     }
 
-    public function testCreateGetUpdateAndDeleteArticleAPI() {
+    public function test_create_get_update_and_delete_article_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -82,8 +80,8 @@ class ArticlesEndpointTest extends EndpointTest {
             "price" => [
                 "netPrice" => 61.90,
                 "leadingPrice" => "NET",
-                "taxRate" => 19.0
-            ]
+                "taxRate" => 19.0,
+            ],
         ];
 
         $articleResource = $this->endpoint->create(new Article($data));
@@ -97,7 +95,7 @@ class ArticlesEndpointTest extends EndpointTest {
         $this->endpoint->delete($articleResource->getId());
     }
 
-    public function testCreateSearchAndDeleteArticleAPI() {
+    public function test_create_search_and_delete_article_api() {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -110,8 +108,8 @@ class ArticlesEndpointTest extends EndpointTest {
             "price" => [
                 "netPrice" => 61.90,
                 "leadingPrice" => "NET",
-                "taxRate" => 19.0
-            ]
+                "taxRate" => 19.0,
+            ],
         ];
 
         $articlesPage = $this->endpoint->search();
