@@ -12,14 +12,18 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Documents\Invoices;
 
+use CommonToolkit\ValueObjects\Money;
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedDocument;
 use Lexoffice\Entities\Documents\{Address, ExtendedLineItems, PaymentConditions, PrintLayoutID, ShippingConditions, TaxConditions, TotalPrice};
 use Lexoffice\Entities\XRechnung;
 use Lexoffice\Enums\Language;
+use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class Invoice extends NamedDocument {
+    use MoneyAccessorTrait;
+
     protected ?DateTime $dueDate;
     protected ?XRechnung $xRechnung;
     protected ExtendedLineItems $lineItems;
@@ -66,8 +70,17 @@ class Invoice extends NamedDocument {
         return $this->shippingConditions;
     }
 
-    public function getClaimedGrossAmount(): ?float {
-        return $this->claimedGrossAmount ?? null;
+    /**
+     * Geltend gemachter Bruttobetrag (Abschlagsrechnungen).
+     *
+     * Die Währung kommt aus totalPrice — Invoice führt kein eigenes Feld;
+     * fehlt der Gesamtpreis, greift der Euro-Fallback des Traits.
+     */
+    public function getClaimedGrossAmount(): ?Money {
+        return $this->toMoney(
+            $this->claimedGrossAmount ?? null,
+            isset($this->totalPrice) ? $this->totalPrice->getCurrency() : null
+        );
     }
 
     public function getClosingInvoice(): ?bool {

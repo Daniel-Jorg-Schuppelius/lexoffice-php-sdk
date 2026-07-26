@@ -51,8 +51,12 @@ class TotalPrice extends NamedEntity {
         return $this->toMoney($this->totalTaxAmount);
     }
 
-    public function getTotalDiscountAbsolute(): ?float {
-        return $this->totalDiscountAbsolute;
+    /**
+     * Absoluter Rabattbetrag — Geld, daher Money. Der prozentuale Rabatt
+     * darunter bleibt bewusst float.
+     */
+    public function getTotalDiscountAbsolute(): ?Money {
+        return $this->toMoney($this->totalDiscountAbsolute);
     }
 
     public function getTotalDiscountPercentage(): ?float {
