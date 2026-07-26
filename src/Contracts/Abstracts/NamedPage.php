@@ -28,6 +28,9 @@ abstract class NamedPage extends NamedEntity {
     protected int $numberOfElements;
     protected Collations $sort;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
@@ -68,7 +71,10 @@ abstract class NamedPage extends NamedEntity {
         return $this->content;
     }
 
-    public function getValues() {
+    /**
+     * @return array<int, \APIToolkit\Contracts\Interfaces\NamedEntityInterface>
+     */
+    public function getValues(): array {
         return $this->content->getValues();
     }
 }

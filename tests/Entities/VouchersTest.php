@@ -16,7 +16,7 @@ use Lexoffice\Entities\Vouchers\Voucher;
 use PHPUnit\Framework\TestCase;
 
 class VouchersTest extends TestCase {
-    public function test_create_voucher() {
+    public function test_create_voucher(): void {
         $data = [
             "id" => "a8691b5d-2393-4317-888d-bcd5d564f7d1",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",

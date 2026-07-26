@@ -64,6 +64,10 @@ class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
         }, "Delivery note pursued from voucher (ID: {$id->toString()})");
     }
 
+    /**
+     * @param array<int, string> $recipients
+     * @param array<int, string> $attachments
+     */
     public function sendMail(ID $id, array $recipients, ?string $message = null, ?string $signature = null, array $attachments = []): void {
         self::logDebug('Sending delivery note via email', ['id' => $id->toString(), 'recipients' => $recipients]);
 

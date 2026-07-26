@@ -26,7 +26,7 @@ class CountriesEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'countries', 200, json_encode([
+        $body = json_encode([
             [
                 'countryCode' => 'DE',
                 'countryNameDE' => 'Deutschland',
@@ -45,7 +45,10 @@ class CountriesEndpointOfflineTest extends OfflineEndpointTest {
                 'countryNameEN' => 'Switzerland',
                 'taxClassification' => 'thirdPartyCountry',
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($body);
+
+        $this->mockClient->addResponse('GET', 'countries', 200, $body);
     }
 
     public function test_list_countries(): void {

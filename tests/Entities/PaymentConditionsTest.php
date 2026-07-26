@@ -16,7 +16,7 @@ use Lexoffice\Entities\PaymentConditions\PaymentConditions;
 use PHPUnit\Framework\TestCase;
 
 class PaymentConditionsTest extends TestCase {
-    public function test_create_payment_conditions() {
+    public function test_create_payment_conditions(): void {
         $data = [
             [
                 "id" => "65be0654-60b6-11eb-b66d-5731dbc9bf6b",

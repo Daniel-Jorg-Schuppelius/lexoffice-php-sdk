@@ -17,6 +17,9 @@ use Exception;
 use Psr\Log\LoggerInterface;
 
 class Person extends CommonPerson {
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

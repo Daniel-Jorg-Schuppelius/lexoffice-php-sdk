@@ -15,15 +15,15 @@ use Lexoffice\Entities\Documents\DownPaymentInvoices\DownPaymentInvoice;
 use Tests\Contracts\EndpointTest;
 
 final class DownPaymentInvoicesEndpointTest extends EndpointTest {
-    protected ?DownPaymentInvoicesEndpoint $endpoint;
+    protected DownPaymentInvoicesEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new DownPaymentInvoicesEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new DownPaymentInvoicesEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "lineItems" => [
                 [
@@ -101,6 +101,8 @@ final class DownPaymentInvoicesEndpointTest extends EndpointTest {
         $this->assertTrue($downPaymentInvoice->isValid());
         $this->assertNotEquals(json_encode($data), $downPaymentInvoice->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $downPaymentInvoice->toJson());
-        $this->assertStringContainsString(substr($downPaymentInvoice->getTitle(), 2, -2), $downPaymentInvoice->toJson());
+        $title = $downPaymentInvoice->getTitle();
+        $this->assertNotNull($title);
+        $this->assertStringContainsString(substr($title, 2, -2), $downPaymentInvoice->toJson());
     }
 }

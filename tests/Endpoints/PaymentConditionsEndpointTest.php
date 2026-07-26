@@ -16,15 +16,15 @@ use Lexoffice\Entities\PaymentConditions\PaymentConditions;
 use Tests\Contracts\EndpointTest;
 
 class PaymentConditionsEndpointTest extends EndpointTest {
-    private ?ListableEndpointInterface $endpoint;
+    private ListableEndpointInterface $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new PaymentConditionsEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new PaymentConditionsEndpoint($this->client);
     }
 
-    public function test_get_payment_conditions_api() {
+    public function test_get_payment_conditions_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

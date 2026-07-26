@@ -16,7 +16,7 @@ use Lexoffice\Entities\Documents\CreditNotes\CreditNote;
 use PHPUnit\Framework\TestCase;
 
 class CreditNotesTest extends TestCase {
-    public function test_create_credit_note() {
+    public function test_create_credit_note(): void {
         $data = [
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -101,7 +101,7 @@ class CreditNotesTest extends TestCase {
         $this->assertEquals($data, $creditNote->toArray());
     }
 
-    public function test_validate_credit_note() {
+    public function test_validate_credit_note(): void {
         $data = [
             "id" => "e9066f04-8cc7-4616-93f8-ac9ecc8479c8",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",

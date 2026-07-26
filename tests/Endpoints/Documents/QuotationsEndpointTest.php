@@ -15,15 +15,15 @@ use Lexoffice\Entities\Documents\Quotations\{Quotation, QuotationResource};
 use Tests\Contracts\EndpointTest;
 
 class QuotationsEndpointTest extends EndpointTest {
-    protected ?QuotationsEndpoint $endpoint;
+    protected QuotationsEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new QuotationsEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new QuotationsEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "expirationDate" => "2023-04-15T12:43:03.900+02:00",
             "lineItems" => [
@@ -140,10 +140,12 @@ class QuotationsEndpointTest extends EndpointTest {
         $quotation = new Quotation($data, $this->logger);
         $this->assertEquals(json_encode($data), $quotation->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $quotation->toJson());
-        $this->assertStringContainsString(substr($quotation->getTitle(), 2, -2), $quotation->toJson());
+        $title = $quotation->getTitle();
+        $this->assertNotNull($title);
+        $this->assertStringContainsString(substr($title, 2, -2), $quotation->toJson());
     }
 
-    public function test_create_and_get_quotation_api() {
+    public function test_create_and_get_quotation_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

@@ -17,7 +17,7 @@ use Lexoffice\Entities\Payments\{Payment, Payments};
 use PHPUnit\Framework\TestCase;
 
 class PaymentsTest extends TestCase {
-    public function test_create_payments() {
+    public function test_create_payments(): void {
         $data1 = [
             "openAmount" => 200.00,
             "currency" => "EUR",

@@ -15,15 +15,15 @@ use Lexoffice\Entities\Documents\Dunnings\{Dunning, DunningResource};
 use Tests\Contracts\EndpointTest;
 
 final class DunningsEndpointTest extends EndpointTest {
-    protected ?DunningsEndpoint $endpoint;
+    protected DunningsEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new DunningsEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new DunningsEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data =
             $data = [
                 "lineItems" => [
@@ -103,10 +103,12 @@ final class DunningsEndpointTest extends EndpointTest {
         $this->assertFalse($dunning->isValid());
         $this->assertEquals(json_encode($data), $dunning->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $dunning->toJson());
-        $this->assertStringContainsString(substr($dunning->getTitle(), 2, -2), $dunning->toJson());
+        $title = $dunning->getTitle();
+        $this->assertNotNull($title);
+        $this->assertStringContainsString(substr($title, 2, -2), $dunning->toJson());
     }
 
-    public function test_create_and_get_dunning_api() {
+    public function test_create_and_get_dunning_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

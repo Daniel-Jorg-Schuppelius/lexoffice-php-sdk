@@ -27,23 +27,27 @@ class EventSubscriptionsEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('POST', 'event-subscriptions', 201, json_encode([
+        $createBody = json_encode([
             'subscriptionId' => 'sub-12345-67890',
             'resourceUri' => 'https://api.lexoffice.io/v1/event-subscriptions/sub-12345-67890',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'eventType' => 'contact.changed',
             'callbackUrl' => 'https://example.com/webhook',
-        ]));
+        ]);
+        $this->assertNotFalse($createBody);
+        $this->mockClient->addResponse('POST', 'event-subscriptions', 201, $createBody);
 
-        $this->mockClient->addResponse('GET', 'event-subscriptions/sub-12345-67890', 200, json_encode([
+        $getBody = json_encode([
             'subscriptionId' => 'sub-12345-67890',
             'organizationId' => 'org-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'eventType' => 'contact.changed',
             'callbackUrl' => 'https://example.com/webhook',
-        ]));
+        ]);
+        $this->assertNotFalse($getBody);
+        $this->mockClient->addResponse('GET', 'event-subscriptions/sub-12345-67890', 200, $getBody);
 
-        $this->mockClient->addResponse('GET', 'event-subscriptions', 200, json_encode([
+        $listBody = json_encode([
             'content' => [
                 [
                     'subscriptionId' => 'sub-12345-67890',
@@ -53,7 +57,9 @@ class EventSubscriptionsEndpointOfflineTest extends OfflineEndpointTest {
                     'callbackUrl' => 'https://example.com/webhook',
                 ],
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($listBody);
+        $this->mockClient->addResponse('GET', 'event-subscriptions', 200, $listBody);
     }
 
     public function test_create_event_subscription(): void {

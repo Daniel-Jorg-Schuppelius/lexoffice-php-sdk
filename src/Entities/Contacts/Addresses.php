@@ -19,6 +19,9 @@ class Addresses extends NamedEntity {
     protected ?AddressList $billing;
     protected ?AddressList $shipping;
 
+    /**
+     * @param mixed $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

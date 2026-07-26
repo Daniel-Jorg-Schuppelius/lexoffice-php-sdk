@@ -35,8 +35,8 @@ class Voucher extends BaseVoucher implements OrganizationIdentifiableNamedEntity
     protected ?Files $files;
     protected ?int $version;
 
-    public function getOrganizationID(): OrganizationID {
-        return $this->organizationId;
+    public function getOrganizationID(): ?OrganizationID {
+        return $this->organizationId ?? null;
     }
 
     public function getType(): VoucherType {

@@ -28,6 +28,9 @@ class PostingCategory extends NamedEntity implements IdentifiableNamedEntityInte
     protected ?string $paymentTermLabelTemplate;
     protected ?int $paymentTermDuration;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

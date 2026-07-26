@@ -23,6 +23,9 @@ class PhoneNumbers extends NamedEntity {
     protected ?PhoneNumberList $fax;
     protected ?PhoneNumberList $other;
 
+    /**
+     * @param mixed $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

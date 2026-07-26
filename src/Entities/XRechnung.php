@@ -19,6 +19,9 @@ class XRechnung extends NamedEntity {
     protected string $buyerReference;
     protected string $vendorNumberAtCustomer;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

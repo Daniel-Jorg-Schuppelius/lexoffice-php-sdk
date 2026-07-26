@@ -15,15 +15,15 @@ use Lexoffice\Entities\Documents\CreditNotes\{CreditNote, CreditNoteResource};
 use Tests\Contracts\EndpointTest;
 
 class CreditNotesEndpointTest extends EndpointTest {
-    protected ?CreditNotesEndpoint $endpoint;
+    protected CreditNotesEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new CreditNotesEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new CreditNotesEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "lineItems" => [
                 [
@@ -81,10 +81,12 @@ class CreditNotesEndpointTest extends EndpointTest {
         $creditNote = new CreditNote($data, $this->logger);
         $this->assertEquals(json_encode($data), $creditNote->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $creditNote->toJson());
-        $this->assertStringContainsString(substr($creditNote->getTitle(), 2, -2), $creditNote->toJson());
+        $title = $creditNote->getTitle();
+        $this->assertNotNull($title);
+        $this->assertStringContainsString(substr($title, 2, -2), $creditNote->toJson());
     }
 
-    public function test_create_and_get_credit_note_api() {
+    public function test_create_and_get_credit_note_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

@@ -28,7 +28,7 @@ class DeliveryNotesEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'delivery-notes/69b92f7d-8649-4a28-b749-f924d8fcccd2', 200, json_encode([
+        $getBody = json_encode([
             'id' => '69b92f7d-8649-4a28-b749-f924d8fcccd2',
             'version' => 0,
             'voucherDate' => '2024-03-15',
@@ -45,25 +45,31 @@ class DeliveryNotesEndpointOfflineTest extends OfflineEndpointTest {
             'taxConditions' => [
                 'taxType' => 'net',
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($getBody);
+        $this->mockClient->addResponse('GET', 'delivery-notes/69b92f7d-8649-4a28-b749-f924d8fcccd2', 200, $getBody);
 
-        $this->mockClient->addResponse('POST', 'delivery-notes*precedingSalesVoucherId*', 201, json_encode([
+        $pursueBody = json_encode([
             'id' => 'new-delivery-note-id-12345',
             'resourceUri' => 'https://api.lexoffice.io/v1/delivery-notes/new-delivery-note-id-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($pursueBody);
+        $this->mockClient->addResponse('POST', 'delivery-notes*precedingSalesVoucherId*', 201, $pursueBody);
 
         $this->mockClient->addResponse('POST', 'delivery-notes/69b92f7d-8649-4a28-b749-f924d8fcccd2/sendmail', 204, '');
 
-        $this->mockClient->setDefaultResponse(200, json_encode([
+        $defaultBody = json_encode([
             'id' => 'new-delivery-note-id-12345',
             'resourceUri' => 'https://api.lexoffice.io/v1/delivery-notes/new-delivery-note-id-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($defaultBody);
+        $this->mockClient->setDefaultResponse(200, $defaultBody);
     }
 
     public function test_get_delivery_note(): void {

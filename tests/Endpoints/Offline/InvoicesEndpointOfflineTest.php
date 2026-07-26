@@ -28,7 +28,7 @@ class InvoicesEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'invoices/f4d3c2b1-a0e9-8765-4321-fedcba098765', 200, json_encode([
+        $getBody = json_encode([
             'id' => 'f4d3c2b1-a0e9-8765-4321-fedcba098765',
             'version' => 0,
             'voucherDate' => '2024-03-15',
@@ -55,24 +55,30 @@ class InvoicesEndpointOfflineTest extends OfflineEndpointTest {
             'taxConditions' => [
                 'taxType' => 'net',
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($getBody);
+        $this->mockClient->addResponse('GET', 'invoices/f4d3c2b1-a0e9-8765-4321-fedcba098765', 200, $getBody);
 
         // Response for pursue (POST with status 201)
-        $this->mockClient->addResponse('POST', 'invoices*precedingSalesVoucherId*', 201, json_encode([
+        $pursueBody = json_encode([
             'id' => 'new-invoice-id-12345',
             'resourceUri' => 'https://api.lexoffice.io/v1/invoices/new-invoice-id-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($pursueBody);
+        $this->mockClient->addResponse('POST', 'invoices*precedingSalesVoucherId*', 201, $pursueBody);
 
-        $this->mockClient->setDefaultResponse(200, json_encode([
+        $defaultBody = json_encode([
             'id' => 'new-invoice-id-12345',
             'resourceUri' => 'https://api.lexoffice.io/v1/invoices/new-invoice-id-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($defaultBody);
+        $this->mockClient->setDefaultResponse(200, $defaultBody);
     }
 
     public function test_get_invoice(): void {

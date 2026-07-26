@@ -29,6 +29,9 @@ class RecurringTemplateSettings extends NamedEntity {
     protected ?string $lastExecutionErrorMessage;
     protected ExecutionStatus $executionStatus;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

@@ -16,15 +16,15 @@ use Lexoffice\Entities\Countries\Countries;
 use Tests\Contracts\EndpointTest;
 
 class CountriesEndpointTest extends EndpointTest {
-    private ?ListableEndpointInterface $endpoint;
+    private ListableEndpointInterface $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new CountriesEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new CountriesEndpoint($this->client);
     }
 
-    public function test_get_countries_api() {
+    public function test_get_countries_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

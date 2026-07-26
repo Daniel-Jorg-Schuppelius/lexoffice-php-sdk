@@ -27,7 +27,7 @@ class VoucherListEndpointOfflineTest extends OfflineEndpointTest {
 
     protected function setupMockResponses(): void {
         // Use wildcard to match query parameters (e.g., voucherlist?voucherType=invoice&voucherStatus=open)
-        $this->mockClient->addResponse('GET', 'voucherlist*', 200, json_encode([
+        $body = json_encode([
             'content' => [
                 [
                     'id' => 'voucher-12345',
@@ -50,7 +50,9 @@ class VoucherListEndpointOfflineTest extends OfflineEndpointTest {
             'size' => 25,
             'number' => 0,
             'sort' => [],
-        ]));
+        ]);
+        $this->assertNotFalse($body);
+        $this->mockClient->addResponse('GET', 'voucherlist*', 200, $body);
     }
 
     public function test_search_voucher_list(): void {

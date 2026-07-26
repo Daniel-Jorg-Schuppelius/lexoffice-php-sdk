@@ -15,15 +15,15 @@ use Lexoffice\Entities\Documents\DeliveryNotes\{DeliveryNote, DeliveryNoteResour
 use Tests\Contracts\EndpointTest;
 
 final class DeliveryNotesEndpointTest extends EndpointTest {
-    protected ?DeliveryNotesEndpoint $endpoint;
+    protected DeliveryNotesEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new DeliveryNotesEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new DeliveryNotesEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "lineItems" => [
                 [
@@ -87,10 +87,12 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
         $this->assertTrue($deliveryNote->isValid());
         $this->assertNotEquals(json_encode($data), $deliveryNote->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $deliveryNote->toJson());
-        $this->assertStringContainsString(substr($deliveryNote->getTitle(), 2, -2), $deliveryNote->toJson());
+        $title = $deliveryNote->getTitle();
+        $this->assertNotNull($title);
+        $this->assertStringContainsString(substr($title, 2, -2), $deliveryNote->toJson());
     }
 
-    public function test_create_and_get_delivery_note_api() {
+    public function test_create_and_get_delivery_note_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

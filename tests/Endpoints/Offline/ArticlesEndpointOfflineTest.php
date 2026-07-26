@@ -27,15 +27,17 @@ class ArticlesEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('POST', 'articles', 201, json_encode([
+        $createBody = json_encode([
             'id' => 'eb46d328-e1dc-11ee-8444-2fadfc15a567',
             'resourceUri' => 'https://api.lexoffice.io/v1/articles/eb46d328-e1dc-11ee-8444-2fadfc15a567',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 1,
-        ]));
+        ]);
+        $this->assertNotFalse($createBody);
+        $this->mockClient->addResponse('POST', 'articles', 201, $createBody);
 
-        $this->mockClient->addResponse('GET', 'articles/eb46d328-e1dc-11ee-8444-2fadfc15a567', 200, json_encode([
+        $getBody = json_encode([
             'id' => 'eb46d328-e1dc-11ee-8444-2fadfc15a567',
             'title' => 'Test Article',
             'type' => 'PRODUCT',
@@ -47,9 +49,11 @@ class ArticlesEndpointOfflineTest extends OfflineEndpointTest {
                 'taxRate' => 19.0,
             ],
             'version' => 1,
-        ]));
+        ]);
+        $this->assertNotFalse($getBody);
+        $this->mockClient->addResponse('GET', 'articles/eb46d328-e1dc-11ee-8444-2fadfc15a567', 200, $getBody);
 
-        $this->mockClient->addResponse('GET', 'articles', 200, json_encode([
+        $listBody = json_encode([
             'content' => [],
             'first' => true,
             'last' => true,
@@ -59,7 +63,9 @@ class ArticlesEndpointOfflineTest extends OfflineEndpointTest {
             'size' => 25,
             'number' => 0,
             'sort' => [],
-        ]));
+        ]);
+        $this->assertNotFalse($listBody);
+        $this->mockClient->addResponse('GET', 'articles', 200, $listBody);
     }
 
     public function test_create_article(): void {
@@ -101,13 +107,15 @@ class ArticlesEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     public function test_update_article(): void {
-        $this->mockClient->addResponse('PUT', 'articles/eb46d328-e1dc-11ee-8444-2fadfc15a567', 200, json_encode([
+        $updateBody = json_encode([
             'id' => 'eb46d328-e1dc-11ee-8444-2fadfc15a567',
             'resourceUri' => 'https://api.lexoffice.io/v1/articles/eb46d328-e1dc-11ee-8444-2fadfc15a567',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T11:00:00.000+01:00',
             'version' => 2,
-        ]));
+        ]);
+        $this->assertNotFalse($updateBody);
+        $this->mockClient->addResponse('PUT', 'articles/eb46d328-e1dc-11ee-8444-2fadfc15a567', 200, $updateBody);
 
         $id = new ID('eb46d328-e1dc-11ee-8444-2fadfc15a567');
         $article = new Article([

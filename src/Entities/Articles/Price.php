@@ -26,6 +26,9 @@ class Price extends NamedEntity {
     protected LeadingPrice $leadingPrice;
     protected float $taxRate = 0;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

@@ -10,21 +10,16 @@
 
 namespace Tests\Endpoints;
 
-use APIToolkit\Contracts\Interfaces\API\EndpointInterface;
-use Lexoffice\API\Endpoints\PaymentsEndpoint;
 use Lexoffice\Entities\Payments\Payment;
 use Tests\Contracts\EndpointTest;
 
 class PaymentsEndpointTest extends EndpointTest {
-    private ?EndpointInterface $endpoint;
-
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new PaymentsEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data1 = [
             "openAmount" => 200.00,
             "currency" => "EUR",

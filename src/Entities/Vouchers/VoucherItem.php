@@ -25,6 +25,9 @@ class VoucherItem extends NamedEntity {
     protected float $taxRatePercent;
     protected CategoryID $categoryId;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

@@ -16,5 +16,9 @@ use APIToolkit\Contracts\Abstracts\NamedValues;
 use APIToolkit\Contracts\Interfaces\API\EndpointInterfaces\ListableEndpointInterface as APIToolkitListableEndpointInterface;
 
 interface ListableEndpointInterface extends APIToolkitListableEndpointInterface {
+    /**
+     * @param array<string, mixed> $options
+     * @return NamedValues<\APIToolkit\Contracts\Interfaces\NamedEntityInterface>
+     */
     public function list(array $options = []): NamedValues;
 }

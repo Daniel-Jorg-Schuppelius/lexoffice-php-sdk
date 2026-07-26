@@ -31,12 +31,15 @@ class BaseVoucher extends NamedEntity implements ExtendedTimestampableNamedEntit
     protected ?DateTime $createdDate;
     protected ?DateTime $updatedDate;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
 
-    public function getID(): VoucherID {
-        return $this->id;
+    public function getID(): ?VoucherID {
+        return $this->id ?? null;
     }
 
     public function getCreatedDate(): ?DateTime {

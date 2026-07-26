@@ -28,7 +28,7 @@ class CreditNotesEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'credit-notes/854af5e4-323f-4fd1-b51e-0f83cdd98bcf', 200, json_encode([
+        $getBody = json_encode([
             'id' => '854af5e4-323f-4fd1-b51e-0f83cdd98bcf',
             'version' => 0,
             'voucherDate' => '2024-03-15',
@@ -55,23 +55,29 @@ class CreditNotesEndpointOfflineTest extends OfflineEndpointTest {
             'taxConditions' => [
                 'taxType' => 'net',
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($getBody);
+        $this->mockClient->addResponse('GET', 'credit-notes/854af5e4-323f-4fd1-b51e-0f83cdd98bcf', 200, $getBody);
 
-        $this->mockClient->addResponse('POST', 'credit-notes*precedingSalesVoucherId*', 201, json_encode([
+        $postBody = json_encode([
             'id' => 'new-credit-note-id-12345',
             'resourceUri' => 'https://api.lexoffice.io/v1/credit-notes/new-credit-note-id-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($postBody);
+        $this->mockClient->addResponse('POST', 'credit-notes*precedingSalesVoucherId*', 201, $postBody);
 
-        $this->mockClient->setDefaultResponse(200, json_encode([
+        $defaultBody = json_encode([
             'id' => 'new-credit-note-id-12345',
             'resourceUri' => 'https://api.lexoffice.io/v1/credit-notes/new-credit-note-id-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($defaultBody);
+        $this->mockClient->setDefaultResponse(200, $defaultBody);
     }
 
     public function test_get_credit_note(): void {

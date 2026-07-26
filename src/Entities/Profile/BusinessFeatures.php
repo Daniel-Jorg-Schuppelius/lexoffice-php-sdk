@@ -19,6 +19,9 @@ use Psr\Log\LoggerInterface;
  * @extends NamedValues<BusinessFeature>
  */
 class BusinessFeatures extends NamedValues {
+    /**
+     * @param mixed $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = BusinessFeature::class;
         parent::__construct($data, $logger);

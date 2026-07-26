@@ -29,7 +29,7 @@ class QuotationsEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'quotations/629c831d-c5e7-4ca5-8b94-ea3e3ba02fbd', 200, json_encode([
+        $quotationJson = json_encode([
             'id' => '629c831d-c5e7-4ca5-8b94-ea3e3ba02fbd',
             'version' => 0,
             'voucherDate' => '2024-03-15',
@@ -57,12 +57,16 @@ class QuotationsEndpointOfflineTest extends OfflineEndpointTest {
             'taxConditions' => [
                 'taxType' => 'net',
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($quotationJson);
+        $this->mockClient->addResponse('GET', 'quotations/629c831d-c5e7-4ca5-8b94-ea3e3ba02fbd', 200, $quotationJson);
 
-        $this->mockClient->setDefaultResponse(200, json_encode([
+        $defaultJson = json_encode([
             'id' => '629c831d-c5e7-4ca5-8b94-ea3e3ba02fbd',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($defaultJson);
+        $this->mockClient->setDefaultResponse(200, $defaultJson);
     }
 
     public function test_get_quotation(): void {

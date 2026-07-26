@@ -16,7 +16,7 @@ use Lexoffice\Entities\VoucherList\Vouchers;
 use PHPUnit\Framework\TestCase;
 
 class VoucherListTest extends TestCase {
-    public function test_create_voucher() {
+    public function test_create_voucher(): void {
         $data = [
             "content" => [
                 [

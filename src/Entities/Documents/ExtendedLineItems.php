@@ -15,6 +15,9 @@ namespace Lexoffice\Entities\Documents;
 use Psr\Log\LoggerInterface;
 
 class ExtendedLineItems extends LineItems {
+    /**
+     * @param mixed $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         if (!is_subclass_of($this->valueClassName, ExtendedLineItem::class)) {
             $this->valueClassName = ExtendedLineItem::class;

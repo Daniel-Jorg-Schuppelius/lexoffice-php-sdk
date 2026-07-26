@@ -16,7 +16,7 @@ use Lexoffice\Entities\Profile\Profile;
 use PHPUnit\Framework\TestCase;
 
 class ProfileTest extends TestCase {
-    public function test_create_profile() {
+    public function test_create_profile(): void {
         $data = [
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
             "companyName" => "Testfirma GmbH",

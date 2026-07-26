@@ -56,23 +56,29 @@ class FilesEndpointOfflineTest extends OfflineEndpointTest {
         $file = $this->endpoint->download(new ID('abc-123'), $this->tmpDir);
 
         $this->assertInstanceOf(File::class, $file);
-        $this->assertFileExists($file->getFilePath());
+        $path = $file->getFilePath();
+        $this->assertNotNull($path);
+        $this->assertFileExists($path);
         // The raw body must be written unchanged (no base64 decoding / no corruption).
-        $this->assertSame($this->binaryBody, file_get_contents($file->getFilePath()));
+        $this->assertSame($this->binaryBody, file_get_contents($path));
     }
 
     public function test_download_uses_filename_from_content_disposition(): void {
         $file = $this->endpoint->download(new ID('abc-123'), $this->tmpDir);
 
-        $this->assertSame('invoice.pdf', basename($file->getFilePath()));
+        $path = $file->getFilePath();
+        $this->assertNotNull($path);
+        $this->assertSame('invoice.pdf', basename($path));
     }
 
     public function test_download_joins_path_without_double_slash(): void {
         // Path already ending in a separator must not produce a double slash.
         $file = $this->endpoint->download(new ID('abc-123'), $this->tmpDir . '/');
 
-        $this->assertStringNotContainsString('//', $file->getFilePath());
-        $this->assertSame($this->tmpDir . '/invoice.pdf', $file->getFilePath());
+        $path = $file->getFilePath();
+        $this->assertNotNull($path);
+        $this->assertStringNotContainsString('//', $path);
+        $this->assertSame($this->tmpDir . '/invoice.pdf', $path);
     }
 
     public function test_download_falls_back_to_default_filename(): void {
@@ -81,8 +87,10 @@ class FilesEndpointOfflineTest extends OfflineEndpointTest {
 
         $file = $this->endpoint->download(new ID('no-header'), $this->tmpDir);
 
-        $this->assertSame('downloaded_file', basename($file->getFilePath()));
-        $this->assertSame('data', file_get_contents($file->getFilePath()));
+        $path = $file->getFilePath();
+        $this->assertNotNull($path);
+        $this->assertSame('downloaded_file', basename($path));
+        $this->assertSame('data', file_get_contents($path));
     }
 
     public function test_upload_throws_for_missing_file(): void {
@@ -93,7 +101,9 @@ class FilesEndpointOfflineTest extends OfflineEndpointTest {
 
     public function test_upload_succeeds_with_existing_file(): void {
         $this->mockClient->clearResponses();
-        $this->mockClient->addResponse('POST', 'files', 202, json_encode(['id' => 'new-file-id']));
+        $body = json_encode(['id' => 'new-file-id']);
+        $this->assertNotFalse($body);
+        $this->mockClient->addResponse('POST', 'files', 202, $body);
 
         $localFile = $this->tmpDir . '/upload.pdf';
         file_put_contents($localFile, '%PDF-1.4 dummy');

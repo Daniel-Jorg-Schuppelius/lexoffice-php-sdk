@@ -7,15 +7,15 @@ use Lexoffice\Entities\Vouchers\{Voucher, VoucherResource, VouchersPage};
 use Tests\Contracts\EndpointTest;
 
 class VouchersEndpointTest extends EndpointTest {
-    protected ?VouchersEndpoint $endpoint;
+    protected VouchersEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new VouchersEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new VouchersEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
             "type" => "salesinvoice",
@@ -59,11 +59,17 @@ class VouchersEndpointTest extends EndpointTest {
         $voucher = new Voucher($data);
         $this->assertEquals($data, $voucher->toArray());
         $this->assertEquals(json_encode($data), $voucher->toJson());  // the order of the $data array is important for this test.
-        $this->assertStringContainsString(substr($voucher->getID()->toJson(), 2, -2), json_encode($data));
-        $this->assertEquals(json_encode($data["voucherItems"]), $voucher->getVoucherItems()->toJson(0));
+        $voucherID = $voucher->getID();
+        $this->assertNotNull($voucherID);
+        $encodedData = json_encode($data);
+        $this->assertNotFalse($encodedData);
+        $this->assertStringContainsString(substr($voucherID->toJson(), 2, -2), $encodedData);
+        $voucherItems = $voucher->getVoucherItems();
+        $this->assertNotNull($voucherItems);
+        $this->assertEquals(json_encode($data["voucherItems"]), $voucherItems->toJson(0));
     }
 
-    public function test_create_and_delete_voucher_api() {
+    public function test_create_and_delete_voucher_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -94,7 +100,7 @@ class VouchersEndpointTest extends EndpointTest {
         $this->assertInstanceOf(VoucherResource::class, $voucherResource);
     }
 
-    public function test_create_get_update_and_delete_voucher_api() {
+    public function test_create_get_update_and_delete_voucher_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -129,7 +135,7 @@ class VouchersEndpointTest extends EndpointTest {
         $this->assertInstanceOf(VoucherResource::class, $voucherResourceUpdated);
     }
 
-    public function test_create_search_and_delete_voucher_api() {
+    public function test_create_search_and_delete_voucher_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

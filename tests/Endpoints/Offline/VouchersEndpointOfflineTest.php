@@ -34,7 +34,7 @@ class VouchersEndpointOfflineTest extends OfflineEndpointTest {
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ], JSON_THROW_ON_ERROR));
 
         $this->mockClient->addResponse('GET', 'vouchers/a1b2c3d4-e5f6-7890-abcd-ef1234567890', 200, json_encode([
             'id' => 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
@@ -45,7 +45,7 @@ class VouchersEndpointOfflineTest extends OfflineEndpointTest {
             'voucherStatus' => 'open',
             'totalGrossAmount' => 119.00,
             'totalTaxAmount' => 19.00,
-        ]));
+        ], JSON_THROW_ON_ERROR));
 
         $this->mockClient->addResponse('GET', 'vouchers', 200, json_encode([
             'content' => [],
@@ -57,7 +57,7 @@ class VouchersEndpointOfflineTest extends OfflineEndpointTest {
             'size' => 25,
             'number' => 0,
             'sort' => [],
-        ]));
+        ], JSON_THROW_ON_ERROR));
     }
 
     public function test_create_voucher(): void {
@@ -101,7 +101,7 @@ class VouchersEndpointOfflineTest extends OfflineEndpointTest {
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T11:00:00.000+01:00',
             'version' => 1,
-        ]));
+        ], JSON_THROW_ON_ERROR));
 
         $id = new ID('a1b2c3d4-e5f6-7890-abcd-ef1234567890');
         $voucher = new Voucher([

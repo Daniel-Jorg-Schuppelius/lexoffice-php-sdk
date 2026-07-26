@@ -22,12 +22,15 @@ class File extends NamedEntity implements IdentifiableNamedEntityInterface {
     protected ?FileID $id;
     protected ?string $filePath;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
 
-    public function getID(): FileID {
-        return $this->id;
+    public function getID(): ?FileID {
+        return $this->id ?? null;
     }
 
     public function getFilePath(): ?string {
@@ -35,7 +38,12 @@ class File extends NamedEntity implements IdentifiableNamedEntityInterface {
     }
 
     public function getFileSize(): int {
-        return filesize($this->filePath);
+        if (!isset($this->filePath) || !is_file($this->filePath)) {
+            return 0;
+        }
+        $size = filesize($this->filePath);
+
+        return $size === false ? 0 : $size;
     }
 
     public function isValid(): bool {

@@ -34,6 +34,9 @@ class Contact extends NamedEntity implements ArchivableNamedEntityInterface, Ide
     protected ?string $note;
     protected ?bool $archived;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
 

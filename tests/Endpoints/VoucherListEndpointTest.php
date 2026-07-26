@@ -16,14 +16,14 @@ use Lexoffice\Entities\VoucherList\Vouchers;
 use Tests\Contracts\EndpointTest;
 
 class VoucherListEndpointTest extends EndpointTest {
-    private ?EndpointInterface $endpoint;
+    private EndpointInterface $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new VoucherListEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new VoucherListEndpoint($this->client);
     }
-    public function test_get_voucher_list_api() {
+    public function test_get_voucher_list_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

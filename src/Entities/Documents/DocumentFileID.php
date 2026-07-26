@@ -16,6 +16,9 @@ use Lexoffice\Entities\Files\FileID;
 use Psr\Log\LoggerInterface;
 
 class DocumentFileID extends FileID {
+    /**
+     * @param mixed $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
         $this->entityName = 'documentFileId';

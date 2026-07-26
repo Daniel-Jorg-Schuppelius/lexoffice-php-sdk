@@ -19,6 +19,9 @@ class PaymentDiscountConditions extends NamedEntity {
     protected float $discountPercentage;
     protected int $discountRange;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

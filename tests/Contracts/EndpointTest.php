@@ -22,18 +22,16 @@ use Tests\TestAPIClientFactory;
 abstract class EndpointTest extends TestCase {
     protected ?LoggerInterface $logger = null;
 
-    protected ?ApiClientInterface $client;
+    protected ApiClientInterface $client;
 
     protected bool $apiDisabled = false;
 
-    public function __construct($name) {
-        parent::__construct($name);
+    protected function setUp(): void {
+        parent::setUp();
         $this->logger = ConsoleLoggerFactory::getLogger();
         LoggerRegistry::setLogger($this->logger);
         $this->client = TestAPIClientFactory::getClient();
-    }
 
-    final protected function setUp(): void {
         if (!$this->apiDisabled) {
             try {
                 $response = $this->client->get("ping");

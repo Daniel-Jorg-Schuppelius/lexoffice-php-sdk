@@ -22,6 +22,9 @@ class Quotation extends NamedDocument {
     protected QuotationLineItems $lineItems;
     protected PaymentConditions $paymentConditions;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

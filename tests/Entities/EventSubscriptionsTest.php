@@ -16,7 +16,7 @@ use Lexoffice\Entities\EventSubscriptions\EventSubscriptions;
 use PHPUnit\Framework\TestCase;
 
 class EventSubscriptionsTest extends TestCase {
-    public function test_create_event_subscriptions() {
+    public function test_create_event_subscriptions(): void {
         $data = [
             "content" => [
                 [

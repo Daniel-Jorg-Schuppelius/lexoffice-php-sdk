@@ -32,6 +32,9 @@ class DownPaymentDeduction extends NamedEntity {
     protected float $receivedTaxAmount;
     protected float $taxRatePercentage;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

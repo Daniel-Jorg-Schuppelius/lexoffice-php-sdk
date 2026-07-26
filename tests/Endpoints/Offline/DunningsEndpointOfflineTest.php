@@ -28,7 +28,7 @@ class DunningsEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'dunnings/5d217758-ea2a-11eb-a8d0-47ec974ddbcf', 200, json_encode([
+        $getBody = json_encode([
             'id' => '5d217758-ea2a-11eb-a8d0-47ec974ddbcf',
             'version' => 0,
             'voucherDate' => '2024-03-15',
@@ -55,23 +55,29 @@ class DunningsEndpointOfflineTest extends OfflineEndpointTest {
             'taxConditions' => [
                 'taxType' => 'net',
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($getBody);
+        $this->mockClient->addResponse('GET', 'dunnings/5d217758-ea2a-11eb-a8d0-47ec974ddbcf', 200, $getBody);
 
-        $this->mockClient->addResponse('POST', 'dunnings*precedingSalesVoucherId*', 201, json_encode([
+        $postBody = json_encode([
             'id' => 'new-dunning-id-12345',
             'resourceUri' => 'https://api.lexoffice.io/v1/dunnings/new-dunning-id-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($postBody);
+        $this->mockClient->addResponse('POST', 'dunnings*precedingSalesVoucherId*', 201, $postBody);
 
-        $this->mockClient->setDefaultResponse(200, json_encode([
+        $defaultBody = json_encode([
             'id' => 'new-dunning-id-12345',
             'resourceUri' => 'https://api.lexoffice.io/v1/dunnings/new-dunning-id-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($defaultBody);
+        $this->mockClient->setDefaultResponse(200, $defaultBody);
     }
 
     public function test_get_dunning(): void {

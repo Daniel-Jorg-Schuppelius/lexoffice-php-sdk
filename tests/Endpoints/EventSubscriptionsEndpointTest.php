@@ -15,15 +15,15 @@ use Lexoffice\Entities\EventSubscriptions\{EventSubscription, EventSubscriptionR
 use Tests\Contracts\EndpointTest;
 
 class EventSubscriptionsEndpointTest extends EndpointTest {
-    protected ?EventSubscriptionsEndpoint $endpoint;
+    protected EventSubscriptionsEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new EventSubscriptionsEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new EventSubscriptionsEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "eventType" => "contact.changed",
             "callbackUrl" => "https://schuppelius.org/webhook",
@@ -34,7 +34,7 @@ class EventSubscriptionsEndpointTest extends EndpointTest {
         $this->assertEquals(json_encode($data), $eventSubscription->toJson());  // the order of the $data array is important for this test.
     }
 
-    public function test_create_and_delete_event_subscription_api() {
+    public function test_create_and_delete_event_subscription_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -50,7 +50,7 @@ class EventSubscriptionsEndpointTest extends EndpointTest {
         $this->endpoint->delete($eventSubscriptionResource->getId());
     }
 
-    public function test_create_get_update_and_delete_event_subscription_api() {
+    public function test_create_get_update_and_delete_event_subscription_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -68,7 +68,7 @@ class EventSubscriptionsEndpointTest extends EndpointTest {
         $this->endpoint->delete($eventSubscriptionResource->getId());
     }
 
-    public function test_list_and_delete_event_subscriptions_api() {
+    public function test_list_and_delete_event_subscriptions_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -88,7 +88,9 @@ class EventSubscriptionsEndpointTest extends EndpointTest {
 
         $eventSubscriptions = $this->endpoint->list();
         foreach ($eventSubscriptions->getValues() as $val) {
-            $this->endpoint->delete($val->getId());
+            $id = $val->getId();
+            $this->assertNotNull($id);
+            $this->endpoint->delete($id);
         }
         $eventSubscriptions = $this->endpoint->list();
         $this->assertEquals(0, count($eventSubscriptions->getValues()));

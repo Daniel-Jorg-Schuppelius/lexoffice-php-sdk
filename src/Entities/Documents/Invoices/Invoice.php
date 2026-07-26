@@ -30,6 +30,9 @@ class Invoice extends NamedDocument {
     protected ?DownPaymentDeductions $downPaymentDeductions;
     protected ?RecurringTemplateID $recurringTemplateId;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
