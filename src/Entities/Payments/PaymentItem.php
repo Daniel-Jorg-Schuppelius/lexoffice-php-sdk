@@ -14,11 +14,15 @@ namespace Lexoffice\Entities\Payments;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use CommonToolkit\Enums\CurrencyCode;
+use CommonToolkit\ValueObjects\Money;
 use DateTime;
 use Lexoffice\Enums\PaymentItemType;
+use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class PaymentItem extends NamedEntity {
+    use MoneyAccessorTrait;
+
     protected PaymentItemType $paymentItemType;
     protected DateTime $postingDate;
     protected float $amount;
@@ -36,8 +40,8 @@ class PaymentItem extends NamedEntity {
         return $this->postingDate;
     }
 
-    public function getAmount(): float {
-        return $this->amount;
+    public function getAmount(): Money {
+        return $this->toMoney($this->amount) ?? Money::zero($this->entityCurrency());
     }
 
     public function getCurrency(): CurrencyCode {

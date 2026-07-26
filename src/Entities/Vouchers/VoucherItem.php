@@ -13,9 +13,13 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Vouchers;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
+use CommonToolkit\ValueObjects\Money;
+use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class VoucherItem extends NamedEntity {
+    use MoneyAccessorTrait;
+
     protected float $amount;
     protected float $taxAmount;
     protected float $taxRatePercent;
@@ -25,12 +29,12 @@ class VoucherItem extends NamedEntity {
         parent::__construct($data, $logger);
     }
 
-    public function getAmount(): float {
-        return $this->amount;
+    public function getAmount(): Money {
+        return $this->toMoney($this->amount) ?? Money::zero($this->entityCurrency());
     }
 
-    public function getTaxAmount(): float {
-        return $this->taxAmount;
+    public function getTaxAmount(): Money {
+        return $this->toMoney($this->taxAmount) ?? Money::zero($this->entityCurrency());
     }
 
     public function getTaxRatePercent(): float {

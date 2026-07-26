@@ -13,10 +13,14 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Articles;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
+use CommonToolkit\ValueObjects\Money;
 use Lexoffice\Enums\LeadingPrice;
+use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class Price extends NamedEntity {
+    use MoneyAccessorTrait;
+
     protected ?float $netPrice;
     protected ?float $grossPrice;
     protected LeadingPrice $leadingPrice;
@@ -26,12 +30,12 @@ class Price extends NamedEntity {
         parent::__construct($data, $logger);
     }
 
-    public function getNetPrice(): ?float {
-        return $this->netPrice;
+    public function getNetPrice(): ?Money {
+        return $this->toMoney($this->netPrice);
     }
 
-    public function getGrossPrice(): ?float {
-        return $this->grossPrice;
+    public function getGrossPrice(): ?Money {
+        return $this->toMoney($this->grossPrice);
     }
 
     public function getLeadingPrice(): LeadingPrice {

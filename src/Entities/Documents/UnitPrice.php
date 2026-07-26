@@ -14,9 +14,13 @@ namespace Lexoffice\Entities\Documents;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use CommonToolkit\Enums\CurrencyCode;
+use CommonToolkit\ValueObjects\Money;
+use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class UnitPrice extends NamedEntity {
+    use MoneyAccessorTrait;
+
     protected CurrencyCode $currency;
     protected ?float $netAmount;
     protected ?float $grossAmount;
@@ -39,12 +43,12 @@ class UnitPrice extends NamedEntity {
         return $this->currency;
     }
 
-    public function getNetAmount(): ?float {
-        return $this->netAmount;
+    public function getNetAmount(): ?Money {
+        return $this->toMoney($this->netAmount);
     }
 
-    public function getGrossAmount(): ?float {
-        return $this->grossAmount;
+    public function getGrossAmount(): ?Money {
+        return $this->toMoney($this->grossAmount);
     }
 
     public function getTaxRatePercentage(): float {

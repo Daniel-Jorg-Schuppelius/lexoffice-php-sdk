@@ -14,10 +14,14 @@ namespace Lexoffice\Entities\Documents\Invoices;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use APIToolkit\Entities\ID;
+use CommonToolkit\ValueObjects\Money;
 use DateTime;
+use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class DownPaymentDeduction extends NamedEntity {
+    use MoneyAccessorTrait;
+
     protected ID $id;
     protected string $voucherType;
     protected string $title;
@@ -52,16 +56,16 @@ class DownPaymentDeduction extends NamedEntity {
         return $this->voucherDate;
     }
 
-    public function getReceivedGrossAmount(): float {
-        return $this->receivedGrossAmount;
+    public function getReceivedGrossAmount(): Money {
+        return $this->toMoney($this->receivedGrossAmount) ?? Money::zero($this->entityCurrency());
     }
 
-    public function getReceivedNetAmount(): float {
-        return $this->receivedNetAmount;
+    public function getReceivedNetAmount(): Money {
+        return $this->toMoney($this->receivedNetAmount) ?? Money::zero($this->entityCurrency());
     }
 
-    public function getReceivedTaxAmount(): float {
-        return $this->receivedTaxAmount;
+    public function getReceivedTaxAmount(): Money {
+        return $this->toMoney($this->receivedTaxAmount) ?? Money::zero($this->entityCurrency());
     }
 
     public function getTaxRatePercentage(): float {

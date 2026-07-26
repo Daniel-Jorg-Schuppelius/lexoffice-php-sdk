@@ -13,9 +13,13 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Documents;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
+use CommonToolkit\ValueObjects\Money;
+use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class TaxAmount extends NamedEntity {
+    use MoneyAccessorTrait;
+
     protected float $taxRatePercentage;
     protected float $taxAmount;
     protected float $netAmount;
@@ -28,11 +32,11 @@ class TaxAmount extends NamedEntity {
         return $this->taxRatePercentage;
     }
 
-    public function getTaxAmount(): float {
-        return $this->taxAmount;
+    public function getTaxAmount(): Money {
+        return $this->toMoney($this->taxAmount) ?? Money::zero($this->entityCurrency());
     }
 
-    public function getNetAmount(): float {
-        return $this->netAmount;
+    public function getNetAmount(): Money {
+        return $this->toMoney($this->netAmount) ?? Money::zero($this->entityCurrency());
     }
 }

@@ -13,10 +13,14 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\VoucherList;
 
 use CommonToolkit\Enums\CurrencyCode;
+use CommonToolkit\ValueObjects\Money;
 use Lexoffice\Entities\Vouchers\BaseVoucher;
 use Lexoffice\Enums\VoucherType;
+use Lexoffice\Traits\MoneyAccessorTrait;
 
 class Voucher extends BaseVoucher {
+    use MoneyAccessorTrait;
+
     protected VoucherType $voucherType;
     protected float $totalAmount;
     protected float $openAmount;
@@ -27,12 +31,12 @@ class Voucher extends BaseVoucher {
         return $this->voucherType;
     }
 
-    public function getTotalAmount(): float {
-        return $this->totalAmount;
+    public function getTotalAmount(): Money {
+        return $this->toMoney($this->totalAmount) ?? Money::zero($this->entityCurrency());
     }
 
-    public function getOpenAmount(): float {
-        return $this->openAmount;
+    public function getOpenAmount(): Money {
+        return $this->toMoney($this->openAmount) ?? Money::zero($this->entityCurrency());
     }
 
     public function getCurrency(): CurrencyCode {

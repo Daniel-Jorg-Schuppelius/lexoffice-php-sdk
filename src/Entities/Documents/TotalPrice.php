@@ -14,9 +14,13 @@ namespace Lexoffice\Entities\Documents;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use CommonToolkit\Enums\CurrencyCode;
+use CommonToolkit\ValueObjects\Money;
+use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class TotalPrice extends NamedEntity {
+    use MoneyAccessorTrait;
+
     protected CurrencyCode $currency;
     protected ?float $totalNetAmount;
     protected ?float $totalGrossAmount;
@@ -32,16 +36,16 @@ class TotalPrice extends NamedEntity {
         return $this->currency;
     }
 
-    public function getTotalNetAmount(): ?float {
-        return $this->totalNetAmount;
+    public function getTotalNetAmount(): ?Money {
+        return $this->toMoney($this->totalNetAmount);
     }
 
-    public function getTotalGrossAmount(): ?float {
-        return $this->totalGrossAmount;
+    public function getTotalGrossAmount(): ?Money {
+        return $this->toMoney($this->totalGrossAmount);
     }
 
-    public function getTotalTaxAmount(): ?float {
-        return $this->totalTaxAmount;
+    public function getTotalTaxAmount(): ?Money {
+        return $this->toMoney($this->totalTaxAmount);
     }
 
     public function getTotalDiscountAbsolute(): ?float {

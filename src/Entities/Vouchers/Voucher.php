@@ -12,13 +12,17 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Vouchers;
 
+use CommonToolkit\ValueObjects\Money;
 use DateTime;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
 use Lexoffice\Entities\Files\Files;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\{TaxType, VoucherType};
+use Lexoffice\Traits\MoneyAccessorTrait;
 
 class Voucher extends BaseVoucher implements OrganizationIdentifiableNamedEntityInterface {
+    use MoneyAccessorTrait;
+
     protected ?OrganizationID $organizationId;
     protected VoucherType $type;
     protected ?DateTime $shippingDate;
@@ -43,12 +47,12 @@ class Voucher extends BaseVoucher implements OrganizationIdentifiableNamedEntity
         return $this->shippingDate;
     }
 
-    public function getTotalGrossAmount(): ?float {
-        return $this->totalGrossAmount;
+    public function getTotalGrossAmount(): ?Money {
+        return $this->toMoney($this->totalGrossAmount);
     }
 
-    public function getTotalTaxAmount(): ?float {
-        return $this->totalTaxAmount;
+    public function getTotalTaxAmount(): ?Money {
+        return $this->toMoney($this->totalTaxAmount);
     }
 
     public function getTaxType(): TaxType {

@@ -14,11 +14,15 @@ namespace Lexoffice\Entities\Payments;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use CommonToolkit\Enums\CurrencyCode;
+use CommonToolkit\ValueObjects\Money;
 use DateTime;
 use Lexoffice\Enums\{PaymentStatus, VoucherStatus, VoucherType};
+use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class Payment extends NamedEntity {
+    use MoneyAccessorTrait;
+
     protected float $openAmount;
     protected CurrencyCode $currency;
     protected PaymentStatus $paymentStatus;
@@ -31,8 +35,8 @@ class Payment extends NamedEntity {
         parent::__construct($data, $logger);
     }
 
-    public function getOpenAmount(): float {
-        return $this->openAmount;
+    public function getOpenAmount(): Money {
+        return $this->toMoney($this->openAmount) ?? Money::zero($this->entityCurrency());
     }
 
     public function getCurrency(): CurrencyCode {
