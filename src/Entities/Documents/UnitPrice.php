@@ -24,7 +24,14 @@ class UnitPrice extends NamedEntity {
     protected CurrencyCode $currency;
     protected ?float $netAmount;
     protected ?float $grossAmount;
-    protected float $taxRatePercentage;
+
+    /**
+     * Default 0.0: Die API liefert den Steuersatz nicht in jeder Antwort mit
+     * (Teilobjekte, steuerfreie Positionen). Ohne Vorbelegung griffe die
+     * Ableitung unten auf eine uninitialisierte typisierte Property zu und
+     * würde einen Error werfen.
+     */
+    protected float $taxRatePercentage = 0.0;
 
     /**
      * @param array<string, mixed>|object|null $data
@@ -32,18 +39,28 @@ class UnitPrice extends NamedEntity {
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
 
+        // Ableitung über Money statt float-Arithmetik: gleiche Rechenweise und
+        // Rundung wie beim Lesen (MoneyAccessorTrait), damit netto/brutto auch
+        // bei krummen Sätzen konsistent zueinander bleiben.
         if (!isset($this->netAmount) && isset($this->grossAmount)) {
-            $this->netAmount = $this->grossAmount / (1 + $this->taxRatePercentage / 100);
+            $this->netAmount = $this->toMoney($this->grossAmount)
+                ?->dividedBy(1 + $this->taxRatePercentage / 100)
+                ->toFloat();
         } elseif (!isset($this->grossAmount) && isset($this->netAmount)) {
-            $this->grossAmount = $this->netAmount * (1 + $this->taxRatePercentage / 100);
+            $this->grossAmount = $this->toMoney($this->netAmount)
+                ?->plusPercentage($this->taxRatePercentage)
+                ->toFloat();
         } elseif (!isset($this->netAmount) && !isset($this->grossAmount)) {
             $this->netAmount = 0;
             $this->grossAmount = 0;
         }
     }
 
+    /**
+     * Belegwährung; ohne eigenes Feld gilt wie im MoneyAccessorTrait der Euro.
+     */
     public function getCurrency(): CurrencyCode {
-        return $this->currency;
+        return $this->entityCurrency();
     }
 
     public function getNetAmount(): ?Money {
