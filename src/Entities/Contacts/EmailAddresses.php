@@ -21,6 +21,9 @@ class EmailAddresses extends NamedEntity {
     protected ?EmailAddressList $private;
     protected ?EmailAddressList $other;
 
+    /**
+     * @param mixed $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

@@ -16,6 +16,9 @@ use APIToolkit\Entities\Contact\PhoneNumber as ContactPhoneNumber;
 use Psr\Log\LoggerInterface;
 
 class PhoneNumber extends ContactPhoneNumber {
+    /**
+     * @param mixed $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->entityName = 'phoneNumber';
         parent::__construct($data, $logger);

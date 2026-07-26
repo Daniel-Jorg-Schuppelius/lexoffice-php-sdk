@@ -16,14 +16,14 @@ use Lexoffice\Entities\Profile\Profile;
 use Tests\Contracts\EndpointTest;
 
 class ProfileEndpointTest extends EndpointTest {
-    private ?EndpointInterface $endpoint;
+    private EndpointInterface $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new ProfileEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new ProfileEndpoint($this->client);
     }
-    public function test_get_profile_api() {
+    public function test_get_profile_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

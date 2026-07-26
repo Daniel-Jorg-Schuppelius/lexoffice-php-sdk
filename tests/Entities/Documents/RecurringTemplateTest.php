@@ -16,7 +16,7 @@ use Lexoffice\Entities\Documents\RecurringTemplates\RecurringTemplate;
 use PHPUnit\Framework\TestCase;
 
 class RecurringTemplateTest extends TestCase {
-    public function test_create_recurring_template() {
+    public function test_create_recurring_template(): void {
         $data = [
             "id" => "ac1d66a8-6d59-408b-9413-d56b1db7946f",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",

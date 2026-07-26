@@ -44,6 +44,9 @@ abstract class NamedDocument extends NamedEntity implements ArchivableNamedEntit
     protected ?string $remark;
     protected ?DocumentFile $files;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

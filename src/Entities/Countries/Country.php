@@ -22,6 +22,9 @@ class Country extends NamedEntity {
     protected ?string $countryNameDE;
     protected ?TaxClassification $taxClassification;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

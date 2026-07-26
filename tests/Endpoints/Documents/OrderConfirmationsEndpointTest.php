@@ -15,15 +15,15 @@ use Lexoffice\Entities\Documents\OrderConfirmations\{OrderConfirmation, OrderCon
 use Tests\Contracts\EndpointTest;
 
 class OrderConfirmationsEndpointTest extends EndpointTest {
-    protected ?OrderConfirmationsEndpoint $endpoint;
+    protected OrderConfirmationsEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new OrderConfirmationsEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new OrderConfirmationsEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "lineItems" => [
                 [
@@ -56,7 +56,6 @@ class OrderConfirmationsEndpointTest extends EndpointTest {
                         "grossAmount" => 8.9,
                         "taxRatePercentage" => 7,
                     ],
-                    "discountPercentage" => 0,
                     "lineItemAmount" => 8.32,
                 ],
                 [
@@ -146,10 +145,12 @@ class OrderConfirmationsEndpointTest extends EndpointTest {
         $orderConfirmation = new OrderConfirmation($data, $this->logger);
         $this->assertEquals(json_encode($data), $orderConfirmation->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $orderConfirmation->toJson());
-        $this->assertStringContainsString(json_encode($orderConfirmation->getTitle()), $orderConfirmation->toJson());
+        $encodedTitle = json_encode($orderConfirmation->getTitle());
+        $this->assertNotFalse($encodedTitle);
+        $this->assertStringContainsString($encodedTitle, $orderConfirmation->toJson());
     }
 
-    public function test_create_and_get_order_confirmation_api() {
+    public function test_create_and_get_order_confirmation_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

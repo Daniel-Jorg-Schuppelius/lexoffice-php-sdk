@@ -28,7 +28,7 @@ class OrderConfirmationsEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'order-confirmations/abc12345-6789-0def-ghij-klmnopqrstuv', 200, json_encode([
+        $getBody = json_encode([
             'id' => 'abc12345-6789-0def-ghij-klmnopqrstuv',
             'version' => 0,
             'voucherDate' => '2024-03-15',
@@ -55,23 +55,29 @@ class OrderConfirmationsEndpointOfflineTest extends OfflineEndpointTest {
             'taxConditions' => [
                 'taxType' => 'net',
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($getBody);
+        $this->mockClient->addResponse('GET', 'order-confirmations/abc12345-6789-0def-ghij-klmnopqrstuv', 200, $getBody);
 
-        $this->mockClient->addResponse('POST', 'order-confirmations*precedingSalesVoucherId*', 201, json_encode([
+        $postBody = json_encode([
             'id' => 'new-order-confirmation-id-12345',
             'resourceUri' => 'https://api.lexoffice.io/v1/order-confirmations/new-order-confirmation-id-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($postBody);
+        $this->mockClient->addResponse('POST', 'order-confirmations*precedingSalesVoucherId*', 201, $postBody);
 
-        $this->mockClient->setDefaultResponse(200, json_encode([
+        $defaultBody = json_encode([
             'id' => 'new-order-confirmation-id-12345',
             'resourceUri' => 'https://api.lexoffice.io/v1/order-confirmations/new-order-confirmation-id-12345',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($defaultBody);
+        $this->mockClient->setDefaultResponse(200, $defaultBody);
     }
 
     public function test_get_order_confirmation(): void {

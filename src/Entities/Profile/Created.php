@@ -22,6 +22,9 @@ class Created extends NamedEntity {
     protected string $userEmail;
     protected DateTime $date;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

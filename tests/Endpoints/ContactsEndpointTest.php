@@ -15,15 +15,15 @@ use Lexoffice\Entities\Contacts\{Contact, ContactResource, ContactsPage};
 use Tests\Contracts\EndpointTest;
 
 class ContactsEndpointTest extends EndpointTest {
-    private ?ContactsEndpoint $endpoint;
+    private ContactsEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new ContactsEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new ContactsEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "version" => 0,
             "roles" => [
@@ -63,7 +63,7 @@ class ContactsEndpointTest extends EndpointTest {
         $this->assertEquals($jsonOriginal1, $contact1->toJson());
     }
 
-    public function test_create_contact_api() {
+    public function test_create_contact_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -86,7 +86,7 @@ class ContactsEndpointTest extends EndpointTest {
         $this->assertInstanceOf(ContactResource::class, $contactResource);
     }
 
-    public function test_create_get_and_update_contact_api() {
+    public function test_create_get_and_update_contact_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -109,12 +109,13 @@ class ContactsEndpointTest extends EndpointTest {
         $contact = $this->endpoint->get($contactResource->getId());
 
         $person = $contact->getPerson();
+        $this->assertNotNull($person);
         $person->setFirstName("Maximilian");
         $contactResourceUpdated = $this->endpoint->update($contactResource->getId(), $contact);
         $this->assertInstanceOf(ContactResource::class, $contactResourceUpdated);
     }
 
-    public function test_create_and_search_contact_api() {
+    public function test_create_and_search_contact_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

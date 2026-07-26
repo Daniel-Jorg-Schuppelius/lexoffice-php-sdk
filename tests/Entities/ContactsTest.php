@@ -16,7 +16,7 @@ use Lexoffice\Entities\Contacts\{Company, Contact, Contacts, ContactsPage, Roles
 use PHPUnit\Framework\TestCase;
 
 class ContactsTest extends TestCase {
-    public function test_create_contact() {
+    public function test_create_contact(): void {
         $data = [
             "id" => "be9475f4-ef80-442b-8ab9-3ab8b1a2aeb9",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -133,7 +133,7 @@ class ContactsTest extends TestCase {
         $this->assertEquals('Max', $contact->getCompany()->getContactPersons()->getValues()[0]->getFirstName());
         $this->assertEquals('Mustermann', $contact->getCompany()->getContactPersons()->getValues()[1]->getLastName());
     }
-    public function test_create_contacts() {
+    public function test_create_contacts(): void {
         $data = [
             "content" => [
                 [
@@ -173,14 +173,13 @@ class ContactsTest extends TestCase {
 
         $contacts = new Contacts($data);
         $this->assertInstanceOf(Contacts::class, $contacts);
-        $this->assertIsArray($contacts->getValues());
         $this->assertInstanceOf(Contact::class, $contacts->getValues()[0]);
         $this->assertInstanceOf(Contact::class, $contacts->getValues()[1]);
-        $this->assertEquals('Inge', $contacts->getValues()[0]->getPerson()->getFirstName());
-        $this->assertEquals('Mustermann', $contacts->getValues()[1]->getPerson()->getLastName());
+        $this->assertEquals('Inge', $contacts->getValues()[0]->getPerson()?->getFirstName());
+        $this->assertEquals('Mustermann', $contacts->getValues()[1]->getPerson()?->getLastName());
     }
 
-    public function test_create_contacts_page() {
+    public function test_create_contacts_page(): void {
         $data = [
             "content" => [
                 [
@@ -240,7 +239,7 @@ class ContactsTest extends TestCase {
         $this->assertInstanceOf(Contact::class, $contactsPage->getValues()[0]);
     }
 
-    public function test_create_company() {
+    public function test_create_company(): void {
         $data = [
             "name" => "Testfirma",
             "taxNumber" => "12345/12345",
@@ -265,7 +264,7 @@ class ContactsTest extends TestCase {
         $this->assertFalse($company->isValid());
     }
 
-    public function test_create_roles() {
+    public function test_create_roles(): void {
         $data = [
             "customer" => [
                 "number" => 10307,

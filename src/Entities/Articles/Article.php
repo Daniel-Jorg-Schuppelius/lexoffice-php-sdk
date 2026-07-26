@@ -37,6 +37,9 @@ class Article extends NamedEntity implements ArchivableNamedEntityInterface, Ext
     protected Price $price;
     protected ?Version $version;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

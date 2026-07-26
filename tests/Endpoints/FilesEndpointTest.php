@@ -15,15 +15,15 @@ use Lexoffice\Entities\Files\{File, FileResource};
 use Tests\Contracts\EndpointTest;
 
 class FilesEndpointTest extends EndpointTest {
-    private ?FilesEndpoint $endpoint;
+    private FilesEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new FilesEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new FilesEndpoint($this->client);
     }
 
-    public function test_upload_and_download_files_api() {
+    public function test_upload_and_download_files_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -36,6 +36,8 @@ class FilesEndpointTest extends EndpointTest {
         $this->assertInstanceOf(FileResource::class, $fileResource);
         $file = $this->endpoint->get($fileResource->getID());
         $this->assertInstanceOf(File::class, $file);
-        $this->assertEquals(file_get_contents($data['filePath']), file_get_contents($file->getFilePath()));
+        $filePath = $file->getFilePath();
+        $this->assertNotNull($filePath);
+        $this->assertEquals(file_get_contents($data['filePath']), file_get_contents($filePath));
     }
 }

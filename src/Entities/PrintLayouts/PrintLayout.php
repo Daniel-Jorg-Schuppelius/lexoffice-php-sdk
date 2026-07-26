@@ -21,6 +21,9 @@ class PrintLayout extends NamedEntity implements IdentifiableNamedEntityInterfac
     protected string $name;
     protected bool $default;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

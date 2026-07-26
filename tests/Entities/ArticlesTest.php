@@ -13,19 +13,19 @@ declare(strict_types=1);
 namespace Tests\Entities;
 
 use ERRORToolkit\Factories\ConsoleLoggerFactory;
-use ERRORToolkit\Logger\ConsoleLogger;
 use Lexoffice\Entities\Articles\{Article, Articles, ArticlesPage, Price};
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 class ArticlesTest extends TestCase {
-    private ?ConsoleLogger $logger = null;
+    private ?LoggerInterface $logger = null;
 
-    public function __construct($name) {
-        parent::__construct($name);
+    protected function setUp(): void {
+        parent::setUp();
         $this->logger = ConsoleLoggerFactory::getLogger();
     }
 
-    public function test_create_article() {
+    public function test_create_article(): void {
         $data = [
             "id" => "eb46d328-e1dc-11ee-8444-2fadfc15a567",
             "organizationId" => "9e700f44-0c55-11ef-ac31-8f7c36d1b6e2",
@@ -57,7 +57,7 @@ class ArticlesTest extends TestCase {
         $this->assertEquals($data, $article->toArray());
         $this->assertEquals($price, $article->getPrice());
     }
-    public function test_create_articles() {
+    public function test_create_articles(): void {
         $data = [
             "content" => [
                 [
@@ -106,7 +106,7 @@ class ArticlesTest extends TestCase {
         $this->assertIsArray($articles->getValues());
     }
 
-    public function test_create_articles_page() {
+    public function test_create_articles_page(): void {
         $data = [
             "content" => [
                 [
@@ -165,6 +165,5 @@ class ArticlesTest extends TestCase {
         $articlesPage = new ArticlesPage($data, $this->logger);
         $this->assertInstanceOf(ArticlesPage::class, $articlesPage);
         $this->assertInstanceOf(Articles::class, $articlesPage->getContent());
-        $this->assertIsArray($articlesPage->getValues());
     }
 }

@@ -16,6 +16,9 @@ use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Psr\Log\LoggerInterface;
 
 class DeliveryNoteExtendedLineItems extends ExtendedLineItems {
+    /**
+     * @param mixed $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         if (!is_subclass_of($this->valueClassName, DeliveryNoteExtendedLineItem::class)) {
             $this->valueClassName = DeliveryNoteExtendedLineItem::class;

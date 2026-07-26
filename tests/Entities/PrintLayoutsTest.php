@@ -16,7 +16,7 @@ use Lexoffice\Entities\PrintLayouts\PrintLayouts;
 use PHPUnit\Framework\TestCase;
 
 class PrintLayoutsTest extends TestCase {
-    public function test_create_print_layouts() {
+    public function test_create_print_layouts(): void {
         $data = [
             [
                 "id" => "0dda299a-b5db-11ee-93dd-1755da51b5dc",

@@ -16,7 +16,7 @@ use Lexoffice\Entities\PostingCategories\PostingCategories;
 use PHPUnit\Framework\TestCase;
 
 class PostingCategoriesTest extends TestCase {
-    public function test_create_posting_categories() {
+    public function test_create_posting_categories(): void {
         $data = [
             [
                 "id" => "cf03a2b0-f838-474f-ac5e-67adb9b830c7",

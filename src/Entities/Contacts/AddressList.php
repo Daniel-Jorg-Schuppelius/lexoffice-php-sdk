@@ -20,6 +20,9 @@ use Psr\Log\LoggerInterface;
  * @extends NamedValues<Address>
  */
 class AddressList extends NamedValues {
+    /**
+     * @param mixed $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = Address::class;
         parent::__construct($data, $logger);

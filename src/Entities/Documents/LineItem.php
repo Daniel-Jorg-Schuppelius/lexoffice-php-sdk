@@ -28,6 +28,9 @@ class LineItem extends NamedEntity {
     protected ?float $lineItemAmount;
     protected ?int $lineItemTemplateVersion;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

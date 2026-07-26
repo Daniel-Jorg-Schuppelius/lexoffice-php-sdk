@@ -27,7 +27,7 @@ class RecurringTemplatesEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'recurring-templates/7b6ce389-8ebb-4492-9a2a-6aa1320b5fca', 200, json_encode([
+        $templateBody = json_encode([
             'id' => '7b6ce389-8ebb-4492-9a2a-6aa1320b5fca',
             'version' => 0,
             'title' => 'Monthly Invoice Template',
@@ -59,9 +59,11 @@ class RecurringTemplatesEndpointOfflineTest extends OfflineEndpointTest {
                 'nextExecutionDate' => '2024-04-01',
                 'executionStatus' => 'ACTIVE',
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($templateBody);
+        $this->mockClient->addResponse('GET', 'recurring-templates/7b6ce389-8ebb-4492-9a2a-6aa1320b5fca', 200, $templateBody);
 
-        $this->mockClient->addResponse('GET', 'recurring-templates', 200, json_encode([
+        $listBody = json_encode([
             'content' => [
                 [
                     'id' => '7b6ce389-8ebb-4492-9a2a-6aa1320b5fca',
@@ -82,12 +84,16 @@ class RecurringTemplatesEndpointOfflineTest extends OfflineEndpointTest {
                     'direction' => 'DESC',
                 ],
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($listBody);
+        $this->mockClient->addResponse('GET', 'recurring-templates', 200, $listBody);
 
-        $this->mockClient->setDefaultResponse(200, json_encode([
+        $defaultBody = json_encode([
             'id' => '7b6ce389-8ebb-4492-9a2a-6aa1320b5fca',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($defaultBody);
+        $this->mockClient->setDefaultResponse(200, $defaultBody);
     }
 
     public function test_get_recurring_template(): void {

@@ -15,15 +15,15 @@ use Lexoffice\Entities\Documents\Invoices\{Invoice, InvoiceResource};
 use Tests\Contracts\EndpointTest;
 
 class InvoicesEndpointTest extends EndpointTest {
-    protected ?InvoicesEndpoint $endpoint;
+    protected InvoicesEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new InvoicesEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new InvoicesEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "lineItems" => [
                 [
@@ -149,10 +149,12 @@ class InvoicesEndpointTest extends EndpointTest {
         $invoice = new Invoice($data, $this->logger);
         $this->assertEquals(json_encode($data), $invoice->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $invoice->toJson());
-        $this->assertStringContainsString(substr($invoice->getTitle(), 2, -2), $invoice->toJson());
+        $title = $invoice->getTitle();
+        $this->assertNotNull($title);
+        $this->assertStringContainsString(substr($title, 2, -2), $invoice->toJson());
     }
 
-    public function test_create_and_get_invoice_api() {
+    public function test_create_and_get_invoice_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

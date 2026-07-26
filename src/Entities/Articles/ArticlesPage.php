@@ -16,6 +16,9 @@ use Lexoffice\Contracts\Abstracts\NamedPage;
 use Psr\Log\LoggerInterface;
 
 class ArticlesPage extends NamedPage {
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = Articles::class;
         parent::__construct($data, $logger);

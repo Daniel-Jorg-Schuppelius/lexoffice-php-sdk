@@ -16,7 +16,7 @@ use Lexoffice\Entities\Documents\DownPaymentInvoices\DownPaymentInvoice;
 use PHPUnit\Framework\TestCase;
 
 class DownPaymentInvoicesTest extends TestCase {
-    public function test_create_down_payment_invoice() {
+    public function test_create_down_payment_invoice(): void {
         $data = [
             "id" => "0333f0c7-2b89-4889-b64e-68b3ca3f167a",
             "organizationId" => "aa93e8a8-2aa3-470b-b914-caad8a255dd8",
@@ -94,7 +94,11 @@ class DownPaymentInvoicesTest extends TestCase {
         $this->assertInstanceOf(DownPaymentInvoice::class, $downPaymentInvoice);
         $this->assertNotEquals($data, $downPaymentInvoice->toArray());
         $this->assertEquals($data["address"], $downPaymentInvoice->getAddress()->toArray());
-        $this->assertCount(1, $downPaymentInvoice->getLineItems()->getValues());
-        $this->assertEquals($data["totalPrice"], $downPaymentInvoice->getTotalPrice()->toArray());
+        $lineItems = $downPaymentInvoice->getLineItems();
+        $this->assertNotNull($lineItems);
+        $this->assertCount(1, $lineItems->getValues());
+        $totalPrice = $downPaymentInvoice->getTotalPrice();
+        $this->assertNotNull($totalPrice);
+        $this->assertEquals($data["totalPrice"], $totalPrice->toArray());
     }
 }

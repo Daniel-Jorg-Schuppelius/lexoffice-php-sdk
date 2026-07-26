@@ -25,7 +25,7 @@ class ProfileEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'profile', 200, json_encode([
+        $body = json_encode([
             'organizationId' => 'org-12345-67890',
             'companyName' => 'Test Company GmbH',
             'created' => [
@@ -39,7 +39,9 @@ class ProfileEndpointOfflineTest extends OfflineEndpointTest {
             'subscriptionStatus' => 'active',
             'taxType' => 'net',
             'smallBusiness' => false,
-        ]));
+        ]);
+        $this->assertNotFalse($body);
+        $this->mockClient->addResponse('GET', 'profile', 200, $body);
     }
 
     public function test_get_profile(): void {

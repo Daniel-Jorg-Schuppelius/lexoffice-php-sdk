@@ -27,16 +27,19 @@ class EventSubscription extends NamedEntity implements IdentifiableNamedEntityIn
     protected EventType $eventType;
     protected string $callbackUrl;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
 
-    public function getID(): SubscriptionID {
-        return $this->subscriptionId;
+    public function getID(): ?SubscriptionID {
+        return $this->subscriptionId ?? null;
     }
 
-    public function getOrganizationID(): OrganizationID {
-        return $this->organizationId;
+    public function getOrganizationID(): ?OrganizationID {
+        return $this->organizationId ?? null;
     }
 
     public function getCreatedDate(): ?DateTime {

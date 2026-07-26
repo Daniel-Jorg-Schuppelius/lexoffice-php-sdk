@@ -26,7 +26,7 @@ class PaymentConditionsEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'payment-conditions', 200, json_encode([
+        $body = json_encode([
             [
                 'id' => 'cond-12345',
                 'organizationDefault' => true,
@@ -41,7 +41,9 @@ class PaymentConditionsEndpointOfflineTest extends OfflineEndpointTest {
                 'paymentTermDuration' => 0,
                 'paymentDiscountConditions' => null,
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($body);
+        $this->mockClient->addResponse('GET', 'payment-conditions', 200, $body);
     }
 
     public function test_list_payment_conditions(): void {

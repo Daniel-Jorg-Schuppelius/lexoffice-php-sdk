@@ -22,6 +22,9 @@ class Company extends NamedEntity {
     protected ?string $vatRegistrationId;
     protected ContactPersons $contactPersons;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

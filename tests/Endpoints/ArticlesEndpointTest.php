@@ -15,15 +15,15 @@ use Lexoffice\Entities\Articles\{Article, ArticleResource, ArticlesPage};
 use Tests\Contracts\EndpointTest;
 
 class ArticlesEndpointTest extends EndpointTest {
-    protected ?ArticlesEndpoint $endpoint;
+    protected ArticlesEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new ArticlesEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new ArticlesEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "id" => "eb46d328-e1dc-11ee-8444-2fadfc15a567",
             "title" => "Lexware buchhaltung Premium 2024",
@@ -40,11 +40,15 @@ class ArticlesEndpointTest extends EndpointTest {
         $article = new Article($data);
         $this->assertEquals($data, $article->toArray());
         $this->assertEquals(json_encode($data), $article->toJson());  // the order of the $data array is important for this test.
-        $this->assertStringContainsString(substr($article->getID()->toJson(), 2, -2), json_encode($data));
+        $articleId = $article->getID();
+        $this->assertNotNull($articleId);
+        $encodedData = json_encode($data);
+        $this->assertNotFalse($encodedData);
+        $this->assertStringContainsString(substr($articleId->toJson(), 2, -2), $encodedData);
         $this->assertEquals(json_encode($data["price"]), $article->getPrice()->toJson());
     }
 
-    public function test_create_and_delete_article_api() {
+    public function test_create_and_delete_article_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -67,7 +71,7 @@ class ArticlesEndpointTest extends EndpointTest {
         $this->endpoint->delete($articleResource->getId());
     }
 
-    public function test_create_get_update_and_delete_article_api() {
+    public function test_create_get_update_and_delete_article_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }
@@ -95,7 +99,7 @@ class ArticlesEndpointTest extends EndpointTest {
         $this->endpoint->delete($articleResource->getId());
     }
 
-    public function test_create_search_and_delete_article_api() {
+    public function test_create_search_and_delete_article_api(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

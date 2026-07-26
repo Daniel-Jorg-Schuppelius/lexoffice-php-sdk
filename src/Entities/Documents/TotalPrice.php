@@ -24,6 +24,9 @@ class TotalPrice extends NamedEntity {
     protected ?float $totalDiscountAbsolute;
     protected ?float $totalDiscountPercentage;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

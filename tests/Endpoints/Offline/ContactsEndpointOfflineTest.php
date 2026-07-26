@@ -28,15 +28,17 @@ class ContactsEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('POST', 'contacts', 200, json_encode([
+        $createBody = json_encode([
             'id' => 'e9066f04-8cc7-4616-93f8-ac9571762f49',
             'resourceUri' => 'https://api.lexoffice.io/v1/contacts/e9066f04-8cc7-4616-93f8-ac9571762f49',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T10:30:00.000+01:00',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($createBody);
+        $this->mockClient->addResponse('POST', 'contacts', 200, $createBody);
 
-        $this->mockClient->addResponse('GET', 'contacts/e9066f04-8cc7-4616-93f8-ac9571762f49', 200, json_encode([
+        $getBody = json_encode([
             'id' => 'e9066f04-8cc7-4616-93f8-ac9571762f49',
             'version' => 0,
             'roles' => [
@@ -48,9 +50,11 @@ class ContactsEndpointOfflineTest extends OfflineEndpointTest {
                 'lastName' => 'Mustermann',
             ],
             'note' => 'Test contact',
-        ]));
+        ]);
+        $this->assertNotFalse($getBody);
+        $this->mockClient->addResponse('GET', 'contacts/e9066f04-8cc7-4616-93f8-ac9571762f49', 200, $getBody);
 
-        $this->mockClient->addResponse('GET', 'contacts', 200, json_encode([
+        $listBody = json_encode([
             'content' => [],
             'first' => true,
             'last' => true,
@@ -60,7 +64,9 @@ class ContactsEndpointOfflineTest extends OfflineEndpointTest {
             'size' => 25,
             'number' => 0,
             'sort' => [],
-        ]));
+        ]);
+        $this->assertNotFalse($listBody);
+        $this->mockClient->addResponse('GET', 'contacts', 200, $listBody);
     }
 
     public function test_create_contact(): void {
@@ -90,8 +96,10 @@ class ContactsEndpointOfflineTest extends OfflineEndpointTest {
         $result = $this->endpoint->get($id);
 
         $this->assertInstanceOf(Contact::class, $result);
-        $this->assertEquals('Max', $result->getPerson()->getFirstName());
-        $this->assertEquals('Mustermann', $result->getPerson()->getLastName());
+        $person = $result->getPerson();
+        $this->assertNotNull($person);
+        $this->assertEquals('Max', $person->getFirstName());
+        $this->assertEquals('Mustermann', $person->getLastName());
         $this->assertRequestMade('GET', 'contacts/e9066f04-8cc7-4616-93f8-ac9571762f49');
     }
 
@@ -103,13 +111,15 @@ class ContactsEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     public function test_update_contact(): void {
-        $this->mockClient->addResponse('PUT', 'contacts/e9066f04-8cc7-4616-93f8-ac9571762f49', 200, json_encode([
+        $updateBody = json_encode([
             'id' => 'e9066f04-8cc7-4616-93f8-ac9571762f49',
             'resourceUri' => 'https://api.lexoffice.io/v1/contacts/e9066f04-8cc7-4616-93f8-ac9571762f49',
             'createdDate' => '2024-03-15T10:30:00.000+01:00',
             'updatedDate' => '2024-03-15T11:00:00.000+01:00',
             'version' => 1,
-        ]));
+        ]);
+        $this->assertNotFalse($updateBody);
+        $this->mockClient->addResponse('PUT', 'contacts/e9066f04-8cc7-4616-93f8-ac9571762f49', 200, $updateBody);
 
         $id = new ID('e9066f04-8cc7-4616-93f8-ac9571762f49');
         $contact = new Contact([

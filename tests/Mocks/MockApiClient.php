@@ -17,10 +17,10 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 
 class MockApiClient implements ApiClientInterface {
-    /** @var array<string, array{statusCode: int, body: string, headers: array}> */
+    /** @var array<string, array{statusCode: int, body: string, headers: array<string, mixed>}> */
     private array $responses = [];
 
-    /** @var array<array{method: string, uri: string, options: array}> */
+    /** @var array<array{method: string, uri: string, options: array<string, mixed>}> */
     private array $requestLog = [];
 
     private int $defaultStatusCode = 200;
@@ -32,7 +32,7 @@ class MockApiClient implements ApiClientInterface {
      * @param string $uriPattern URI pattern with optional wildcards (*)
      * @param int $statusCode HTTP status code
      * @param string $body Response body
-     * @param array $headers Response headers
+     * @param array<string, mixed> $headers Response headers
      */
     public function addResponse(string $method, string $uriPattern, int $statusCode, string $body, array $headers = []): self {
         $key = strtoupper($method) . ':' . $uriPattern;
@@ -55,7 +55,7 @@ class MockApiClient implements ApiClientInterface {
 
     /**
      * Get all logged requests
-     * @return array<array{method: string, uri: string, options: array}>
+     * @return array<array{method: string, uri: string, options: array<string, mixed>}>
      */
     public function getRequestLog(): array {
         return $this->requestLog;
@@ -63,7 +63,7 @@ class MockApiClient implements ApiClientInterface {
 
     /**
      * Get the last logged request
-     * @return array{method: string, uri: string, options: array}|null
+     * @return array{method: string, uri: string, options: array<string, mixed>}|null
      */
     public function getLastRequest(): ?array {
         return $this->requestLog[count($this->requestLog) - 1] ?? null;
@@ -103,6 +103,9 @@ class MockApiClient implements ApiClientInterface {
         return $this->request('DELETE', $uri, $options);
     }
 
+    /**
+     * @param array<string, mixed> $options
+     */
     private function request(string $method, string $uri, array $options): ResponseInterface {
         $this->requestLog[] = [
             'method' => $method,

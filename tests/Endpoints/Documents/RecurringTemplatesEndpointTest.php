@@ -15,15 +15,15 @@ use Lexoffice\Entities\Documents\RecurringTemplates\{RecurringTemplate, Recurrin
 use Tests\Contracts\EndpointTest;
 
 class RecurringTemplatesEndpointTest extends EndpointTest {
-    protected ?RecurringTemplatesEndpoint $endpoint;
+    protected RecurringTemplatesEndpoint $endpoint;
 
-    public function __construct($name) {
-        parent::__construct($name);
-        $this->endpoint = new RecurringTemplatesEndpoint($this->client);
+    protected function setUp(): void {
         $this->apiDisabled = true; // API is disabled
+        parent::setUp();
+        $this->endpoint = new RecurringTemplatesEndpoint($this->client);
     }
 
-    public function test_json_serialize() {
+    public function test_json_serialize(): void {
         $data = [
             "lineItems" => [
                 [
@@ -148,10 +148,12 @@ class RecurringTemplatesEndpointTest extends EndpointTest {
         $recurringTemplate = new RecurringTemplate($data, $this->logger);
         $this->assertEquals(json_encode($data), $recurringTemplate->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $recurringTemplate->toJson());
-        $this->assertStringContainsString(substr($recurringTemplate->getTitle(), 2, -2), $recurringTemplate->toJson());
+        $title = $recurringTemplate->getTitle();
+        $this->assertNotNull($title);
+        $this->assertStringContainsString(substr($title, 2, -2), $recurringTemplate->toJson());
     }
 
-    public function test_get_recurring_templates_page() {
+    public function test_get_recurring_templates_page(): void {
         if ($this->apiDisabled) {
             $this->markTestSkipped('API is disabled');
         }

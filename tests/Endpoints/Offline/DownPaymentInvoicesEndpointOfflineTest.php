@@ -27,7 +27,7 @@ class DownPaymentInvoicesEndpointOfflineTest extends OfflineEndpointTest {
     }
 
     protected function setupMockResponses(): void {
-        $this->mockClient->addResponse('GET', 'down-payment-invoices/d52370ee-5bf5-11eb-ac18-17b8d0fb237f', 200, json_encode([
+        $body = json_encode([
             'id' => 'd52370ee-5bf5-11eb-ac18-17b8d0fb237f',
             'version' => 0,
             'voucherDate' => '2024-03-15',
@@ -54,12 +54,16 @@ class DownPaymentInvoicesEndpointOfflineTest extends OfflineEndpointTest {
             'taxConditions' => [
                 'taxType' => 'net',
             ],
-        ]));
+        ]);
+        $this->assertNotFalse($body);
+        $this->mockClient->addResponse('GET', 'down-payment-invoices/d52370ee-5bf5-11eb-ac18-17b8d0fb237f', 200, $body);
 
-        $this->mockClient->setDefaultResponse(200, json_encode([
+        $defaultBody = json_encode([
             'id' => 'd52370ee-5bf5-11eb-ac18-17b8d0fb237f',
             'version' => 0,
-        ]));
+        ]);
+        $this->assertNotFalse($defaultBody);
+        $this->mockClient->setDefaultResponse(200, $defaultBody);
     }
 
     public function test_get_down_payment_invoice(): void {

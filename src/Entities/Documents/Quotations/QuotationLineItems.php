@@ -16,6 +16,9 @@ use Lexoffice\Entities\Documents\ExtendedLineItems;
 use Psr\Log\LoggerInterface;
 
 class QuotationLineItems extends ExtendedLineItems {
+    /**
+     * @param mixed $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         $this->valueClassName = QuotationLineItem::class;
         parent::__construct($data, $logger);

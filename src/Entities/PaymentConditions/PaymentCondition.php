@@ -24,6 +24,9 @@ class PaymentCondition extends NamedEntity implements IdentifiableNamedEntityInt
     protected int $paymentTermDuration;
     protected ?PaymentDiscountConditions $paymentDiscountConditions;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

@@ -21,6 +21,9 @@ class RelatedVoucher extends NamedEntity {
     protected string $voucherNumber;
     protected string $voucherType;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }

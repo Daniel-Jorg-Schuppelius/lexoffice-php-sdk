@@ -23,9 +23,12 @@ class Sort extends NamedEntity {
     protected string $nullHandling;
     protected bool $ascending;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         if (is_array($data) && count($data) == 1) {
-            $data = $data[0];
+            $data = array_values($data)[0];
         }
         parent::__construct($data, $logger);
     }

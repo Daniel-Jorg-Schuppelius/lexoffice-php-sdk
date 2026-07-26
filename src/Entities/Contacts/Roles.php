@@ -19,6 +19,9 @@ class Roles extends NamedEntity {
     protected ?Role $customer;
     protected ?Role $vendor;
 
+    /**
+     * @param array<string, mixed>|object|null $data
+     */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
     }
@@ -36,10 +39,10 @@ class Roles extends NamedEntity {
     }
 
     public function getCustomerNumber(): ?int {
-        return $this->customer->getValue();
+        return $this->customer?->getValue();
     }
 
     public function getVendorNumber(): ?int {
-        return $this->vendor->getValue();
+        return $this->vendor?->getValue();
     }
 }
