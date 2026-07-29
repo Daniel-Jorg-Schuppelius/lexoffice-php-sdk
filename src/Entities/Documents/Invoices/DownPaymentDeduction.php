@@ -14,9 +14,9 @@ namespace Lexoffice\Entities\Documents\Invoices;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
 use APIToolkit\Entities\ID;
+use APIToolkit\Traits\MoneyAccessorTrait;
 use CommonToolkit\ValueObjects\Money;
 use DateTime;
-use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class DownPaymentDeduction extends NamedEntity {

@@ -12,13 +12,13 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Vouchers;
 
+use APIToolkit\Traits\MoneyAccessorTrait;
 use CommonToolkit\ValueObjects\Money;
 use DateTime;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
 use Lexoffice\Entities\Files\Files;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\{TaxType, VoucherType};
-use Lexoffice\Traits\MoneyAccessorTrait;
 
 class Voucher extends BaseVoucher implements OrganizationIdentifiableNamedEntityInterface {
     use MoneyAccessorTrait;

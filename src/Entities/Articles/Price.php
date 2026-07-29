@@ -13,9 +13,9 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Articles;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
+use APIToolkit\Traits\MoneyAccessorTrait;
 use CommonToolkit\ValueObjects\Money;
 use Lexoffice\Enums\LeadingPrice;
-use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class Price extends NamedEntity {

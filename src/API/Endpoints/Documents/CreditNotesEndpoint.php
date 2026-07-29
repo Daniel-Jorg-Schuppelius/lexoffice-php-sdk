@@ -18,6 +18,7 @@ use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use Lexoffice\Entities\Documents\CreditNotes\{CreditNote, CreditNoteResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
+use stdClass;
 
 class CreditNotesEndpoint extends DocumentEndpointAbstract {
     protected string $endpoint = 'credit-notes';
@@ -35,7 +36,7 @@ class CreditNotesEndpoint extends DocumentEndpointAbstract {
                 $url .= '?finalize=true';
             }
             $response = $this->client->post($url, [
-                'body' => $data->toJson(),
+                'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 201);
 
@@ -64,7 +65,7 @@ class CreditNotesEndpoint extends DocumentEndpointAbstract {
             if ($finalize) {
                 $url .= '&finalize=true';
             }
-            $response = $this->client->post($url, ['body' => '{}']);
+            $response = $this->client->post($url, ['json' => new stdClass]);
             $body = $this->handleResponse($response, 201);
 
             return CreditNoteResource::fromJson($body);

@@ -27,7 +27,7 @@ class EventSubscriptionsEndpoint extends EndpointAbstract implements ClassicEndp
 
         return self::logInfoWithTimer(function () use ($data) {
             $response = $this->client->post($this->getEndpointUrl(), [
-                'body' => $data->toJson(),
+                'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 201);
 
@@ -53,7 +53,7 @@ class EventSubscriptionsEndpoint extends EndpointAbstract implements ClassicEndp
 
         return self::logInfoWithTimer(function () use ($id, $data) {
             $response = $this->client->put("{$this->getEndpointUrl()}/{$id->toString()}", [
-                'body' => $data->toJson(),
+                'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 200);
 

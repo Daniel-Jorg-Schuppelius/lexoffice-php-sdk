@@ -12,13 +12,13 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Documents\Invoices;
 
+use APIToolkit\Traits\MoneyAccessorTrait;
 use CommonToolkit\ValueObjects\Money;
 use DateTime;
 use Lexoffice\Contracts\Abstracts\NamedDocument;
 use Lexoffice\Entities\Documents\{Address, ExtendedLineItems, PaymentConditions, PrintLayoutID, ShippingConditions, TaxConditions, TotalPrice};
 use Lexoffice\Entities\XRechnung;
 use Lexoffice\Enums\Language;
-use Lexoffice\Traits\MoneyAccessorTrait;
 use Psr\Log\LoggerInterface;
 
 class Invoice extends NamedDocument {

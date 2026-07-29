@@ -12,15 +12,15 @@ declare(strict_types=1);
 
 namespace Lexoffice\API\Endpoints;
 
-use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
 use APIToolkit\Exceptions\NotAllowedException;
 use InvalidArgumentException;
+use Lexoffice\Contracts\Abstracts\PagedEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Vouchers\{Voucher, VoucherResource, VouchersPage};
 
-class VouchersEndpoint extends EndpointAbstract implements SearchableEndpointInterface {
+class VouchersEndpoint extends PagedEndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'vouchers';
 
     public function create(NamedEntityInterface $data, ?ID $id = null): VoucherResource {
@@ -28,7 +28,7 @@ class VouchersEndpoint extends EndpointAbstract implements SearchableEndpointInt
 
         return self::logInfoWithTimer(function () use ($data) {
             $response = $this->client->post($this->getEndpointUrl(), [
-                'body' => $data->toJson(),
+                'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 200);
 
@@ -54,7 +54,7 @@ class VouchersEndpoint extends EndpointAbstract implements SearchableEndpointInt
 
         return self::logInfoWithTimer(function () use ($id, $data) {
             $response = $this->client->put("{$this->getEndpointUrl()}/{$id->toString()}", [
-                'body' => $data->toJson(),
+                'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 200);
 
