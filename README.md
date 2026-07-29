@@ -191,6 +191,16 @@ src/
 | `PrintLayoutsEndpoint` | Drucklayouts |
 | `EventSubscriptionsEndpoint` | Event-Webhooks |
 
+### Eingehende Webhooks
+
+Das SDK verwaltet Event-Subscriptions (anlegen, lesen, löschen), enthält aber
+bewusst **keine Signaturprüfung** für die eingehenden Callbacks: eine
+Subscription besteht nur aus `eventType` und `callbackUrl`, ein gemeinsames
+Secret gibt es nicht. Ein eingehendes Event ist deshalb erst dann belastbar,
+wenn die referenzierte Ressource über die API nachgeladen wurde — der Callback
+selbst ist ein Hinweis, kein Beleg. (`APIToolkit\API\Webhook\WebhookVerifier`
+setzt eine HMAC-Signatur voraus und passt hier nicht.)
+
 ## 🧪 Tests
 
 ### Test-Konfiguration

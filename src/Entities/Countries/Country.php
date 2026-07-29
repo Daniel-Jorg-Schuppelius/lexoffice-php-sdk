@@ -13,7 +13,8 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Countries;
 
 use APIToolkit\Contracts\Abstracts\NamedEntity;
-use Lexoffice\Enums\{CountryCode, TaxClassification};
+use CommonToolkit\Enums\CountryCode;
+use Lexoffice\Enums\TaxClassification;
 use Psr\Log\LoggerInterface;
 
 class Country extends NamedEntity {
