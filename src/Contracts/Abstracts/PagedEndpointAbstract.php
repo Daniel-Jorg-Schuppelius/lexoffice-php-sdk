@@ -12,23 +12,16 @@ declare(strict_types=1);
 
 namespace Lexoffice\Contracts\Abstracts;
 
-use APIToolkit\API\Pagination\OffsetPaginator;
-use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
-use Generator;
+use APIToolkit\Contracts\Abstracts\API\PagedEndpointAbstract as APIToolkitPagedEndpointAbstract;
 
 /**
- * Basis für Endpoints mit seitenweiser Suche (page/size).
+ * Basis für Endpoints mit seitenweiser Suche.
  *
- * Lexoffice liefert Treffer in nullbasierten Seiten. searchAll() läuft sie über
- * den {@see OffsetPaginator} des api-toolkits durch und gibt die einzelnen
- * Einträge aus — Aufrufer müssen weder Seitenzähler noch Abbruchbedingung
- * selbst führen.
+ * Lexoffice adressiert Seiten nullbasiert über page/size und erlaubt maximal
+ * 250 Einträge je Seite; searchAll() kommt aus dem api-toolkit.
  */
-abstract class PagedEndpointAbstract extends EndpointAbstract {
-    /** Lexoffice erlaubt maximal 250 Einträge je Seite. */
+abstract class PagedEndpointAbstract extends APIToolkitPagedEndpointAbstract {
     public const MAX_PAGE_SIZE = 250;
-
-    public const DEFAULT_PAGE_SIZE = 100;
 
     /**
      * @param array<string, mixed> $queryParams
@@ -37,26 +30,18 @@ abstract class PagedEndpointAbstract extends EndpointAbstract {
     abstract public function search(array $queryParams = [], array $options = []): NamedPage;
 
     /**
-     * Iteriert alle Treffer einer Suche über sämtliche Seiten hinweg.
-     *
-     * @param array<string, mixed> $queryParams Suchparameter ohne page/size
-     * @param array<string, mixed> $options
-     * @param int|null $maxPages Obergrenze für die Zahl geladener Seiten
-     * @return Generator<int, mixed>
+     * @return array<string, mixed>
      */
-    public function searchAll(array $queryParams = [], int $pageSize = self::DEFAULT_PAGE_SIZE, array $options = [], ?int $maxPages = null): Generator {
-        $pageSize = max(1, min($pageSize, self::MAX_PAGE_SIZE));
+    protected function pageQueryParams(int $page, int $pageSize): array {
+        return ['page' => $page, 'size' => $pageSize];
+    }
 
-        $paginator = new OffsetPaginator(
-            fn (int $page): array => $this->search(
-                array_merge($queryParams, ['page' => $page, 'size' => $pageSize]),
-                $options
-            )->getValues(),
-            $pageSize,
-            0,
-            $maxPages
-        );
-
-        yield from $paginator;
+    /**
+     * @param array<string, mixed> $queryParams
+     * @param array<string, mixed> $options
+     * @return array<int, mixed>
+     */
+    protected function pageItems(array $queryParams, array $options): array {
+        return $this->search($queryParams, $options)->getValues();
     }
 }

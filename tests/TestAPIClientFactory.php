@@ -11,7 +11,7 @@
 namespace Tests;
 
 use APIToolkit\Contracts\Interfaces\API\ApiClientInterface;
-use ERRORToolkit\Factories\ConsoleLoggerFactory;
+use APIToolkit\Testing\TestLoggerFactory;
 use Lexoffice\API\Client;
 use Tests\Config\PostmanConfig;
 
@@ -20,8 +20,9 @@ class TestAPIClientFactory {
 
     public static function getClient(): ApiClientInterface {
         if (self::$client === null) {
-            $config = new PostmanConfig(ConsoleLoggerFactory::getLogger());
-            self::$client = new Client($config->getAccessToken(), $config->getResourceUrl() . '/v1/', ConsoleLoggerFactory::getLogger(), true);
+            $logger = TestLoggerFactory::get('LEXOFFICE');
+            $config = new PostmanConfig($logger);
+            self::$client = new Client($config->getAccessToken(), $config->getResourceUrl() ?? Client::DEFAULT_BASE_URL, $logger, true);
         }
         return self::$client;
     }
