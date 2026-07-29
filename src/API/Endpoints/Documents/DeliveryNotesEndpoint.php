@@ -18,6 +18,7 @@ use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\API\DocumentEndpointAbstract;
 use Lexoffice\Entities\Documents\DeliveryNotes\{DeliveryNote, DeliveryNoteResource};
 use Lexoffice\Entities\Vouchers\VoucherID;
+use stdClass;
 
 class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
     protected string $endpoint = 'delivery-notes';
@@ -31,7 +32,7 @@ class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
                 $url .= '?finalize=true';
             }
             $response = $this->client->post($url, [
-                'body' => $data->toJson(),
+                'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 201);
 
@@ -57,7 +58,7 @@ class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
 
         return self::logInfoWithTimer(function () use ($id) {
             $url = "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}";
-            $response = $this->client->post($url, ['body' => '{}']);
+            $response = $this->client->post($url, ['json' => new stdClass]);
             $body = $this->handleResponse($response, 201);
 
             return DeliveryNoteResource::fromJson($body);
@@ -84,7 +85,7 @@ class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
             }
 
             $response = $this->client->post("{$this->getEndpointUrl()}/{$id->toString()}/sendmail", [
-                'body' => json_encode($payload),
+                'json' => $payload,
             ]);
             $this->handleResponse($response, 204);
         }, "Delivery note sent via email (ID: {$id->toString()})");

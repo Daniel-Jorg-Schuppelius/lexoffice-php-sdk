@@ -12,13 +12,13 @@ declare(strict_types=1);
 
 namespace Lexoffice\API\Endpoints\Documents;
 
-use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
+use Lexoffice\Contracts\Abstracts\PagedEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\Documents\RecurringTemplates\{RecurringTemplate, RecurringTemplatesPage};
 
-class RecurringTemplatesEndpoint extends EndpointAbstract implements SearchableEndpointInterface {
+class RecurringTemplatesEndpoint extends PagedEndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'recurring-templates';
 
     public function get(?ID $id = null): RecurringTemplate {

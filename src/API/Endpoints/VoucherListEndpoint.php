@@ -12,13 +12,13 @@ declare(strict_types=1);
 
 namespace Lexoffice\API\Endpoints;
 
-use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
+use Lexoffice\Contracts\Abstracts\PagedEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
 use Lexoffice\Entities\VoucherList\{VoucherListPage, Vouchers};
 
-class VoucherListEndpoint extends EndpointAbstract implements SearchableEndpointInterface {
+class VoucherListEndpoint extends PagedEndpointAbstract implements SearchableEndpointInterface {
     protected string $endpoint = 'voucherlist';
 
     public function get(?ID $id = null): Vouchers {

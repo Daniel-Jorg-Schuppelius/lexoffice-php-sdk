@@ -37,18 +37,9 @@ class FilesEndpoint extends EndpointAbstract {
                 self::logErrorAndThrow(InvalidArgumentException::class, 'Unable to open file for upload');
             }
 
-            // Uploads need a generous timeout. The underlying client overrides the
-            // per-request "timeout" option with its own configured timeout, so raise
-            // the client timeout for the duration of the upload (and restore it).
-            $previousTimeout = null;
-            if (method_exists($this->client, 'getTimeout') && method_exists($this->client, 'setTimeout')) {
-                $previousTimeout = $this->client->getTimeout();
-                if ($previousTimeout < self::UPLOAD_TIMEOUT) {
-                    $this->client->setTimeout(self::UPLOAD_TIMEOUT);
-                }
-            }
-
             try {
+                // Uploads brauchen mehr Zeit als ein normaler Request; die
+                // per-Request-Option gewinnt gegenüber dem Client-Timeout.
                 $response = $this->client->post($this->getEndpointUrl(), [
                     'multipart' => [
                         [
@@ -64,9 +55,6 @@ class FilesEndpoint extends EndpointAbstract {
                     'timeout' => self::UPLOAD_TIMEOUT,
                 ]);
             } finally {
-                if ($previousTimeout !== null && method_exists($this->client, 'setTimeout')) {
-                    $this->client->setTimeout($previousTimeout);
-                }
                 if (is_resource($handle)) {
                     fclose($handle);
                 }

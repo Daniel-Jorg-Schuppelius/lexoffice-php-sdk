@@ -12,14 +12,14 @@ declare(strict_types=1);
 
 namespace Lexoffice\API\Endpoints;
 
-use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
+use Lexoffice\Contracts\Abstracts\PagedEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\{ClassicEndpointInterface, SearchableEndpointInterface};
 use Lexoffice\Entities\Articles\{Article, ArticleResource, ArticlesPage};
 
-class ArticlesEndpoint extends EndpointAbstract implements ClassicEndpointInterface, SearchableEndpointInterface {
+class ArticlesEndpoint extends PagedEndpointAbstract implements ClassicEndpointInterface, SearchableEndpointInterface {
     protected string $endpoint = 'articles';
 
     public function create(NamedEntityInterface $data, ?ID $id = null): ArticleResource {
@@ -27,7 +27,7 @@ class ArticlesEndpoint extends EndpointAbstract implements ClassicEndpointInterf
 
         return self::logInfoWithTimer(function () use ($data) {
             $response = $this->client->post($this->getEndpointUrl(), [
-                'body' => $data->toJson(),
+                'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 201);
 
@@ -53,7 +53,7 @@ class ArticlesEndpoint extends EndpointAbstract implements ClassicEndpointInterf
 
         return self::logInfoWithTimer(function () use ($id, $data) {
             $response = $this->client->put("{$this->getEndpointUrl()}/{$id->toString()}", [
-                'body' => $data->toJson(),
+                'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 200);
 

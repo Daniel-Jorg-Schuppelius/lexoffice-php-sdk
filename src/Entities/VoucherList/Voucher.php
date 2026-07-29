@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\VoucherList;
 
+use APIToolkit\Traits\MoneyAccessorTrait;
 use CommonToolkit\Enums\CurrencyCode;
 use CommonToolkit\ValueObjects\Money;
 use Lexoffice\Entities\Vouchers\BaseVoucher;
 use Lexoffice\Enums\VoucherType;
-use Lexoffice\Traits\MoneyAccessorTrait;
 
 class Voucher extends BaseVoucher {
     use MoneyAccessorTrait;

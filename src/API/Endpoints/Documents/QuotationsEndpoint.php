@@ -36,7 +36,7 @@ class QuotationsEndpoint extends DocumentEndpointAbstract {
                 $url .= '?finalize=true';
             }
             $response = $this->client->post($url, [
-                'body' => $data->toJson(),
+                'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 201);
 
