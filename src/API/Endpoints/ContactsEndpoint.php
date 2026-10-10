@@ -30,7 +30,8 @@ class ContactsEndpoint extends PagedEndpointAbstract implements ClassicEndpointI
             $response = $this->client->post($this->getEndpointUrl(), [
                 'json' => $data->toArray(),
             ]);
-            $body = $this->handleResponse($response, 200);
+            // Dokumentiert ist 201 Created; ältere Antworten kamen mit 200.
+            $body = $this->handleResponse($response, [200, 201]);
 
             return ContactResource::fromJson($body);
         }, 'Contact created');

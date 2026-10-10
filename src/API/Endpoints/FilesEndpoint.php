@@ -15,55 +15,23 @@ namespace Lexoffice\API\Endpoints;
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Entities\ID;
 use InvalidArgumentException;
+use Lexoffice\Contracts\Traits\MultipartUploadTrait;
 use Lexoffice\Entities\Files\{File, FileResource};
 
 class FilesEndpoint extends EndpointAbstract {
+    use MultipartUploadTrait;
+
     protected string $endpoint = 'files';
 
     public const UPLOAD_TIMEOUT = 120.0;
 
+    /**
+     * Beleg-Upload (`type=voucher`): Lexware legt dazu selbst einen Beleg an und
+     * liefert dessen ID in {@see FileResource::getVoucherId()}. Gehört die Datei
+     * zu einem bestehenden Beleg, ist {@see VouchersEndpoint::addFile()} richtig.
+     */
     public function upload(File $file): FileResource {
-        $filePath = $file->getFilePath();
-
-        if ($filePath === null || !is_file($filePath) || !is_readable($filePath)) {
-            self::logErrorAndThrow(InvalidArgumentException::class, 'File to upload does not exist or is not readable');
-        }
-
-        self::logDebug('Uploading file', ['filePath' => $filePath]);
-
-        return self::logInfoWithTimer(function () use ($filePath) {
-            $handle = fopen($filePath, 'r');
-            if ($handle === false) {
-                self::logErrorAndThrow(InvalidArgumentException::class, 'Unable to open file for upload');
-            }
-
-            try {
-                // Uploads brauchen mehr Zeit als ein normaler Request; die
-                // per-Request-Option gewinnt gegenüber dem Client-Timeout.
-                $response = $this->client->post($this->getEndpointUrl(), [
-                    'multipart' => [
-                        [
-                            'name' => 'file',
-                            'contents' => $handle,
-                            'filename' => basename($filePath),
-                        ],
-                        [
-                            'name' => 'type',
-                            'contents' => 'voucher',
-                        ],
-                    ],
-                    'timeout' => self::UPLOAD_TIMEOUT,
-                ]);
-            } finally {
-                if (is_resource($handle)) {
-                    fclose($handle);
-                }
-            }
-
-            $body = $this->handleResponse($response, 202);
-
-            return FileResource::fromJson($body);
-        }, 'File uploaded');
+        return $this->uploadMultipart($this->getEndpointUrl(), $file, ['type' => 'voucher'], 202);
     }
 
     public function download(ID $id, string $path): File {

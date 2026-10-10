@@ -12,11 +12,12 @@ declare(strict_types=1);
 
 namespace Tests\API;
 
+use APIToolkit\Entities\ID;
 use GuzzleHttp\{Client as HttpClient, HandlerStack};
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\Psr7\Response;
 use Lexoffice\API\Client;
-use Lexoffice\API\Endpoints\{ContactsEndpoint, FilesEndpoint};
+use Lexoffice\API\Endpoints\{ContactsEndpoint, FilesEndpoint, VouchersEndpoint};
 use Lexoffice\Entities\Files\File;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
@@ -51,7 +52,7 @@ class ClientTransportTest extends TestCase {
         $this->assertSame('GET', $request->getMethod());
         // Ohne eigenen Pfadaufbau verschluckt Guzzles base_uri-Auflösung das /v1.
         $this->assertSame(
-            'https://api.lexoffice.io/v1/contacts?email=kunde%40example.com',
+            'https://api.lexware.io/v1/contacts?email=kunde%40example.com',
             (string) $request->getUri()
         );
         $this->assertSame('Bearer api-key', $request->getHeaderLine('Authorization'));
@@ -87,7 +88,7 @@ class ClientTransportTest extends TestCase {
         ]));
 
         $request = $this->lastRequest();
-        $this->assertSame('https://api.lexoffice.io/v1/contacts', (string) $request->getUri());
+        $this->assertSame('https://api.lexware.io/v1/contacts', (string) $request->getUri());
         $this->assertSame('application/json', $request->getHeaderLine('Content-Type'));
         $this->assertStringContainsString('Musterfirma GmbH', (string) $request->getBody());
     }
@@ -110,6 +111,38 @@ class ClientTransportTest extends TestCase {
         // Ein Default-Content-Type am Client würde Guzzles Multipart-Boundary
         // verdrängen — der Upload ginge als application/json raus.
         $this->assertStringStartsWith('multipart/form-data; boundary=', $this->lastRequest()->getHeaderLine('Content-Type'));
+    }
+
+    public function test_add_file_posts_multipart_to_the_voucher_without_upload_type(): void {
+        // Der Upload schließt das Datei-Handle nach dem Senden; der Body wird deshalb beim Senden gelesen.
+        $body = '';
+        $this->handler->append(static function (RequestInterface $request) use (&$body): Response {
+            $body = (string) $request->getBody();
+
+            return new Response(202, ['Content-Type' => 'application/json'], (string) json_encode([
+                'id' => '8118c402-1c70-4da1-a9f1-a22f480cc623',
+            ]));
+        });
+
+        $path = tempnam(sys_get_temp_dir(), 'lexoffice-voucher-file');
+        file_put_contents($path, '<?xml version="1.0"?><Invoice/>');
+
+        try {
+            $resource = (new VouchersEndpoint($this->client()))->addFile(
+                new ID('0a739052-ce80-4ae6-a276-34524eec43b1'),
+                new File(['filePath' => $path, 'fileName' => 'RE-4711.xml'])
+            );
+        } finally {
+            @unlink($path);
+        }
+
+        $request = $this->lastRequest();
+        $this->assertSame('https://api.lexware.io/v1/vouchers/0a739052-ce80-4ae6-a276-34524eec43b1/files', (string) $request->getUri());
+        $this->assertStringStartsWith('multipart/form-data; boundary=', $request->getHeaderLine('Content-Type'));
+        $this->assertStringContainsString('filename="RE-4711.xml"', $body);
+        // `type=voucher` würde in Lexware einen zweiten Beleg anlegen.
+        $this->assertStringNotContainsString('name="type"', $body);
+        $this->assertSame('8118c402-1c70-4da1-a9f1-a22f480cc623', $resource->getId()->toString());
     }
 
     private function client(): Client {

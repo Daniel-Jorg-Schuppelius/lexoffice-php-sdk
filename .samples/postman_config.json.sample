@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "resourceurl",
-			"value": "https://api.lexoffice.io",
+			"value": "https://api.lexware.io",
 			"type": "text",
 			"description": "",
 			"enabled": true

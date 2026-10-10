@@ -17,10 +17,12 @@ use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntit
 use Psr\Log\LoggerInterface;
 
 class File extends NamedEntity implements IdentifiableNamedEntityInterface {
-    public const ALLOWED_EXTENSIONS = ['pdf', 'jpg', 'png'];
+    /** Laut API: pdf, jpg, png und E-Rechnungs-XML, höchstens 5 MB. */
+    public const ALLOWED_EXTENSIONS = ['pdf', 'jpg', 'png', 'xml'];
 
     protected ?FileID $id;
     protected ?string $filePath;
+    protected ?string $fileName = null;
 
     /**
      * @param array<string, mixed>|object|null $data
@@ -37,6 +39,11 @@ class File extends NamedEntity implements IdentifiableNamedEntityInterface {
         return $this->filePath;
     }
 
+    /** Name im Upload; ohne Angabe der Name der lokalen Datei. */
+    public function getFileName(): string {
+        return $this->fileName ?? basename((string) ($this->filePath ?? ''));
+    }
+
     public function getFileSize(): int {
         if (!isset($this->filePath) || !is_file($this->filePath)) {
             return 0;
@@ -48,7 +55,7 @@ class File extends NamedEntity implements IdentifiableNamedEntityInterface {
 
     public function isValid(): bool {
         if (isset($this->filePath) && file_exists($this->filePath)) {
-            $extension = strtolower(pathinfo($this->filePath, PATHINFO_EXTENSION));
+            $extension = strtolower(pathinfo($this->getFileName(), PATHINFO_EXTENSION));
 
             if (in_array($extension, self::ALLOWED_EXTENSIONS)) {
                 if ($this->getFileSize() <= 5000000) {

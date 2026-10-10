@@ -113,4 +113,29 @@ class FilesEndpointOfflineTest extends OfflineEndpointTest {
         $this->assertInstanceOf(FileResource::class, $resource);
         $this->assertRequestMade('POST', 'files');
     }
+
+    public function test_upload_returns_the_voucher_created_by_lexware(): void {
+        $this->mockClient->clearResponses();
+        $this->mockClient->addResponse('POST', 'files', 202, (string) json_encode([
+            'id' => '8118c402-1c70-4da1-a9f1-a22f480cc623',
+            'voucherId' => '1deeb1c1-47d6-43f9-9512-c18dd37826fe',
+        ]));
+        $localFile = $this->tmpDir . '/upload.pdf';
+        file_put_contents($localFile, '%PDF-1.4 dummy');
+
+        $resource = $this->endpoint->upload(new File(['filePath' => $localFile]));
+
+        $this->assertSame('1deeb1c1-47d6-43f9-9512-c18dd37826fe', $resource->getVoucherId()?->toString());
+    }
+
+    public function test_xml_is_a_valid_upload_and_the_upload_name_is_free(): void {
+        $localFile = $this->tmpDir . '/b7f3a9.bin';
+        file_put_contents($localFile, '<?xml version="1.0"?><Invoice/>');
+
+        $named = new File(['filePath' => $localFile, 'fileName' => 'xrechnung.xml']);
+
+        $this->assertSame('xrechnung.xml', $named->getFileName());
+        $this->assertTrue($named->isValid());
+        $this->assertSame('b7f3a9.bin', (new File(['filePath' => $localFile]))->getFileName());
+    }
 }

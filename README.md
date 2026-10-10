@@ -107,6 +107,38 @@ $endpoint = new ProfileEndpoint($client);
 $profile = $endpoint->get();
 ```
 
+### Beispiel: Eingangsrechnung als Beleg mit Originaldatei
+
+```php
+use Lexoffice\API\Client;
+use Lexoffice\API\Endpoints\VouchersEndpoint;
+use Lexoffice\Entities\Files\File;
+use Lexoffice\Entities\Vouchers\Voucher;
+
+$client = new Client('your-api-key');
+$vouchers = new VouchersEndpoint($client);
+
+// „Zu prüfen“: Nummer, Datum, Beträge und Positionen sind optional.
+$resource = $vouchers->create(Voucher::fromArray([
+    'type' => 'purchaseinvoice',
+    'voucherStatus' => 'unchecked',
+    'voucherNumber' => 'RE-4711',
+    'voucherDate' => '2026-10-01',
+    'taxType' => 'gross',
+    'useCollectiveContact' => true,
+    'contactName' => 'Muster GmbH',
+]));
+
+// Datei an genau diesen Beleg hängen (PDF, Bild oder E-Rechnungs-XML).
+$vouchers->addFile($resource->getId(), new File([
+    'filePath' => '/pfad/zur/rechnung.xml',
+    'fileName' => 'RE-4711.xml',
+]));
+```
+
+`FilesEndpoint::upload()` (`type=voucher`) legt dagegen in Lexware selbst einen
+neuen Beleg an; dessen ID liefert `FileResource::getVoucherId()`.
+
 ## 🏗️ Projektstruktur
 
 ```
@@ -207,6 +239,9 @@ setzt eine HMAC-Signatur voraus und passt hier nicht.)
 
 1. Kopieren Sie `.samples/postman_config.json.sample` nach `.samples/postman_config.json`
 2. Tragen Sie Ihren Lexoffice API-Key ein
+
+Die Vorgabe-Adresse ist seit v1.3.0 `https://api.lexware.io` (Umbenennung vom
+27.05.2025); `https://api.lexoffice.io` wird weiter akzeptiert.
 
 ### Tests ausführen
 

@@ -18,10 +18,16 @@ use APIToolkit\Exceptions\NotAllowedException;
 use InvalidArgumentException;
 use Lexoffice\Contracts\Abstracts\PagedEndpointAbstract;
 use Lexoffice\Contracts\Interfaces\API\SearchableEndpointInterface;
+use Lexoffice\Contracts\Traits\MultipartUploadTrait;
+use Lexoffice\Entities\Files\{File, FileResource};
 use Lexoffice\Entities\Vouchers\{Voucher, VoucherResource, VouchersPage};
 
 class VouchersEndpoint extends PagedEndpointAbstract implements SearchableEndpointInterface {
+    use MultipartUploadTrait;
+
     protected string $endpoint = 'vouchers';
+
+    public const UPLOAD_TIMEOUT = 120.0;
 
     public function create(NamedEntityInterface $data, ?ID $id = null): VoucherResource {
         self::logDebug('Creating voucher', ['endpoint' => $this->endpoint]);
@@ -30,7 +36,8 @@ class VouchersEndpoint extends PagedEndpointAbstract implements SearchableEndpoi
             $response = $this->client->post($this->getEndpointUrl(), [
                 'json' => $data->toArray(),
             ]);
-            $body = $this->handleResponse($response, 200);
+            // Dokumentiert ist 201 Created; ältere Antworten kamen mit 200.
+            $body = $this->handleResponse($response, [200, 201]);
 
             return VoucherResource::fromJson($body);
         }, 'Voucher created');
@@ -64,6 +71,15 @@ class VouchersEndpoint extends PagedEndpointAbstract implements SearchableEndpoi
 
     public function delete(ID $id): bool {
         self::logErrorAndThrow(NotAllowedException::class, 'Vouchers cannot be deleted');
+    }
+
+    /**
+     * Datei (PDF, Bild oder E-Rechnungs-XML) an einen bestehenden Beleg hängen
+     * (`POST vouchers/{id}/files`). Anders als `files` legt das keinen
+     * zusätzlichen Beleg an; eine bereits bekannte Datei liefert ihre ID zurück.
+     */
+    public function addFile(ID $id, File $file): FileResource {
+        return $this->uploadMultipart("{$this->getEndpointUrl()}/{$id->toString()}/files", $file, [], [200, 201, 202]);
     }
 
     public function search(array $queryParams = [], array $options = []): VouchersPage {

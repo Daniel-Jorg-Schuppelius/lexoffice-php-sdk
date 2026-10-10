@@ -13,10 +13,18 @@ declare(strict_types=1);
 namespace Lexoffice\Entities\Files;
 
 use APIToolkit\Contracts\Interfaces\NamedEntityInterface;
+use APIToolkit\Entities\ID;
 use Lexoffice\Contracts\Abstracts\ResourceAbstract;
 
 class FileResource extends ResourceAbstract {
+    /** Beleg, den Lexware zu einem `files`-Upload angelegt hat. */
+    protected ?ID $voucherId = null;
+
     public function getResource(): NamedEntityInterface {
         return new File;
+    }
+
+    public function getVoucherId(): ?ID {
+        return $this->voucherId;
     }
 }

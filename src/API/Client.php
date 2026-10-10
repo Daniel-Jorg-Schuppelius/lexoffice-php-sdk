@@ -19,7 +19,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 /**
- * API-Client für die Lexoffice-REST-API (https://developers.lexoffice.io).
+ * API-Client für die Lexware-REST-API (https://developers.lexware.io).
  *
  * Die Version steckt im Pfad (/v1). Da Guzzle relative Referenzen nach
  * RFC 3986 auflöst und dabei das letzte Segment einer pfadbehafteten base_uri
@@ -28,7 +28,8 @@ use Psr\Log\LoggerInterface;
  * Absolute URLs (etwa resourceUri aus einer Antwort) passieren unverändert.
  */
 class Client extends ClientAbstract {
-    public const DEFAULT_BASE_URL = 'https://api.lexoffice.io';
+    /** Seit 27.05.2025; api.lexoffice.io antwortet weiter, Lexware bittet um Umstellung. */
+    public const DEFAULT_BASE_URL = 'https://api.lexware.io';
 
     public const BASE_PATH = '/v1';
 
