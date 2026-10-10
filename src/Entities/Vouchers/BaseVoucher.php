@@ -16,7 +16,7 @@ use APIToolkit\Contracts\Abstracts\NamedEntity;
 use APIToolkit\Contracts\Interfaces\NamedEntityInterfaces\IdentifiableNamedEntityInterface;
 use DateTime;
 use Lexoffice\Contracts\Interfaces\ExtendedTimestampableNamedEntityInterface;
-use Lexoffice\Entities\Contacts\ContactID;
+use Lexoffice\Entities\Contacts\ContactID as ContactsContactID;
 use Lexoffice\Enums\VoucherStatus;
 use Psr\Log\LoggerInterface;
 
@@ -94,7 +94,7 @@ class BaseVoucher extends NamedEntity implements ExtendedTimestampableNamedEntit
         $this->contactName = $contactName;
     }
 
-    public function setContactId(ContactID $contactId): void {
-        $this->contactId = $contactId;
+    public function setContactId(ContactsContactID $contactId): void {
+        $this->contactId = $contactId instanceof ContactID ? $contactId : new ContactID($contactId->toString());
     }
 }

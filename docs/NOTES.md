@@ -55,6 +55,22 @@ Seit dem 14.07.2026 lässt sich ein `unchecked`-Beleg per API nur noch nach
 `open` überführen (Changelog). Was beim Anlegen fehlt, ergänzt danach nur noch
 der Mensch in Lexware.
 
+## SDK-Korrekturen
+
+### `contactId` am Beleg
+
+**Datum:** 2026-10-10
+
+Bis v1.3.0 trug `BaseVoucher::$contactId` die Kontakt-ID mit dem Entity-Namen
+`id`; `toArray()`/`toJson()` schrieben deshalb `"contactId": {"id": "…"}` statt
+der Zeichenkette, die Lexware erwartet. Seit v1.3.1 nutzt der Beleg
+`Lexoffice\Entities\Vouchers\ContactID` (Unterklasse von
+`Contacts\ContactID`), `setContactId()` nimmt weiter beide Klassen an.
+
+Offen: `Documents\Address::$contactPerson` hat dieselbe Bauart (Entity-Name
+`contactId`); ob Lexware dort eine ID oder einen Namen erwartet, ist nicht
+geklärt.
+
 ---
 
 *Diese Datei dokumentiert Abweichungen zwischen der offiziellen Lexware API-Dokumentation und unserer lokalen Kopie.*

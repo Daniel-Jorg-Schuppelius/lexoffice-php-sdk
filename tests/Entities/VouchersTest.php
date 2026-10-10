@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Tests\Entities;
 
+use Lexoffice\Entities\Contacts\ContactID as ContactsContactID;
 use Lexoffice\Entities\Vouchers\Voucher;
 use PHPUnit\Framework\TestCase;
 
@@ -59,5 +60,19 @@ class VouchersTest extends TestCase {
 
         $voucher = new Voucher($data);
         $this->assertInstanceOf(Voucher::class, $voucher);
+    }
+
+    public function test_contact_id_is_serialized_as_a_string(): void {
+        $voucher = Voucher::fromArray([
+            'type' => 'purchaseinvoice',
+            'taxType' => 'gross',
+            'contactId' => '3a1f5c6e-0d0b-4c47-9a2b-111111111111',
+        ]);
+
+        $this->assertSame('3a1f5c6e-0d0b-4c47-9a2b-111111111111', $voucher->toArray()['contactId']);
+        $this->assertInstanceOf(ContactsContactID::class, $voucher->getContactId());
+
+        $voucher->setContactId(new ContactsContactID('3a1f5c6e-0d0b-4c47-9a2b-222222222222'));
+        $this->assertSame('3a1f5c6e-0d0b-4c47-9a2b-222222222222', $voucher->toArray()['contactId']);
     }
 }
