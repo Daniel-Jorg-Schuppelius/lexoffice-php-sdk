@@ -85,7 +85,8 @@ final class DeliveryNotesEndpointTest extends EndpointTest {
 
         $deliveryNote = new DeliveryNote($data, $this->logger);
         $this->assertTrue($deliveryNote->isValid());
-        $this->assertNotEquals(json_encode($data), $deliveryNote->toJson());
+        // Bis v1.3.2 kam hier eine erfundene shippingConditions ("service", jetzt) dazu.
+        $this->assertEquals(json_encode($data), $deliveryNote->toJson());
         $this->assertStringNotContainsString('lineItems":{"0":', $deliveryNote->toJson());
         $title = $deliveryNote->getTitle();
         $this->assertNotNull($title);

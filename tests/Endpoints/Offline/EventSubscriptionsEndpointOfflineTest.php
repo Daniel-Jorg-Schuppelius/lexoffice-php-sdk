@@ -80,7 +80,7 @@ class EventSubscriptionsEndpointOfflineTest extends OfflineEndpointTest {
         $result = $this->endpoint->get($id);
 
         $this->assertInstanceOf(EventSubscription::class, $result);
-        $this->assertEquals('contact.changed', $result->getEventType()->value);
+        $this->assertEquals('contact.changed', $result->getEventType()?->value);
         $this->assertRequestMade('GET', 'event-subscriptions/sub-12345-67890');
     }
 

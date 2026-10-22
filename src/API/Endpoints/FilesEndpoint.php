@@ -14,12 +14,13 @@ namespace Lexoffice\API\Endpoints;
 
 use APIToolkit\Contracts\Abstracts\API\EndpointAbstract;
 use APIToolkit\Entities\ID;
+use CommonToolkit\Helper\FileSystem\File as FileHelper;
 use InvalidArgumentException;
-use Lexoffice\Contracts\Traits\MultipartUploadTrait;
-use Lexoffice\Entities\Files\{File, FileResource};
+use Lexoffice\Contracts\Traits\{FileDownloadTrait, MultipartUploadTrait};
+use Lexoffice\Entities\Files\{File, FileContent, FileResource};
 
 class FilesEndpoint extends EndpointAbstract {
-    use MultipartUploadTrait;
+    use FileDownloadTrait, MultipartUploadTrait;
 
     protected string $endpoint = 'files';
 
@@ -34,31 +35,31 @@ class FilesEndpoint extends EndpointAbstract {
         return $this->uploadMultipart($this->getEndpointUrl(), $file, ['type' => 'voucher'], 202);
     }
 
-    public function download(ID $id, string $path): File {
-        self::logDebug('Downloading file', ['id' => $id->toString(), 'path' => $path]);
+    /**
+     * Datei im Speicher, mit Medientyp und vorgeschlagenem Namen. Für
+     * E-Rechnungen wählt `application/xml` bzw. `application/pdf` die Darstellung.
+     */
+    public function downloadContent(ID $id, string $accept = '*/*'): FileContent {
+        return $this->fetchFileContent("{$this->getEndpointUrl()}/{$id->toString()}", $accept);
+    }
 
-        return self::logInfoWithTimer(function () use ($id, $path) {
-            $response = $this->client->get("{$this->getEndpointUrl()}/{$id->toString()}");
+    /**
+     * Schreibt die Datei in das Verzeichnis `$path`; der Name kommt aus
+     * `Content-Disposition`, sonst `downloaded_file`.
+     */
+    public function download(ID $id, string $path, string $accept = '*/*'): File {
+        $content = $this->downloadContent($id, $accept);
 
-            $body = $this->handleResponse($response, 200);
+        $lastChar = substr($path, -1);
+        $separator = ($lastChar === '/' || $lastChar === '\\') ? '' : '/';
+        $filePath = $path . $separator . ($content->getFileName() ?? 'downloaded_file');
 
-            $contentDisposition = $response->getHeader('Content-Disposition')[0] ?? '';
-            $fileName = 'downloaded_file';
-            if (preg_match('/filename[^;=\n]*=(["\']?)(.*?)\1(?:;|$)/', $contentDisposition, $matches) && $matches[2] !== '') {
-                $fileName = basename(trim($matches[2]));
-            }
+        FileHelper::write($filePath, $content->getContent());
 
-            $lastChar = substr($path, -1);
-            $separator = ($lastChar === '/' || $lastChar === '\\') ? '' : '/';
-            $filePath = $path . $separator . $fileName;
-
-            file_put_contents($filePath, $body);
-
-            return new File([
-                'id' => $id->toString(),
-                'filePath' => $filePath,
-            ]);
-        }, "File downloaded (ID: {$id->toString()})");
+        return new File([
+            'id' => $id->toString(),
+            'filePath' => $filePath,
+        ]);
     }
 
     public function get(?ID $id = null): File {

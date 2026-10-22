@@ -21,14 +21,16 @@ use Lexoffice\Enums\VoucherType;
 class Voucher extends BaseVoucher {
     use MoneyAccessorTrait;
 
-    protected VoucherType $voucherType;
+    /** Unbekannte (neue) Arten werden null, statt die Seite scheitern zu lassen. */
+    protected ?VoucherType $voucherType;
     protected float $totalAmount;
-    protected float $openAmount;
+    /** Laut API null u. a. bei Entwürfen und Belegen ohne Zahlung. */
+    protected ?float $openAmount;
     protected CurrencyCode $currency;
     protected bool $archived;
 
-    public function getVoucherType(): VoucherType {
-        return $this->voucherType;
+    public function getVoucherType(): ?VoucherType {
+        return $this->voucherType ?? null;
     }
 
     public function getTotalAmount(): Money {
@@ -36,7 +38,7 @@ class Voucher extends BaseVoucher {
     }
 
     public function getOpenAmount(): Money {
-        return $this->toMoney($this->openAmount) ?? Money::zero($this->entityCurrency());
+        return $this->toMoney($this->openAmount ?? null) ?? Money::zero($this->entityCurrency());
     }
 
     public function getCurrency(): CurrencyCode {

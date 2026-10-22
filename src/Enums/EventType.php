@@ -29,6 +29,7 @@ enum EventType: string {
     case DELIVERY_NOTE_CREATED = 'delivery-note.created';
     case DELIVERY_NOTE_CHANGED = 'delivery-note.changed';
     case DELIVERY_NOTE_DELETED = 'delivery-note.deleted';
+    case DELIVERY_NOTE_STATUS_CHANGED = 'delivery-note.status.changed';
 
     case DOWN_PAYMENT_INVOICE_CREATED = 'down-payment-invoice.created';
     case DOWN_PAYMENT_INVOICE_CHANGED = 'down-payment-invoice.changed';

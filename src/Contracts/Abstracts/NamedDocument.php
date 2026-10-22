@@ -19,7 +19,7 @@ use DateTime;
 use Lexoffice\Contracts\Interfaces\{ExtendedTimestampableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface};
 use Lexoffice\Entities\Documents\{Address, DocumentFile, PrintLayoutID, RelatedVouchers, TaxAmounts, TaxConditions, TotalPrice};
 use Lexoffice\Entities\Profile\OrganizationID;
-use Lexoffice\Enums\{Language, VoucherStatus};
+use Lexoffice\Enums\{ElectronicDocumentProfile, Language, VoucherStatus};
 use Psr\Log\LoggerInterface;
 
 abstract class NamedDocument extends NamedEntity implements ArchivableNamedEntityInterface, ExtendedTimestampableNamedEntityInterface, IdentifiableNamedEntityInterface, OrganizationIdentifiableNamedEntityInterface, VersionableNamedEntityInterface {
@@ -34,6 +34,8 @@ abstract class NamedDocument extends NamedEntity implements ArchivableNamedEntit
     protected ?string $voucherNumber;
     protected DateTime $voucherDate;
     protected Address $address;
+    /** Nur lesbar; ein unbekannter Wert wird null statt den Beleg scheitern zu lassen. */
+    protected ?ElectronicDocumentProfile $electronicDocumentProfile;
     protected ?TotalPrice $totalPrice;
     protected ?TaxAmounts $taxAmounts;
     protected TaxConditions $taxConditions;
@@ -93,6 +95,10 @@ abstract class NamedDocument extends NamedEntity implements ArchivableNamedEntit
 
     public function getAddress(): Address {
         return $this->address;
+    }
+
+    public function getElectronicDocumentProfile(): ?ElectronicDocumentProfile {
+        return $this->electronicDocumentProfile ?? null;
     }
 
     public function getTotalPrice(): ?TotalPrice {

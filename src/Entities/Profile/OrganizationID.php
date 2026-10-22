@@ -12,15 +12,15 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Profile;
 
-use APIToolkit\Entities\ID;
+use Lexoffice\Contracts\Abstracts\UuidID;
 use Psr\Log\LoggerInterface;
 
-class OrganizationID extends ID {
+class OrganizationID extends UuidID {
     /**
      * @param mixed $data
      */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
-        parent::__construct($data, $logger);
         $this->entityName = 'organizationId';
+        parent::__construct($data, $logger);
     }
 }

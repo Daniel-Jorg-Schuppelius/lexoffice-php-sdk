@@ -28,14 +28,10 @@ class OrderConfirmationsEndpoint extends DocumentEndpointAbstract {
             self::logErrorAndThrow(InvalidArgumentException::class, 'Order confirmation data is not valid');
         }
 
-        self::logDebug('Creating order confirmation', ['endpoint' => $this->endpoint, 'finalize' => $finalize]);
+        self::logDebug('Creating order confirmation', ['endpoint' => $this->endpoint, 'precedingSalesVoucherId' => $id?->toString(), 'finalize' => $finalize]);
 
-        return self::logInfoWithTimer(function () use ($data, $finalize) {
-            $url = $this->getEndpointUrl();
-            if ($finalize) {
-                $url .= '?finalize=true';
-            }
-            $response = $this->client->post($url, [
+        return self::logInfoWithTimer(function () use ($data, $id, $finalize) {
+            $response = $this->client->post($this->createUrl($id, $finalize), [
                 'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 201);
@@ -57,7 +53,11 @@ class OrderConfirmationsEndpoint extends DocumentEndpointAbstract {
         );
     }
 
-    public function pursue(VoucherID $id, bool $finalize = false): OrderConfirmationResource {
+    public function pursue(VoucherID $id, bool $finalize = false, ?NamedEntityInterface $data = null): OrderConfirmationResource {
+        if ($data !== null) {
+            return $this->create($data, $id, $finalize);
+        }
+
         self::logDebug('Pursuing order confirmation from voucher', ['voucherId' => $id->toString()]);
 
         return self::logInfoWithTimer(function () use ($id) {

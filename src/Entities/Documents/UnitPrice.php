@@ -26,34 +26,16 @@ class UnitPrice extends NamedEntity {
     protected ?float $grossAmount;
 
     /**
-     * Default 0.0: Die API liefert den Steuersatz nicht in jeder Antwort mit
-     * (Teilobjekte, steuerfreie Positionen). Ohne Vorbelegung griffe die
-     * Ableitung unten auf eine uninitialisierte typisierte Property zu und
-     * würde einen Error werfen.
+     * Pflichtfeld laut API, ohne Vorgabe: ein fehlender Satz ginge sonst als
+     * 0 % hinaus.
      */
-    protected float $taxRatePercentage = 0.0;
+    protected float $taxRatePercentage;
 
     /**
      * @param array<string, mixed>|object|null $data
      */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
-
-        // Ableitung über Money statt float-Arithmetik: gleiche Rechenweise und
-        // Rundung wie beim Lesen (MoneyAccessorTrait), damit netto/brutto auch
-        // bei krummen Sätzen konsistent zueinander bleiben.
-        if (!isset($this->netAmount) && isset($this->grossAmount)) {
-            $this->netAmount = $this->toMoney($this->grossAmount)
-                ?->dividedBy(1 + $this->taxRatePercentage / 100)
-                ->toFloat();
-        } elseif (!isset($this->grossAmount) && isset($this->netAmount)) {
-            $this->grossAmount = $this->toMoney($this->netAmount)
-                ?->plusPercentage($this->taxRatePercentage)
-                ->toFloat();
-        } elseif (!isset($this->netAmount) && !isset($this->grossAmount)) {
-            $this->netAmount = 0;
-            $this->grossAmount = 0;
-        }
     }
 
     /**
@@ -63,16 +45,38 @@ class UnitPrice extends NamedEntity {
         return $this->entityCurrency();
     }
 
+    /**
+     * Netto wie geliefert; fehlt er, aus Brutto und Steuersatz abgeleitet.
+     * Die Ableitung gilt nur beim Lesen — gesendet wird, was gesetzt ist:
+     * Lexware liest je nach taxType genau einen der beiden Beträge.
+     */
     public function getNetAmount(): ?Money {
-        return $this->toMoney($this->netAmount);
+        if (isset($this->netAmount)) {
+            return $this->toMoney($this->netAmount);
+        }
+        if (!isset($this->grossAmount, $this->taxRatePercentage)) {
+            return null;
+        }
+
+        return $this->toMoney($this->grossAmount)?->dividedBy(1 + $this->taxRatePercentage / 100);
     }
 
+    /**
+     * Brutto wie geliefert; fehlt er, aus Netto und Steuersatz abgeleitet.
+     */
     public function getGrossAmount(): ?Money {
-        return $this->toMoney($this->grossAmount);
+        if (isset($this->grossAmount)) {
+            return $this->toMoney($this->grossAmount);
+        }
+        if (!isset($this->netAmount, $this->taxRatePercentage)) {
+            return null;
+        }
+
+        return $this->toMoney($this->netAmount)?->plusPercentage($this->taxRatePercentage);
     }
 
-    public function getTaxRatePercentage(): float {
-        return $this->taxRatePercentage;
+    public function getTaxRatePercentage(): ?float {
+        return $this->taxRatePercentage ?? null;
     }
 
     public function setCurrency(CurrencyCode $currency): void {

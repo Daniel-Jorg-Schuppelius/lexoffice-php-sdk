@@ -28,7 +28,8 @@ class Payment extends NamedEntity {
     protected PaymentStatus $paymentStatus;
     protected VoucherType $voucherType;
     protected VoucherStatus $voucherStatus;
-    protected DateTime $paidDate;
+    /** Laut API nur bei bezahlten Belegen gesetzt. */
+    protected ?DateTime $paidDate;
     protected PaymentItems $paymentItems;
 
     /**
@@ -58,8 +59,8 @@ class Payment extends NamedEntity {
         return $this->voucherStatus;
     }
 
-    public function getPaidDate(): DateTime {
-        return $this->paidDate;
+    public function getPaidDate(): ?DateTime {
+        return $this->paidDate ?? null;
     }
 
     public function getPaymentItems(): PaymentItems {

@@ -12,15 +12,15 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Documents\Invoices;
 
-use APIToolkit\Entities\ID;
+use Lexoffice\Contracts\Abstracts\UuidID;
 use Psr\Log\LoggerInterface;
 
-class RecurringTemplateID extends ID {
+class RecurringTemplateID extends UuidID {
     /**
      * @param mixed $data
      */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
-        parent::__construct($data, $logger);
         $this->entityName = 'recurringTemplateId';
+        parent::__construct($data, $logger);
     }
 }

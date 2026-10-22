@@ -40,17 +40,18 @@ class UnitPriceTest extends TestCase {
     }
 
     /**
-     * Regression: Ohne Default für taxRatePercentage warf der Konstruktor
-     * "Typed property must not be accessed before initialization", sobald die
-     * API einen Betrag ohne Steuersatz lieferte.
+     * Ohne Steuersatz wird nichts abgeleitet (bis v1.3.2 galten dann 0 %) und
+     * der Preis ist ungültig, weil Lexware den Satz verlangt.
      */
-    public function test_amount_without_tax_rate_does_not_throw(): void {
+    public function test_amount_without_tax_rate_derives_nothing(): void {
         $net = new UnitPrice(['currency' => 'EUR', 'netAmount' => 10.00]);
         $this->assertSame('10.00', $net->getNetAmount()?->getAmount());
-        $this->assertSame('10.00', $net->getGrossAmount()?->getAmount());
+        $this->assertNull($net->getGrossAmount());
+        $this->assertNull($net->getTaxRatePercentage());
+        $this->assertFalse($net->isValid());
 
         $gross = new UnitPrice(['currency' => 'EUR', 'grossAmount' => 10.00]);
-        $this->assertSame('10.00', $gross->getNetAmount()?->getAmount());
+        $this->assertNull($gross->getNetAmount());
         $this->assertSame('10.00', $gross->getGrossAmount()?->getAmount());
     }
 
@@ -65,11 +66,13 @@ class UnitPriceTest extends TestCase {
         $this->assertSame('11.90', $price->getGrossAmount()?->getAmount());
     }
 
-    public function test_empty_price_is_zero(): void {
+    /** Bis v1.3.2 wurde ein leerer Preis zu 0,00 netto und brutto. */
+    public function test_empty_price_has_no_amounts(): void {
         $price = new UnitPrice([]);
 
-        $this->assertSame('0.00', $price->getNetAmount()?->getAmount());
-        $this->assertSame('0.00', $price->getGrossAmount()?->getAmount());
+        $this->assertNull($price->getNetAmount());
+        $this->assertNull($price->getGrossAmount());
+        $this->assertSame([], $price->toArray());
         $this->assertSame(CurrencyCode::Euro, $price->getCurrency());
     }
 

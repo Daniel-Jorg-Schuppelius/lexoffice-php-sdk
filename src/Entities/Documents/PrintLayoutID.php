@@ -12,14 +12,15 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Documents;
 
+use Lexoffice\Entities\PrintLayouts\PrintLayoutID as PrintLayoutsPrintLayoutID;
 use Psr\Log\LoggerInterface;
 
-class PrintLayoutID extends \Lexoffice\Entities\PrintLayouts\PrintLayoutID {
+class PrintLayoutID extends PrintLayoutsPrintLayoutID {
     /**
      * @param mixed $data
      */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
-        parent::__construct($data, $logger);
         $this->entityName = 'printLayoutId';
+        parent::__construct($data, $logger);
     }
 }

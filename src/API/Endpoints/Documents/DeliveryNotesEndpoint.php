@@ -24,14 +24,10 @@ class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
     protected string $endpoint = 'delivery-notes';
 
     public function create(NamedEntityInterface $data, ?ID $id = null, bool $finalize = false): DeliveryNoteResource {
-        self::logDebug('Creating delivery note', ['endpoint' => $this->endpoint, 'finalize' => $finalize]);
+        self::logDebug('Creating delivery note', ['endpoint' => $this->endpoint, 'precedingSalesVoucherId' => $id?->toString(), 'finalize' => $finalize]);
 
-        return self::logInfoWithTimer(function () use ($data, $finalize) {
-            $url = $this->getEndpointUrl();
-            if ($finalize) {
-                $url .= '?finalize=true';
-            }
-            $response = $this->client->post($url, [
+        return self::logInfoWithTimer(function () use ($data, $id, $finalize) {
+            $response = $this->client->post($this->createUrl($id, $finalize), [
                 'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 201);
@@ -53,7 +49,11 @@ class DeliveryNotesEndpoint extends DocumentEndpointAbstract {
         );
     }
 
-    public function pursue(VoucherID $id, bool $finalize = false): DeliveryNoteResource {
+    public function pursue(VoucherID $id, bool $finalize = false, ?NamedEntityInterface $data = null): DeliveryNoteResource {
+        if ($data !== null) {
+            return $this->create($data, $id, $finalize);
+        }
+
         self::logDebug('Pursuing delivery note from voucher', ['voucherId' => $id->toString()]);
 
         return self::logInfoWithTimer(function () use ($id) {

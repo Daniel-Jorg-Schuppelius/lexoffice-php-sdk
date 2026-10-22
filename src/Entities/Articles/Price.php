@@ -24,7 +24,8 @@ class Price extends NamedEntity {
     protected ?float $netPrice;
     protected ?float $grossPrice;
     protected LeadingPrice $leadingPrice;
-    protected float $taxRate = 0;
+    /** Pflichtfeld laut API, ohne Vorgabe: ein fehlender Satz ginge sonst als 0 % hinaus. */
+    protected float $taxRate;
 
     /**
      * @param array<string, mixed>|object|null $data
@@ -45,8 +46,8 @@ class Price extends NamedEntity {
         return $this->leadingPrice;
     }
 
-    public function getTaxRate(): float {
-        return $this->taxRate;
+    public function getTaxRate(): ?float {
+        return $this->taxRate ?? null;
     }
 
     public function setNetPrice(?float $netPrice): void {
@@ -66,6 +67,9 @@ class Price extends NamedEntity {
     }
 
     public function isValid(): bool {
+        if (!isset($this->taxRate, $this->leadingPrice)) {
+            return false;
+        }
         if ($this->leadingPrice === LeadingPrice::GROSS) {
             return isset($this->grossPrice);
         }

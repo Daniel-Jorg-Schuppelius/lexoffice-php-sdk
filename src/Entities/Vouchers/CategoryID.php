@@ -12,15 +12,15 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Vouchers;
 
-use APIToolkit\Entities\ID;
+use Lexoffice\Contracts\Abstracts\UuidID;
 use Psr\Log\LoggerInterface;
 
-class CategoryID extends ID {
+class CategoryID extends UuidID {
     /**
      * @param mixed $data
      */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
-        parent::__construct($data, $logger);
         $this->entityName = 'categoryId';
+        parent::__construct($data, $logger);
     }
 }

@@ -23,7 +23,8 @@ use Psr\Log\LoggerInterface;
 class PaymentItem extends NamedEntity {
     use MoneyAccessorTrait;
 
-    protected PaymentItemType $paymentItemType;
+    /** Unbekannte (neue) Arten werden null, statt die Zahlung scheitern zu lassen. */
+    protected ?PaymentItemType $paymentItemType;
     protected DateTime $postingDate;
     protected float $amount;
     protected CurrencyCode $currency;
@@ -35,8 +36,8 @@ class PaymentItem extends NamedEntity {
         parent::__construct($data, $logger);
     }
 
-    public function getPaymentItemType(): PaymentItemType {
-        return $this->paymentItemType;
+    public function getPaymentItemType(): ?PaymentItemType {
+        return $this->paymentItemType ?? null;
     }
 
     public function getPostingDate(): DateTime {

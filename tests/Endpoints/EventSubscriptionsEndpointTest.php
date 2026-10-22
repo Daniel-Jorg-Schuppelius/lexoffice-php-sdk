@@ -63,7 +63,7 @@ class EventSubscriptionsEndpointTest extends EndpointTest {
         $eventSubscriptionResource = $this->endpoint->create(new EventSubscription($data));
         $this->assertInstanceOf(EventSubscriptionResource::class, $eventSubscriptionResource);
         $eventSubscription = $this->endpoint->get($eventSubscriptionResource->getId());
-        $this->assertEquals($data['eventType'], $eventSubscription->getEventType()->value);
+        $this->assertEquals($data['eventType'], $eventSubscription->getEventType()?->value);
         $this->assertEquals($data['callbackUrl'], $eventSubscription->getCallbackUrl());
         $this->endpoint->delete($eventSubscriptionResource->getId());
     }

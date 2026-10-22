@@ -24,7 +24,7 @@ class ContactID extends ContactsContactID {
      * @param mixed $data
      */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
-        parent::__construct($data, $logger);
         $this->entityName = 'contactId';
+        parent::__construct($data, $logger);
     }
 }

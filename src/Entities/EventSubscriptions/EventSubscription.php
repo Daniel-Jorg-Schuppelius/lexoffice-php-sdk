@@ -24,7 +24,8 @@ class EventSubscription extends NamedEntity implements IdentifiableNamedEntityIn
     protected ?SubscriptionID $subscriptionId;
     protected ?OrganizationID $organizationId;
     protected ?DateTime $createdDate;
-    protected EventType $eventType;
+    /** Unbekannte (neue) Ereignisse werden null, statt die Liste scheitern zu lassen. */
+    protected ?EventType $eventType;
     protected string $callbackUrl;
 
     /**
@@ -46,8 +47,8 @@ class EventSubscription extends NamedEntity implements IdentifiableNamedEntityIn
         return $this->createdDate;
     }
 
-    public function getEventType(): EventType {
-        return $this->eventType;
+    public function getEventType(): ?EventType {
+        return $this->eventType ?? null;
     }
 
     public function getCallbackUrl(): string {

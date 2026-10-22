@@ -20,4 +20,5 @@ enum PaymentItemType: string {
     case CASHDISCOUNT = 'cashDiscount';
     case DUNNINGCOSTS = 'dunningCosts';
     case CURRENCYCONVERSION = 'currencyConversion';
+    case IRRECOVERABLERECEIVABLE = 'irrecoverableReceivable';
 }

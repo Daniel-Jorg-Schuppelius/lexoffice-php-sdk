@@ -28,14 +28,10 @@ class CreditNotesEndpoint extends DocumentEndpointAbstract {
             self::logErrorAndThrow(InvalidArgumentException::class, 'Credit note data is not valid');
         }
 
-        self::logDebug('Creating credit note', ['endpoint' => $this->endpoint, 'finalize' => $finalize]);
+        self::logDebug('Creating credit note', ['endpoint' => $this->endpoint, 'precedingSalesVoucherId' => $id?->toString(), 'finalize' => $finalize]);
 
-        return self::logInfoWithTimer(function () use ($data, $finalize) {
-            $url = $this->getEndpointUrl();
-            if ($finalize) {
-                $url .= '?finalize=true';
-            }
-            $response = $this->client->post($url, [
+        return self::logInfoWithTimer(function () use ($data, $id, $finalize) {
+            $response = $this->client->post($this->createUrl($id, $finalize), [
                 'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 201);
@@ -57,7 +53,11 @@ class CreditNotesEndpoint extends DocumentEndpointAbstract {
         );
     }
 
-    public function pursue(VoucherID $id, bool $finalize = false): CreditNoteResource {
+    public function pursue(VoucherID $id, bool $finalize = false, ?NamedEntityInterface $data = null): CreditNoteResource {
+        if ($data !== null) {
+            return $this->create($data, $id, $finalize);
+        }
+
         self::logDebug('Pursuing credit note from voucher', ['voucherId' => $id->toString(), 'finalize' => $finalize]);
 
         return self::logInfoWithTimer(function () use ($id, $finalize) {

@@ -12,15 +12,19 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Documents;
 
-use APIToolkit\Entities\ID;
+use Lexoffice\Entities\Contacts\ContactID as ContactsContactID;
 use Psr\Log\LoggerInterface;
 
-class ContactID extends ID {
+/**
+ * Kontakt-ID in der Belegadresse. Der Entity-Name entspricht dem Feld
+ * `contactId`, damit sie als Zeichenkette serialisiert wird.
+ */
+class ContactID extends ContactsContactID {
     /**
      * @param mixed $data
      */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
-        parent::__construct($data, $logger);
         $this->entityName = 'contactId';
+        parent::__construct($data, $logger);
     }
 }

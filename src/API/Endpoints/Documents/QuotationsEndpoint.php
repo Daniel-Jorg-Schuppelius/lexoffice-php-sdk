@@ -57,7 +57,7 @@ class QuotationsEndpoint extends DocumentEndpointAbstract {
         );
     }
 
-    public function pursue(VoucherID $id, bool $finalize = false): QuotationResource {
+    public function pursue(VoucherID $id, bool $finalize = false, ?NamedEntityInterface $data = null): QuotationResource {
         self::logErrorAndThrow(NotAllowedException::class, 'Quotations cannot be pursued');
     }
 }

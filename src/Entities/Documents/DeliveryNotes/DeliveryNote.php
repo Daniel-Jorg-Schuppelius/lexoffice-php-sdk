@@ -20,7 +20,8 @@ use Psr\Log\LoggerInterface;
 
 class DeliveryNote extends NamedDocument {
     protected DeliveryNoteExtendedLineItems $lineItems;
-    protected ShippingConditions $shippingConditions;
+    /** Ohne Angabe bleibt das Feld leer; das SDK erfindet kein Lieferdatum. */
+    protected ?ShippingConditions $shippingConditions;
     protected ?string $deliveryTerms;
 
     /**
@@ -28,18 +29,14 @@ class DeliveryNote extends NamedDocument {
      */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
         parent::__construct($data, $logger);
-
-        if (!isset($this->shippingConditions)) {
-            $this->shippingConditions = new ShippingConditions;
-        }
     }
 
     public function getLineItems(): DeliveryNoteExtendedLineItems {
         return $this->lineItems;
     }
 
-    public function getShippingConditions(): ShippingConditions {
-        return $this->shippingConditions;
+    public function getShippingConditions(): ?ShippingConditions {
+        return $this->shippingConditions ?? null;
     }
 
     public function getDeliveryTerms(): ?string {
@@ -60,6 +57,10 @@ class DeliveryNote extends NamedDocument {
 
     public function setLineItems(DeliveryNoteExtendedLineItems $lineItems): void {
         $this->lineItems = $lineItems;
+    }
+
+    public function setShippingConditions(ShippingConditions $shippingConditions): void {
+        $this->shippingConditions = $shippingConditions;
     }
 
     public function setTaxConditions(TaxConditions $taxConditions): void {

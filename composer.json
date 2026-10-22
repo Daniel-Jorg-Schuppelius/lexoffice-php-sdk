@@ -18,7 +18,7 @@
   "require": {
     "php": ">=8.2 <8.6",
     "daniel-jorg-schuppelius/php-api-toolkit": "^2.8",
-    "dschuppelius/php-common-toolkit": "^1.20 || ^2.0"
+    "dschuppelius/php-common-toolkit": "^1.34 || ^2.0"
   },
   "autoload": {
     "psr-4": {

@@ -12,15 +12,15 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Documents\DownPaymentInvoices;
 
-use APIToolkit\Entities\ID;
+use Lexoffice\Contracts\Abstracts\UuidID;
 use Psr\Log\LoggerInterface;
 
-class ClosingInvoiceID extends ID {
+class ClosingInvoiceID extends UuidID {
     /**
      * @param mixed $data
      */
     public function __construct($data = null, ?LoggerInterface $logger = null) {
-        parent::__construct($data, $logger);
         $this->entityName = 'closingInvoiceId';
+        parent::__construct($data, $logger);
     }
 }

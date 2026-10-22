@@ -31,11 +31,7 @@ class DunningsEndpoint extends DocumentEndpointAbstract {
         self::logDebug('Creating dunning', ['precedingSalesVoucherId' => $id->toString(), 'finalize' => $finalize]);
 
         return self::logInfoWithTimer(function () use ($id, $data, $finalize) {
-            $url = "{$this->getEndpointUrl()}?precedingSalesVoucherId={$id->toString()}";
-            if ($finalize) {
-                $url .= '&finalize=true';
-            }
-            $response = $this->client->post($url, [
+            $response = $this->client->post($this->createUrl($id, $finalize), [
                 'json' => $data->toArray(),
             ]);
             $body = $this->handleResponse($response, 201);
@@ -57,7 +53,11 @@ class DunningsEndpoint extends DocumentEndpointAbstract {
         );
     }
 
-    public function pursue(VoucherID $id, bool $finalize = false): DunningResource {
+    public function pursue(VoucherID $id, bool $finalize = false, ?NamedEntityInterface $data = null): DunningResource {
+        if ($data !== null) {
+            return $this->create($data, $id, $finalize);
+        }
+
         self::logDebug('Pursuing dunning from voucher', ['voucherId' => $id->toString()]);
 
         return self::logInfoWithTimer(function () use ($id) {

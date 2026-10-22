@@ -94,6 +94,55 @@ $invoice = new Invoice($invoiceData);
 $result = $endpoint->create($invoice);
 ```
 
+### Beispiel: Rechnung zu einem Kontakt aus einem Angebot
+
+```php
+use Lexoffice\API\Client;
+use Lexoffice\API\Endpoints\Documents\InvoicesEndpoint;
+use Lexoffice\Entities\Documents\Invoices\Invoice;
+use Lexoffice\Entities\Vouchers\VoucherID;
+
+$invoices = new InvoicesEndpoint(new Client('your-api-key'));
+
+$invoice = Invoice::fromArray([
+    'voucherDate' => '2026-10-21T00:00:00.000+02:00',
+    // Ohne countryCode gilt die Adresse des Kontakts; das SDK ergänzt kein Land.
+    'address' => ['contactId' => 'be9475f4-ef80-442b-8ab9-3ab8b1a2aeb9'],
+    'lineItems' => [[
+        'type' => 'custom',
+        'name' => 'Montage',
+        'quantity' => 1.5,
+        'unitName' => 'Stunde',
+        // Je nach taxType netAmount oder grossAmount — gesendet wird nur, was gesetzt ist.
+        'unitPrice' => ['currency' => 'EUR', 'netAmount' => 80.0, 'taxRatePercentage' => 19.0],
+    ]],
+    'totalPrice' => ['currency' => 'EUR'],
+    'taxConditions' => ['taxType' => 'net'],
+    'shippingConditions' => ['shippingType' => 'service', 'shippingDate' => '2026-10-21T00:00:00.000+02:00'],
+]);
+
+// POST /invoices?precedingSalesVoucherId={Angebot}&finalize=true
+$resource = $invoices->create($invoice, new VoucherID($quotationId), finalize: true);
+```
+
+### Beispiel: Belegdatei herunterladen
+
+```php
+use Lexoffice\API\Endpoints\Documents\InvoicesEndpoint;
+use Lexoffice\API\Endpoints\FilesEndpoint;
+
+// GET /invoices/{id}/file — bei einer XRechnung liefert application/xml das XML.
+$file = (new InvoicesEndpoint($client))->downloadContent($resource->getId(), 'application/xml');
+$file->getContent();     // Bytes
+$file->getMimeType();    // z. B. application/xml
+$file->getFileName();    // aus Content-Disposition, sonst null
+
+// Belegbilder von Buchungsbelegen: GET /files/{id}
+foreach ($vouchers->get($voucherId)->getFiles() ?? [] as $fileId) {
+    $image = (new FilesEndpoint($client))->downloadContent($fileId);
+}
+```
+
 ### Beispiel: Profil abrufen
 
 ```php
@@ -138,6 +187,28 @@ $vouchers->addFile($resource->getId(), new File([
 
 `FilesEndpoint::upload()` (`type=voucher`) legt dagegen in Lexware selbst einen
 neuen Beleg an; dessen ID liefert `FileResource::getVoucherId()`.
+
+## 🔄 Version 2.0.0
+
+Korrekturen gegen die API-Referenz, nicht abwärtskompatibel (nullbare Getter,
+`pursue()`); Details und Begründungen in
+[docs/NOTES.md](docs/NOTES.md#200). Für Aufrufer relevant:
+
+- `isValid()` aller ID-Klassen prüft auf UUID statt auf eine Zahl; Belege mit
+  `address.contactId` lassen sich anlegen.
+- Belegadresse: kein vorbelegtes `countryCode: DE` mehr im Body;
+  `getContactPerson()` liefert `?string`.
+- `UnitPrice` sendet nur gesetzte Beträge; `getTaxRatePercentage()` und
+  `Articles\Price::getTaxRate()` liefern `?float` ohne Vorgabe 0.
+- `create()` reicht den Vorgänger als `precedingSalesVoucherId` durch,
+  `pursue()` nimmt den Beleg als dritten Parameter.
+- Neu: `downloadContent()` an `FilesEndpoint` und allen Verkaufsbeleg-Endpunkten
+  (Bytes, Medientyp, Dateiname).
+- Nullbare Getter: `DeliveryNote::getShippingConditions()`,
+  `VoucherList\Voucher::getVoucherType()`, `PaymentItem::getPaymentItemType()`,
+  `Payment::getPaidDate()`, `EventSubscription::getEventType()`;
+  `Vouchers\Voucher::getFiles()` liefert `FileIDs`.
+- common-toolkit-Untergrenze `^1.34 || ^2.0`.
 
 ## 🏗️ Projektstruktur
 
@@ -255,7 +326,8 @@ vendor/bin/phpunit
 
 ## 📖 Abhängigkeiten
 
-- [php-api-toolkit](https://github.com/daniel-jorg-schuppelius/php-api-toolkit) (^2.2) - Basis-Klassen für Clients, Endpoints und Entities
+- [php-api-toolkit](https://github.com/daniel-jorg-schuppelius/php-api-toolkit) (^2.8) - Basis-Klassen für Clients, Endpoints und Entities
+- [php-common-toolkit](https://github.com/daniel-jorg-schuppelius/php-common-toolkit) (^1.34 || ^2.0) - Geldbeträge, Dateien, UUID-Prüfung
 - [GuzzleHttp](https://github.com/guzzle/guzzle) - HTTP Client
 - [PSR-3 Logger](https://www.php-fig.org/psr/psr-3/) - Logging-Interface
 

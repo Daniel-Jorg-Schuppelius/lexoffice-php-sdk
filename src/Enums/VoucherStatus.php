@@ -24,4 +24,5 @@ enum VoucherStatus: string {
     case ACCREPTED = 'accepted';
     case REJECTED = 'rejected';
     case UNCHECKED = 'unchecked';
+    case BLANK = 'blank';
 }

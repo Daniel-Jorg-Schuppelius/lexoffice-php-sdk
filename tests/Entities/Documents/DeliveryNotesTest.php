@@ -78,7 +78,8 @@ class DeliveryNotesTest extends TestCase {
 
         $deliveryNote = new DeliveryNote($data);
         $this->assertInstanceOf(DeliveryNote::class, $deliveryNote);
-        $this->assertNotEquals($data, $deliveryNote->toArray());
+        // Bis v1.3.2 kam hier eine erfundene shippingConditions ("service", jetzt) dazu.
+        $this->assertEquals($data, $deliveryNote->toArray());
         $this->assertEquals($data["address"], $deliveryNote->getAddress()->toArray());
         $this->assertCount(2, $deliveryNote->getLineItems()->getValues());
     }

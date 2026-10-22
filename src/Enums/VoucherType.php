@@ -12,6 +12,10 @@ declare(strict_types=1);
 
 namespace Lexoffice\Enums;
 
+/**
+ * Belegarten von Belegliste, Buchungsbeleg und Zahlungen. Lexware kündigt
+ * weitere Arten an; lesende Felder sind deshalb nullbar.
+ */
 enum VoucherType: string {
     case SALESINVOICE = 'salesinvoice';
     case SALESCREDITNOTE = 'salescreditnote';
@@ -20,4 +24,11 @@ enum VoucherType: string {
     case INVOICE = 'invoice';
     case DOWNPAYMENTINVOICE = 'downpaymentinvoice';
     case CREDITNOTE = 'creditnote';
+    case ORDERCONFIRMATION = 'orderconfirmation';
+    case QUOTATION = 'quotation';
+    case DELIVERYNOTE = 'deliverynote';
+    /** Nicht in der API-Referenz; von der workDiary-Anbindung gemeldet. */
+    case DOWNPAYMENTDEDUCTION = 'downpaymentdeduction';
+    /** Nicht in der API-Referenz; von der workDiary-Anbindung gemeldet. */
+    case VOUCHER = 'voucher';
 }

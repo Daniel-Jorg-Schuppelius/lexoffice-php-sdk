@@ -12,15 +12,6 @@ declare(strict_types=1);
 
 namespace Lexoffice\Entities\Articles;
 
-use APIToolkit\Entities\ID;
-use Psr\Log\LoggerInterface;
+use Lexoffice\Contracts\Abstracts\UuidID;
 
-class ArticleID extends ID {
-    /**
-     * @param mixed $data
-     */
-    public function __construct($data = null, ?LoggerInterface $logger = null) {
-        parent::__construct($data, $logger);
-        $this->entityName = 'id';
-    }
-}
+class ArticleID extends UuidID {}

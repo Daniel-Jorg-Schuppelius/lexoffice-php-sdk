@@ -16,7 +16,7 @@ use APIToolkit\Traits\MoneyAccessorTrait;
 use CommonToolkit\ValueObjects\Money;
 use DateTime;
 use Lexoffice\Contracts\Interfaces\OrganizationIdentifiableNamedEntityInterface;
-use Lexoffice\Entities\Files\Files;
+use Lexoffice\Entities\Files\FileIDs;
 use Lexoffice\Entities\Profile\OrganizationID;
 use Lexoffice\Enums\{TaxType, VoucherType};
 
@@ -32,7 +32,7 @@ class Voucher extends BaseVoucher implements OrganizationIdentifiableNamedEntity
     protected ?bool $useCollectiveContact;
     protected ?string $remark;
     protected ?VoucherItems $voucherItems;
-    protected ?Files $files;
+    protected ?FileIDs $files;
     protected ?int $version;
 
     public function getOrganizationID(): ?OrganizationID {
@@ -71,8 +71,8 @@ class Voucher extends BaseVoucher implements OrganizationIdentifiableNamedEntity
         return $this->voucherItems;
     }
 
-    public function getFiles(): ?Files {
-        return $this->files;
+    public function getFiles(): ?FileIDs {
+        return $this->files ?? null;
     }
 
     public function getVersion(): ?int {
@@ -111,7 +111,7 @@ class Voucher extends BaseVoucher implements OrganizationIdentifiableNamedEntity
         $this->voucherItems = $voucherItems;
     }
 
-    public function setFiles(Files $files): void {
+    public function setFiles(FileIDs $files): void {
         $this->files = $files;
     }
 }
